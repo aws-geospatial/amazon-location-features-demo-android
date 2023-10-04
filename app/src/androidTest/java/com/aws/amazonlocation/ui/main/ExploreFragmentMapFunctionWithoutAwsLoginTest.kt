@@ -86,6 +86,7 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
             onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
         edtSearch?.perform(click())
         onView(withId(R.id.edt_search_places))?.perform(typeText(TEST_WORD_4))
+        Thread.sleep(DELAY_5000)
         uiDevice.wait(
             Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
             DELAY_10000

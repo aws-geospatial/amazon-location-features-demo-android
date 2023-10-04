@@ -1,6 +1,8 @@
 name: Run E2E Tests for Android
 on:
   workflow_dispatch:
+    pull_request:
+      branches: [ main ]
 jobs:
   test-android:
     name: Test Android
@@ -45,9 +47,12 @@ jobs:
           disable-animations: true
           profile: Nexus 6
           script: |
-            adb emu geo fix 72.58727 23.02579
+            adb emu geo fix 72.5228 23.0127
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite2
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.SimulationStartTrackingHistoryLoggedTest
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.SimulationStopTrackingHistoryLoggedTest
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite3
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSConnectionSuite
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSSignInSuite
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingStartTrackingTest

@@ -42,7 +42,7 @@ class SettingsFragmentContentTest : BaseTestMainActivity() {
     fun checkContent() {
         try {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
+            Thread.sleep(DELAY_3000)
 
             val settingsTabText = mActivityRule.activity.getString(R.string.menu_setting)
 

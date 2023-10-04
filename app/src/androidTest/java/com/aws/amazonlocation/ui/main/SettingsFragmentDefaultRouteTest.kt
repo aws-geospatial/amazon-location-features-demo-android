@@ -5,8 +5,8 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
@@ -45,7 +45,7 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
     fun checkDefaultRouteOptionsTest() {
         try {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
+            Thread.sleep(DELAY_3000)
 
             goToDefaultRouteSettings()
 
@@ -103,23 +103,13 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
         Thread.sleep(DELAY_2000)
 
         val sourceEdt = waitForView(CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed()))
-        sourceEdt?.perform(replaceText(SEARCH_TEST_WORD_1))
+        sourceEdt?.perform(click())
 
         Thread.sleep(DELAY_2000)
 
-        val suggestionListSrcRv = waitForView(
-            CoreMatchers.allOf(
-                withId(R.id.rv_search_places_suggestion_direction),
-                isDisplayed(),
-                hasMinimumChildCount(1),
-            ),
-        )
-        suggestionListSrcRv?.perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click(),
-            ),
-        )
+        val clMyLocation =
+            waitForView(CoreMatchers.allOf(withText(R.string.label_my_location), isDisplayed()))
+        clMyLocation?.perform(click())
 
         Thread.sleep(DELAY_2000)
 
@@ -129,18 +119,18 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
                 isDisplayed(),
             ),
         )
-        destinationEdt?.perform(replaceText(SEARCH_TEST_WORD_2))
+        destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_4))
 
         Thread.sleep(DELAY_2000)
 
-        val suggestionListDestRv = waitForView(
+        val suggestionListRv = waitForView(
             CoreMatchers.allOf(
                 withId(R.id.rv_search_places_suggestion_direction),
                 isDisplayed(),
                 hasMinimumChildCount(1),
             ),
         )
-        suggestionListDestRv?.perform(
+        suggestionListRv?.perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click(),

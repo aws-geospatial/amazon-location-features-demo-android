@@ -25,7 +25,7 @@ class TrackingStartTrackingTest : BaseTestMainActivity() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
+            Thread.sleep(DELAY_2000)
 
             val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
             tracking.click()
@@ -51,7 +51,7 @@ class TrackingStartTrackingTest : BaseTestMainActivity() {
             val rvTracking =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_tracking)
 
-            Thread.sleep(3000)
+            Thread.sleep(DELAY_3000)
 
             if (rvTracking.adapter?.itemCount != null) {
                 rvTracking.adapter?.itemCount?.let {

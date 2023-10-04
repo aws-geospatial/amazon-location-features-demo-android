@@ -17,6 +17,7 @@ import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_15000
+import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
@@ -44,7 +45,7 @@ class TrackingStartTrackingHistoryLoggedTest : BaseTestMainActivity() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
+            Thread.sleep(DELAY_2000)
 
             val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
             tracking.click()

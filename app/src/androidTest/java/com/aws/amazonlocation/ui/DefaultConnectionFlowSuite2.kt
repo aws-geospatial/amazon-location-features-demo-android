@@ -6,7 +6,6 @@ import com.aws.amazonlocation.ui.main.CheckRouteMapAdjustedTest
 import com.aws.amazonlocation.ui.main.CheckRouteOptionsTest
 import com.aws.amazonlocation.ui.main.CheckRouteUserEnterMyLocationTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentChangeStyleTest
-import com.aws.amazonlocation.ui.main.ExploreFragmentGrabChangeStyleTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentMapStyleSearchFilterTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchResultTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchTotalResultTest
@@ -43,7 +42,6 @@ import org.junit.runners.Suite
     SettingsFragmentChangeDataProviderTest::class,
     SettingsFragmentContentTest::class,
     SettingsFragmentDefaultRouteTest::class,
-    ExploreFragmentGrabChangeStyleTest::class,
     ExploreFragmentChangeStyleTest::class,
     ExploreFragmentMapStyleSearchFilterTest::class,
     SettingsMapStyleSearchFilterTest::class

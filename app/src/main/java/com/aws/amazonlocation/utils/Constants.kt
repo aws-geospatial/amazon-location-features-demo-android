@@ -37,7 +37,7 @@ const val CLICK_DEBOUNCE_ENABLE = 1200L
 const val RESTART_DELAY = 800L
 const val DELAY_500 = 500L
 const val DELAY_300 = 300L
-const val DELAY_1000 = 1000L
+const val DELAY_PROCESS_1000 = 1000L
 const val DELAY_SIMULATION_2000 = 2000L
 const val DELAY_LANGUAGE_3000 = 3000L
 const val KEY_AVOID_TOLLS = "Avoid Tolls"
@@ -90,9 +90,11 @@ const val TYPE_RASTER = "Raster"
 
 const val HERE = "Here"
 const val OPEN = "Open"
+const val GRAB = "Grab"
 const val DESCRIPTION_TAG_ESRI = "ESRI_"
 const val DESCRIPTION_TAG_HERE = "HERE_"
 const val DESCRIPTION_TAG_OPEN = "OPEN_"
+const val DESCRIPTION_TAG_GRAB = "GRAB_"
 
 const val MAP_STYLE_ATTRIBUTION = "MapStyleAttribution"
 

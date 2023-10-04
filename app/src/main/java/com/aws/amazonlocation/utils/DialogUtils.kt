@@ -183,7 +183,7 @@ fun Context.restartAppMapStyleDialog(
 
     val mDialog = MaterialAlertDialogBuilder(this, R.style.MyGrabDialogTheme)
 
-    mDialog.setTitle(resources.getString(R.string.label_restart_app_title))
+    mDialog.setTitle(if (isRunningTest) resources.getString(R.string.grab) else resources.getString(R.string.label_restart_app_title))
     mDialog.setMessage(R.string.label_restart_app_description)
     mDialog.setView(customView)
     mDialog.setPositiveButton(

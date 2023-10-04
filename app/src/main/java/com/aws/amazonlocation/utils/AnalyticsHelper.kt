@@ -9,6 +9,8 @@ import com.amazonaws.services.pinpoint.model.ChannelType
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.ui.main.MainActivity
+import com.aws.amazonlocation.utils.EventType.MAP_PROVIDER_CHANGE
+import com.aws.amazonlocation.utils.EventType.MAP_UNIT_CHANGE
 
 class AnalyticsHelper(
     private val context: MainActivity,
@@ -61,7 +63,7 @@ class AnalyticsHelper(
         }
         pinpointManager?.analyticsClient?.recordEvent(event)
         val successConsumer = Consumer<List<AnalyticsEvent>> {
-            if (isRunningAnalyticsTest) {
+            if (isRunningAnalyticsTest && (eventName == MAP_PROVIDER_CHANGE || eventName == MAP_UNIT_CHANGE)) {
                 context.showError(eventName)
             }
         }

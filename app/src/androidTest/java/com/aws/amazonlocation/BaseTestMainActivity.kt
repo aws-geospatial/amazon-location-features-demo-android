@@ -19,26 +19,8 @@ abstract class BaseTestMainActivity {
 
     private val defaultPermissions = arrayOf(
         ACCESS_FINE_LOCATION,
-        ACCESS_COARSE_LOCATION,
-        WRITE_EXTERNAL_STORAGE,
+        ACCESS_COARSE_LOCATION
     )
-
-    private val permission: Array<String>
-        get() {
-            return enablePermissions().let {
-                if (it.isEmpty()) {
-                    arrayOf(WRITE_EXTERNAL_STORAGE)
-                } else {
-                    it.contains(WRITE_EXTERNAL_STORAGE).let { hasWritePermission ->
-                        if (hasWritePermission) {
-                            it
-                        } else {
-                            it + WRITE_EXTERNAL_STORAGE
-                        }
-                    }
-                }
-            }
-        }
 
     private val instance: BaseTestMainActivity
         get() {
@@ -49,11 +31,6 @@ abstract class BaseTestMainActivity {
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(instance)
-
-    @get:Rule(order = 1)
-    var permissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        *permission,
-    )
 
     @JvmField
     @Rule(order = 2)
