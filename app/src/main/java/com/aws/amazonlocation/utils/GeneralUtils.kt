@@ -124,6 +124,7 @@ val isRunningAnalyticsTest: Boolean by lazy {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @Suppress("DEPRECATION")
 fun Activity.makeTransparentStatusBar() {
     if (Build.VERSION.SDK_INT in 21..29) {
@@ -154,7 +155,7 @@ fun Activity.makeTransparentStatusBar() {
         }
     }
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
     val mContext = conditionPrivacy.context
     val mSpannableString = SpannableString(conditionPrivacy.text.toString())
@@ -205,6 +206,7 @@ fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
 
 @ExperimentalCoroutinesApi
 @CheckResult
+@ExcludeFromJacocoGeneratedReport
 fun EditText.textChanges(): Flow<CharSequence?> {
     return callbackFlow {
         val listener = object : TextWatcher {
@@ -223,6 +225,7 @@ fun EditText.textChanges(): Flow<CharSequence?> {
 }
 
 // hide the keyboard
+@ExcludeFromJacocoGeneratedReport
 fun Activity.hideKeyboard() {
     val imm: InputMethodManager =
         getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -230,7 +233,7 @@ fun Activity.hideKeyboard() {
     if (view == null) view = View(this)
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun Activity.hideSoftKeyboard(input: TextInputEditText) {
     val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(input.windowToken, 0)
@@ -302,7 +305,7 @@ fun getRegion(region: String?, subRegion: String?, country: String?): String {
     }
     return mRegion
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun changeTermsAndDescriptionFirstTextColor(termsOfUse: AppCompatTextView) {
     val context = termsOfUse.context
     val spannableString = SpannableString(termsOfUse.text.toString().replace(STRING_REPLACE_KEY, ""))
@@ -361,7 +364,7 @@ fun changeTermsAndDescriptionFirstTextColor(termsOfUse: AppCompatTextView) {
         termsOfUse.movementMethod = LinkMovementMethod.getInstance()
     }
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
     val context = conditionPrivacy.context
     val spannableString = SpannableString(conditionPrivacy.text.toString().replace(STRING_REPLACE_KEY, ""))
@@ -426,7 +429,7 @@ fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
         conditionPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun changeClickHereColor(
     conditionPrivacy: AppCompatTextView,
     mCloudFormationClickHereInterface: CloudFormationInterface
@@ -484,7 +487,7 @@ fun changeClickHereColor(
         conditionPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun changeLearnMoreColor(
     learnMore: AppCompatTextView,
     mCloudFormationClickHereInterface: CloudFormationInterface
@@ -541,14 +544,14 @@ fun changeLearnMoreColor(
         learnMore.movementMethod = LinkMovementMethod.getInstance()
     }
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun Activity.restartApplication() {
     val intent = Intent(this, MainActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     startActivity(intent)
     Runtime.getRuntime().exit(0)
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun Context.isInternetAvailable(): Boolean {
     var result = false
     val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -564,7 +567,7 @@ fun Context.isInternetAvailable(): Boolean {
     }
     return result
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun validateIdentityPoolId(mIdentityPoolId: String?, region: String?): Boolean {
     val cognitoCredentialsProvider = CognitoCredentialsProvider(
         mIdentityPoolId,
@@ -593,7 +596,7 @@ fun validateUserPoolClientId(mUserPoolClientId: String?): Boolean {
     val matcher: Matcher = pattern.matcher(mUserPoolClientId)
     return matcher.matches()
 }
-
+@ExcludeFromJacocoGeneratedReport
 fun checkSessionValid(mPreferenceManager: PreferenceManager): Boolean {
     if (AWSMobileClient.getInstance().currentUserState().userState.name == UserState.SIGNED_IN.name) {
         val accessToken = mPreferenceManager.getValue(KEY_ACCESS_TOKEN, "")

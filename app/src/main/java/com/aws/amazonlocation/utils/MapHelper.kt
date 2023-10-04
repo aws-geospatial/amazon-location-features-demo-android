@@ -1440,7 +1440,7 @@ class MapHelper(private val appContext: Context) {
         for (layer in style.layers) {
             if (layer is SymbolLayer) {
                 val textField = textField(expression)
-                layer?.setProperties(textField)
+                layer.setProperties(textField)
             }
         }
     }

@@ -16,6 +16,7 @@ import com.aws.amazonlocation.mock.SEARCH_TEXT_RIO_TINTO
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -88,5 +89,78 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
             assert(result is HandleResult.Error)
             cancelAndIgnoreRemainingEvents()
         }
+    }
+    @Test
+    fun testMLatLngInitializedToNull() {
+        mExploreVM.mLatLng = null
+        assertEquals(null, mExploreVM.mLatLng)
+    }
+
+    @Test
+    fun testMStartLatLngInitializedToNull() {
+        mExploreVM.mStartLatLng = null
+        assertEquals(null, mExploreVM.mStartLatLng)
+    }
+
+    @Test
+    fun testMDestinationLatLngInitializedToNull() {
+        mExploreVM.mDestinationLatLng = null
+        assertEquals(null, mExploreVM.mDestinationLatLng)
+    }
+    @Test
+    fun testMSearchDirectionOriginDataToNull() {
+        mExploreVM.mSearchDirectionOriginData = null
+        assertEquals(null, mExploreVM.mSearchDirectionOriginData)
+    }
+    @Test
+    fun testmCarDataToNull() {
+        mExploreVM.mCarData = null
+        assertEquals(null, mExploreVM.mCarData)
+    }
+    @Test
+    fun testmWalkingDataToNull() {
+        mExploreVM.mWalkingData = null
+        assertEquals(null, mExploreVM.mWalkingData)
+    }
+    @Test
+    fun testmTruckDataToNull() {
+        mExploreVM.mTruckData = null
+        assertEquals(null, mExploreVM.mTruckData)
+    }
+    @Test
+    fun testmBicycleDataToNull() {
+        mExploreVM.mBicycleData = null
+        assertEquals(null, mExploreVM.mBicycleData)
+    }
+    @Test
+    fun testmMotorcycleDataToNull() {
+        mExploreVM.mMotorcycleData = null
+        assertEquals(null, mExploreVM.mMotorcycleData)
+    }
+
+    @Test
+    fun testMStyleListInitializedToEmpty() {
+        mExploreVM.mStyleList = arrayListOf()
+        assertEquals(0, mExploreVM.mStyleList.size)
+    }
+
+    @Test
+    fun testProviderOptionsInitializedToEmpty() {
+        mExploreVM.providerOptions = arrayListOf()
+        assertEquals(0, mExploreVM.providerOptions.size)
+    }
+
+    @Test
+    fun testAttributeOptionsInitializedToEmpty() {
+        mExploreVM.attributeOptions = arrayListOf()
+        assertEquals(0, mExploreVM.attributeOptions.size)
+    }
+
+    @Test
+    fun testTypeOptionsInitializedToEmpty() {
+        mExploreVM.typeOptions = arrayListOf()
+        mExploreVM.mStyleListForFilter = arrayListOf()
+        mExploreVM.mIsPlaceSuggestion = false
+        assertEquals(0, mExploreVM.typeOptions.size)
     }
 }

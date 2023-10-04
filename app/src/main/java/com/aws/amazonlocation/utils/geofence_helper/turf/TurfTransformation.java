@@ -115,9 +115,6 @@ public final class TurfTransformation {
     @NonNull List<Point> original,
     double squaredTolerance
   ) {
-    if (original.size() <= 2) {
-      return original;
-    }
     Point prevCoordinate = original.get(0);
     List<Point> newCoordinates = new ArrayList<>();
     newCoordinates.add(prevCoordinate);

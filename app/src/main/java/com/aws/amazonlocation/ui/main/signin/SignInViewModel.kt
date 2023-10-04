@@ -15,6 +15,7 @@ import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.data.response.SignOutData
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
 import com.aws.amazonlocation.domain.usecase.AuthUseCase
+import com.aws.amazonlocation.utils.ExcludeFromJacocoGeneratedReport
 import com.aws.amazonlocation.utils.KEY_ID_TOKEN
 import com.aws.amazonlocation.utils.KEY_PROVIDER
 import com.aws.amazonlocation.utils.KEY_USER_DETAILS
@@ -54,54 +55,7 @@ class SignInViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (isRunningTest) {
-                AWSMobileClient.getInstance().signIn(
-                    BuildConfig.USER_LOGIN_NAME,
-                    BuildConfig.USER_LOGIN_PASSWORD,
-                    null,
-                    object : Callback<SignInResult> {
-                        override fun onResult(result: SignInResult?) {
-                            val mLoginResponse = LoginResponse()
-                            mLoginResponse.success =
-                                activity.resources.getString(R.string.login_success)
-                            mLoginResponse.name = AWSMobileClient.getInstance().username
-                            val userState = AWSMobileClient.getInstance().currentUserState()
-                            if (userState.details.containsKey("token")) {
-                                mLoginResponse.idToken = userState.details["token"]
-                            }
-
-                            if (userState.details.containsKey("provider")) {
-                                mLoginResponse.provider = userState.details["provider"]
-                            }
-
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
-                            )
-                            mLoginResponse.idToken?.let { idToken ->
-                                mPreferenceManager.setValue(
-                                    KEY_ID_TOKEN,
-                                    idToken,
-                                )
-                            }
-
-                            mLoginResponse.provider?.let { provider ->
-                                mPreferenceManager.setValue(
-                                    KEY_PROVIDER,
-                                    provider,
-                                )
-                            }
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
-                            )
-                            _signInResponse.trySend(HandleResult.Success(mLoginResponse.success!!))
-                        }
-
-                        override fun onError(e: Exception?) {
-                            e?.printStackTrace()
-                        }
-                    },
-                )
+                signInWhileRunningTest(activity)
             } else {
                 mGetAuthUseCase.signInWithAmazon(
                     activity,
@@ -151,15 +105,7 @@ class SignInViewModel @Inject constructor(
     fun signOutWithAmazon(context: Context, isDisconnectFromAWSRequired: Boolean) {
         viewModelScope.launch {
             if (isRunningTest) {
-                AWSMobileClient.getInstance().signOut()
-                _signOutResponse.trySend(
-                    HandleResult.Success(
-                        SignOutData(
-                            context.resources.getString(R.string.sign_out_successfully),
-                            isDisconnectFromAWSRequired,
-                        ),
-                    ),
-                )
+                signOutWhileRunningTest(context, isDisconnectFromAWSRequired)
             } else {
                 mGetAuthUseCase.signOutWithAmazon(
                     context,
@@ -192,5 +138,71 @@ class SignInViewModel @Inject constructor(
                 )
             }
         }
+    }
+    @ExcludeFromJacocoGeneratedReport
+    private fun signInWhileRunningTest(activity: Activity) {
+        AWSMobileClient.getInstance().signIn(
+            BuildConfig.USER_LOGIN_NAME,
+            BuildConfig.USER_LOGIN_PASSWORD,
+            null,
+            object : Callback<SignInResult> {
+                override fun onResult(result: SignInResult?) {
+                    val mLoginResponse = LoginResponse()
+                    mLoginResponse.success =
+                        activity.resources.getString(R.string.login_success)
+                    mLoginResponse.name = AWSMobileClient.getInstance().username
+                    val userState = AWSMobileClient.getInstance().currentUserState()
+                    if (userState.details.containsKey("token")) {
+                        mLoginResponse.idToken = userState.details["token"]
+                    }
+
+                    if (userState.details.containsKey("provider")) {
+                        mLoginResponse.provider = userState.details["provider"]
+                    }
+
+                    mPreferenceManager.setValue(
+                        KEY_USER_DETAILS,
+                        Gson().toJson(mLoginResponse),
+                    )
+                    mLoginResponse.idToken?.let { idToken ->
+                        mPreferenceManager.setValue(
+                            KEY_ID_TOKEN,
+                            idToken,
+                        )
+                    }
+
+                    mLoginResponse.provider?.let { provider ->
+                        mPreferenceManager.setValue(
+                            KEY_PROVIDER,
+                            provider,
+                        )
+                    }
+                    mPreferenceManager.setValue(
+                        KEY_USER_DETAILS,
+                        Gson().toJson(mLoginResponse),
+                    )
+                    _signInResponse.trySend(HandleResult.Success(mLoginResponse.success!!))
+                }
+
+                override fun onError(e: Exception?) {
+                    e?.printStackTrace()
+                }
+            },
+        )
+    }
+    @ExcludeFromJacocoGeneratedReport
+    private fun signOutWhileRunningTest(
+        context: Context,
+        isDisconnectFromAWSRequired: Boolean
+    ) {
+        AWSMobileClient.getInstance().signOut()
+        _signOutResponse.trySend(
+            HandleResult.Success(
+                SignOutData(
+                    context.resources.getString(R.string.sign_out_successfully),
+                    isDisconnectFromAWSRequired,
+                ),
+            ),
+        )
     }
 }

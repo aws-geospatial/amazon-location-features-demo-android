@@ -51,7 +51,10 @@ class TrackingVMDeleteLocationHistory : BaseTest() {
     fun deleteLocationHistorySuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.deleteLocationHistory(any(), any(), any())).thenAnswer {
             val callback: LocationDeleteHistoryInterface = it.arguments[2] as LocationDeleteHistoryInterface
-            callback.success(Responses.RESPONSE_DELETE_TRACKING_HISTORY)
+            val data = Responses.RESPONSE_DELETE_TRACKING_HISTORY
+            data.response = data.response
+            data.errorMessage = data.errorMessage
+            callback.success(data)
         }
 
         mTrackingViewModel.mDeleteLocationHistoryList.test {

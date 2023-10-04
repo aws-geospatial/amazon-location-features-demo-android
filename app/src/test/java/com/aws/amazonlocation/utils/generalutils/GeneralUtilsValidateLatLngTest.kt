@@ -26,7 +26,7 @@ class GeneralUtilsValidateLatLngTest : BaseTest() {
 
     @Test
     fun testValidateLatLngInvalidLng() {
-        val result = validateLatLng(LAT_LNG_VALID_LAT_STRING)
+        val result = validateLatLng("")
         Assert.assertTrue(TEST_FAILED_DUE_TO_INVALID_LONGITUDE, result == null)
     }
 }

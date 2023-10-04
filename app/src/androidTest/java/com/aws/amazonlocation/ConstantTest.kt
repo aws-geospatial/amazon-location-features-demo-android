@@ -17,7 +17,6 @@ const val DELAY_2000 = 2000L
 const val DELAY_3000 = 3000L
 const val DELAY_4000 = 4000L
 const val SECOND_DELAY_60 = 60000L
-const val DELAY_1500 = 1500L
 const val WHILE_USING_THE_APP = "While using the app"
 const val WHILE_USING_THE_APP_1 = "WHILE USING THE APP"
 const val WHILE_USING_THE_APP_2 = "Allow only while using the app"

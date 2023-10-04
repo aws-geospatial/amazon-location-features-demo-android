@@ -74,7 +74,9 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
             callback.error(Responses.RESPONSE_PLACE_INDEX_RIO_TINTO_ERROR)
         }.thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
-            callback.error(SearchSuggestionResponse())
+            val data = SearchSuggestionResponse()
+            data.data = arrayListOf()
+            callback.error(data)
         }
 
         mExploreVM.mLatLng = null

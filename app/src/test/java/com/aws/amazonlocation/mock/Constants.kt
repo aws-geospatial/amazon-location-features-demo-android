@@ -362,3 +362,73 @@ val SE_REGION = "ap-southeast-1"
 // Dummy credential for test case
 val IDENTITY_POOL_CLIENT_ID_TEST = "66afllav6ri6hf66sikh6t6foh"
 val USER_POOL_ID_TEST = "ca-central-1_X6aaHHHb6"
+val SIGN_OUT_SUCCESSFULLY = "Sign out Successfully"
+val SIGN_OUT_FAILED = "Sign out failed"
+val SIGN_IN_SUCCESSFULLY = "Sign in Successfully"
+val SIGN_IN_FAILED = "Sign in failed"
+val jsonTurf: String = """
+                {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [102.0, 0.5]
+  },
+  "properties": {
+    "prop0": "value0"
+  }
+}
+                """
+val jsonTurf1: String = """
+               {
+  "type": "FeatureCollection",
+  "bbox": [100.0, 0.0, -100.0, 105.0, 1.0, 0.0],
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [102.0, 0.5]
+      },
+      "properties": {
+        "prop0": "value0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [102.0, 0.0],
+          [103.0, 1.0],
+          [104.0, 0.0]
+        ]
+      },
+      "properties": {
+        "prop0": "value1"
+      }
+    }
+    // You can add more feature objects here as needed
+  ]
+}
+                """
+const val option1 = "Option 1"
+const val option2 = "Option 2"
+const val option3 = "Option 3"
+const val option4 = "Option 4"
+const val option5 = "Option 5"
+const val hour_1 = "1 hour"
+const val DESTINATION = "Destination"
+const val CITY_NAME = "CityName"
+const val REGION_NAME = "RegionName"
+const val SUB_REGION_NAME = "SubRegionName"
+const val COUNTRY_NAME = "CountryName"
+const val TEST_NOTIFICATION = "TestNotification"
+const val GEOFENCE_COLLECTION = "GeofenceCollection"
+const val ROUTE_ID = "RouteId"
+const val ROUTE_NAME = "RouteName"
+const val POINT = "Point"
+const val STOP_123 = "stop123"
+const val STOP_456 = "stop456"
+const val BUS_STOP = "Bus Stop"
+const val BUS_STATION = "Bus Station"
+const val FEATURE = "Feature"
