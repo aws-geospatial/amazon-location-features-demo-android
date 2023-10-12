@@ -281,4 +281,5 @@
   <string name="region">地區</string>
   <string name="label_enable_open_data">啟用 开放数据</string>
   <string name="label_enable_open_data_des">开放数据 使用 埃斯里 為了 路線 和 地方 搜尋 功能 至 提高 你的 經驗。</string>
+  <string name="label_app_crash">到期 至 一些 不尋常 活動， 該 應用程式 具有 曾經 重新啟動。</string>
 </resources>

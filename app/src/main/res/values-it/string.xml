@@ -281,4 +281,5 @@
   <string name="region">Regione</string>
   <string name="label_enable_open_data">Abilita Dati aperti</string>
   <string name="label_enable_open_data_des">Dati aperti utilizza Esri per Percorsi e Luoghi ricerca funzionalità a accrescere tuo esperienza.</string>
+  <string name="label_app_crash">Dovuto a alcuni insolito attività, lo candidatura ha stato riavviato.</string>
 </resources>

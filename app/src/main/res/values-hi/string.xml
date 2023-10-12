@@ -281,4 +281,5 @@
   <string name="region">क्षेत्र</string>
   <string name="label_enable_open_data">चालू करें ओपनडेटा</string>
   <string name="label_enable_open_data_des">ओपनडेटा का उपयोग करता है एसरी के लिए रूट्स और जगहें तलाश कार्यक्षमता को बढ़ाने के लिए तुम्हारा अनुभव।</string>
+  <string name="label_app_crash">देय को कुछ असामान्य गतिविधि, यह आवेदन पास है गया पुनः आरंभ।</string>
 </resources>
