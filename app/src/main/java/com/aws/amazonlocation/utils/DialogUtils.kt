@@ -289,6 +289,18 @@ fun Context.changeDataProviderDialog(
     mDialog.show()
 }
 
+fun Context.appCrashedDialog() {
+    val mDialog = MaterialAlertDialogBuilder(this, R.style.LogOutStyle)
+    mDialog.setTitle(resources.getString(R.string.app_name))
+    mDialog.setMessage(this.resources.getString(R.string.label_app_crash))
+    mDialog.setPositiveButton(
+        this.resources.getString(R.string.ok)
+    ) { dialog, _ ->
+        dialog.dismiss()
+    }
+    mDialog.show()
+}
+
 interface EnableTrackerInterface {
     fun continueToTracker(dialog: DialogInterface)
     fun cancel()

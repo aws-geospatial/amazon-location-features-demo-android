@@ -298,4 +298,5 @@
     <string name="region">Region</string>
     <string name="label_enable_open_data">Enable OpenData</string>
     <string name="label_enable_open_data_des">OpenData uses Esri for Routes and Places search functionality to enhance your experience.</string>
+    <string name="label_app_crash">Due to some unusual activity, the application has been restarted.</string>
 </resources>

@@ -281,4 +281,5 @@
   <string name="region">אזור</string>
   <string name="label_enable_open_data">הפעל OpenData</string>
   <string name="label_enable_open_data_des">OpenData משתמש Esri בשביל מסלולים ו מקומות חפש פונקציונליות כדי לשפר שלך ניסיון.</string>
+  <string name="label_app_crash">בשל כדי קצת יוצא דופן פעילות, ה יישום יש ל היה הופעל מחדש.</string>
 </resources>

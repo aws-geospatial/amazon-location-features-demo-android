@@ -281,4 +281,5 @@
   <string name="region">Region</string>
   <string name="label_enable_open_data">Aktivieren Daten öffnen</string>
   <string name="label_enable_open_data_des">Daten öffnen Verwendungszwecke Esri zum Strecken und Orte Suche Funktionalität zu verbessern dein erleben.</string>
+  <string name="label_app_crash">Fällig zu einige ungewöhnlich Aktivität, die Anwendung hat gewesen neu gestartet.</string>
 </resources>
