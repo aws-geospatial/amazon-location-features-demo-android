@@ -109,6 +109,12 @@ const val simulationLonEast = -123.04870086158795
 const val simulationLatSouth = 49.25908827302493
 const val simulationLonWest = -123.17226119977276
 
+const val LANGUAGE_CODE_DIVIDER = "-"
+const val LANGUAGE_CODE_CH_PRE_FIX = "zh"
+const val LANGUAGE_CODE_PT_PRE_FIX = "pt"
+const val LANGUAGE_CODE_CN_POST_FIX = "CN"
+const val LANGUAGE_CODE_TW_POST_FIX = "TW"
+
 const val LANGUAGE_CODE_GERMAN = "de"
 const val LANGUAGE_CODE_SPANISH = "es"
 const val LANGUAGE_CODE_ENGLISH = "en"

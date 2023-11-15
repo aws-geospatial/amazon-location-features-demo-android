@@ -31,7 +31,8 @@
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AmazonLocation"
-        tools:targetApi="31">
+        android:localeConfig="@xml/locales_config"
+        tools:targetApi="33">
         <activity
             android:name=".ui.main.web_view.WebViewActivity"
             android:configChanges="orientation|screenSize"
