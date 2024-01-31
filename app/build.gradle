@@ -19,7 +19,6 @@ android {
         versionCode 43
         versionName "1.0.0"
         testInstrumentationRunner "com.aws.amazonlocation.AmazonLocationRunner"
-        buildConfigField 'String', 'CLOUD_FORMATION_URL',"\"https://%s.console.aws.amazon.com/cloudformation/home?region=%s#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-resources-setup.s3.amazonaws.com/location-services.yaml\""
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_HERE_URL',"\"https://legal.here.com/en-gb/terms/general-content-supplier-terms-and-notices\""
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_ESRI_URL',"\"https://www.esri.com/en-us/legal/terms/data-attributions\""
         buildConfigField 'String', 'GRAB_LEARN_MORE',"\"https://docs.aws.amazon.com/location/latest/developerguide/grab.html\""
@@ -58,16 +57,19 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField 'String', 'CLOUD_FORMATION_URL', '"https://%s.console.aws.amazon.com/cloudformation/home?region=%s#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-resources-setup.s3.amazonaws.com/dev/main-cf-template.yaml"'
             signingConfig signingConfigs.debug
             testCoverageEnabled true
         }
         release {
+            buildConfigField 'String', 'CLOUD_FORMATION_URL', '"https://%s.console.aws.amazon.com/cloudformation/home?region=%s#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-demo-resources.s3.amazonaws.com/main-cf-template.yaml"'
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         unsigned {
+            buildConfigField 'String', 'CLOUD_FORMATION_URL', '"https://%s.console.aws.amazon.com/cloudformation/home?region=%s#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-demo-resources.s3.amazonaws.com/main-cf-template.yaml"'
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
