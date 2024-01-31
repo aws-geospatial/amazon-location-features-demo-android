@@ -18,6 +18,7 @@ import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_20000
+import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_ROUTE_OPTION_NOT_VISIBLE
@@ -42,7 +43,7 @@ class SettingRouteOptionAvailableTest : BaseTestMainActivity() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
+            Thread.sleep(DELAY_5000)
 
             val explorer =
                 uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_setting)))

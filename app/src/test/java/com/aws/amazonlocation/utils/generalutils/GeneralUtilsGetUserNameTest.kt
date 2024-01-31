@@ -13,8 +13,18 @@ class GeneralUtilsGetUserNameTest : BaseTest() {
 
     @Test
     fun getUserNameSuccess() {
-        val result = getUserName(Responses.RESPONSE_SIGN_IN)
-        val expected = Responses.RESPONSE_SIGN_IN.name?.first()?.uppercase()
+        val loginResponse = Responses.RESPONSE_SIGN_IN
+        var result = getUserName(loginResponse)
+        var expected = Responses.RESPONSE_SIGN_IN.name?.first()?.uppercase()
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == expected+"T")
+        loginResponse.name = "Test"
+        result = getUserName(loginResponse)
+        expected = Responses.RESPONSE_SIGN_IN.name?.first()?.uppercase()
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == expected)
+        loginResponse.name = null
+        result = getUserName(loginResponse)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == null)
+        result = getUserName(null)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == null)
     }
 }

@@ -8,7 +8,7 @@ import androidx.core.app.ActivityCompat
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
-
+@ExcludeFromJacocoGeneratedReport
 fun Activity.checkLocationPermission(): Boolean {
     return ActivityCompat.checkSelfPermission(
         this,
