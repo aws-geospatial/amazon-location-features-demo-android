@@ -281,4 +281,5 @@
   <string name="region">リージョン</string>
   <string name="label_enable_open_data">有効化 オープンデータ</string>
   <string name="label_enable_open_data_des">オープンデータ 使用する Esri にとって ルート そして 場所 検索 機能性 に 強化します きみの 経験。</string>
+  <string name="label_app_crash">期限 に 一部 珍しい アクティビティ、 その 応用 持っている されている 再起動しました。</string>
 </resources>

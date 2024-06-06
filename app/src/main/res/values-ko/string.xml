@@ -281,4 +281,5 @@
   <string name="region">지역</string>
   <string name="label_enable_open_data">활성화 오픈 데이터</string>
   <string name="label_enable_open_data_des">오픈 데이터 사용 에스리 ...에 대한 노선 과 장소 수색 기능성 에 높이다 당신의 경험.</string>
+  <string name="label_app_crash">기한 에 약간 별난 활동, 그 응용 프로그램 가지고 있습니다 있었다 이 (가) 다시 시작되었습니다.</string>
 </resources>
