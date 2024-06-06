@@ -19,6 +19,7 @@ import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
+import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_POOL_ID_NOT_BLANK
@@ -55,7 +56,7 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
-        Thread.sleep(DELAY_1000)
+        Thread.sleep(DELAY_2000)
         onView(
             AllOf.allOf(
                 withText(settingTabText),

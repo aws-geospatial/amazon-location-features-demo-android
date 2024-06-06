@@ -33,7 +33,7 @@ import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.CLICK_DEBOUNCE_ENABLE
-import com.aws.amazonlocation.utils.DELAY_1000
+import com.aws.amazonlocation.utils.DELAY_PROCESS_1000
 import com.aws.amazonlocation.utils.DELAY_SIMULATION_2000
 import com.aws.amazonlocation.utils.ENTER
 import com.aws.amazonlocation.utils.EventType
@@ -417,7 +417,7 @@ class SimulationUtils(
             }
 
             mMapHelper?.startAnimation(latLng, busIndex)
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             val latLngPoint = Point.fromLngLat(point[0], point[1])
             busesCoordinates[busIndex].add(latLngPoint)
             val positionData: String = when (busesCoordinates[busIndex].size) {
@@ -624,7 +624,7 @@ class SimulationUtils(
                             isLocationStartNeeded = true
                         }
                         CoroutineScope(Dispatchers.Default).launch {
-                            delay(DELAY_1000)
+                            delay(DELAY_PROCESS_1000)
                             withContext(Dispatchers.Main) {
                                 simulationHistoryData.clear()
                                 simulationHistoryData.addAll(
@@ -977,7 +977,7 @@ class SimulationUtils(
         notificationData: NotificationSimulationData
     ) {
         CoroutineScope(Dispatchers.Default).launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             withContext(Dispatchers.Main) {
             }
         }
@@ -1129,7 +1129,7 @@ class SimulationUtils(
             }
         }
         (activity as MainActivity).lifecycleScope.launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             zoomCamera()
         }
     }
@@ -1147,7 +1147,7 @@ class SimulationUtils(
         isCoroutineStarted = false
         coroutineScope.cancel()
         (activity as MainActivity).lifecycleScope.launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             routeData?.forEach { routeSimulationDataItem ->
                 routeSimulationDataItem.id?.let { it1 ->
                     mMapHelper?.removeSource("$SOURCE_SIMULATION_ICON$it1")

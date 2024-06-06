@@ -2,6 +2,8 @@ package com.aws.amazonlocation.ui.main
 
 import android.app.ActivityManager
 import android.content.Context
+import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.* // ktlint-disable no-wildcard-imports
@@ -21,6 +23,7 @@ import com.aws.amazonlocation.utils.KEY_POOL_ID
 import com.aws.amazonlocation.utils.KEY_RE_START_APP
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.CoreMatchers
@@ -52,7 +55,7 @@ class ConnectToAWSTest : BaseTestMainActivity() {
         try {
             val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
 
-            Thread.sleep(DELAY_2000)
+            Thread.sleep(DELAY_3000)
 
             onView(
                 allOf(
@@ -120,11 +123,20 @@ class ConnectToAWSTest : BaseTestMainActivity() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
+            Thread.sleep(DELAY_3000)
 
             val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
             tracking.click()
-
+            Thread.sleep(DELAY_1000)
+            val clEnableTracking =
+                mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_enable_tracking)
+            if (clEnableTracking.visibility == View.VISIBLE) {
+                val btnEnableTracking =
+                    mActivityRule.activity.findViewById<MaterialCardView>(R.id.btn_enable_tracking)
+                mActivityRule.activity.runOnUiThread {
+                    btnEnableTracking.performClick()
+                }
+            }
             Thread.sleep(DELAY_1000)
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/tv_sign_in_required")),
@@ -212,12 +224,21 @@ class ConnectToAWSTest : BaseTestMainActivity() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
+            Thread.sleep(DELAY_3000)
 
             val tracking =
                 uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_geofence)))
             tracking.click()
-
+            Thread.sleep(DELAY_1000)
+            val clEnableTracking =
+                mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_empty_geofence_list)
+            if (clEnableTracking.visibility == View.VISIBLE) {
+                val btnEnableTracking =
+                    mActivityRule.activity.findViewById<MaterialCardView>(R.id.btn_add_geofence)
+                mActivityRule.activity.runOnUiThread {
+                    btnEnableTracking.performClick()
+                }
+            }
             Thread.sleep(DELAY_1000)
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/tv_sign_in_required")),

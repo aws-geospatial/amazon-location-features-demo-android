@@ -49,7 +49,7 @@ class SettingSignInTest : BaseTestMainActivity() {
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
 
-        Thread.sleep(DELAY_1000)
+        Thread.sleep(DELAY_2000)
         Espresso.onView(
             AllOf.allOf(
                 withText(settingTabText),

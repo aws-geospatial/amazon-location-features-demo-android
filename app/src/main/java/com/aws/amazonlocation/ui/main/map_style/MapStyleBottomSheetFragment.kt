@@ -204,7 +204,7 @@ class MapStyleBottomSheetFragment(
             ivMapStyleClose.setOnClickListener {
                 mapStyleShowList()
                 if (mBaseActivity?.mSimulationUtils?.isSimulationBottomSheetVisible() == true) {
-                    mBaseActivity?.mSimulationUtils?.setSimulationDraggable()
+                    mBaseActivity.mSimulationUtils?.setSimulationDraggable()
                 }
                 dismiss()
             }

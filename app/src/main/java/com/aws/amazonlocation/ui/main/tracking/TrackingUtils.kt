@@ -269,8 +269,8 @@ class TrackingUtils(
                 )
                 if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
                     mActivity?.getString(R.string.reconnect_with_aws_account)
-                        ?.let { it1 -> (activity as MainActivity).showError(it1) }
-                    (activity as MainActivity).restartAppWithClearData()
+                        ?.let { it1 -> activity.showError(it1) }
+                    activity.restartAppWithClearData()
                     return@setOnClickListener
                 }
                 if (mIsLocationUpdateEnable) {

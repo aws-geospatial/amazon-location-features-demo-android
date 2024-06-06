@@ -25,7 +25,6 @@ import com.aws.amazonlocation.data.response.GeofenceData
 import com.aws.amazonlocation.data.response.LocationHistoryResponse
 import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.data.response.NavigationData
-import com.aws.amazonlocation.data.response.NavigationResponse
 import com.aws.amazonlocation.data.response.SearchResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
@@ -466,20 +465,6 @@ object Responses {
         country = "IND"
     )
 
-    val RESPONSE_NAVIGATION_CAR = NavigationResponse(
-        duration = "49 sec",
-        distance = 0.19504914469655174,
-        startLat = 72.83371801248408,
-        startLng = 18.922163986834548,
-        endLat = 72.83338298024672,
-        endLng = 18.921575535610945,
-        destinationAddress = null,
-        navigationList = arrayListOf(
-            RESPONSE_NAVIGATION_DATA_CAR_STEP_1,
-            RESPONSE_NAVIGATION_DATA_CAR_STEP_2
-        )
-    )
-
     val RESPONSE_GEOFENCE_LIST = GeofenceData(
         geofenceList = arrayListOf(
             ListGeofenceResponseEntry().withCreateTime(Date())
@@ -660,7 +645,7 @@ object Responses {
     )
 
     val RESPONSE_SIGN_IN = LoginResponse(
-        name = BuildConfig.USER_LOGIN_NAME,
+        name = BuildConfig.USER_LOGIN_NAME + " TEST",
         email = null,
         success = SIGN_IN_SUCCESS,
         provider = "cognito-idp.us-east-1.amazonaws.com/us-east-1_48VeDo2Uw",

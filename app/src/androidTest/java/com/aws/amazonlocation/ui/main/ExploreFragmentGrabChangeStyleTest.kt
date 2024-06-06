@@ -70,13 +70,14 @@ class ExploreFragmentGrabChangeStyleTest : BaseTestMainActivity() {
                         click()
                     )
                 )
+                Thread.sleep(DELAY_2000)
                 uiDevice.wait(
-                    Until.hasObject(By.text(mActivityRule.activity.getString(R.string.ok))),
+                    Until.hasObject(By.text(mActivityRule.activity.getString(R.string.enable_grab))),
                     DELAY_2000
                 )
 
                 val labelOk =
-                    uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.ok)))
+                    uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.enable_grab)))
                 labelOk?.click()
                 val mapName =
                     preferenceManager.getValue(KEY_MAP_NAME, mActivityRule.activity.getString(R.string.grab))
