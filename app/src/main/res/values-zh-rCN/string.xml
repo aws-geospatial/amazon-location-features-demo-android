@@ -281,4 +281,5 @@
   <string name="region">区域</string>
   <string name="label_enable_open_data">启用 开放数据</string>
   <string name="label_enable_open_data_des">开放数据 使用 Esri 为了 路线 和 地点 搜索 功能 到 提高 您的 经验。</string>
+  <string name="label_app_crash">到期 到 一些 不寻常 活动， 这 应用程序 有 是 已重新启动。</string>
 </resources>

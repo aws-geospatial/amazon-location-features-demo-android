@@ -281,4 +281,5 @@
   <string name="region">Región</string>
   <string name="label_enable_open_data">Habilitar Datos abiertos</string>
   <string name="label_enable_open_data_des">Datos abiertos usos Esri por Rutas y Lugares búsqueda funcionalidad a mejorar vuestro experiencia.</string>
+  <string name="label_app_crash">Debido a algunos inusual actividad, la aplicación ha estado reiniciado.</string>
 </resources>

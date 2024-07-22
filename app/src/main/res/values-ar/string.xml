@@ -281,4 +281,5 @@
   <string name="region">المنطقة</string>
   <string name="label_enable_open_data">تمكين البيانات المفتوحة</string>
   <string name="label_enable_open_data_des">البيانات المفتوحة يستخدم إسري من أجل المسارات و الأماكن بحث وظائف إلى تعزيز ك تجربة.</string>
+  <string name="label_app_crash">مستحق إلى بعض غير عادي نشاط، ال تطبيق لديه تم إعادة التشغيل.</string>
 </resources>

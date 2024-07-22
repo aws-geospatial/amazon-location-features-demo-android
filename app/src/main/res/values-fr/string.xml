@@ -281,4 +281,5 @@
   <string name="region">Région</string>
   <string name="label_enable_open_data">Activer Données ouvertes</string>
   <string name="label_enable_open_data_des">Données ouvertes les usages Esri pour Itinéraires et Lieux chercher fonctionnalité pour améliorer votre expérience.</string>
+  <string name="label_app_crash">Dû pour quelques inhabituel activité, le candidature a été redémarré.</string>
 </resources>

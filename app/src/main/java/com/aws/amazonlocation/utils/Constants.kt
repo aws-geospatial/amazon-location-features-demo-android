@@ -32,6 +32,7 @@ const val KEY_MAP_NAME = "key_map_name"
 const val KEY_MAP_STYLE_NAME = "key_map_style_name"
 const val KEY_GRAB_DONT_ASK = "key_grab_dont_ask"
 const val KEY_OPEN_DATA_DONT_ASK = "key_open_data_dont_ask"
+const val KEY_APP_CRASH = "key_app_crash"
 const val CLICK_DEBOUNCE = 1000L
 const val CLICK_DEBOUNCE_ENABLE = 1200L
 const val RESTART_DELAY = 800L
