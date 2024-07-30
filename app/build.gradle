@@ -8,16 +8,16 @@ apply from : '../git-hooks.gradle'
 
 android {
     namespace 'com.aws.amazonlocation'
-    compileSdk 33
+    compileSdk 34
     def customConfig = new Properties()
     customConfig.load(project.rootProject.file("custom.properties").newDataInputStream())
     defaultConfig {
         applicationId "com.aws.amazonlocation"
         minSdk 24
         //noinspection OldTargetApi
-        targetSdk 33
-        versionCode 43
-        versionName "1.0.0"
+        targetSdk 34
+        versionCode 44
+        versionName "1.0.1"
         testInstrumentationRunner "com.aws.amazonlocation.AmazonLocationRunner"
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_HERE_URL',"\"https://legal.here.com/en-gb/terms/general-content-supplier-terms-and-notices\""
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_ESRI_URL',"\"https://www.esri.com/en-us/legal/terms/data-attributions\""
@@ -88,13 +88,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
-    }
-    lintOptions {
-        disable 'IconLauncherShape'
-        disable 'Overdraw'
-        disable 'IconDensities'
-        disable 'IconDipSize'
-        disable 'IconDuplicatesConfig'
+        buildConfig true
     }
     testOptions {
         unitTests {
@@ -110,6 +104,9 @@ android {
         language {
             enableSplit = false
         }
+    }
+    lint {
+        disable 'IconLauncherShape', 'Overdraw', 'IconDensities', 'IconDipSize', 'IconDuplicatesConfig'
     }
 }
 
