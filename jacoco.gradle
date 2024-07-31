@@ -97,7 +97,7 @@ def createVariantCoverage(variant) {
             html.required = true
         }
 
-        def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDir, excludes: project.excludes)
+        def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDirectory, excludes: project.excludes)
         def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: project.excludes)
         getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
 
@@ -138,7 +138,7 @@ def createVariantCoverage(variant) {
                 }
             }
         }
-        def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDir, excludes: project.excludes)
+        def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDirectory, excludes: project.excludes)
         def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: project.excludes)
         getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
         getSourceDirectories().setFrom(files([
