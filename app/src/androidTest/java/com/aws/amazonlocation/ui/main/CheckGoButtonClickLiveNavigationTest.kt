@@ -92,9 +92,11 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
 
             Espresso.closeSoftKeyboard()
 
-            val navListView = waitForView(allOf(withId(R.id.rv_navigation_list), isDisplayed(), hasMinimumChildCount(1)))
+            // navListView
+            waitForView(allOf(withId(R.id.rv_navigation_list), isDisplayed(), hasMinimumChildCount(1)))
 
-            val btnExit = waitForView(allOf(withId(R.id.btn_exit), isDisplayed())) {
+            // btnExit
+            waitForView(allOf(withId(R.id.btn_exit), isDisplayed())) {
                 failTest(109, null)
             }
         } catch (e: Exception) {

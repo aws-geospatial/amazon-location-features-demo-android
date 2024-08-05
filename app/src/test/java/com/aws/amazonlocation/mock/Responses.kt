@@ -30,6 +30,7 @@ import com.aws.amazonlocation.data.response.SearchResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import java.util.Date
+import java.util.GregorianCalendar
 
 object Responses {
 
@@ -581,8 +582,8 @@ object Responses {
                             "region" to "us-east-1"
                         )
                     )
-                    .withReceivedTime(Date(2023, 4, 14, 12, 22, 17))
-                    .withSampleTime(Date(2023, 4, 14, 12, 22, 15))
+                    .withReceivedTime(GregorianCalendar(2023, 4, 14, 12, 22, 17).getTime())
+                    .withSampleTime(GregorianCalendar(2023, 4, 14, 12, 22, 15).getTime())
             )
     )
 
@@ -599,8 +600,8 @@ object Responses {
                             "region" to "us-east-1"
                         )
                     )
-                    .withReceivedTime(Date(2023, 4, 14, 12, 22, 17))
-                    .withSampleTime(Date(2023, 4, 14, 12, 22, 15))
+                    .withReceivedTime(GregorianCalendar(2023, 4, 14, 12, 22, 17).getTime())
+                    .withSampleTime(GregorianCalendar(2023, 4, 14, 12, 22, 15).getTime())
             )
     )
 
@@ -636,8 +637,8 @@ object Responses {
             ListGeofenceResponseEntry()
                 .withGeofenceId("bb")
                 .withStatus(TEST_DATA_7)
-                .withCreateTime(Date(2023, 4, 14, 13, 13, 54))
-                .withUpdateTime(Date(2023, 4, 14, 13, 13, 54))
+                .withCreateTime(GregorianCalendar(2023, 4, 14, 13, 13, 54).getTime())
+                .withUpdateTime(GregorianCalendar(2023, 4, 14, 13, 13, 54).getTime())
                 .withGeometry(
                     GeofenceGeometry()
                         .withCircle(

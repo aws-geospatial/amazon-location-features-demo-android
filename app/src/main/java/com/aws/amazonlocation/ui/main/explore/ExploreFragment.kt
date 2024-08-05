@@ -29,6 +29,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import aws.sdk.kotlin.services.location.model.TravelMode
 import com.amazonaws.auth.CognitoCredentialsProvider
@@ -379,7 +380,8 @@ class ExploreFragment :
     }
 
     private fun initGeofenceObserver() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mBinding.apply {
                 mGeofenceViewModel.mGetGeofenceList.collect { handleResult ->
                     bottomSheetGeofenceList.apply {
@@ -409,7 +411,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mTrackingViewModel.mGetGeofenceList.collect { handleResult ->
                 handleResult.onLoading {
                     mBinding.bottomSheetGeofenceList.clSearchLoaderGeofenceList.root.show()
@@ -422,7 +425,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSimulationViewModel.mGetGeofenceList.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -434,7 +438,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mBinding.apply {
                 mTrackingViewModel.mGetLocationHistoryList.collect { handleResult ->
                     handleResult.onLoading {
@@ -450,7 +455,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mTrackingViewModel.mGetLocationHistoryTodayList.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -461,7 +467,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mTrackingViewModel.mGetUpdateDevicePosition.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -472,7 +479,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mBinding.apply {
                 mTrackingViewModel.mDeleteLocationHistoryList.collect { handleResult ->
                     handleResult.onLoading {
@@ -486,7 +494,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mGeofenceViewModel.mAddGeofence.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -514,7 +523,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mGeofenceViewModel.mDeleteGeofence.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -543,7 +553,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mGeofenceViewModel.mGeofenceSearchForSuggestionsResultList.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -558,7 +569,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mGeofenceViewModel.mGeofenceSearchLocationList.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -968,7 +980,8 @@ class ExploreFragment :
     @SuppressLint("NotifyDataSetChanged")
     private fun initObserver() {
         mBinding.bottomSheetNavigation.apply {
-            lifecycleScope.launchWhenStarted {
+            lifecycleScope.launch {
+                withStarted { }
                 mViewModel.mNavigationData.collect { handleResult ->
                     handleResult.onLoading {
                         clSearchLoaderNavigation.root.show()
@@ -1033,7 +1046,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSignInViewModel.mSignInResponse.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     mBaseActivity?.mIsUserLoggedIn = true
@@ -1054,7 +1068,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSignInViewModel.mSignOutResponse.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     val propertiesAws = listOf(
@@ -1084,7 +1099,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mBinding.apply {
                 mViewModel.mSearchLocationList.collect { handleResult ->
                     handleResult.onLoading {
@@ -1146,7 +1162,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mBinding.apply {
                 mViewModel.searchForSuggestionsResultList.collect { handleResult ->
                     handleResult.onLoading {
@@ -1207,7 +1224,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mViewModel.mCalculateDistance.collect { handleResult ->
                 handleResult.onLoading {
                     if (!mBottomSheetHelper.isDirectionSearchSheetVisible()) {
@@ -1560,7 +1578,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mViewModel.mUpdateCalculateDistance.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     var isWalk = false
@@ -1628,7 +1647,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mViewModel.mUpdateRoute.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     when (it.name) {
@@ -1694,7 +1714,8 @@ class ExploreFragment :
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mViewModel.mNavigationTimeDialogData.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     it.distance?.let { distance ->
@@ -1708,7 +1729,8 @@ class ExploreFragment :
                 }
             }
         }
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mViewModel.addressLineData.collect { handleResult ->
                 handleResult.onLoading {}.onSuccess {
                     if (!mBottomSheetHelper.isSearchPlaceSheetVisible() || mBottomSheetHelper.isDirectionSheetVisible()) {

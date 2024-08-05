@@ -53,42 +53,42 @@
         android:id="@+id/attribution_fragment"
         android:name="com.aws.amazonlocation.ui.main.attribution.AttributionFragment"
         android:label="AttributionFragment"
-        tools:layout="@layout/fragment_attribution"/>
+        tools:layout="@layout/fragment_attribution" />
 
     <fragment
         android:id="@+id/about_fragment"
         android:name="com.aws.amazonlocation.ui.main.more.AboutFragment"
         android:label="AboutFragment"
-        tools:layout="@layout/fragment_about"/>
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/version_fragment"
         android:name="com.aws.amazonlocation.ui.main.about.VersionFragment"
         android:label="MoreFragment"
-        tools:layout="@layout/fragment_version"/>
+        tools:layout="@layout/fragment_version" />
 
     <fragment
         android:id="@+id/terms_conditions_fragment"
         android:name="com.aws.amazonlocation.ui.main.terms_condition.TermsAndConditionFragment"
         android:label="TermsAndConditionFragment"
-        tools:layout="@layout/fragment_terms_and_condition"/>
+        tools:layout="@layout/fragment_terms_and_condition" />
 
     <fragment
         android:id="@+id/unit_system_fragment"
         android:name="com.aws.amazonlocation.ui.main.unit_system.UnitSystemFragment"
         android:label="UnitSystemFragment"
-        tools:layout="@layout/fragment_unit_system"/>
+        tools:layout="@layout/fragment_unit_system" />
 
     <fragment
         android:id="@+id/language_fragment"
         android:name="com.aws.amazonlocation.ui.main.language.LanguageFragment"
         android:label="LanguageFragment"
-        tools:layout="@layout/fragment_language"/>
+        tools:layout="@layout/fragment_language" />
 
     <fragment
         android:id="@+id/region_fragment"
         android:name="com.aws.amazonlocation.ui.main.region.RegionFragment"
         android:label="RegionFragment"
-        tools:layout="@layout/fragment_region"/>
+        tools:layout="@layout/fragment_region" />
 
 </navigation>

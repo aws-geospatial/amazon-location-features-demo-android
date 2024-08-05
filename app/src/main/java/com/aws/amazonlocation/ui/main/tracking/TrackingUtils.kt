@@ -24,12 +24,10 @@ import com.amazonaws.services.geo.model.DevicePosition
 import com.amazonaws.services.geo.model.GetDevicePositionHistoryResult
 import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.*
 import com.aws.amazonlocation.data.enum.MarkerEnum
 import com.aws.amazonlocation.data.enum.TrackingEnum
 import com.aws.amazonlocation.data.response.TrackingHistoryData
 import com.aws.amazonlocation.databinding.BottomSheetTrackingBinding
-import com.aws.amazonlocation.domain.*
 import com.aws.amazonlocation.domain.`interface`.TrackingInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.simulation.SimulationBottomSheetFragment
@@ -269,8 +267,8 @@ class TrackingUtils(
                 )
                 if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
                     mActivity?.getString(R.string.reconnect_with_aws_account)
-                        ?.let { it1 -> (activity as MainActivity).showError(it1) }
-                    (activity as MainActivity).restartAppWithClearData()
+                        ?.let { it1 -> activity.showError(it1) }
+                    activity.restartAppWithClearData()
                     return@setOnClickListener
                 }
                 if (mIsLocationUpdateEnable) {
@@ -725,7 +723,6 @@ class TrackingUtils(
                         sourceIdsToRemove.add("sourceId$headerId")
                         mMapHelper?.addTrackerLine(
                             coordinates,
-                            true,
                             "layerId$headerId",
                             "sourceId$headerId",
                             R.color.color_primary_green
@@ -754,7 +751,6 @@ class TrackingUtils(
                         sourceIdsToRemove.add("sourceId$headerId")
                         mMapHelper?.addTrackerLine(
                             coordinates,
-                            true,
                             "layerId$headerId",
                             "sourceId$headerId",
                             R.color.color_primary_green
@@ -946,7 +942,12 @@ class TrackingUtils(
             } else {
                 headerIdsToRemove.add("layerId1")
                 sourceIdsToRemove.add("sourceId1")
-                mMapHelper?.addTrackerLine(coordinates, true, "layerId1", "sourceId1", R.color.color_primary_green)
+                mMapHelper?.addTrackerLine(
+                    coordinates,
+                    "layerId1",
+                    "sourceId1",
+                    R.color.color_primary_green
+                )
                 setCameraZoomLevel()
             }
 

@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import androidx.navigation.fragment.findNavController
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.aws.amazonlocation.R
@@ -146,7 +147,8 @@ class AWSCloudInformationFragment : BaseFragment(), SignOutInterface {
     }
 
     private fun initObserver() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSignInViewModel.mSignInResponse.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -175,7 +177,8 @@ class AWSCloudInformationFragment : BaseFragment(), SignOutInterface {
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSignInViewModel.mSignOutResponse.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {

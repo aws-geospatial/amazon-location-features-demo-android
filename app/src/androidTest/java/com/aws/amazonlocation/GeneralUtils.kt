@@ -146,7 +146,6 @@ fun scrollForView(matcher: Matcher<View>, maxCount: Int = 20, onScrollRequested:
         }
         if (!found && maxCount <= ++count) {
             throw java.lang.Exception("$TEST_FAILED - Max count reached", exception)
-            break
         }
         if (!found) {
             interaction = null

@@ -559,6 +559,7 @@ class MapStyleFragment : BaseFragment() {
             findNavController().popBackStack()
         }
         mBinding.apply {
+            @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class, kotlinx.coroutines.FlowPreview::class)
             etSearchMap.textChanges().debounce(DELAY_300).onEach { text ->
                 mapStyleShowList()
                 searchText(text)

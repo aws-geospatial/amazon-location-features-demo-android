@@ -87,7 +87,8 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnCarGo = waitForView(
+            // btnCarGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(
@@ -97,7 +98,8 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnWalkGo = waitForView(
+            // btnWalkGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_walk_go),
                     hasDescendant(
@@ -107,7 +109,8 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnTruckGo = waitForView(
+            // btnTruckGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_truck_go),
                     hasDescendant(

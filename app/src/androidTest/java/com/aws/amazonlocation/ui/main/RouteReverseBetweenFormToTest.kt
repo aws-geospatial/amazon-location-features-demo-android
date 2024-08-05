@@ -87,7 +87,8 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnCarGo = waitForView(
+            // btnCarGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(

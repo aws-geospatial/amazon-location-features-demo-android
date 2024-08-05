@@ -8,15 +8,18 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -157,7 +160,7 @@ class MainActivity : BaseActivity(), CrashListener {
                 mBinding.bottomNavigationMain.hide()
             }
         } else {
-            graph.startDestination = R.id.explore_fragment
+            graph.setStartDestination(R.id.explore_fragment)
             mNavHostFragment.navController.graph = graph
             if (mBottomSheetDialog == null) {
                 setBottomBar()
@@ -236,6 +239,19 @@ class MainActivity : BaseActivity(), CrashListener {
             delay(DELAY_LANGUAGE_3000)
             val languageCode = getLanguageCode()
             languageCode?.let { setLocale(it, applicationContext) }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT
+            ) {
+                this.handleOnBackPressed()
+            }
+        }
+        else {
+            onBackPressedDispatcher.addCallback(this /* lifecycle owner */) {
+                this.handleOnBackPressed()
+            }
         }
     }
 
@@ -337,7 +353,8 @@ class MainActivity : BaseActivity(), CrashListener {
     }
 
     private fun initObserver() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
+            withStarted { }
             mSignInViewModel.mSignInResponse.collect { handleResult ->
                 handleResult.onLoading {
                 }.onSuccess {
@@ -876,7 +893,7 @@ class MainActivity : BaseActivity(), CrashListener {
         }
     }
 
-    override fun onBackPressed() {
+    private fun handleOnBackPressed() {
         if (mNavController.currentDestination?.label == AWS_CLOUD_INFORMATION_FRAGMENT) {
             mNavController.popBackStack()
         } else if (mNavController.currentDestination?.label == VERSION_FRAGMENT) {
@@ -914,8 +931,6 @@ class MainActivity : BaseActivity(), CrashListener {
             mGeofenceUtils?.collapseAddGeofence()
         } else if (mTrackingUtils?.isTrackingExpandedOrHalfExpand() == true) {
             mTrackingUtils?.collapseTracking()
-        } else {
-            super.onBackPressed()
         }
     }
 

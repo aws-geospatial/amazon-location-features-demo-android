@@ -42,7 +42,6 @@ private fun performDoubleTap(
     uiController: UiController,
     clickPoint: Point,
 ) {
-    val duration = 100
     val eventMinInterval: Long = 50
     val startTime = SystemClock.uptimeMillis()
     var eventTime = startTime

@@ -24,10 +24,8 @@ import com.amplifyframework.geo.maplibre.util.toJsonElement
 import com.amplifyframework.geo.maplibre.view.MapLibreView
 import com.amplifyframework.geo.models.MapStyle
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.*
 import com.aws.amazonlocation.data.enum.MarkerEnum
 import com.aws.amazonlocation.data.response.SearchSuggestionData
-import com.aws.amazonlocation.domain.*
 import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
 import com.aws.amazonlocation.domain.`interface`.UpdateRouteInterface
 import com.aws.amazonlocation.domain.`interface`.UpdateTrackingInterface
@@ -41,7 +39,6 @@ import com.aws.amazonlocation.utils.Durations.DEFAULT_INTERVAL_IN_MILLISECONDS
 import com.aws.amazonlocation.utils.GeofenceCons.CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID
 import com.aws.amazonlocation.utils.MapCameraZoom.DEFAULT_CAMERA_ZOOM
 import com.aws.amazonlocation.utils.MapCameraZoom.NAVIGATION_CAMERA_ZOOM
-import com.aws.amazonlocation.utils.MapCameraZoom.SIMULATION_CAMERA_ZOOM
 import com.aws.amazonlocation.utils.MapCameraZoom.TRACKING_CAMERA_ZOOM
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
@@ -671,7 +668,6 @@ class MapHelper(private val appContext: Context) {
 
     fun addTrackerLine(
         coordinates: List<Point>,
-        isWalk: Boolean,
         mLayerId: String,
         mSourceId: String,
         color: Int
@@ -1440,7 +1436,7 @@ class MapHelper(private val appContext: Context) {
         for (layer in style.layers) {
             if (layer is SymbolLayer) {
                 val textField = textField(expression)
-                layer?.setProperties(textField)
+                layer.setProperties(textField)
             }
         }
     }

@@ -85,7 +85,8 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnCarGo = waitForView(
+            // btnCarGo
+            waitForView(
                 allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(
@@ -95,16 +96,16 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                 ),
             )
 
-            val sourceTest =
-                waitForView(
-                    allOf(
-                        withId(R.id.edt_search_direction),
-                        withText(
-                            MY_LOCATION,
-                        ),
-                        isDisplayed(),
+            // sourceTest
+            waitForView(
+                allOf(
+                    withId(R.id.edt_search_direction),
+                    withText(
+                        MY_LOCATION,
                     ),
-                )
+                    isDisplayed(),
+                ),
+            )
         } catch (e: Exception) {
             failTest(121, e)
             Assert.fail(TEST_FAILED)

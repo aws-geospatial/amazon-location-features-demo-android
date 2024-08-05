@@ -204,11 +204,12 @@ class MapStyleBottomSheetFragment(
             ivMapStyleClose.setOnClickListener {
                 mapStyleShowList()
                 if (mBaseActivity?.mSimulationUtils?.isSimulationBottomSheetVisible() == true) {
-                    mBaseActivity?.mSimulationUtils?.setSimulationDraggable()
+                    mBaseActivity.mSimulationUtils?.setSimulationDraggable()
                 }
                 dismiss()
             }
 
+            @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class, kotlinx.coroutines.FlowPreview::class)
             etSearchMap.textChanges().debounce(DELAY_300).onEach { text ->
                 mapStyleShowList()
                 searchText(text)

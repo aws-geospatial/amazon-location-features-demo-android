@@ -59,7 +59,8 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
                 ),
             )
 
-            val txtTime = waitForView(
+            // txtTime
+            waitForView(
                 allOf(
                     withId(R.id.tv_direction_distance),
                     isDisplayed(),
@@ -107,7 +108,8 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
 
             Espresso.closeSoftKeyboard()
 
-            val navListView = waitForView(allOf(withId(R.id.rv_navigation_list), isDisplayed(), hasMinimumChildCount(1)))
+            // navListView
+            waitForView(allOf(withId(R.id.rv_navigation_list), isDisplayed(), hasMinimumChildCount(1)))
         } catch (e: Exception) {
             failTest(136, e)
             Assert.fail(TEST_FAILED_LIST)

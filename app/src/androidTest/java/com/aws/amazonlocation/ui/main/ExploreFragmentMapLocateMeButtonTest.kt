@@ -52,7 +52,6 @@ class ExploreFragmentMapLocateMeButtonTest : BaseTestMainActivity() {
             mapView.getMapAsync {
                 mapbox = it
             }
-            val map = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/mapView"))
             Espresso.onView(withId(R.id.mapView)).perform(swipeLeft())
             Thread.sleep(DELAY_1000)
 

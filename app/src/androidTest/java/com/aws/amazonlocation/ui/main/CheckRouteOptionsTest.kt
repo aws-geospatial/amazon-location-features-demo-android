@@ -96,7 +96,8 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                 )
             )
 
-            val btnCarGoFirst = waitForView(
+            // btnCarGoFirst
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     isDisplayed()

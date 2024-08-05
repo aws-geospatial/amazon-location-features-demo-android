@@ -316,7 +316,6 @@ class SimulationUtils(
     ) {
         mMapHelper?.addTrackerLine(
             trackerLineToPreDraw,
-            true,
             "$LAYER${route[index].id}$LABEL_PRE_DRAW",
             "$SOURCE${route[index].id}$LABEL_PRE_DRAW",
             R.color.color_hint_text
@@ -435,7 +434,6 @@ class SimulationUtils(
             if (busesCoordinates[busIndex].size > 1) {
                 mMapHelper?.addTrackerLine(
                     busesCoordinates[busIndex],
-                    true,
                     "$LAYER$busId",
                     "$SOURCE$busId",
                     R.color.color_primary_green
@@ -1116,7 +1114,6 @@ class SimulationUtils(
                                 if (busesCoordinates[index].size > 1) {
                                     mMapHelper?.addTrackerLine(
                                         busesCoordinates[index],
-                                        true,
                                         "$LAYER${route[index].id}",
                                         "$SOURCE${route[index].id}",
                                         R.color.color_primary_green

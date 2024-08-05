@@ -96,21 +96,24 @@ class CheckRouteEstimatedTimeAndDistanceTest : BaseTestMainActivity() {
                 ),
             )
 
-            val btnCarGo = waitForView(
+            // btnCarGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     withEffectiveVisibility(Visibility.VISIBLE),
                 ),
             )
 
-            val btnWalkGo = waitForView(
+            // btnWalkGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_walk_go),
                     withEffectiveVisibility(Visibility.VISIBLE),
                 ),
             )
 
-            val btnTruckGo = waitForView(
+            // btnTruckGo
+            waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_truck_go),
                     withEffectiveVisibility(Visibility.VISIBLE),
