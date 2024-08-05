@@ -138,7 +138,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.7.0'
     testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
     testImplementation "org.mockito:mockito-inline:3.11.1"
-    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'org.robolectric:robolectric:4.11'
     testImplementation 'app.cash.turbine:turbine:0.12.3'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     // hilt test
