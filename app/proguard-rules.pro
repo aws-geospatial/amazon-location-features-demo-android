@@ -60,6 +60,11 @@
 #Gson
 -keep class com.google.gson.stream.** { *; }
 
+# AWS IoT MQTT Manager
+-keep class org.eclipse.paho.clent.mqttv3.** {*;}
+-keep class org.eclipse.paho.client.mqttv3.*$* { *; }
+-keep class org.eclipse.paho.client.mqttv3.logging.JSR47Logger { *; }
+
 # Keep class names of Hilt injected ViewModels since their name are used as a multibinding map key.
 -keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
 
