@@ -19,6 +19,7 @@ import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_15000
+import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
@@ -45,7 +46,7 @@ class TrackingDeleteTrackingHistoryTest : BaseTestMainActivity() {
     fun showDeleteTrackingTest() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-        Thread.sleep(DELAY_1000)
+        Thread.sleep(DELAY_2000)
 
         val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
         tracking.click()

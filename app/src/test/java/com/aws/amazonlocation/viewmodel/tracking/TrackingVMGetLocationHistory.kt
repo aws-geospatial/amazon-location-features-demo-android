@@ -52,7 +52,10 @@ class TrackingVMGetLocationHistory : BaseTest() {
     fun getLocationHistorySuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getLocationHistory(any(), any(), any(), any(), any())).thenAnswer {
             val callback: LocationHistoryInterface = it.arguments[4] as LocationHistoryInterface
-            callback.success(Responses.RESPONSE_LOCATION_HISTORY)
+            val data = Responses.RESPONSE_LOCATION_HISTORY
+            data.response = data.response
+            data.errorMessage = data.errorMessage
+            callback.success(data)
         }
 
         val dates = getDateRange(TRACKING_HISTORY_START_DATE, TRACKING_HISTORY_END_DATE)

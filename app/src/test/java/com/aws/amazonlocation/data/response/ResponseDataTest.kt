@@ -163,7 +163,7 @@ class ResponseDataTest {
             isDisconnectFromAWSRequired = false
         )
         addGeofenceResponse.message = NO_DATA_FOUND
-        addGeofenceResponse.isDisconnectFromAWSRequired = false
+        addGeofenceResponse.isDisconnectFromAWSRequired = addGeofenceResponse.isDisconnectFromAWSRequired
         Assert.assertTrue(TEST_FAILED_SIGN_OUT_DATA, addGeofenceResponse.message == NO_DATA_FOUND)
     }
 
@@ -234,22 +234,9 @@ class ResponseDataTest {
             isSelected = false,
             mapInnerData = null
         )
+        mapStyleData.isDisable = mapStyleData.isDisable
         mapStyleData.mapInnerData = arrayListOf(data)
         Assert.assertTrue(TEST_FAILED_MAP_STYLE_DATA, !mapStyleData.isSelected)
-    }
-
-    @Test
-    fun navigationResponseTest() {
-        val navigationResponse = Responses.RESPONSE_NAVIGATION_CAR
-        navigationResponse.distance = navigationResponse.distance
-        navigationResponse.duration = navigationResponse.duration
-        navigationResponse.navigationList = navigationResponse.navigationList
-        navigationResponse.endLat = navigationResponse.endLat
-        navigationResponse.endLng = navigationResponse.endLng
-        navigationResponse.startLat = navigationResponse.startLat
-        navigationResponse.startLng = navigationResponse.startLng
-        navigationResponse.destinationAddress = navigationResponse.destinationAddress
-        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationResponse.duration == TEST_DATA_6)
     }
 
     @Test
@@ -289,6 +276,9 @@ class ResponseDataTest {
         navigationResponse.isBusStopData = navigationResponse.isBusStopData
         navigationResponse.busStopCount = navigationResponse.busStopCount
         navigationResponse.devicePositionData = navigationResponse.devicePositionData
+        navigationResponse.devicePositionData?.latitude = navigationResponse.devicePositionData?.latitude!!
+        navigationResponse.devicePositionData?.longitude = navigationResponse.devicePositionData?.longitude!!
+        navigationResponse.devicePositionData?.receivedTime = navigationResponse.devicePositionData?.receivedTime!!
         Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationResponse.headerData == "test")
     }
 

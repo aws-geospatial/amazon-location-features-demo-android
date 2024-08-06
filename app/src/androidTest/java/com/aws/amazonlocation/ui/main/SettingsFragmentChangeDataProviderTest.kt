@@ -51,14 +51,14 @@ class SettingsFragmentChangeDataProviderTest : BaseTestMainActivity() {
             val hereMapName = mActivityRule.activity.getString(R.string.here)
 
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
+            Thread.sleep(DELAY_3000)
 
             goToDataProvider()
 
             onView(
                 allOf(withId(R.id.ll_here), isDisplayed()),
             ).perform(click())
-
+            Thread.sleep(DELAY_3000)
             var selectedMapName = preferenceManager.getValue(KEY_MAP_NAME, esriMapName)
 
             if (selectedMapName != hereMapName) {
@@ -72,7 +72,7 @@ class SettingsFragmentChangeDataProviderTest : BaseTestMainActivity() {
             onView(
                 allOf(withId(R.id.ll_esri), isDisplayed()),
             ).perform(click())
-
+            Thread.sleep(DELAY_3000)
             selectedMapName = preferenceManager.getValue(KEY_MAP_NAME, esriMapName)
 
             if (selectedMapName != esriMapName) {

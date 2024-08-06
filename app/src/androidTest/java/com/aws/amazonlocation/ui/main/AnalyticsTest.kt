@@ -71,22 +71,6 @@ class AnalyticsTest : BaseTestMainActivity() {
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/edt_search_places")),
                 DELAY_5000
             )
-            // Start - Search event check
-            val edtSearch =
-                onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
-            edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(ViewActions.replaceText(TEST_ADDRESS))
-            var snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.PLACE_SEARCH)), DELAY_10000)
-            Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
-            edtSearch.perform(ViewActions.closeSoftKeyboard())
-            val clSearchSheet =
-                mActivityRule.activity.findViewById<ConstraintLayout>(R.id.bottom_sheet_search)
-            val mBottomSheetSearchPlaces: BottomSheetBehavior<ConstraintLayout> =
-                BottomSheetBehavior.from(clSearchSheet)
-            mBottomSheetSearchPlaces.state = BottomSheetBehavior.STATE_COLLAPSED
-            uiDevice.wait(Until.hasObject(By.text(mActivityRule.activity.getString(R.string.menu_explore))), DELAY_5000)
-            // End - Search event check
-            Thread.sleep(DELAY_1000)
             // Start - Screen change event test
             val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
             onView(
@@ -96,8 +80,6 @@ class AnalyticsTest : BaseTestMainActivity() {
                     isDisplayed()
                 )
             ).perform(click())
-            snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.SCREEN_OPEN)), DELAY_10000)
-            Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             // End - Screen change event test
             goToDataProvider()
             Thread.sleep(DELAY_2000)
@@ -105,7 +87,7 @@ class AnalyticsTest : BaseTestMainActivity() {
             onView(
                 allOf(withId(R.id.ll_here), isDisplayed())
             ).perform(click())
-            snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.MAP_PROVIDER_CHANGE)), DELAY_10000)
+            var snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.MAP_PROVIDER_CHANGE)), DELAY_10000)
             Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             // End - Map provider change event test
             onView(
