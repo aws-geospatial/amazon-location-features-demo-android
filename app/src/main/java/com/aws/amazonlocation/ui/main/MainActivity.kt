@@ -245,12 +245,12 @@ class MainActivity : BaseActivity(), CrashListener {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
                 android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT
             ) {
-                this.handleOnBackPressed()
+                handleOnBackPressedEvent()
             }
         }
         else {
             onBackPressedDispatcher.addCallback(this /* lifecycle owner */) {
-                this.handleOnBackPressed()
+                handleOnBackPressedEvent()
             }
         }
     }
@@ -893,7 +893,7 @@ class MainActivity : BaseActivity(), CrashListener {
         }
     }
 
-    private fun handleOnBackPressed() {
+    private fun handleOnBackPressedEvent() {
         if (mNavController.currentDestination?.label == AWS_CLOUD_INFORMATION_FRAGMENT) {
             mNavController.popBackStack()
         } else if (mNavController.currentDestination?.label == VERSION_FRAGMENT) {
