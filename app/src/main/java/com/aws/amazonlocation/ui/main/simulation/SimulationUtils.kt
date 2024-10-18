@@ -6,18 +6,18 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos
-import com.amazonaws.services.geo.AmazonLocationClient
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
+import com.amazonaws.services.iot.client.AWSIotMessage
+import com.amazonaws.services.iot.client.AWSIotMqttClient
+import com.amazonaws.services.iot.client.AWSIotQos
+import com.amazonaws.services.iot.client.AWSIotTopic
+import com.amazonaws.services.iot.client.auth.CredentialsProvider
+import com.amazonaws.services.iot.client.auth.StaticCredentialsProvider
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.BusRouteCoordinates
 import com.aws.amazonlocation.data.response.NotificationSimulationData
@@ -33,7 +33,7 @@ import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.CLICK_DEBOUNCE_ENABLE
-import com.aws.amazonlocation.utils.DELAY_1000
+import com.aws.amazonlocation.utils.DELAY_PROCESS_1000
 import com.aws.amazonlocation.utils.DELAY_SIMULATION_2000
 import com.aws.amazonlocation.utils.ENTER
 import com.aws.amazonlocation.utils.EventType
@@ -50,6 +50,8 @@ import com.aws.amazonlocation.utils.LAYER_SIMULATION_ICON
 import com.aws.amazonlocation.utils.MapCameraZoom.SIMULATION_CAMERA_ZOOM_1
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.NotificationHelper
+import com.aws.amazonlocation.utils.PREFS_KEY_IDENTITY_ID
+import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.SOURCE
 import com.aws.amazonlocation.utils.SOURCE_SIMULATION_ICON
@@ -75,15 +77,7 @@ import com.aws.amazonlocation.utils.simulationLonEast
 import com.aws.amazonlocation.utils.simulationLonWest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
-import com.mapbox.geojson.LineString
-import com.mapbox.geojson.Point
-import com.mapbox.geojson.Polygon
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.style.layers.FillLayer
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import java.util.Date
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -91,7 +85,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Date
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.geometry.LatLngBounds
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.style.layers.FillLayer
+import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.sources.GeoJsonSource
+import org.maplibre.geojson.LineString
+import org.maplibre.geojson.Point
+import org.maplibre.geojson.Polygon
+import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -106,7 +109,7 @@ class SimulationUtils(
     private var isCoroutineStarted: Boolean = false
     private var notificationId: Int = 1
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
-    private var mqttManager: AWSIotMqttManager? = null
+    private var mqttClient: AWSIotMqttClient? = null
     private var simulationTrackingListAdapter: SimulationListAdapter? = null
     private var simulationNotificationAdapter: SimulationNotificationAdapter? = null
     private var mBottomSheetSimulationBehavior: BottomSheetBehavior<ConstraintLayout>? = null
@@ -114,8 +117,7 @@ class SimulationUtils(
     private var mFragmentActivity: FragmentActivity? = null
     private var simulationInterface: SimulationInterface? = null
     private var mMapHelper: MapHelper? = null
-    private var mMapboxMap: MapboxMap? = null
-    private var mClient: AmazonLocationClient? = null
+    private var mMapboxMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mIsLocationUpdateEnable = false
     private var simulationHistoryData = arrayListOf<SimulationHistoryData>()
@@ -132,13 +134,13 @@ class SimulationUtils(
     private var mPreDrawTrackerLine = MutableList(notificationData.size) { mutableListOf<Point>() }
     private var busStopCounts: MutableList<Int>? = null
     private var notificationHelper: NotificationHelper? = null
+    private var encryptedSharedPreferences: EncryptedSharedPreferences?= null
 
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapboxMap,
+        mapboxMap: MapLibreMap,
         mMapHelper: MapHelper
     ) {
-        mClient = AmazonLocationClient(AWSMobileClient.getInstance())
         this.mMapHelper = mMapHelper
         this.mMapboxMap = mapboxMap
         this.mActivity = activity
@@ -250,15 +252,21 @@ class SimulationUtils(
         val mLatLngList = arrayListOf<LatLng>()
         if (mGeofenceList.isNotEmpty()) {
             mGeofenceList[position].forEachIndexed { index, data ->
-                val latLng =
-                    LatLng(data.geometry.circle.center[1], data.geometry.circle.center[0])
-                setDefaultIconWithGeofence("$position$index")
-                mLatLngList.add(latLng)
-                drawSimulationPolygonCircle(
-                    Point.fromLngLat(latLng.longitude, latLng.latitude),
-                    data.geometry.circle.radius.toInt(),
-                    "$position$index"
-                )
+                data.geometry?.circle?.center?.let { doubles ->
+                    val latLng = LatLng(
+                            doubles[1],
+                            doubles[0]
+                        )
+                    setDefaultIconWithGeofence("$position$index")
+                    mLatLngList.add(latLng)
+                    data.geometry?.circle?.radius?.let {
+                        drawSimulationPolygonCircle(
+                            Point.fromLngLat(latLng.longitude, latLng.latitude),
+                            it.toInt(),
+                            "$position$index"
+                        )
+                    }
+                }
             }
         }
     }
@@ -416,7 +424,7 @@ class SimulationUtils(
             }
 
             mMapHelper?.startAnimation(latLng, busIndex)
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             val latLngPoint = Point.fromLngLat(point[0], point[1])
             busesCoordinates[busIndex].add(latLngPoint)
             val positionData: String = when (busesCoordinates[busIndex].size) {
@@ -555,6 +563,15 @@ class SimulationUtils(
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     }
                 })
+
+            mFragmentActivity?.let {
+                if (encryptedSharedPreferences == null) {
+                    encryptedSharedPreferences = EncryptedSharedPreferences(
+                        it.applicationContext,
+                        PREFS_NAME_AUTH
+                    ).apply { initEncryptedSharedPreferences() }
+                }
+            }
             initClick()
             initAdapter()
             setSpinnerData()
@@ -564,7 +581,7 @@ class SimulationUtils(
                 val isRtl =
                     languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
                 if (isRtl) {
-                    ViewCompat.setLayoutDirection(clPersistentBottomSheetSimulation, ViewCompat.LAYOUT_DIRECTION_RTL)
+                    clPersistentBottomSheetSimulation.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 }
             }
         }
@@ -622,7 +639,7 @@ class SimulationUtils(
                             isLocationStartNeeded = true
                         }
                         CoroutineScope(Dispatchers.Default).launch {
-                            delay(DELAY_1000)
+                            delay(DELAY_PROCESS_1000)
                             withContext(Dispatchers.Main) {
                                 simulationHistoryData.clear()
                                 simulationHistoryData.addAll(
@@ -642,7 +659,7 @@ class SimulationUtils(
                         Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION),
                         Pair(AnalyticsAttribute.BUS_NAME, selectedData)
                     )
-                    (activity as MainActivity).analyticsHelper?.recordEvent(EventType.CHANGE_BUS_TRACKING_HISTORY, properties)
+                    (activity as MainActivity).analyticsUtils?.recordEvent(EventType.CHANGE_BUS_TRACKING_HISTORY, properties)
                     tvChangeRoute.text =
                         buildString {
                             append(selectedData.split(" ")[0])
@@ -781,22 +798,23 @@ class SimulationUtils(
     }
 
     private fun stopMqttManager() {
+        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
         mIsLocationUpdateEnable = false
-        if (mqttManager != null) {
+        if (mqttClient != null) {
             try {
-                mqttManager?.unsubscribeTopic("${mAWSLocationHelper.getCognitoCachingCredentialsProvider()?.identityId}/$TRACKER")
+                mqttClient?.unsubscribe("${identityId}/${TRACKER}")
             } catch (_: Exception) {
             }
 
             try {
-                mqttManager?.disconnect()
+                mqttClient?.disconnect()
             } catch (_: Exception) {
             }
-            mqttManager = null
+            mqttClient = null
             val properties = listOf(
                 Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION)
             )
-            (activity as MainActivity).analyticsHelper?.recordEvent(
+            (activity as MainActivity).analyticsUtils?.recordEvent(
                 EventType.STOP_TRACKING,
                 properties
             )
@@ -804,9 +822,16 @@ class SimulationUtils(
     }
 
     private fun startMqttManager() {
-        if (mqttManager != null) stopMqttManager()
-        val identityId: String? =
-            mAWSLocationHelper.getCognitoCachingCredentialsProvider()?.identityId
+        if (mqttClient != null) stopMqttManager()
+        mActivity?.let {
+            if (encryptedSharedPreferences == null) {
+                encryptedSharedPreferences = EncryptedSharedPreferences(
+                    it.applicationContext,
+                    PREFS_NAME_AUTH
+                ).apply { initEncryptedSharedPreferences() }
+            }
+        }
+        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
         val defaultIdentityPoolId: String = Units.getDefaultIdentityPoolId(
             mPreferenceManager?.getValue(
                 KEY_SELECTED_REGION,
@@ -814,47 +839,35 @@ class SimulationUtils(
             ),
             mPreferenceManager?.getValue(KEY_NEAREST_REGION, "")
         )
-        mqttManager =
-            AWSIotMqttManager(
-                identityId,
-                getSimulationWebSocketUrl(defaultIdentityPoolId)
-            )
-        mqttManager?.isAutoReconnect =
-            false // To be able to display Exceptions and debug the problem.
-        mqttManager?.keepAlive = 60
-        mqttManager?.setCleanSession(true)
+
+        val credentials = createCredentialsProvider(mAWSLocationHelper.getCredentials())
+        mqttClient = AWSIotMqttClient(getSimulationWebSocketUrl(defaultIdentityPoolId), identityId, credentials, defaultIdentityPoolId.split(":")[0])
+
         try {
-            val instance = mAWSLocationHelper.getCognitoCachingCredentialsProvider()
-            mqttManager?.connect(instance) { status, throwable ->
-                runOnUiThread {
-                    when (status) {
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Connecting -> {
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Connected -> {
-                            mIsLocationUpdateEnable = true
-                            startTracking()
-                            identityId?.let { subscribeTopic(it) }
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Reconnecting -> {
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.ConnectionLost -> {
-                            throwable?.printStackTrace()
-                        }
-                        else -> {
-                            simulationBinding?.apply {
-                                viewLoader.hide()
-                                tvStopTracking.show()
-                                cardStartTracking.isEnabled = true
-                            }
-                        }
-                    }
-                }
-            }
+            mqttClient?.connect()
+            mIsLocationUpdateEnable = true
+            startTracking()
+            identityId?.let { subscribeTopic(it) }
         } catch (e: Exception) {
             e.printStackTrace()
+            simulationBinding?.apply {
+                viewLoader.hide()
+                tvStopTracking.show()
+                cardStartTracking.isEnabled = true
+            }
         }
     }
 
+    private fun createCredentialsProvider(credentials: Credentials?): CredentialsProvider {
+        if (credentials?.accessKeyId == null || credentials.sessionToken == null) throw Exception("Credentials not found")
+        return StaticCredentialsProvider(
+            com.amazonaws.services.iot.client.auth.Credentials(
+                credentials.accessKeyId,
+                credentials.secretKey,
+                credentials.sessionToken,
+            )
+        )
+    }
     private fun startTracking() {
         simulationBinding?.apply {
             mActivity?.getColor(R.color.color_red)
@@ -900,70 +913,71 @@ class SimulationUtils(
             val properties = listOf(
                 Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION)
             )
-            (activity as MainActivity).analyticsHelper?.recordEvent(EventType.START_TRACKING, properties)
+            (activity as MainActivity).analyticsUtils?.recordEvent(EventType.START_TRACKING, properties)
         }
     }
-
     private fun subscribeTopic(identityId: String) {
         try {
-            mqttManager?.subscribeToTopic(
-                "$identityId/$TRACKER",
-                AWSIotMqttQos.QOS0
-            ) { _, data ->
-
-                val stringData = String(data)
-                if (stringData.isNotEmpty()) {
-                    val notificationData =
-                        Gson().fromJson(stringData, NotificationSimulationData::class.java)
-                    var subTitle = ""
-                    mFragmentActivity?.let {
-                        if (notificationData.trackerEventType.equals(ENTER, true)) {
-                            subTitle = "${it.getString(R.string.label_bus)} ${
-                            notificationData.geofenceId?.split("-")?.get(0)?.split("_")?.get(2)
-                            }: ${it.getString(R.string.label_entered)} ${notificationData.stopName} ${
-                            it.getString(
-                                R.string.label_geofence
-                            )
-                            }"
-                            routeData?.forEachIndexed { index, routeSimulationDataItem ->
-                                if (routeSimulationDataItem.geofenceCollection == notificationData.geofenceCollection) {
-                                    busStopCounts?.set(
-                                        index,
-                                        busStopCounts?.get(index)?.plus(1) ?: 0
-                                    )
-                                    busStopCounts?.get(index)
-                                        ?.let { addDataInList(index, it, notificationData) }
-                                    return@forEachIndexed
+            val topic = object : AWSIotTopic("$identityId/$TRACKER", AWSIotQos.QOS0) {
+                override fun onMessage(message: AWSIotMessage?) {
+                    message?.let {
+                        val payloadBytes = it.payload
+                        val stringData = String(payloadBytes)
+                        if (stringData.isNotEmpty()) {
+                            val notificationData =
+                                Gson().fromJson(stringData, NotificationSimulationData::class.java)
+                            var subTitle = ""
+                            mFragmentActivity?.let {
+                                if (notificationData.trackerEventType.equals(ENTER, true)) {
+                                    subTitle = "${it.getString(R.string.label_bus)} ${
+                                        notificationData.geofenceId?.split("-")?.get(0)?.split("_")?.get(2)
+                                    }: ${it.getString(R.string.label_entered)} ${notificationData.stopName} ${
+                                        it.getString(
+                                            R.string.label_geofence
+                                        )
+                                    }"
+                                    routeData?.forEachIndexed { index, routeSimulationDataItem ->
+                                        if (routeSimulationDataItem.geofenceCollection == notificationData.geofenceCollection) {
+                                            busStopCounts?.set(
+                                                index,
+                                                busStopCounts?.get(index)?.plus(1) ?: 0
+                                            )
+                                            busStopCounts?.get(index)
+                                                ?.let { addDataInList(index, it, notificationData) }
+                                            return@forEachIndexed
+                                        }
+                                    }
+                                } else {
+                                    subTitle = "${it.getString(R.string.label_bus)} ${
+                                        notificationData.geofenceId?.split("-")?.get(0)?.split("_")?.get(2)
+                                    }: ${it.getString(R.string.label_exited)} ${notificationData.stopName} ${
+                                        it.getString(
+                                            R.string.label_geofence
+                                        )
+                                    }"
                                 }
                             }
-                        } else {
-                            subTitle = "${it.getString(R.string.label_bus)} ${
-                            notificationData.geofenceId?.split("-")?.get(0)?.split("_")?.get(2)
-                            }: ${it.getString(R.string.label_exited)} ${notificationData.stopName} ${
-                            it.getString(
-                                R.string.label_geofence
-                            )
-                            }"
-                        }
-                    }
-                    notificationId++
-                    mActivity?.let {
-                        if (notificationHelper?.isNotificationGroupActive() == true) {
-                            notificationHelper?.showNotification(
-                                notificationId,
-                                subTitle,
-                                false
-                            )
-                        } else {
-                            notificationHelper?.showNotification(
-                                notificationId,
-                                subTitle,
-                                true
-                            )
+                            notificationId++
+                            mActivity?.let {
+                                if (notificationHelper?.isNotificationGroupActive() == true) {
+                                    notificationHelper?.showNotification(
+                                        notificationId,
+                                        subTitle,
+                                        false
+                                    )
+                                } else {
+                                    notificationHelper?.showNotification(
+                                        notificationId,
+                                        subTitle,
+                                        true
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
+            mqttClient?.subscribe(topic, com.aws.amazonlocation.utils.TIME_OUT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -975,7 +989,7 @@ class SimulationUtils(
         notificationData: NotificationSimulationData
     ) {
         CoroutineScope(Dispatchers.Default).launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             withContext(Dispatchers.Main) {
             }
         }
@@ -1020,7 +1034,7 @@ class SimulationUtils(
                                 Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION),
                                 Pair(AnalyticsAttribute.BUS_NAME, notificationData[position].name)
                             )
-                            (activity as MainActivity).analyticsHelper?.recordEvent(EventType.ENABLE_NOTIFICATION, properties)
+                            (activity as MainActivity).analyticsUtils?.recordEvent(EventType.ENABLE_NOTIFICATION, properties)
                         } else {
                             val needToStart = mIsLocationUpdateEnable
                             mIsLocationUpdateEnable = false
@@ -1039,7 +1053,7 @@ class SimulationUtils(
                                 Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION),
                                 Pair(AnalyticsAttribute.BUS_NAME, notificationData[position].name)
                             )
-                            activity.analyticsHelper?.recordEvent(EventType.DISABLE_NOTIFICATION, properties)
+                            activity.analyticsUtils?.recordEvent(EventType.DISABLE_NOTIFICATION, properties)
                         }
                         zoomCamera()
                     }
@@ -1126,7 +1140,7 @@ class SimulationUtils(
             }
         }
         (activity as MainActivity).lifecycleScope.launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             zoomCamera()
         }
     }
@@ -1144,7 +1158,7 @@ class SimulationUtils(
         isCoroutineStarted = false
         coroutineScope.cancel()
         (activity as MainActivity).lifecycleScope.launch {
-            delay(DELAY_1000)
+            delay(DELAY_PROCESS_1000)
             routeData?.forEach { routeSimulationDataItem ->
                 routeSimulationDataItem.id?.let { it1 ->
                     mMapHelper?.removeSource("$SOURCE_SIMULATION_ICON$it1")
@@ -1202,18 +1216,18 @@ class SimulationUtils(
         }
     }
 
-    private fun MapboxMap.limitViewToBounds(bounds: LatLngBounds) {
+    private fun MapLibreMap.limitViewToBounds(bounds: LatLngBounds) {
         val newBoundsHeight =
             bounds.latitudeSpan - projection.visibleRegion.latLngBounds.latitudeSpan
         val newBoundsWidth =
             bounds.longitudeSpan - projection.visibleRegion.latLngBounds.longitudeSpan
         val leftTopLatLng = LatLng(
-            bounds.latNorth - (bounds.latitudeSpan - newBoundsHeight) / 2,
-            bounds.lonEast - (bounds.longitudeSpan - newBoundsWidth) / 2 - newBoundsWidth
+            bounds.latitudeNorth - (bounds.latitudeSpan - newBoundsHeight) / 2,
+            bounds.longitudeEast - (bounds.longitudeSpan - newBoundsWidth) / 2 - newBoundsWidth
         )
         val rightBottomLatLng = LatLng(
-            bounds.latNorth - (bounds.latitudeSpan - newBoundsHeight) / 2 - newBoundsHeight,
-            bounds.lonEast - (bounds.longitudeSpan - newBoundsWidth) / 2
+            bounds.latitudeNorth - (bounds.latitudeSpan - newBoundsHeight) / 2 - newBoundsHeight,
+            bounds.longitudeEast - (bounds.longitudeSpan - newBoundsWidth) / 2
         )
         val newBounds = LatLngBounds.Builder()
             .include(leftTopLatLng)
@@ -1222,8 +1236,7 @@ class SimulationUtils(
         setLatLngBoundsForCameraTarget(newBounds)
     }
 
-    private fun MapboxMap.removeViewBounds() {
-        // Set the LatLngBounds for the camera target to null
+    private fun MapLibreMap.removeViewBounds() {
         setLatLngBoundsForCameraTarget(null)
         style?.let { mMapHelper?.updateZoomRange(it) }
         mMapHelper?.checkLocationComponentEnable((mActivity as BaseActivity), false)

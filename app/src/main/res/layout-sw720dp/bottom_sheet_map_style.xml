@@ -289,7 +289,7 @@
                     android:id="@+id/group_filter_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="card_esri,card_here,card_grab_map,card_open_data" />
+                    app:constraint_referenced_ids="card_esri,card_here,card_open_data" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

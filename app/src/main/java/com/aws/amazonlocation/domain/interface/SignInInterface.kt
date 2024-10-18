@@ -1,17 +1,18 @@
 package com.aws.amazonlocation.domain.`interface`
 
 import com.aws.amazonlocation.data.response.LoginResponse
+import okhttp3.Response
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
 interface SignInInterface {
 
-    fun signInFailed(exception: String?) {}
+    fun fetchTokensWithOkHttpFailed(exception: String?) {}
 
-    fun signOutSuccess(success: String, isDisconnectFromAWSRequired: Boolean) {}
+    fun fetchTokensWithOkHttpSuccess(success: String, response: Response) {}
 
-    fun signOutFailed(error: String) {}
+    fun refreshTokensWithOkHttpFailed(exception: String?) {}
 
-    fun getUserDetails(mLoginResponse: LoginResponse) {}
+    fun refreshTokensWithOkHttpSuccess(success: String, response: Response) {}
 }

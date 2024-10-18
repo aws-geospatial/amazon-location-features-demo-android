@@ -11,13 +11,10 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.BottomSheetSigninRequiredBinding
 import com.aws.amazonlocation.domain.`interface`.SignInRequiredInterface
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.utils.KEY_POOL_ID
-import com.aws.amazonlocation.utils.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -26,11 +23,6 @@ import javax.inject.Inject
 class SignInRequiredBottomSheetFragment(private var mSignInRequiredInterface: SignInRequiredInterface) : BottomSheetDialogFragment() {
 
     private lateinit var mBinding: BottomSheetSigninRequiredBinding
-
-    @Inject
-    lateinit var mPreferenceManager: PreferenceManager
-
-    private var mPoolId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +71,6 @@ class SignInRequiredBottomSheetFragment(private var mSignInRequiredInterface: Si
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPoolId = mPreferenceManager.getValue(KEY_POOL_ID, "")
         dialog?.setCancelable(true)
         dialog?.setCanceledOnTouchOutside(false)
         dialog?.setOnKeyListener { _, keyCode, _ ->

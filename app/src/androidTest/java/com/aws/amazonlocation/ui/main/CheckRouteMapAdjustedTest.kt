@@ -13,7 +13,6 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.amplifyframework.geo.maplibre.view.MapLibreView
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
@@ -35,11 +34,12 @@ import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
-import com.mapbox.mapboxsdk.maps.MapboxMap
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert
 import org.junit.Test
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -51,11 +51,11 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
     @Test
     fun showRouteMapAdjustedTest() {
         try {
-            var mapbox: MapboxMap? = null
+            var mapbox: MapLibreMap? = null
             enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
             Thread.sleep(DELAY_2000)
-            val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+            val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }

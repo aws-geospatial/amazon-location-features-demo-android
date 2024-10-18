@@ -9,19 +9,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.services.geo.AmazonLocationClient
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.GeofenceBottomSheetEnum
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.databinding.BottomSheetAddGeofenceBinding
 import com.aws.amazonlocation.databinding.BottomSheetGeofenceListBinding
-import com.aws.amazonlocation.domain.*
 import com.aws.amazonlocation.domain.`interface`.GeofenceInterface
 import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
 import com.aws.amazonlocation.ui.base.BaseActivity
@@ -35,9 +31,6 @@ import com.aws.amazonlocation.utils.Durations.DEFAULT_RADIUS
 import com.aws.amazonlocation.utils.GeofenceCons.GEOFENCE_COLLECTION
 import com.aws.amazonlocation.utils.geofence_helper.GeofenceHelper
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolDragListener
 import java.text.DecimalFormat
 import java.util.regex.Pattern
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +39,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -53,6 +49,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("NotifyDataSetChanged")
 class GeofenceUtils {
 
+    var isChangeDataProviderClicked: Boolean = false
     private var mBottomSheetGeofenceListBehavior: BottomSheetBehavior<ConstraintLayout>? = null
     private var mBottomSheetAddGeofenceBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
@@ -66,10 +63,9 @@ class GeofenceUtils {
     private var mGeofenceListAdapter: GeofenceListAdapter? = null
     private var mGeofenceList = ArrayList<ListGeofenceResponseEntry>()
     private var mFragmentActivity: FragmentActivity? = null
-    private var mMapboxMap: MapboxMap? = null
+    private var mMapboxMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mGeofenceHelper: GeofenceHelper? = null
-    private var mClient: AmazonLocationClient? = null
     private var mGeofenceInterface: GeofenceInterface? = null
     private var mMapHelper: MapHelper? = null
     private var mIsBtnEnable = false
@@ -79,11 +75,10 @@ class GeofenceUtils {
 
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapboxMap,
+        mapboxMap: MapLibreMap,
         mMapHelper: MapHelper,
         prefrenceManager: PreferenceManager
     ) {
-        mClient = AmazonLocationClient(AWSMobileClient.getInstance())
         this.mMapHelper = mMapHelper
         this.mMapboxMap = mapboxMap
         this.mActivity = activity
@@ -355,7 +350,7 @@ class GeofenceUtils {
                     val propertiesAws = listOf(
                         Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES)
                     )
-                    (mActivity as MainActivity).analyticsHelper?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
+                    (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
                     mGeofenceInterface?.hideShowBottomNavigationBar(
                         true,
                         GeofenceBottomSheetEnum.EMPTY_GEOFENCE_BOTTOM_SHEET
@@ -366,28 +361,30 @@ class GeofenceUtils {
             }
             cardTrackerGeofenceSimulation.hide()
             btnTryGeofence.setOnClickListener {
-                preferenceManager?.let {
-                    if (isGrabMapSelected(it, btnTryGeofence.context)) {
+                preferenceManager?.let { manager ->
+                    if (isGrabMapSelected(manager, btnTryGeofence.context)) {
                         mActivity?.changeDataProviderDialog(object : ChangeDataProviderInterface {
                             override fun changeDataProvider(dialog: DialogInterface) {
                                 mActivity?.getString(R.string.map_light)?.let { it1 ->
-                                    it.setValue(
+                                    manager.setValue(
                                         KEY_MAP_STYLE_NAME,
                                         it1
                                     )
                                 }
                                 mActivity?.getString(R.string.esri)?.let { it1 ->
-                                    it.setValue(
+                                    manager.setValue(
                                         KEY_MAP_NAME,
                                         it1
                                     )
                                 }
-                                (mActivity as MainActivity).lifecycleScope.launch {
-                                    if (!isRunningTest) {
-                                        delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
-                                        mFragmentActivity?.restartApplication()
-                                    }
+                                isChangeDataProviderClicked = true
+                                mActivity?.let {
+                                    (it as MainActivity).changeMapStyle(
+                                        it.getString(R.string.esri),
+                                        it.getString(R.string.map_light),
+                                    )
                                 }
+                                isChangeDataProviderClicked = false
                             }
                         })
                     } else {
@@ -402,7 +399,7 @@ class GeofenceUtils {
                         val propertiesAws = listOf(
                             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES)
                         )
-                        (mActivity as MainActivity).analyticsHelper?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
+                        (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
                         mGeofenceInterface?.hideShowBottomNavigationBar(
                             true,
                             GeofenceBottomSheetEnum.NONE
@@ -507,16 +504,18 @@ class GeofenceUtils {
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES),
             Pair(AnalyticsAttribute.GEOFENCE_ID, data.geofenceId)
         )
-        (mActivity as MainActivity).analyticsHelper?.recordEvent(EventType.GEOFENCE_ITEM_SELECTED, propertiesAws)
+        (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_ITEM_SELECTED, propertiesAws)
         mGeofenceInterface?.hideShowBottomNavigationBar(true, GeofenceBottomSheetEnum.NONE)
-        val latLng = LatLng(data.geometry.circle.center[1], data.geometry.circle.center[0])
-        mBindingAddGeofence?.tvAddGeofenceSheet?.text =
-            mActivity?.resources?.getString(R.string.edit_geofence)
-        mBindingAddGeofence?.edtEnterGeofenceName?.setText(data.geofenceId)
-        mGeofenceHelper?.mCircleRadius = data.geometry.circle.radius.toInt()
-        mBindingAddGeofence?.groupRadius?.show()
-        mGeofenceHelper?.mDefaultLatLng = latLng
-        mBindingAddGeofence?.seekbarGeofenceRadius?.progress = data.geometry.circle.radius.toInt()
+        data.geometry?.circle?.let {
+            val latLng = LatLng(it.center[1], it.center[0])
+            mBindingAddGeofence?.tvAddGeofenceSheet?.text =
+                mActivity?.resources?.getString(R.string.edit_geofence)
+            mBindingAddGeofence?.edtEnterGeofenceName?.setText(data.geofenceId)
+            mGeofenceHelper?.mCircleRadius = it.radius.toInt()
+            mBindingAddGeofence?.groupRadius?.show()
+            mGeofenceHelper?.mDefaultLatLng = latLng
+            mBindingAddGeofence?.seekbarGeofenceRadius?.progress = it.radius.toInt()
+        }
         hideGeofenceListBottomSheet()
         if (mGeofenceHelper?.mIsDefaultGeofence == false) {
             mGeofenceHelper?.setDefaultIconWithGeofence()
@@ -605,10 +604,7 @@ class GeofenceUtils {
                 languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
             if (isRtl) {
                 mBindingGeofenceList?.clGeofenceListMain?.let {
-                    ViewCompat.setLayoutDirection(
-                        it,
-                        ViewCompat.LAYOUT_DIRECTION_RTL
-                    )
+                    it.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 }
             }
         }
@@ -689,10 +685,7 @@ class GeofenceUtils {
                 languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
             if (isRtl) {
                 mBindingAddGeofence?.clPersistentBottomSheetAddGeofence?.let {
-                    ViewCompat.setLayoutDirection(
-                        it,
-                        ViewCompat.LAYOUT_DIRECTION_RTL
-                    )
+                    it.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 }
             }
         }
@@ -807,30 +800,38 @@ class GeofenceUtils {
             val mLatLngList = ArrayList<LatLng>()
             mGeofenceList.forEach { data ->
                 mGeofenceHelper?.let {
-                    if (checkGeofenceInsideGrab(LatLng(data.geometry.circle.center[1], data.geometry.circle.center[0]), preferenceManager, mActivity?.applicationContext)) {
-                        mActivity?.let { activity ->
-                            mMapHelper?.addGeofenceMarker(
-                                activity,
-                                data,
-                                object : MarkerClickInterface {
-                                    override fun markerClick(placeData: String) {
-                                        mGeofenceList.forEachIndexed { index, data ->
-                                            if (data.geofenceId == placeData) {
-                                                if (checkInternetConnection()) {
-                                                    editGeofenceBottomSheet(index, data)
+                    data.geometry?.circle?.center?.let {
+                        if (checkGeofenceInsideGrab(
+                                LatLng(
+                                    it[1],
+                                    it[0]
+                                ), preferenceManager, mActivity?.applicationContext
+                            )
+                        ) {
+                            mActivity?.let { activity ->
+                                mMapHelper?.addGeofenceMarker(
+                                    activity,
+                                    data,
+                                    object : MarkerClickInterface {
+                                        override fun markerClick(placeData: String) {
+                                            mGeofenceList.forEachIndexed { index, data ->
+                                                if (data.geofenceId == placeData) {
+                                                    if (checkInternetConnection()) {
+                                                        editGeofenceBottomSheet(index, data)
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
+                                )
+                            }
+                            mLatLngList.add(
+                                LatLng(
+                                    it[1],
+                                    it[0]
+                                )
                             )
                         }
-                        mLatLngList.add(
-                            LatLng(
-                                data.geometry.circle.center[1],
-                                data.geometry.circle.center[0]
-                            )
-                        )
                     }
                 }
             }
@@ -877,8 +878,8 @@ class GeofenceUtils {
     }
 
     private fun setGeofenceSearchData(position: Int) {
-        val coordinates = mPlaceList[position].amazonLocationPlace?.coordinates
-        val latLng = LatLng(coordinates?.latitude!!, coordinates.longitude)
+        val coordinates = mPlaceList[position].amazonLocationPlace?.geometry?.point
+        val latLng = coordinates?.get(1)?.let { LatLng(it, coordinates[0]) }
         mBindingAddGeofence?.let { view ->
             view.edtAddGeofenceSearch.setText(mPlaceList[position].amazonLocationPlace?.label)
             view.edtAddGeofenceSearch.clearFocus()
@@ -891,7 +892,9 @@ class GeofenceUtils {
                 view.btnDeleteGeofence.hide()
             }
         }
-        mGeofenceHelper?.drawFillCircle(latLng)
+        if (latLng != null) {
+            mGeofenceHelper?.drawFillCircle(latLng)
+        }
         mPlaceList.clear()
         mSearchPlacesAdapter?.notifyDataSetChanged()
         mGeofenceSearchSuggestionAdapter?.notifyDataSetChanged()

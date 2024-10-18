@@ -9,10 +9,19 @@ import com.aws.amazonlocation.data.repository.GeofenceImp
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
 import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
 import com.aws.amazonlocation.getDateRange
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.DEVICE_ID
+import com.aws.amazonlocation.mock.MOCK_ERROR
+import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_ERROR_MESSAGE
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
+import com.aws.amazonlocation.mock.TRACKING_HISTORY_END_DATE
+import com.aws.amazonlocation.mock.TRACKING_HISTORY_START_DATE
+import com.aws.amazonlocation.mock.TRACKING_HISTORY_TODAY_END_DATE
+import com.aws.amazonlocation.mock.TRACKING_HISTORY_TODAY_START_DATE
 import com.aws.amazonlocation.ui.main.tracking.TrackingViewModel
 import com.aws.amazonlocation.utils.TrackerCons
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -22,7 +31,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class TrackingVMGetLocationHistoryToday : BaseTest() {
@@ -47,7 +55,6 @@ class TrackingVMGetLocationHistoryToday : BaseTest() {
         mTrackingViewModel = TrackingViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getLocationHistoryTodaySuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getLocationHistory(any(), any(), any(), any(), any())).thenAnswer {
@@ -61,12 +68,11 @@ class TrackingVMGetLocationHistoryToday : BaseTest() {
             mTrackingViewModel.getLocationHistoryToday(TrackerCons.TRACKER_COLLECTION, DEVICE_ID, dates.first, dates.second)
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, (result as HandleResult.Success).response == Responses.RESPONSE_LOCATION_HISTORY.response)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, (result as HandleResult.Success).response.devicePositions[0].deviceId == Responses.RESPONSE_LOCATION_HISTORY.response!!.devicePositions[0].deviceId)
             cancelAndIgnoreRemainingEvents()
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getLocationHistoryTodayError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getLocationHistory(any(), any(), any(), any(), any()))

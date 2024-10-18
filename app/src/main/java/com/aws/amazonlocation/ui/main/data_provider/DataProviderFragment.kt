@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.data_provider // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.data_provider
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,12 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
+import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentDataProviderBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.EventType
+import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_GRAB_DONT_ASK
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
@@ -112,7 +114,7 @@ class DataProviderFragment : BaseFragment() {
             Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.esri)),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.MAP_PROVIDER_CHANGE,
             properties
         )
@@ -142,7 +144,7 @@ class DataProviderFragment : BaseFragment() {
             Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.here)),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.MAP_PROVIDER_CHANGE,
             properties
         )
@@ -170,7 +172,7 @@ class DataProviderFragment : BaseFragment() {
             Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.open_data)),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.MAP_PROVIDER_CHANGE,
             properties
         )
@@ -201,7 +203,7 @@ class DataProviderFragment : BaseFragment() {
             ),
             mPreferenceManager.getValue(KEY_NEAREST_REGION, "")
         )
-        val isRestartNeeded =
+        var isRestartNeeded =
             if (defaultIdentityPoolId == BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP) {
                 false
             } else {
@@ -211,6 +213,10 @@ class DataProviderFragment : BaseFragment() {
                     !isGrab
                 }
             }
+        val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
+        if (mAuthStatus == AuthEnum.SIGNED_IN.name || mAuthStatus == AuthEnum.AWS_CONNECTED.name) {
+            isRestartNeeded = false
+        }
         if (isGrab) {
             val shouldShowGrabDialog = !mPreferenceManager.getValue(KEY_GRAB_DONT_ASK, false)
             if (shouldShowGrabDialog) {
@@ -220,6 +226,7 @@ class DataProviderFragment : BaseFragment() {
                         changeDataProviderGrab()
                         if (isRestartNeeded) {
                             mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
+                            mAWSLocationHelper.locationCredentialsProvider?.clear()
                             lifecycleScope.launch {
                                 if (!isRunningTest) {
                                     delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
@@ -242,6 +249,7 @@ class DataProviderFragment : BaseFragment() {
                 changeDataProviderGrab()
                 if (isRestartNeeded) {
                     mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
+                    mAWSLocationHelper.locationCredentialsProvider?.clear()
                     lifecycleScope.launch {
                         if (!isRunningTest) {
                             delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
@@ -279,7 +287,7 @@ class DataProviderFragment : BaseFragment() {
             Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.grab)),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.MAP_PROVIDER_CHANGE,
             properties
         )

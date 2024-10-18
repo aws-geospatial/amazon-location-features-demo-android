@@ -165,9 +165,9 @@
   <string name="error_route">Ruta no encontrado.</string>
   <string name="no_route_found">No ruta encontrado</string>
   <string name="error_switch_to_here">Distancia es mayor que 400 km, no puedo calcular vía Esri, amablemente cambiar a AQUÍ proveedora</string>
-  <string name="error_switch_to_here_miles">Distancia es mayor que %s mi, no puedo calcular vía Esri, amablemente cambiar a AQUÍ proveedora</string>
+  <string name="error_switch_to_here_miles" formatted="false">Distancia es mayor que %s mi, no puedo calcular vía Esri, amablemente cambiar a AQUÍ proveedora</string>
   <string name="error_distance_400">En Fuente de datos Esri, puntos de referencia por coche y camión mosto estar dentro 400 km, y puntos de referencia por camina mosto estar dentro 40 km.</string>
-  <string name="error_distance_248_miles">En Fuente de datos Esri, puntos de referencia por coche y camión mosto estar dentro %smi, y puntos de referencia por camina mosto estar dentro %smi.</string>
+  <string name="error_distance_248_miles" formatted="false">En Fuente de datos Esri, puntos de referencia por coche y camión mosto estar dentro %smi, y puntos de referencia por camina mosto estar dentro %smi.</string>
   <string name="connect_to_aws_account">Conéctate AWS Cuenta</string>
   <string name="label_preview">Vista previa</string>
   <string name="label_location_permission_denied">Ubicación permiso denegado</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">Aprenda Más</string>
   <string name="label_welcome_amazon">Bienvenido to\nAmazon Ubicación Demo</string>
   <string name="label_continue">Continuar</string>
-  <string name="label_right_aws">© 2023, Amazon Web Servicios, Cía. o sus afiliados. Todos derechos reservado.</string>
+  <string name="label_right_aws">© 2024, Amazon Web Servicios, Cía. o sus afiliados. Todos derechos reservado.</string>
   <string name="label_terms_desc">Por descargando, instalar, o usando la Amazon Ubicación Demo Aplicación, tú acordar a la Apps\'s **Términos y Condiciones** por usar.</string>
   <string name="label_terms_desc_terms_page">Por descargando, instalar, o usando la Amazon Ubicación Demo Aplicación, tú acordar a la Apps\'s **Términos y Condiciones** por usar.</string>
   <string name="text_terms_desc_coloured_1">Términos y Condiciones</string>

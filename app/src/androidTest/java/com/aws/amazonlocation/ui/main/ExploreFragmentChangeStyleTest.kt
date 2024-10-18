@@ -7,17 +7,15 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.amplifyframework.geo.maplibre.view.MapLibreView
-import com.aws.amazonlocation.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.*
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.utils.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.utils.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mapbox.mapboxsdk.maps.MapboxMap
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.CoreMatchers.allOf
@@ -25,6 +23,8 @@ import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -105,10 +105,10 @@ class ExploreFragmentChangeStyleTest : BaseTestMainActivity() {
     @Test
     fun testMapStyleChange() {
         try {
-            var mapbox: MapboxMap? = null
+            var mapbox: MapLibreMap? = null
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
 
-            val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+            val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
@@ -181,7 +181,7 @@ class ExploreFragmentChangeStyleTest : BaseTestMainActivity() {
         }
     }
 
-    private fun checkLoadedTheme(mapboxMap: MapboxMap?) {
+    private fun checkLoadedTheme(mapboxMap: MapLibreMap?) {
         Thread.sleep(DELAY_3000)
 
         getInstrumentation().waitForIdleSync()

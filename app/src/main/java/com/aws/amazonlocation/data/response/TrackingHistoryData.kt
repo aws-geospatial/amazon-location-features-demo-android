@@ -1,6 +1,7 @@
 package com.aws.amazonlocation.data.response
 
-import com.amazonaws.services.geo.model.DevicePosition
+import aws.sdk.kotlin.services.location.model.DevicePosition
+
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

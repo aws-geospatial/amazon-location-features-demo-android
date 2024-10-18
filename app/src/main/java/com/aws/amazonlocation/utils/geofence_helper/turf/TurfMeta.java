@@ -1,15 +1,18 @@
 package com.aws.amazonlocation.utils.geofence_helper.turf;
 
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Geometry;
-import com.mapbox.geojson.GeometryCollection;
-import com.mapbox.geojson.LineString;
-import com.mapbox.geojson.MultiLineString;
-import com.mapbox.geojson.MultiPoint;
-import com.mapbox.geojson.MultiPolygon;
-import com.mapbox.geojson.Point;
-import com.mapbox.geojson.Polygon;
+
+import com.aws.amazonlocation.utils.ExcludeFromJacocoGeneratedReport;
+
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+import org.maplibre.geojson.Geometry;
+import org.maplibre.geojson.GeometryCollection;
+import org.maplibre.geojson.LineString;
+import org.maplibre.geojson.MultiLineString;
+import org.maplibre.geojson.MultiPoint;
+import org.maplibre.geojson.MultiPolygon;
+import org.maplibre.geojson.Point;
+import org.maplibre.geojson.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -304,6 +307,7 @@ public final class TurfMeta {
    * @return a {@code List} made up of {@link Point}s
    * @since 4.8.0
    */
+  @ExcludeFromJacocoGeneratedReport
   @NonNull
   private static List<Point> coordAllFromSingleGeometry(@NonNull List<Point> pointList,
                                                         @NonNull Geometry geometry,
@@ -327,20 +331,5 @@ public final class TurfMeta {
       }
     }
     return pointList;
-  }
-
-  /**
-   * Unwrap a coordinate {@link Point} from a {@link Feature} with a {@link Point} geometry.
-   *
-   * @param obj any value
-   * @return a coordinate
-   * @see <a href="http://turfjs.org/docs/#getcoord">Turf getCoord documentation</a>
-   * @since 3.2.0
-   */
-  public static Point getCoord(Feature obj) {
-    if (obj.geometry() instanceof Point) {
-      return (Point) obj.geometry();
-    }
-    throw new TurfException("A Feature with a Point geometry is required.");
   }
 }

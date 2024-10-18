@@ -165,9 +165,9 @@
   <string name="error_route">Parcours pas trouvé.</string>
   <string name="no_route_found">Non route trouvé</string>
   <string name="error_switch_to_here">Distance est plus grand que 400 km, ne peut pas calculer via Esri, gentiment interrupteur pour ICI fournisseur</string>
-  <string name="error_switch_to_here_miles">Distance est plus grand que %s mi, ne peut pas calculer via Esri, gentiment interrupteur pour ICI fournisseur</string>
+  <string name="error_switch_to_here_miles" formatted="false">Distance est plus grand que %s mi, ne peut pas calculer via Esri, gentiment interrupteur pour ICI fournisseur</string>
   <string name="error_distance_400">Dans Source de données Esri, points de cheminement pour voiture et un camion doit être dans 400 km, et points de cheminement pour marche doit être dans 40 km.</string>
-  <string name="error_distance_248_miles">Dans Source de données Esri, points de cheminement pour voiture et un camion doit être dans %smi, et points de cheminement pour marche doit être dans %smi.</string>
+  <string name="error_distance_248_miles" formatted="false">Dans Source de données Esri, points de cheminement pour voiture et un camion doit être dans %smi, et points de cheminement pour marche doit être dans %smi.</string>
   <string name="connect_to_aws_account">Connecter AWS Compte</string>
   <string name="label_preview">Aperçu</string>
   <string name="label_location_permission_denied">Emplacement autorisation nié</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">Apprenez Plus</string>
   <string name="label_welcome_amazon">Bienvenue to\nAmazon Emplacement Démo</string>
   <string name="label_continue">Poursuivre</string>
-  <string name="label_right_aws">© 2023, Amazon Web Des services, Inc. ou ses affiliés. Tous droits réservé.</string>
+  <string name="label_right_aws">© 2024, Amazon Web Des services, Inc. ou ses affiliés. Tous droits réservé.</string>
   <string name="label_terms_desc">Par téléchargement, installation, ou en utilisant le Amazon Emplacement Démo Application, vous d\'accord pour le Applis **Termes et Conditions** pour utiliser.</string>
   <string name="label_terms_desc_terms_page">Par téléchargement, installation, ou en utilisant le Amazon Emplacement Démo Application, vous d\'accord pour le Applis **Termes et Conditions** pour utiliser.</string>
   <string name="text_terms_desc_coloured_1">Termes et Conditions</string>

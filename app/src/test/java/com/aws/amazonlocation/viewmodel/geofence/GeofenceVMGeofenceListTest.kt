@@ -45,11 +45,13 @@ class GeofenceVMGeofenceListTest : BaseTest() {
         mGeofenceViewModel = GeofenceViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceListSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(anyOrNull(), anyOrNull())).thenAnswer {
             val callback: GeofenceAPIInterface = it.arguments[1] as GeofenceAPIInterface
+            val data = Responses.RESPONSE_GEOFENCE_LIST
+            data.message = data.message
+            data.geofenceList = data.geofenceList
             callback.getGeofenceList(Responses.RESPONSE_GEOFENCE_LIST)
         }
 
@@ -64,7 +66,6 @@ class GeofenceVMGeofenceListTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceListError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(anyOrNull(), anyOrNull())).thenAnswer {

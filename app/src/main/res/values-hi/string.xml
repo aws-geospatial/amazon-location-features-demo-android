@@ -167,7 +167,7 @@
   <string name="error_switch_to_here">दूरी है बृहत्तर की तुलना में 400 किमी, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
   <string name="error_switch_to_here_miles">दूरी है बृहत्तर की तुलना में %s मील, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
   <string name="error_distance_400">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर 400 किमी, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर 40 किमी।</string>
-  <string name="error_distance_248_miles">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर %smi, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर %smi।</string>
+  <string name="error_distance_248_miles" formatted="false">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर %smi, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर %smi।</string>
   <string name="connect_to_aws_account">कनेक्ट करें एडब्ल्यूएस अकाउंट</string>
   <string name="label_preview">पूर्वावलोकन</string>
   <string name="label_location_permission_denied">लोकेशन अनुमति इनकार किया</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">सीखें ज़्यादा</string>
   <string name="label_welcome_amazon">वेलकम to\nAmazon लोकेशन डेमो</string>
   <string name="label_continue">जारी रखें</string>
-  <string name="label_right_aws">© 2023, Amazon वेब सेवाएँ, निगमित या इसके सहयोगी कंपनियों। सभी अधिकार आरक्षित।</string>
+  <string name="label_right_aws">© 2024, Amazon वेब सेवाएँ, निगमित या इसके सहयोगी कंपनियों। सभी अधिकार आरक्षित।</string>
   <string name="label_terms_desc">द्वारा डाउनलोड कर रहा है, स्थापित कर रहा है, या इस्तेमाल करते हुए यह Amazon लोकेशन डेमो ऐप, आप सहमत हैं को यह ऐप्लिकेशन\'s **शर्तें &amp; शर्तें** के लिए उपयोग करें।</string>
   <string name="label_terms_desc_terms_page">द्वारा डाउनलोड कर रहा है, स्थापित कर रहा है, या इस्तेमाल करते हुए यह Amazon लोकेशन डेमो ऐप, आप सहमत हैं को यह ऐप्लिकेशन\'s **शर्तें &amp; शर्तें** के लिए उपयोग करें।</string>
   <string name="text_terms_desc_coloured_1">शर्तें &amp; शर्तेँ</string>

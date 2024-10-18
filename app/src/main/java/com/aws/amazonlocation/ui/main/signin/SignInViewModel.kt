@@ -1,26 +1,21 @@
 package com.aws.amazonlocation.ui.main.signin
 
-import android.app.Activity
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.mobile.client.Callback
-import com.amazonaws.mobile.client.results.SignInResult
-import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.data.common.HandleResult
-import com.aws.amazonlocation.data.response.LoginResponse
-import com.aws.amazonlocation.data.response.SignOutData
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
 import com.aws.amazonlocation.domain.usecase.AuthUseCase
+import com.aws.amazonlocation.utils.KEY_ACCESS_TOKEN
+import com.aws.amazonlocation.utils.KEY_AUTH_EXPIRES_IN
+import com.aws.amazonlocation.utils.KEY_AUTH_FETCH_TIME
 import com.aws.amazonlocation.utils.KEY_ID_TOKEN
-import com.aws.amazonlocation.utils.KEY_PROVIDER
-import com.aws.amazonlocation.utils.KEY_USER_DETAILS
+import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
+import com.aws.amazonlocation.utils.KEY_RESPONSE_ACCESS_TOKEN
+import com.aws.amazonlocation.utils.KEY_RESPONSE_EXPIRES_IN
+import com.aws.amazonlocation.utils.KEY_RESPONSE_ID_TOKEN
+import com.aws.amazonlocation.utils.KEY_RESPONSE_REFRESH_TOKEN
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.aws.amazonlocation.utils.isRunningTest
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -28,115 +23,69 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import okhttp3.Response
+import org.json.JSONObject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
 @HiltViewModel
-class SignInViewModel @Inject constructor(
-    private var mGetAuthUseCase: AuthUseCase,
-    private var mPreferenceManager: PreferenceManager,
-) :
-    ViewModel() {
+class SignInViewModel
+    @Inject
+    constructor(
+        private var mGetAuthUseCase: AuthUseCase,
+        private var mPreferenceManager: PreferenceManager,
+    ) : ViewModel() {
+        private val _fetchTokenResponse =
+            Channel<HandleResult<String>>(Channel.BUFFERED)
+        val fetchTokenResponse: Flow<HandleResult<String>> =
+            _fetchTokenResponse.receiveAsFlow()
 
-    private val _signInResponse =
-        Channel<HandleResult<String>>(Channel.BUFFERED)
-    val mSignInResponse: Flow<HandleResult<String>> =
-        _signInResponse.receiveAsFlow()
-
-    private val _signOutResponse =
-        Channel<HandleResult<SignOutData>>(Channel.BUFFERED)
-    val mSignOutResponse: Flow<HandleResult<SignOutData>> =
-        _signOutResponse.receiveAsFlow()
-
-    fun signInWithAmazon(
-        activity: Activity,
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (isRunningTest) {
-                AWSMobileClient.getInstance().signIn(
-                    BuildConfig.USER_LOGIN_NAME,
-                    BuildConfig.USER_LOGIN_PASSWORD,
-                    null,
-                    object : Callback<SignInResult> {
-                        override fun onResult(result: SignInResult?) {
-                            val mLoginResponse = LoginResponse()
-                            mLoginResponse.success =
-                                activity.resources.getString(R.string.login_success)
-                            mLoginResponse.name = AWSMobileClient.getInstance().username
-                            val userState = AWSMobileClient.getInstance().currentUserState()
-                            if (userState.details.containsKey("token")) {
-                                mLoginResponse.idToken = userState.details["token"]
-                            }
-
-                            if (userState.details.containsKey("provider")) {
-                                mLoginResponse.provider = userState.details["provider"]
-                            }
-
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
-                            )
-                            mLoginResponse.idToken?.let { idToken ->
-                                mPreferenceManager.setValue(
-                                    KEY_ID_TOKEN,
-                                    idToken,
-                                )
-                            }
-
-                            mLoginResponse.provider?.let { provider ->
-                                mPreferenceManager.setValue(
-                                    KEY_PROVIDER,
-                                    provider,
-                                )
-                            }
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
-                            )
-                            _signInResponse.trySend(HandleResult.Success(mLoginResponse.success!!))
-                        }
-
-                        override fun onError(e: Exception?) {
-                            e?.printStackTrace()
-                        }
-                    },
-                )
-            } else {
-                mGetAuthUseCase.signInWithAmazon(
-                    activity,
+        fun fetchTokensWithOkHttp(authorizationCode: String) {
+            _fetchTokenResponse.trySend(HandleResult.Loading)
+            viewModelScope.launch(Dispatchers.IO) {
+                mGetAuthUseCase.fetchTokensWithOkHttp(
+                    authorizationCode,
                     object : SignInInterface {
-                        override fun getUserDetails(mLoginResponse: LoginResponse) {
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
+                        override fun fetchTokensWithOkHttpFailed(exception: String?) {
+                            _fetchTokenResponse.trySend(
+                                HandleResult.Error(
+                                    DataSourceException.Error(
+                                        exception.toString(),
+                                    ),
+                                ),
                             )
-                            mLoginResponse.idToken?.let { idToken ->
-                                mPreferenceManager.setValue(
-                                    KEY_ID_TOKEN,
-                                    idToken,
-                                )
-                            }
-
-                            mLoginResponse.provider?.let { provider ->
-                                mPreferenceManager.setValue(
-                                    KEY_PROVIDER,
-                                    provider,
-                                )
-                            }
-                            mPreferenceManager.setValue(
-                                KEY_USER_DETAILS,
-                                Gson().toJson(mLoginResponse),
-                            )
-                            _signInResponse.trySend(HandleResult.Success(mLoginResponse.success!!))
                         }
 
-                        override fun signInFailed(exception: String?) {
-                            exception?.let {
-                                _signInResponse.trySend(
+                        override fun fetchTokensWithOkHttpSuccess(
+                            success: String,
+                            response: Response,
+                        ) {
+                            if (response.isSuccessful) {
+                                val responseBody = response.body.string()
+                                val jsonResponse = JSONObject(responseBody)
+                                val accessToken = jsonResponse.getString(KEY_RESPONSE_ACCESS_TOKEN)
+                                val idToken = jsonResponse.getString(KEY_RESPONSE_ID_TOKEN)
+                                val refreshToken = jsonResponse.getString(KEY_RESPONSE_REFRESH_TOKEN)
+                                val expiresIn = jsonResponse.getInt(KEY_RESPONSE_EXPIRES_IN)
+                                mPreferenceManager.setValue(KEY_ACCESS_TOKEN, accessToken)
+                                mPreferenceManager.setValue(KEY_ID_TOKEN, idToken)
+                                mPreferenceManager.setValue(KEY_REFRESH_TOKEN, refreshToken)
+                                mPreferenceManager.setValue(KEY_AUTH_EXPIRES_IN, expiresIn.toLong())
+                                mPreferenceManager.setValue(
+                                    KEY_AUTH_FETCH_TIME,
+                                    System.currentTimeMillis(),
+                                )
+                                _fetchTokenResponse.trySend(
+                                    HandleResult.Success(
+                                        "success",
+                                    ),
+                                )
+                            } else {
+                                _fetchTokenResponse.trySend(
                                     HandleResult.Error(
                                         DataSourceException.Error(
-                                            it,
+                                            "fail",
                                         ),
                                     ),
                                 )
@@ -146,44 +95,50 @@ class SignInViewModel @Inject constructor(
                 )
             }
         }
-    }
 
-    fun signOutWithAmazon(context: Context, isDisconnectFromAWSRequired: Boolean) {
-        viewModelScope.launch {
-            if (isRunningTest) {
-                AWSMobileClient.getInstance().signOut()
-                _signOutResponse.trySend(
-                    HandleResult.Success(
-                        SignOutData(
-                            context.resources.getString(R.string.sign_out_successfully),
-                            isDisconnectFromAWSRequired,
-                        ),
-                    ),
-                )
-            } else {
-                mGetAuthUseCase.signOutWithAmazon(
-                    context,
-                    isDisconnectFromAWSRequired,
+        fun refreshTokensWithOkHttp() {
+            _fetchTokenResponse.trySend(HandleResult.Loading)
+            viewModelScope.launch(Dispatchers.IO) {
+                mGetAuthUseCase.refreshTokensWithOkHttp(
                     object : SignInInterface {
-                        override fun signOutSuccess(
+                        override fun refreshTokensWithOkHttpSuccess(
                             success: String,
-                            isDisconnectFromAWSRequired: Boolean,
+                            response: Response,
                         ) {
-                            _signOutResponse.trySend(
-                                HandleResult.Success(
-                                    SignOutData(
-                                        success,
-                                        isDisconnectFromAWSRequired,
+                            if (response.isSuccessful) {
+                                val responseBody = response.body.string()
+                                val jsonResponse = JSONObject(responseBody)
+                                val accessToken = jsonResponse.getString(KEY_RESPONSE_ACCESS_TOKEN)
+                                val idToken = jsonResponse.getString(KEY_RESPONSE_ID_TOKEN)
+                                val expiresIn = jsonResponse.getInt(KEY_RESPONSE_EXPIRES_IN)
+                                mPreferenceManager.setValue(KEY_ACCESS_TOKEN, accessToken)
+                                mPreferenceManager.setValue(KEY_ID_TOKEN, idToken)
+                                mPreferenceManager.setValue(KEY_AUTH_EXPIRES_IN, expiresIn.toLong())
+                                mPreferenceManager.setValue(
+                                    KEY_AUTH_FETCH_TIME,
+                                    System.currentTimeMillis(),
+                                )
+                                _fetchTokenResponse.trySend(
+                                    HandleResult.Success(
+                                        "success",
                                     ),
-                                ),
-                            )
+                                )
+                            } else {
+                                _fetchTokenResponse.trySend(
+                                    HandleResult.Error(
+                                        DataSourceException.Error(
+                                            "fail",
+                                        ),
+                                    ),
+                                )
+                            }
                         }
 
-                        override fun signOutFailed(error: String) {
-                            _signOutResponse.trySend(
+                        override fun refreshTokensWithOkHttpFailed(exception: String?) {
+                            _fetchTokenResponse.trySend(
                                 HandleResult.Error(
                                     DataSourceException.Error(
-                                        error,
+                                        exception.toString(),
                                     ),
                                 ),
                             )
@@ -193,4 +148,3 @@ class SignInViewModel @Inject constructor(
             }
         }
     }
-}

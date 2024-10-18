@@ -3,7 +3,8 @@ package com.aws.amazonlocation.viewmodel.mapstyle
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.data.response.MapStyleData
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.map_style.MapStyleViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -29,10 +30,18 @@ class MapStyleVMSetEsriAndHereListData : BaseTest() {
         mMapStyleViewModel = MapStyleViewModel()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun setEsriAndHereSuccess() = runTest {
+        mMapStyleViewModel.mStyleList = arrayListOf()
+        mMapStyleViewModel.mStyleListForFilter = arrayListOf()
+        mMapStyleViewModel.providerOptions = arrayListOf()
+        mMapStyleViewModel.attributeOptions = arrayListOf()
+        mMapStyleViewModel.typeOptions = arrayListOf()
         mMapStyleViewModel.setMapListData(context, false)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI, mMapStyleViewModel.mStyleList.size == 3)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI, mMapStyleViewModel.mStyleListForFilter.size == 3)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI, mMapStyleViewModel.providerOptions.size == 3)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI, mMapStyleViewModel.attributeOptions.size == 5)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI, mMapStyleViewModel.typeOptions.size == 2)
     }
 }

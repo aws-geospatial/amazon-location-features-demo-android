@@ -36,35 +36,26 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import com.amazonaws.auth.CognitoCredentialsProvider
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.mobile.client.UserState
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoAccessToken
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoIdToken
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoRefreshToken
-import com.amazonaws.regions.Regions
-import com.amazonaws.services.geo.model.Place
-import com.amplifyframework.geo.location.models.AmazonLocationPlace
-import com.amplifyframework.geo.models.Coordinates
+import aws.sdk.kotlin.services.cognitoidentity.CognitoIdentityClient
+import aws.sdk.kotlin.services.cognitoidentity.model.GetIdRequest
+import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.response.LoginResponse
-import com.aws.amazonlocation.domain.*
 import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.mapbox.mapboxsdk.geometry.LatLng
+import java.util.Locale
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
-import java.util.Locale
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -74,8 +65,9 @@ val Int.px: Int
 
 val isRunningTest: Boolean by lazy {
     try {
-        Class.forName("androidx.test.espresso.Espresso")
-        true
+        val testProperty = System.getProperty("robolectric") != null ||
+                System.getProperty("android.injected.invoked.from.ide") == "true"
+        testProperty
     } catch (e: ClassNotFoundException) {
         false
     }
@@ -115,16 +107,8 @@ val isRunningRemoteDataSourceImplTest: Boolean by lazy {
     }
 }
 
-val isRunningAnalyticsTest: Boolean by lazy {
-    try {
-        Class.forName("com.aws.amazonlocation.ui.main.AnalyticsTest")
-        true
-    } catch (e: ClassNotFoundException) {
-        false
-    }
-}
-
 @Suppress("DEPRECATION")
+@ExcludeFromJacocoGeneratedReport
 fun Activity.makeTransparentStatusBar() {
     if (Build.VERSION.SDK_INT in 21..29) {
         window.statusBarColor = Color.TRANSPARENT
@@ -155,6 +139,7 @@ fun Activity.makeTransparentStatusBar() {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
     val mContext = conditionPrivacy.context
     val mSpannableString = SpannableString(conditionPrivacy.text.toString())
@@ -203,6 +188,7 @@ fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
     conditionPrivacy.movementMethod = LinkMovementMethod.getInstance()
 }
 
+@ExcludeFromJacocoGeneratedReport
 @ExperimentalCoroutinesApi
 @CheckResult
 fun EditText.textChanges(): Flow<CharSequence?> {
@@ -222,6 +208,7 @@ fun EditText.textChanges(): Flow<CharSequence?> {
     }.onStart { emit(text) }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun Activity.showKeyboard() {
     val imm: InputMethodManager =
         getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -231,6 +218,7 @@ fun Activity.showKeyboard() {
 }
 
 // hide the keyboard
+@ExcludeFromJacocoGeneratedReport
 fun Activity.hideKeyboard() {
     val imm: InputMethodManager =
         getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -239,6 +227,7 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun Activity.hideSoftKeyboard(input: TextInputEditText) {
     val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(input.windowToken, 0)
@@ -280,23 +269,6 @@ fun getUserName(mLoginResponse: LoginResponse?): String? {
     }
 }
 
-fun amazonLocationPlace(data: Place?) =
-    AmazonLocationPlace(
-        coordinates = Coordinates(
-            data?.geometry?.point?.get(1)!!,
-            data.geometry.point[0]
-        ),
-        label = data.label,
-        addressNumber = data.addressNumber,
-        street = data.street,
-        country = data.country,
-        region = data.region,
-        subRegion = data.subRegion,
-        municipality = data.municipality,
-        neighborhood = data.neighborhood,
-        postalCode = data.postalCode
-    )
-
 fun getRegion(region: String?, subRegion: String?, country: String?): String {
     var mRegion = ""
     mRegion += if (!region.isNullOrEmpty()) {
@@ -311,6 +283,7 @@ fun getRegion(region: String?, subRegion: String?, country: String?): String {
     return mRegion
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun changeTermsAndDescriptionFirstTextColor(termsOfUse: AppCompatTextView) {
     val context = termsOfUse.context
     val spannableString = SpannableString(termsOfUse.text.toString().replace(STRING_REPLACE_KEY, ""))
@@ -370,6 +343,7 @@ fun changeTermsAndDescriptionFirstTextColor(termsOfUse: AppCompatTextView) {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
     val context = conditionPrivacy.context
     val spannableString = SpannableString(conditionPrivacy.text.toString().replace(STRING_REPLACE_KEY, ""))
@@ -435,6 +409,7 @@ fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun changeClickHereColor(
     conditionPrivacy: AppCompatTextView,
     mCloudFormationClickHereInterface: CloudFormationInterface
@@ -493,6 +468,7 @@ fun changeClickHereColor(
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun changeLearnMoreColor(
     learnMore: AppCompatTextView,
     mCloudFormationClickHereInterface: CloudFormationInterface
@@ -550,6 +526,7 @@ fun changeLearnMoreColor(
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun Activity.restartApplication() {
     val intent = Intent(this, MainActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -557,6 +534,7 @@ fun Activity.restartApplication() {
     Runtime.getRuntime().exit(0)
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun Context.isInternetAvailable(): Boolean {
     var result = false
     val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -573,24 +551,33 @@ fun Context.isInternetAvailable(): Boolean {
     return result
 }
 
-fun validateIdentityPoolId(mIdentityPoolId: String?, region: String?): Boolean {
-    val pattern = Pattern.compile(regionPattern)
-    val matcher = region?.let { pattern.matcher(it) }
-    if (matcher?.matches() != true) return false
+@ExcludeFromJacocoGeneratedReport
+suspend fun validateIdentityPoolId(mIdentityPoolId: String?, region: String?): Boolean {
+    if (region.isNullOrEmpty() || mIdentityPoolId.isNullOrEmpty()) return false
+    val pattern = Regex(regionPattern)
+    if (!pattern.matches(region)) return false
+
     try {
-        val cognitoCredentialsProvider = CognitoCredentialsProvider(
-            mIdentityPoolId,
-            Regions.fromName(region)
-        )
-        cognitoCredentialsProvider.refresh()
-    } catch (exception: Exception) {
-        if (exception is com.amazonaws.services.cognitoidentity.model.ResourceNotFoundException) {
-            return false
+        val cognitoClient = CognitoIdentityClient {
+            this.region = region
         }
-        if (exception is IllegalArgumentException) {
-            return false
+
+        val request = GetIdRequest {
+            identityPoolId = mIdentityPoolId
         }
+
+        cognitoClient.use {
+            it.getId(request)
+        }
+
+    } catch (e: ResourceNotFoundException) {
+        return false
+    } catch (e: IllegalArgumentException) {
+        return false
+    } catch (e: Exception) {
+        return false
     }
+
     return true
 }
 
@@ -606,22 +593,6 @@ fun validateUserPoolClientId(mUserPoolClientId: String?): Boolean {
     val pattern: Pattern = Pattern.compile(userPoolClientId)
     val matcher: Matcher = pattern.matcher(mUserPoolClientId)
     return matcher.matches()
-}
-
-fun checkSessionValid(mPreferenceManager: PreferenceManager): Boolean {
-    if (AWSMobileClient.getInstance().currentUserState().userState.name == UserState.SIGNED_IN.name) {
-        val accessToken = mPreferenceManager.getValue(KEY_ACCESS_TOKEN, "")
-        val refreshToken = mPreferenceManager.getValue(KEY_REFRESH_TOKEN, "")
-        val idToken = mPreferenceManager.getValue(KEY_ID_TOKEN, "")
-        val cipSession = CognitoUserSession(
-            CognitoIdToken(idToken),
-            CognitoAccessToken(accessToken),
-            CognitoRefreshToken(refreshToken)
-        )
-
-        return cipSession.isValid
-    }
-    return true
 }
 
 fun isGrabMapEnable(mPreferenceManager: PreferenceManager): Boolean {

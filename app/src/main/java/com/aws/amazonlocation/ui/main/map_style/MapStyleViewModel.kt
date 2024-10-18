@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.map_style // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.map_style
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

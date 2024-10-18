@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.terms_condition // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.terms_condition
 
 import android.os.Bundle
 import android.view.LayoutInflater

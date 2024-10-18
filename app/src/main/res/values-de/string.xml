@@ -165,9 +165,9 @@
   <string name="error_route">Route nicht gefunden.</string>
   <string name="no_route_found">Nein Route gefunden</string>
   <string name="error_switch_to_here">Entfernung ist größer als 400 km, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
-  <string name="error_switch_to_here_miles">Entfernung ist größer als %s mi, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
+  <string name="error_switch_to_here_miles" formatted="false">Entfernung ist größer als %s mi, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
   <string name="error_distance_400">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb 400 km, und Wegpunkte zum gehen Muss Sein innerhalb 40 km.</string>
-  <string name="error_distance_248_miles">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb %smi, und Wegpunkte zum gehen Muss Sein innerhalb %smi.</string>
+  <string name="error_distance_248_miles" formatted="false">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb %smi, und Wegpunkte zum gehen Muss Sein innerhalb %smi.</string>
   <string name="connect_to_aws_account">Verbinden AWS Konto</string>
   <string name="label_preview">Vorschau</string>
   <string name="label_location_permission_denied">Standort Genehmigung verweigert</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">Lernen Mehr</string>
   <string name="label_welcome_amazon">Willkommen to\nAmazon Standort Demoversion</string>
   <string name="label_continue">Weiter</string>
-  <string name="label_right_aws">© 2023, Amazon Web Dienstleistungen, Inc. oder seine verbundene Unternehmen. Alles Rechte reserviert.</string>
+  <string name="label_right_aws">© 2024, Amazon Web Dienstleistungen, Inc. oder seine verbundene Unternehmen. Alles Rechte reserviert.</string>
   <string name="label_terms_desc">Von wird heruntergeladen, installieren, oder unter Verwendung von die Amazon Standort Demoversion App, Sie zustimmen zu die Apps\'s **Bedingungen &amp; Bedingungen** zum verwenden.</string>
   <string name="label_terms_desc_terms_page">Von wird heruntergeladen, installieren, oder unter Verwendung von die Amazon Standort Demoversion App, Sie zustimmen zu die Apps\'s **Bedingungen &amp; Bedingungen** zum verwenden.</string>
   <string name="text_terms_desc_coloured_1">Bedingungen &amp; Bedingungen</string>
