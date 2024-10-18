@@ -28,6 +28,7 @@ import androidx.navigation.ui.setupWithNavController
 import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
 import aws.sdk.kotlin.services.iot.IotClient
 import aws.sdk.kotlin.services.iot.model.AttachPolicyRequest
+import com.aws.amazonlocation.AmazonLocationApp
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.onError
@@ -49,12 +50,15 @@ import com.aws.amazonlocation.ui.main.simulation.SimulationUtils
 import com.aws.amazonlocation.ui.main.welcome.WelcomeBottomSheetFragment
 import com.aws.amazonlocation.utils.ABOUT_FRAGMENT
 import com.aws.amazonlocation.utils.AWS_CLOUD_INFORMATION_FRAGMENT
+import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
 import com.aws.amazonlocation.utils.AwsSignerInterceptor
 import com.aws.amazonlocation.utils.ConnectivityObserveInterface
 import com.aws.amazonlocation.utils.DELAY_LANGUAGE_3000
 import com.aws.amazonlocation.utils.Durations.DELAY_FOR_FRAGMENT_LOAD
 import com.aws.amazonlocation.utils.EnableTrackerInterface
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IOT_POLICY
 import com.aws.amazonlocation.utils.IOT_POLICY_UN_AUTH
 import com.aws.amazonlocation.utils.IS_APP_FIRST_TIME_OPENED
@@ -98,6 +102,7 @@ import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.invisible
+import com.aws.amazonlocation.utils.isRunningTest
 import com.aws.amazonlocation.utils.makeTransparentStatusBar
 import com.aws.amazonlocation.utils.regionDisplayName
 import com.aws.amazonlocation.utils.setLocale
@@ -118,7 +123,8 @@ import software.amazon.location.auth.EncryptedSharedPreferences
 
 // SPDX-License-Identifier: MIT-0
 class MainActivity :
-    BaseActivity() {
+    BaseActivity(),
+    CrashListener {
     private var isSessionStarted: Boolean = false
     private var isMapStyleChangeCalled: Boolean = false
     private var isAppNotFirstOpened: Boolean = false
@@ -133,6 +139,7 @@ class MainActivity :
     private var currentPage: String? = null
     private var connectivityObserver: ConnectivityObserveInterface? = null
     private var encryptedSharedPreferences: EncryptedSharedPreferences? = null
+    var analyticsUtils: AnalyticsUtils? = null
     private val mServiceName = "geo"
 
     var resultLauncher =
@@ -240,6 +247,16 @@ class MainActivity :
                 CoroutineScope(Dispatchers.IO).launch {
                     async { initMobileClient() }.await()
                 }
+            } else {
+                val fragment = mNavHostFragment.childFragmentManager.fragments[0]
+                val propertiesAws =
+                    listOf(
+                        Pair(
+                            AnalyticsAttribute.TRIGGERED_BY,
+                            if (fragment is ExploreFragment) AnalyticsAttributeValue.EXPLORER else AnalyticsAttributeValue.SETTINGS,
+                        )
+                    )
+                analyticsUtils?.recordEvent(EventType.SIGN_OUT_FAILED, propertiesAws)
             }
         }
     }
@@ -248,6 +265,15 @@ class MainActivity :
         setBottomBar()
         hideProgress()
         showError("Sign in failed")
+        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
+        val propertiesAws =
+            listOf(
+                Pair(
+                    AnalyticsAttribute.TRIGGERED_BY,
+                    if (fragment is ExploreFragment) AnalyticsAttributeValue.EXPLORER else AnalyticsAttributeValue.SETTINGS,
+                )
+            )
+        analyticsUtils?.recordEvent(EventType.SIGN_IN_FAILED, propertiesAws)
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -257,12 +283,21 @@ class MainActivity :
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN,
         )
+        if (!isRunningTest) {
+            (application as AmazonLocationApp).setCrashListener(this)
+        }
         isTablet = resources.getBoolean(R.bool.is_tablet)
         if (!isTablet) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        CoroutineScope(Dispatchers.IO).launch {
+            analyticsUtils = AnalyticsUtils(mAWSLocationHelper, mPreferenceManager)
+            async { analyticsUtils?.initAnalytics() }.await()
+            analyticsUtils?.startSession()
+            setSelectedScreen(AnalyticsAttributeValue.EXPLORER)
+        }
         checkRtl()
         makeTransparentStatusBar()
         checkInternetObserver()
@@ -301,7 +336,6 @@ class MainActivity :
                 setBottomBar()
             }
         }
-        setSelectedScreen(AnalyticsAttributeValue.EXPLORER)
         initClick()
         if (encryptedSharedPreferences == null) {
             encryptedSharedPreferences =
@@ -448,11 +482,28 @@ class MainActivity :
                             }.await()
                         }
                         getTokenAndAttachPolicy()
+                        val propertiesAws =
+                            listOf(
+                                Pair(
+                                    AnalyticsAttribute.TRIGGERED_BY,
+                                    if (fragment is ExploreFragment) AnalyticsAttributeValue.EXPLORER else AnalyticsAttributeValue.SETTINGS,
+                                ),
+                            )
+                        analyticsUtils?.recordEvent(EventType.SIGN_IN_SUCCESSFUL, propertiesAws)
                     }.onError { it ->
                         setBottomBar()
                         hideProgress()
                         it.messageResource?.let {
                             showError(it.toString())
+                            val fragment = mNavHostFragment.childFragmentManager.fragments[0]
+                            val propertiesAws =
+                                listOf(
+                                    Pair(
+                                        AnalyticsAttribute.TRIGGERED_BY,
+                                        if (fragment is ExploreFragment) AnalyticsAttributeValue.EXPLORER else AnalyticsAttributeValue.SETTINGS,
+                                    ),
+                                )
+                            analyticsUtils?.recordEvent(EventType.SIGN_IN_FAILED, propertiesAws)
                         }
                     }
             }
@@ -607,15 +658,21 @@ class MainActivity :
 
     fun setSelectedScreen(screen: String) {
         currentPage = screen
+        val properties = listOf(Pair(AnalyticsAttribute.SCREEN_NAME, screen),)
+        analyticsUtils?.recordEvent(EventType.SCREEN_OPEN, properties)
     }
 
     fun exitScreen() {
-        currentPage?.let {}
+        currentPage?.let {
+            val properties = listOf(Pair(AnalyticsAttribute.SCREEN_NAME, it),)
+            analyticsUtils?.recordEvent(EventType.SCREEN_CLOSE, properties)
+        }
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         KeyBoardUtils.detachKeyboardListeners(mBinding.root)
+        analyticsUtils?.stopSession()
+        super.onDestroy()
     }
 
     private fun initClick() {
@@ -1139,6 +1196,8 @@ class MainActivity :
             SignInConnectInterface {
             override fun signIn(dialog: Dialog?) {
                 mBottomSheetDialog = dialog
+                val propertiesAws = listOf(Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.EXPLORER),)
+                analyticsUtils?.recordEvent(EventType.SIGN_IN_STARTED, propertiesAws)
                 openSignIn()
             }
 
@@ -1152,6 +1211,8 @@ class MainActivity :
         object : SignInRequiredInterface {
             override fun signInClick(dialog: Dialog?) {
                 mBottomSheetDialog = dialog
+                val propertiesAws = listOf(Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.EXPLORER),)
+                analyticsUtils?.recordEvent(EventType.SIGN_IN_STARTED, propertiesAws)
                 openSignIn()
             }
 
@@ -1273,6 +1334,15 @@ class MainActivity :
     }
 
     fun isAppNotFirstOpened(): Boolean = isAppNotFirstOpened
+
+    override fun notifyAppCrash(message: String?) {
+        if (!isDestroyed) {
+            message?.let {
+                val properties = listOf(Pair(AnalyticsAttribute.ERROR, it))
+                analyticsUtils?.recordEvent(EventType.APPLICATION_ERROR, properties)
+            }
+        }
+    }
 
     fun showSignInRequiredSheet() {
         reStartApp = true

@@ -12,6 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.FragmentLanguageBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
+import com.aws.amazonlocation.ui.main.MainActivity
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_BR_PT
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_CH_CN
@@ -154,6 +158,14 @@ class LanguageFragment : BaseFragment() {
     }
 
     private fun changeAppLanguage(languageCode: String) {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.LANGUAGE, languageCode),
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.LANGUAGE_CHANGED,
+            properties
+        )
         if (!isRunningTest) {
             val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(languageCode)
             AppCompatDelegate.setApplicationLocales(appLocale)

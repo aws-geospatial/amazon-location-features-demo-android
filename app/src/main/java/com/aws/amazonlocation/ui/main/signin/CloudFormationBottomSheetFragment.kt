@@ -23,6 +23,7 @@ import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IS_LOCATION_TRACKING_ENABLE
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
@@ -84,6 +85,15 @@ class CloudFormationBottomSheetFragment(
             STYLE_NORMAL,
             R.style.CustomBottomSheetDialogTheme,
         )
+
+        val propertiesAws = getPairValue()
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_STARTED, propertiesAws)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val propertiesAws = getPairValue()
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_STOPPED, propertiesAws)
     }
 
     private fun getPairValue(): List<Pair<String, String>> {
@@ -287,22 +297,34 @@ class CloudFormationBottomSheetFragment(
                 KEY_CLOUD_FORMATION_STATUS,
                 AuthEnum.AWS_CONNECTED.name,
             )
+            val propertiesAws = getPairValue()
+            (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_SUCCESSFUL, propertiesAws)
             storeDataInPreference()
         }
+    }
+
+    private fun awsConnectionFailed() {
+        val propertiesAws = getPairValue()
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_FAILED, propertiesAws)
     }
 
     private fun validateAWSAccountData() {
         CoroutineScope(Dispatchers.IO).launch {
             if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
                 showError(getString(R.string.label_enter_identity_pool_id))
+                awsConnectionFailed()
             } else if (mUserDomain.isNullOrEmpty()) {
                 showError(getString(R.string.label_enter_domain))
+                awsConnectionFailed()
             } else if (!validateUserPoolClientId(mUserPoolClientId)) {
                 showError(getString(R.string.label_enter_user_pool_client_id))
+                awsConnectionFailed()
             } else if (!validateUserPoolId(mUserPoolId)) {
                 showError(getString(R.string.label_enter_user_pool_id))
+                awsConnectionFailed()
             } else if (mWebSocketUrl.isNullOrEmpty()) {
                 showError(getString(R.string.label_enter_web_socket_url))
+                awsConnectionFailed()
             } else {
                 storeDataAndRestartApp()
             }

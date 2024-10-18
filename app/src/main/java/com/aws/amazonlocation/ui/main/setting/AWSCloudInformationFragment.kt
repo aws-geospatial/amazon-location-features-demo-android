@@ -21,7 +21,10 @@ import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.signin.CustomSpinnerAdapter
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.DisconnectAWSInterface
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IS_LOCATION_TRACKING_ENABLE
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
@@ -96,6 +99,13 @@ class AWSCloudInformationFragment :
         clickListener()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val propertiesAws = listOf(
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_STOPPED, propertiesAws)
+    }
     private fun init() {
         mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
         mBinding.apply {
@@ -143,6 +153,14 @@ class AWSCloudInformationFragment :
         if (isDisconnectFromAWSRequired) {
             mPreferenceManager.setDefaultConfig()
         }
+        val propertiesAws =
+            listOf(
+                Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS),
+            )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.SIGN_OUT_SUCCESSFUL,
+            propertiesAws,
+        )
         checkMapRefreshClient(true)
         init()
         showError(getString(R.string.sign_out_successfully))
@@ -266,6 +284,10 @@ class AWSCloudInformationFragment :
             }
 
             btnSignIn.setOnClickListener {
+                val propertiesAws = listOf(
+                    Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+                )
+                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.SIGN_IN_STARTED, propertiesAws)
                 (activity as MainActivity).openSignIn()
             }
 
@@ -320,21 +342,37 @@ class AWSCloudInformationFragment :
         CoroutineScope(Dispatchers.IO).launch {
             if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
                 (activity as MainActivity).showError(getString(R.string.label_enter_identity_pool_id))
+                awsConnectionFailed()
             } else if (mUserDomain.isNullOrEmpty()) {
                 (activity as MainActivity).showError(getString(R.string.label_enter_domain))
+                awsConnectionFailed()
             } else if (!validateUserPoolClientId(mUserPoolClientId)) {
                 (activity as MainActivity).showError(getString(R.string.label_enter_user_pool_client_id))
+                awsConnectionFailed()
             } else if (!validateUserPoolId(mUserPoolId)) {
                 (activity as MainActivity).showError(getString(R.string.label_enter_user_pool_id))
+                awsConnectionFailed()
             } else if (mWebSocketUrl.isNullOrEmpty()) {
                 (activity as MainActivity).showError(getString(R.string.label_enter_web_socket_url))
+                awsConnectionFailed()
             } else {
                 storeDataAndRestartApp()
             }
         }
     }
 
+    private fun awsConnectionFailed() {
+        val propertiesAws = listOf(
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_FAILED, propertiesAws)
+    }
+
     private fun storeDataAndRestartApp() {
+        val propertiesAws = listOf(
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.AWS_ACCOUNT_CONNECTION_SUCCESSFUL, propertiesAws)
         mPreferenceManager.setValue(IS_LOCATION_TRACKING_ENABLE, true)
         mPreferenceManager.setValue(
             KEY_CLOUD_FORMATION_STATUS,

@@ -16,6 +16,10 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentDataProviderBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
+import com.aws.amazonlocation.ui.main.MainActivity
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_GRAB_DONT_ASK
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
@@ -106,6 +110,14 @@ class DataProviderFragment : BaseFragment() {
     }
 
     private fun changeDataProviderEsri() {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.esri)),
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.MAP_PROVIDER_CHANGE,
+            properties
+        )
         changeDataProvider(isEsri = true)
         val mapStyle = mPreferenceManager.getValue(
             KEY_MAP_STYLE_NAME,
@@ -128,6 +140,14 @@ class DataProviderFragment : BaseFragment() {
     }
 
     private fun changeDataProviderHere() {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.here)),
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.MAP_PROVIDER_CHANGE,
+            properties
+        )
         changeDataProvider(isHere = true)
         val mapStyle = mPreferenceManager.getValue(
             KEY_MAP_STYLE_NAME,
@@ -148,6 +168,14 @@ class DataProviderFragment : BaseFragment() {
     }
 
     private fun changeDataProviderOpenData() {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.open_data)),
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.MAP_PROVIDER_CHANGE,
+            properties
+        )
         changeDataProvider(isOpenData = true)
         val mapStyle = mPreferenceManager.getValue(
             KEY_MAP_STYLE_NAME,
@@ -255,6 +283,14 @@ class DataProviderFragment : BaseFragment() {
         }
     }
     private fun changeDataProviderGrab() {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.PROVIDER, resources.getString(R.string.grab)),
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.MAP_PROVIDER_CHANGE,
+            properties
+        )
         changeDataProvider(isGrab = true)
         val mapStyle = mPreferenceManager.getValue(
             KEY_MAP_STYLE_NAME,

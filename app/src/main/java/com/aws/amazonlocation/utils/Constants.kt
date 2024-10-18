@@ -24,6 +24,10 @@ const val KEY_EXPIRATION = "expiration"
 const val KEY_SESSION_TOKEN = "session_token"
 const val KEY_SECRET_KEY = "secret_key"
 const val KEY_ACCESS_KEY = "access_key"
+const val KEY_ANALYTICS_EXPIRATION = "expiration_analytics"
+const val KEY_ANALYTICS_SESSION_TOKEN = "session_token_analytics"
+const val KEY_ANALYTICS_SECRET_KEY = "secret_key_analytics"
+const val KEY_ANALYTICS_ACCESS_KEY = "access_key_analytics"
 const val KEY_IDENTITY_ID = "key_identity_id"
 const val KEY_RESPONSE_ACCESS_TOKEN = "access_token"
 const val KEY_RESPONSE_ID_TOKEN = "id_token"
@@ -50,6 +54,8 @@ const val KEY_MAP_NAME = "key_map_name"
 const val KEY_MAP_STYLE_NAME = "key_map_style_name"
 const val KEY_GRAB_DONT_ASK = "key_grab_dont_ask"
 const val KEY_OPEN_DATA_DONT_ASK = "key_open_data_dont_ask"
+const val KEY_END_POINT = "key_end_point"
+
 const val CLICK_DEBOUNCE = 1000L
 const val CLICK_DEBOUNCE_ENABLE = 1200L
 const val RESTART_DELAY = 800L
@@ -82,6 +88,7 @@ const val GROUP_KEY_WORK_SIMULATION = BuildConfig.APPLICATION_ID + "SIMULATION"
 const val STRING_REPLACE_KEY = "**"
 const val PREFS_NAME_AUTH = "software.amazon.location.auth"
 const val PREFS_KEY_IDENTITY_ID = "identityId"
+const val DEFAULT_COUNTRY = "US"
 
 const val KEY_ID_TOKEN = "key_id_token"
 const val KEY_ACCESS_TOKEN = "key_access_token"

@@ -40,12 +40,13 @@ class ResponseDataTest {
 
     @Test
     fun navigationDataTest() {
+        // `getAddress()` should return `destinationAddress` directly as other fields are empty
         val navigationData = Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_1
         navigationData.destinationAddress = TEST_DATA
         navigationData.subRegion = ""
         navigationData.region = ""
         navigationData.country = ""
-        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationData.country == "")
+        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationData.getAddress() == TEST_DATA)
     }
 
     @Test

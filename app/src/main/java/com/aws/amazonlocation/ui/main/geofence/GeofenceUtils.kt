@@ -347,6 +347,10 @@ class GeofenceUtils {
             }
             btnAddGeofence.setOnClickListener {
                 if (tvEnableGeofence.text.toString() == mActivity?.getString(R.string.add_geofence)) {
+                    val propertiesAws = listOf(
+                        Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES)
+                    )
+                    (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
                     mGeofenceInterface?.hideShowBottomNavigationBar(
                         true,
                         GeofenceBottomSheetEnum.EMPTY_GEOFENCE_BOTTOM_SHEET
@@ -392,6 +396,10 @@ class GeofenceUtils {
             clAddGeofence.setOnClickListener {
                 if (checkInternetConnection()) {
                     if (mIsBtnEnable) {
+                        val propertiesAws = listOf(
+                            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES)
+                        )
+                        (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_CREATION_STARTED, propertiesAws)
                         mGeofenceInterface?.hideShowBottomNavigationBar(
                             true,
                             GeofenceBottomSheetEnum.NONE
@@ -492,6 +500,11 @@ class GeofenceUtils {
     fun editGeofenceBottomSheet(position: Int, data: ListGeofenceResponseEntry) {
         clearAddGeofenceSearch()
         removeGeofenceMarker()
+        val propertiesAws = listOf(
+            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.GEOFENCES),
+            Pair(AnalyticsAttribute.GEOFENCE_ID, data.geofenceId)
+        )
+        (mActivity as MainActivity).analyticsUtils?.recordEvent(EventType.GEOFENCE_ITEM_SELECTED, propertiesAws)
         mGeofenceInterface?.hideShowBottomNavigationBar(true, GeofenceBottomSheetEnum.NONE)
         data.geometry?.circle?.let {
             val latLng = LatLng(it.center[1], it.center[0])

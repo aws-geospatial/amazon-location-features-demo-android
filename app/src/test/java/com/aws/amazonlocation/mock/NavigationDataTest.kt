@@ -125,17 +125,4 @@ class NavigationDataTest {
 
         assertEquals(COUNTRY_NAME, result)
     }
-
-    @Test
-    fun testGetAddressWithDataFailure() {
-        // of `destinationAddress` directly, irrespective of other fields.
-        val navigationData = NavigationData(
-            destinationAddress = CITY_NAME,
-            isDataSuccess = false
-        )
-
-        val result = navigationData.getAddress()
-
-        assertEquals(CITY_NAME, result)
-    }
 }

@@ -24,7 +24,10 @@ import com.aws.amazonlocation.databinding.FragmentMapStyleBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.explore.SortingAdapter
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.DELAY_300
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_GRAB_DONT_ASK
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
@@ -32,6 +35,7 @@ import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_OPEN_DATA_DONT_ASK
 import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
+import com.aws.amazonlocation.utils.MapNames
 import com.aws.amazonlocation.utils.MapStyleRestartInterface
 import com.aws.amazonlocation.utils.RESTART_DELAY
 import com.aws.amazonlocation.utils.Units
@@ -364,6 +368,65 @@ class MapStyleFragment : BaseFragment() {
                         for (innerData in it) {
                             if (innerData.mapName.equals(selectedInnerData)) {
                                 innerData.isSelected = true
+                                var selectedId = ""
+                                if (data.styleNameDisplay != getString(R.string.grab)) {
+                                    when (innerData.mapName) {
+                                        getString(R.string.map_light) -> {
+                                            selectedId = MapNames.ESRI_LIGHT
+                                        }
+                                        getString(R.string.map_streets) -> {
+                                            selectedId = MapNames.ESRI_STREET_MAP
+                                        }
+                                        getString(R.string.map_navigation) -> {
+                                            selectedId = MapNames.ESRI_NAVIGATION
+                                        }
+                                        getString(R.string.map_dark_gray) -> {
+                                            selectedId = MapNames.ESRI_DARK_GRAY_CANVAS
+                                        }
+                                        getString(R.string.map_light_gray) -> {
+                                            selectedId = MapNames.ESRI_LIGHT_GRAY_CANVAS
+                                        }
+                                        getString(R.string.map_imagery) -> {
+                                            selectedId = MapNames.ESRI_IMAGERY
+                                        }
+                                        resources.getString(R.string.map_contrast) -> {
+                                            selectedId = MapNames.HERE_CONTRAST
+                                        }
+                                        resources.getString(R.string.map_explore) -> {
+                                            selectedId = MapNames.HERE_EXPLORE
+                                        }
+                                        resources.getString(R.string.map_explore_truck) -> {
+                                            selectedId = MapNames.HERE_EXPLORE_TRUCK
+                                        }
+                                        resources.getString(R.string.map_hybrid) -> {
+                                            selectedId = MapNames.HERE_HYBRID
+                                        }
+                                        resources.getString(R.string.map_raster) -> {
+                                            selectedId = MapNames.HERE_IMAGERY
+                                        }
+                                        resources.getString(R.string.map_standard_light) -> {
+                                            selectedId = MapNames.OPEN_DATA_STANDARD_LIGHT
+                                        }
+                                        resources.getString(R.string.map_standard_dark) -> {
+                                            selectedId = MapNames.OPEN_DATA_STANDARD_DARK
+                                        }
+                                        resources.getString(R.string.map_visualization_light) -> {
+                                            selectedId = MapNames.OPEN_DATA_VISUALIZATION_LIGHT
+                                        }
+                                        resources.getString(R.string.map_visualization_dark) -> {
+                                            selectedId = MapNames.OPEN_DATA_VISUALIZATION_DARK
+                                        }
+                                    }
+                                } else {
+                                    when (innerData.mapName) {
+                                        resources.getString(R.string.map_grab_light) -> {
+                                            selectedId = MapNames.GRAB_LIGHT
+                                        }
+                                        resources.getString(R.string.map_grab_dark) -> {
+                                            selectedId = MapNames.GRAB_DARK
+                                        }
+                                    }
+                                }
                                 innerData.mapName?.let { it1 ->
                                     mPreferenceManager.setValue(
                                         KEY_MAP_STYLE_NAME,
@@ -371,6 +434,15 @@ class MapStyleFragment : BaseFragment() {
                                     )
                                 }
                                 data.styleNameDisplay?.let { mapName ->
+                                    val properties = listOf(
+                                        Pair(AnalyticsAttribute.PROVIDER, mapName),
+                                        Pair(AnalyticsAttribute.ID, selectedId),
+                                        Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
+                                    )
+                                    (activity as MainActivity).analyticsUtils?.recordEvent(
+                                        EventType.MAP_STYLE_CHANGE,
+                                        properties
+                                    )
                                     mPreferenceManager.setValue(
                                         KEY_MAP_NAME,
                                         mapName

@@ -22,6 +22,9 @@ import androidx.core.content.ContextCompat
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.BottomSheetStartSimulationBinding
 import com.aws.amazonlocation.ui.main.MainActivity
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.NotificationDialogInterface
 import com.aws.amazonlocation.utils.notificationPermission
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -169,6 +172,13 @@ class SimulationBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun openSimulation() {
+        val properties = listOf(
+            Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION)
+        )
+        (activity as MainActivity).analyticsUtils?.recordEvent(
+            EventType.START_SIMULATION,
+            properties
+        )
         (activity as MainActivity).showSimulationSheet()
         dialog.dismiss()
     }

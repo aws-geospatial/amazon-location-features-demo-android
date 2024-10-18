@@ -35,6 +35,7 @@ import aws.smithy.kotlin.runtime.auth.awscredentials.CredentialsProvider
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.epochMilliseconds
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
+import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.response.AddGeofenceResponse
@@ -52,6 +53,8 @@ import com.aws.amazonlocation.utils.Units.getDefaultIdentityPoolId
 import com.aws.amazonlocation.utils.Units.getDistanceUnit
 import com.aws.amazonlocation.utils.Units.isMetric
 import com.aws.amazonlocation.utils.Units.meterToFeet
+import java.io.IOException
+import java.util.Date
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -64,8 +67,6 @@ import okhttp3.Response
 import org.maplibre.android.geometry.LatLng
 import software.amazon.location.auth.AuthHelper
 import software.amazon.location.auth.LocationCredentialsProvider
-import java.io.IOException
-import java.util.Date
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -237,6 +238,76 @@ class AWSLocationHelper(
         } catch (e: Exception) {
             mBaseActivity?.handleException(e)
         }
+    }
+
+    suspend fun getAnalyticsCredentialProvider(): CredentialsProvider? {
+        val defaultIdentityPoolId = BuildConfig.ANALYTICS_IDENTITY_POOL_ID
+        val defaultRegion = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
+        return generateCredentials(defaultRegion, defaultIdentityPoolId)
+    }
+
+    private suspend fun generateCredentials(region: String, identityPoolId: String): CredentialsProvider? {
+        val cognitoIdentityClient = CognitoIdentityClient { this.region = region }
+        try {
+            val accessKey = mPreferenceManager.getValue(KEY_ANALYTICS_ACCESS_KEY, "")
+            val secretKey = mPreferenceManager.getValue(KEY_ANALYTICS_SECRET_KEY, "")
+            val sessionToken = mPreferenceManager.getValue(KEY_ANALYTICS_SESSION_TOKEN, "")
+            val expiration = mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L)
+            if (accessKey.isNullOrEmpty() ||
+                secretKey.isNullOrEmpty() ||
+                sessionToken.isNullOrEmpty() ||
+                expiration == 0L ||
+                !isAnalyticsCredentialsValid()
+            ) {
+                val getIdResponse = cognitoIdentityClient.getId(GetIdRequest {
+                    this.identityPoolId = identityPoolId
+                })
+                val identityId =
+                    getIdResponse.identityId ?: throw Exception("Failed to get identity ID")
+                if (identityId.isNotEmpty()) {
+                    val getCredentialsResponse =
+                        cognitoIdentityClient.getCredentialsForIdentity(
+                            GetCredentialsForIdentityRequest {
+                                this.identityId = identityId
+                            })
+
+                    val credentials = getCredentialsResponse.credentials
+                        ?: throw Exception("Failed to get credentials")
+
+                    if (credentials.accessKeyId == null || credentials.secretKey == null || credentials.sessionToken == null || credentials.expiration == null) throw Exception(
+                        "Credentials generation failed"
+                    )
+                    mPreferenceManager.setValue(KEY_ANALYTICS_ACCESS_KEY, credentials.accessKeyId!!)
+                    mPreferenceManager.setValue(KEY_ANALYTICS_SECRET_KEY, credentials.secretKey!!)
+                    mPreferenceManager.setValue(KEY_ANALYTICS_SESSION_TOKEN, credentials.sessionToken!!)
+                    mPreferenceManager.setValue(KEY_ANALYTICS_EXPIRATION, credentials.expiration!!.epochMilliseconds)
+                    return createCredentialsProvider(
+                        credentials.accessKeyId!!,
+                        credentials.secretKey!!,
+                        credentials.sessionToken!!,
+                        credentials.expiration?.epochMilliseconds!!
+                    )
+                } else {
+                    return null
+                }
+            } else {
+                return createCredentialsProvider(
+                    accessKey,
+                    secretKey,
+                    sessionToken,
+                    expiration
+                )
+            }
+        } catch (e: Exception) {
+            throw Exception("Credentials generation failed")
+        }
+    }
+
+    fun isAnalyticsCredentialsValid(): Boolean {
+        val expirationTimeMillis = mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L)
+        if (expirationTimeMillis == 0L) return false
+        val currentTimeMillis = Instant.now().epochMilliseconds
+        return currentTimeMillis < expirationTimeMillis
     }
 
     private fun generateCognitoIdentityClient(region: String?): CognitoIdentityClient = CognitoIdentityClient { this.region = region }
