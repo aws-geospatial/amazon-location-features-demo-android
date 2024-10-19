@@ -21,8 +21,8 @@ class TurfMetaCoordsPointTest {
                 mutableListOf(
                     mutableListOf(
                         Point.fromLngLat(
-                            TEST_DATA_LAT,
-                            TEST_DATA_LNG
+                            TEST_DATA_LNG,
+                            TEST_DATA_LAT
                         )
                     )
                 )
@@ -38,8 +38,8 @@ class TurfMetaCoordsPointTest {
                 mutableListOf(
                     mutableListOf(
                         Point.fromLngLat(
-                            TEST_DATA_LAT,
-                            TEST_DATA_LNG
+                            TEST_DATA_LNG,
+                            TEST_DATA_LAT
                         )
                     )
                 )

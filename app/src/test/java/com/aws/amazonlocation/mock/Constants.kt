@@ -26,8 +26,8 @@ const val INVALID_LNG = 181.0
 const val TURF_TOLERANCE = 10.0
 
 const val LAT_LNG_VALID_STRING = "$VALID_LAT, $VALID_LNG"
-const val LAT_LNG_VALID_LAT_STRING = "$VALID_LAT, $INVALID_LNG"
-const val LAT_LNG_VALID_LNG_STRING = "$INVALID_LAT, $VALID_LNG"
+const val INVALID_LNG_STRING = "$VALID_LAT, $INVALID_LNG"
+const val INVALID_LAT_STRING = "$INVALID_LAT, $VALID_LNG"
 
 const val ESRI = "Esri"
 const val HERE = "HERE"
@@ -86,13 +86,14 @@ const val TEST_DATA_2 = "IND"
 const val TEST_DATA_3 = "The Taj, Mumbai, Mahārāshtra, IND"
 const val TEST_DATA_4 = "Mahārāshtra"
 const val TEST_DATA_5 = "test"
-const val TEST_DATA_6 = "49 sec"
 const val TEST_DATA_7 = "ACTIVE"
 const val TEST_DATA_8 = "jj"
 const val TEST_DATA_9 = "11"
 
 const val TEST_FAILED_DUE_TO_INVALID_LATITUDE = "Test failed due to invalid latitude"
 const val TEST_FAILED_DUE_TO_INVALID_LONGITUDE = "Test failed due to invalid longitude"
+const val TEST_FAILED_DUE_TO_VALID_LONGITUDE = "Test failed due to valid longitude"
+const val TEST_FAILED_DUE_TO_VALID_LATITUDE = "Test failed due to valid latitude"
 
 val GET_REGION_SUBREGION = "Gondomar"
 val GET_REGION_REGION = "Porto"

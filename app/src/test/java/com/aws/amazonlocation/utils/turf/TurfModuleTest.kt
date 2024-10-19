@@ -18,20 +18,20 @@ class TurfModuleTest {
     @Test
     fun turfTest() {
         TurfTransformation.circle(
-            Point.fromLngLat(DEFAULT_LOCATION.latitude, DEFAULT_LOCATION.longitude),
+            Point.fromLngLat(DEFAULT_LOCATION.longitude, DEFAULT_LOCATION.latitude),
             DEFAULT_RADIUS.toDouble(),
             360,
             TurfConstants.UNIT_METRES
         )
 
         TurfTransformation.circle(
-            Point.fromLngLat(DEFAULT_LOCATION.latitude, DEFAULT_LOCATION.longitude),
+            Point.fromLngLat(DEFAULT_LOCATION.longitude, DEFAULT_LOCATION.latitude),
             DEFAULT_RADIUS.toDouble(),
             TurfConstants.UNIT_DEFAULT
         )
 
         val turnTransformation = TurfTransformation.circle(
-            Point.fromLngLat(DEFAULT_LOCATION.latitude, DEFAULT_LOCATION.longitude),
+            Point.fromLngLat(DEFAULT_LOCATION.longitude, DEFAULT_LOCATION.latitude),
             DEFAULT_RADIUS.toDouble()
         )
         val pointList = TurfMeta.coordAll(turnTransformation, false)
