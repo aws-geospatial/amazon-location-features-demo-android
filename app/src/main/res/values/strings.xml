@@ -182,9 +182,9 @@
     <string name="error_route">Route not found.</string>
     <string name="no_route_found">No route found</string>
     <string name="error_switch_to_here">Distance is greater than 400 km, can\'t calculate via Esri, kindly switch to HERE provider</string>
-    <string name="error_switch_to_here_miles">Distance is greater than %s mi, can\'t calculate via Esri, kindly switch to HERE provider</string>
+    <string name="error_switch_to_here_miles" formatted="false">Distance is greater than %s mi, can\'t calculate via Esri, kindly switch to HERE provider</string>
     <string name="error_distance_400">In DataSource Esri, waypoints for car and truck must be within 400km, and waypoints for walk must be within 40km.</string>
-    <string name="error_distance_248_miles">In DataSource Esri, waypoints for car and truck must be within %smi, and waypoints for walk must be within %smi.</string>
+    <string name="error_distance_248_miles" formatted="false">In DataSource Esri, waypoints for car and truck must be within %smi, and waypoints for walk must be within %smi.</string>
     <string name="connect_to_aws_account">Connect AWS Account</string>
     <string name="label_preview">Preview</string>
     <string name="label_location_permission_denied">Location permission denied</string>
@@ -196,7 +196,7 @@
     <string name="btn_learn_more">Learn More</string>
     <string name="label_welcome_amazon">Welcome to\nAmazon Location Demo</string>
     <string name="label_continue">Continue</string>
-    <string name="label_right_aws">© 2023, Amazon Web Services, Inc. or its affiliates. All rights reserved.</string>
+    <string name="label_right_aws">© 2024, Amazon Web Services, Inc. or its affiliates. All rights reserved.</string>
     <string name="label_terms_desc">By downloading, installing, or using the Amazon Location Demo App, you agree to the App\'s **Terms &amp; Conditions** for use.</string>
     <string name="label_terms_desc_terms_page">By downloading, installing, or using the Amazon Location Demo App, you agree to the App\'s **Terms &amp; Conditions** for use.</string>
     <string name="text_terms_desc_coloured_1">Terms &amp; Conditions</string>

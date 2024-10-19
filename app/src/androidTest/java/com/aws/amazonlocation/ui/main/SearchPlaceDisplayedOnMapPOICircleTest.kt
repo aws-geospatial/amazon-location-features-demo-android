@@ -5,25 +5,17 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
-import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.amplifyframework.geo.maplibre.view.MapLibreView
-import com.aws.amazonlocation.ACCESS_COARSE_LOCATION
-import com.aws.amazonlocation.ACCESS_FINE_LOCATION
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
-import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
-import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_IMAGE_NULL
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
@@ -34,14 +26,13 @@ import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -59,12 +50,12 @@ class SearchPlaceDisplayedOnMapPOICircleTest : BaseTestMainActivity() {
 
     @Test
     fun showSearchPlaceDisplayedOnMapPOICircleTest() {
-        var mapbox: MapboxMap? = null
+        var mapbox: MapLibreMap? = null
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         Thread.sleep(DELAY_1000)
 
-        val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+        val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
         mapView.getMapAsync {
             mapbox = it
         }

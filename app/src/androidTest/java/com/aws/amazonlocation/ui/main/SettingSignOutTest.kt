@@ -76,6 +76,11 @@ class SettingSignOutTest : BaseTestMainActivity() {
             appViews.scrollForward()
         }
         Thread.sleep(DELAY_1000)
+        val region =
+            uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
+        region?.click()
+
+        Thread.sleep(DELAY_1000)
         val logOut =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.log_out)))
         logOut?.click()

@@ -10,6 +10,7 @@ import com.aws.amazonlocation.data.response.UpdateBatchLocationResponse
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
+import com.aws.amazonlocation.utils.ExcludeFromJacocoGeneratedReport
 import com.aws.amazonlocation.utils.simulationCollectionName
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +41,7 @@ class SimulationViewModel @Inject constructor(
     val mGetUpdateDevicePosition: Flow<HandleResult<UpdateBatchLocationResponse>> =
         _getUpdateDevicePosition.receiveAsFlow()
 
+    @ExcludeFromJacocoGeneratedReport
     fun callAllSimulation() {
         viewModelScope.launch(Dispatchers.IO) {
             simulationCollectionName.forEach {
@@ -81,7 +83,6 @@ class SimulationViewModel @Inject constructor(
         trackerName: String,
         position: List<Double>? = null,
         deviceId: String,
-        date: Date,
         identityId: String
     ) {
         _getUpdateDevicePosition.trySend(HandleResult.Loading)
@@ -90,7 +91,6 @@ class SimulationViewModel @Inject constructor(
                 trackerName,
                 position,
                 deviceId,
-                date,
                 identityId,
                 object : BatchLocationUpdateInterface {
                     override fun success(searchResponse: UpdateBatchLocationResponse) {

@@ -2,7 +2,7 @@
 buildscript {
     dependencies {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.48'
-        classpath "org.jacoco:org.jacoco.core:0.8.8"
+        classpath "org.jacoco:org.jacoco.core:0.8.11"
     }
 
     subprojects {
@@ -22,12 +22,12 @@ buildscript {
     }
 }
 plugins {
-    id 'com.android.application' version '8.3.2' apply false
-    id 'com.android.library' version '8.3.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
+    id 'com.android.application' version '8.5.1' apply false
+    id 'com.android.library' version '8.5.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.22' apply false
     id "org.jetbrains.gradle.plugin.idea-ext" version "0.7"
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.layout.buildDirectory
 }

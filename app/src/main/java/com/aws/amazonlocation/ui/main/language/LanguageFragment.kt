@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.language // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.language
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -162,7 +162,7 @@ class LanguageFragment : BaseFragment() {
             Pair(AnalyticsAttribute.LANGUAGE, languageCode),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.LANGUAGE_CHANGED,
             properties
         )

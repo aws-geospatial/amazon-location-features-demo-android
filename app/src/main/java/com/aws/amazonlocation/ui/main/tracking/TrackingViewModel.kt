@@ -2,9 +2,9 @@ package com.aws.amazonlocation.ui.main.tracking
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amazonaws.services.geo.model.BatchDeleteDevicePositionHistoryResult
-import com.amazonaws.services.geo.model.GetDevicePositionHistoryResult
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.BatchDeleteDevicePositionHistoryResponse
+import aws.sdk.kotlin.services.location.model.GetDevicePositionHistoryResponse
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.response.DeleteLocationHistoryResponse
@@ -40,13 +40,13 @@ class TrackingViewModel @Inject constructor(
         _getGeofenceList.receiveAsFlow()
 
     private val _getLocationHistoryList =
-        Channel<HandleResult<GetDevicePositionHistoryResult>>(Channel.BUFFERED)
-    val mGetLocationHistoryList: Flow<HandleResult<GetDevicePositionHistoryResult>> =
+        Channel<HandleResult<GetDevicePositionHistoryResponse>>(Channel.BUFFERED)
+    val mGetLocationHistoryList: Flow<HandleResult<GetDevicePositionHistoryResponse>> =
         _getLocationHistoryList.receiveAsFlow()
 
     private val _getLocationHistoryTodayList =
-        Channel<HandleResult<GetDevicePositionHistoryResult>>(Channel.BUFFERED)
-    val mGetLocationHistoryTodayList: Flow<HandleResult<GetDevicePositionHistoryResult>> =
+        Channel<HandleResult<GetDevicePositionHistoryResponse>>(Channel.BUFFERED)
+    val mGetLocationHistoryTodayList: Flow<HandleResult<GetDevicePositionHistoryResponse>> =
         _getLocationHistoryTodayList.receiveAsFlow()
 
     private val _getUpdateDevicePosition =
@@ -55,22 +55,20 @@ class TrackingViewModel @Inject constructor(
         _getUpdateDevicePosition.receiveAsFlow()
 
     private val _deleteLocationHistoryList =
-        Channel<HandleResult<BatchDeleteDevicePositionHistoryResult>>(Channel.BUFFERED)
-    val mDeleteLocationHistoryList: Flow<HandleResult<BatchDeleteDevicePositionHistoryResult>> =
+        Channel<HandleResult<BatchDeleteDevicePositionHistoryResponse>>(Channel.BUFFERED)
+    val mDeleteLocationHistoryList: Flow<HandleResult<BatchDeleteDevicePositionHistoryResponse>> =
         _deleteLocationHistoryList.receiveAsFlow()
 
     fun batchUpdateDevicePosition(
         trackerName: String,
         position: List<Double>,
-        deviceId: String,
-        date: Date
+        deviceId: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             mGetGeofenceUseCase.batchUpdateDevicePosition(
                 trackerName,
                 position,
                 deviceId,
-                date,
                 object : BatchLocationUpdateInterface {
                     override fun success(searchResponse: UpdateBatchLocationResponse) {
                         if (searchResponse.isLocationDataAdded) {

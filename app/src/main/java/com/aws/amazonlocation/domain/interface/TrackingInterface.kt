@@ -1,7 +1,7 @@
 package com.aws.amazonlocation.domain.`interface`
 
-import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.Date
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

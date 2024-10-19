@@ -1,6 +1,6 @@
 package com.aws.amazonlocation.data.repository
 
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
@@ -8,8 +8,8 @@ import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.GeofenceRepository
-import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.Date
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -46,7 +46,7 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         )
     }
 
-    override fun searchPlaceSuggestions(
+    override suspend fun searchPlaceSuggestions(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -56,7 +56,7 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
     }
 
-    override fun searchPlaceIndexForText(
+    override suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
@@ -69,21 +69,19 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         trackerName: String,
         position: List<Double>,
         deviceId: String,
-        date: Date,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     ) {
-        mRemoteDataSource.batchUpdateDevicePosition(trackerName, position, deviceId, date, batchLocationUpdateInterface)
+        mRemoteDataSource.batchUpdateDevicePosition(trackerName, position, deviceId, batchLocationUpdateInterface)
     }
 
     override suspend fun evaluateGeofence(
         trackerName: String,
         position1: List<Double>?,
         deviceId: String,
-        date: Date,
         identityId: String,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     ) {
-        mRemoteDataSource.evaluateGeofence(trackerName, position1, deviceId, date, identityId, batchLocationUpdateInterface)
+        mRemoteDataSource.evaluateGeofence(trackerName, position1, deviceId, identityId, batchLocationUpdateInterface)
     }
     override suspend fun getLocationHistory(
         trackerName: String,

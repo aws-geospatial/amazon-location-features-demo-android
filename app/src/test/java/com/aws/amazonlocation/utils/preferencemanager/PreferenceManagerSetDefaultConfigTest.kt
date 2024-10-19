@@ -2,7 +2,7 @@ package com.aws.amazonlocation.utils.preferencemanager
 
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.data.enum.AuthEnum
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_POOL_ID
 import com.aws.amazonlocation.utils.KEY_USER_DOMAIN

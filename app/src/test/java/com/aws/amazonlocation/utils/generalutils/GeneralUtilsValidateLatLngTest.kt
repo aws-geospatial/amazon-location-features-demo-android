@@ -1,7 +1,7 @@
 package com.aws.amazonlocation.utils.generalutils
 
 import com.aws.amazonlocation.BaseTest
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.utils.validateLatLng
 import org.junit.Assert
 import org.junit.Test
@@ -19,14 +19,14 @@ class GeneralUtilsValidateLatLngTest : BaseTest() {
     }
 
     @Test
-    fun testValidateLatLngInvalidLat() {
-        val result = validateLatLng(LAT_LNG_VALID_LNG_STRING)
-        Assert.assertTrue(TEST_FAILED_DUE_TO_INVALID_LATITUDE, result == null)
+    fun testInvalidLat() {
+        val result = validateLatLng(INVALID_LAT_STRING)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_VALID_LATITUDE, result == null)
     }
 
     @Test
-    fun testValidateLatLngInvalidLng() {
-        val result = validateLatLng(LAT_LNG_VALID_LAT_STRING)
-        Assert.assertTrue(TEST_FAILED_DUE_TO_INVALID_LONGITUDE, result == null)
+    fun testInvalidLng() {
+        val result = validateLatLng(INVALID_LNG_STRING)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_VALID_LONGITUDE, result == null)
     }
 }

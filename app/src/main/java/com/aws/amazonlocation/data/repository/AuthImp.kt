@@ -1,7 +1,5 @@
 package com.aws.amazonlocation.data.repository
 
-import android.app.Activity
-import android.content.Context
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
 import com.aws.amazonlocation.domain.repository.AuthRepository
@@ -11,18 +9,14 @@ import com.aws.amazonlocation.domain.repository.AuthRepository
 // SPDX-License-Identifier: MIT-0
 class AuthImp(private val mRemoteDataSourceImpl: RemoteDataSourceImpl) : AuthRepository {
 
-    override fun signInWithAmazon(activity: Activity, signInInterface: SignInInterface) {
-        mRemoteDataSourceImpl.signInWithAmazon(activity, signInInterface)
+    override suspend fun fetchTokensWithOkHttp(authorizationCode: String, signInInterface: SignInInterface) {
+        mRemoteDataSourceImpl.fetchTokensWithOkHttp(authorizationCode, signInInterface)
     }
 
-    override fun signOutWithAmazon(
-        context: Context,
-        isDisconnectFromAWSRequired: Boolean,
+    override suspend fun refreshTokensWithOkHttp(
         signInInterface: SignInInterface
     ) {
-        mRemoteDataSourceImpl.signOutWithAmazon(
-            context,
-            isDisconnectFromAWSRequired,
+        mRemoteDataSourceImpl.refreshTokensWithOkHttp(
             signInInterface
         )
     }

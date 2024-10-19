@@ -165,9 +165,9 @@
   <string name="error_route">المسار لا وجدت.</string>
   <string name="no_route_found">لا طريق وجد</string>
   <string name="error_switch_to_here">مسافة هو أعظم من 400 كم، لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى هنا مزود</string>
-  <string name="error_switch_to_here_miles">مسافة هو أعظم من %s مي، لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى هنا مزود</string>
+  <string name="error_switch_to_here_miles" formatted="false">مسافة هو أعظم من %s مي، لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى هنا مزود</string>
   <string name="error_distance_400">في مصدر البيانات إسري، نقاط الطريق من أجل سيارة و شاحنة ضرورة هو داخل 400 كم، و نقاط الطريق من أجل مشي ضرورة هو داخل 40 كم.</string>
-  <string name="error_distance_248_miles">في مصدر البيانات إسري، نقاط الطريق من أجل سيارة و شاحنة ضرورة هو داخل %sim، و نقاط الطريق من أجل مشي ضرورة هو داخل %sim.</string>
+  <string name="error_distance_248_miles" formatted="false">في مصدر البيانات إسري، نقاط الطريق من أجل سيارة و شاحنة ضرورة هو داخل %sim، و نقاط الطريق من أجل مشي ضرورة هو داخل %sim.</string>
   <string name="connect_to_aws_account">قم بالاتصال الخدمات اللاسلكية المتقدمة الحساب</string>
   <string name="label_preview">استطلاع</string>
   <string name="label_location_permission_denied">الموقع تصريح تم رفضه</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">تعلم المزيد</string>
   <string name="label_welcome_amazon">أهلا بك to\nAmazon الموقع نسخة تجريبية</string>
   <string name="label_continue">استمر</string>
-  <string name="label_right_aws">© 2023، Amazon الويب خدمات، شركة أو لها الشركات التابعة. جميع حقوق محجوز.</string>
+  <string name="label_right_aws">© 2024، Amazon الويب خدمات، شركة أو لها الشركات التابعة. جميع حقوق محجوز.</string>
   <string name="label_terms_desc">بواسطة تنزيل، تثبيت، أو باستخدام ال Amazon الموقع نسخة تجريبية التطبيق، أنت يوافق إلى ال التطبيقات **الشروط &amp; الشروط** من أجل استخدم.</string>
   <string name="label_terms_desc_terms_page">بواسطة تنزيل، تثبيت، أو باستخدام ال Amazon الموقع نسخة تجريبية التطبيق، أنت يوافق إلى ال التطبيقات **الشروط &amp; الشروط** من أجل استخدم.</string>
   <string name="text_terms_desc_coloured_1">الشروط &amp; الشروط</string>

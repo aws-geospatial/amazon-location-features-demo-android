@@ -10,7 +10,7 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -45,9 +45,13 @@ class ExploreVMCalculateDistance : BaseTest() {
         locationSearchImp = LocationSearchImp(mRemoteDataSourceImpl)
         locationSearchUseCase = LocationSearchUseCase(locationSearchImp)
         mExploreVM = ExploreViewModel(locationSearchUseCase)
+        mExploreVM.mCarData = null
+        mExploreVM.mWalkingData = null
+        mExploreVM.mTruckData = null
+        mExploreVM.mBicycleData = null
+        mExploreVM.mMotorcycleData = null
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun calculateDistanceSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
@@ -64,6 +68,8 @@ class ExploreVMCalculateDistance : BaseTest() {
         mExploreVM.mCalculateDistance.test {
             val start = DISTANCE_COORDINATE_FROM
             val end = DISTANCE_COORDINATE_TO
+            mExploreVM.mStartLatLng = null
+            mExploreVM.mDestinationLatLng = null
             mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, AVOID_FERRIES, AVOID_TOLLS, false)
             var result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
@@ -85,7 +91,6 @@ class ExploreVMCalculateDistance : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun calculateDistanceError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
@@ -119,7 +124,6 @@ class ExploreVMCalculateDistance : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun calculateDistanceInternetError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {

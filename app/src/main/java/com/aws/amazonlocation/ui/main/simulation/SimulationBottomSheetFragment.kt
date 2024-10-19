@@ -175,7 +175,7 @@ class SimulationBottomSheetFragment : BottomSheetDialogFragment() {
         val properties = listOf(
             Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.SIMULATION)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(
+        (activity as MainActivity).analyticsUtils?.recordEvent(
             EventType.START_SIMULATION,
             properties
         )

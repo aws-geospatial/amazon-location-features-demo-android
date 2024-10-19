@@ -8,7 +8,7 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.GeofenceImp
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.tracking.TrackingViewModel
 import com.aws.amazonlocation.utils.GeofenceCons
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -4,8 +4,15 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.web.sugar.Web.onWebView
+import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
+import androidx.test.espresso.web.webdriver.DriverAtoms.webClick
+import androidx.test.espresso.web.webdriver.DriverAtoms.webKeys
+import androidx.test.espresso.web.webdriver.Locator
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -14,6 +21,7 @@ import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
+import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
@@ -50,7 +58,7 @@ class SettingSignInTest : BaseTestMainActivity() {
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
 
         Thread.sleep(DELAY_1000)
-        Espresso.onView(
+        onView(
             AllOf.allOf(
                 withText(settingTabText),
                 isDescendantOfA(withId(R.id.bottom_navigation_main)),
@@ -59,7 +67,7 @@ class SettingSignInTest : BaseTestMainActivity() {
         ).perform(ViewActions.click())
 
         Thread.sleep(DELAY_2000)
-        Espresso.onView(
+        onView(
             AllOf.allOf(
                 withId(R.id.cl_aws_cloudformation),
                 isDisplayed(),
@@ -72,10 +80,35 @@ class SettingSignInTest : BaseTestMainActivity() {
             val appViews = UiScrollable(UiSelector().scrollable(true))
             appViews.scrollForward()
         }
+        Thread.sleep(DELAY_1000)
+        val region =
+            uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
+        region?.click()
+
         Thread.sleep(DELAY_4000)
         val signIn =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.sign_in)))
         signIn?.click()
+
+        Thread.sleep(DELAY_5000)
+        onView(withId(R.id.sign_in_web_view))
+            .check(matches(isDisplayed()))
+
+        onWebView(withId(R.id.sign_in_web_view))
+            .forceJavascriptEnabled()
+
+        onWebView(withId(R.id.sign_in_web_view))
+            .withElement(findElement(Locator.NAME, "username"))
+            .perform(webKeys(BuildConfig.USER_LOGIN_NAME))
+
+        onWebView(withId(R.id.sign_in_web_view))
+            .withElement(findElement(Locator.NAME, "password"))
+            .perform(webKeys(BuildConfig.USER_LOGIN_PASSWORD))
+
+        onWebView(withId(R.id.sign_in_web_view))
+            .withElement(findElement(Locator.NAME, "signInSubmitButton"))
+            .perform(webClick())
+
         uiDevice.wait(
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.log_out))),
             DELAY_20000,

@@ -8,7 +8,7 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

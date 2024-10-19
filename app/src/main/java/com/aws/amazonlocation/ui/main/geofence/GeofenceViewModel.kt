@@ -2,7 +2,7 @@ package com.aws.amazonlocation.ui.main.geofence
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.response.AddGeofenceResponse
@@ -12,7 +12,6 @@ import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
-import com.mapbox.mapboxsdk.geometry.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

@@ -7,16 +7,15 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.provider.Settings
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.amazonaws.AmazonServiceException
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.services.cognitoidentity.model.NotAuthorizedException
-import com.amazonaws.services.geo.model.InternalServerException
-import com.amazonaws.services.geo.model.ResourceNotFoundException
-import com.amazonaws.services.geo.model.ThrottlingException
-import com.amazonaws.services.geo.model.ValidationException
+import aws.sdk.kotlin.services.cognitoidentity.model.ExternalServiceException
+import aws.sdk.kotlin.services.cognitoidentity.model.NotAuthorizedException
+import aws.sdk.kotlin.services.cognitoidentity.model.ResourceConflictException
+import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
+import aws.sdk.kotlin.services.location.model.LocationException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
@@ -24,15 +23,18 @@ import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.geofence.GeofenceBottomSheetHelper
 import com.aws.amazonlocation.ui.main.geofence.GeofenceUtils
+import com.aws.amazonlocation.ui.main.signin.SignInViewModel
 import com.aws.amazonlocation.ui.main.simulation.SimulationUtils
 import com.aws.amazonlocation.ui.main.tracking.TrackingUtils
 import com.aws.amazonlocation.utils.AWSLocationHelper
-import com.aws.amazonlocation.utils.AmplifyHelper
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_LOCATION_PERMISSION
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
+import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
 import com.aws.amazonlocation.utils.KEY_USER_DETAILS
+import com.aws.amazonlocation.utils.KEY_USER_DOMAIN
+import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
 import com.aws.amazonlocation.utils.LatencyChecker
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.RESTART_DELAY
@@ -46,6 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import software.amazon.location.auth.AuthHelper
 import javax.inject.Inject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -53,7 +56,6 @@ import javax.inject.Inject
 // SPDX-License-Identifier: MIT-0
 @AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
-
     var mIsUserLoggedIn: Boolean = false
     private var mAlertDialog: AlertDialog? = null
 
@@ -74,69 +76,67 @@ open class BaseActivity : AppCompatActivity() {
     @Inject
     lateinit var mAWSLocationHelper: AWSLocationHelper
     private var subTitle = ""
-
-    @Inject
-    lateinit var amplifyHelper: AmplifyHelper
+    lateinit var authHelper: AuthHelper
+    val mSignInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (mPreferenceManager.getValue(KEY_NEAREST_REGION, "") == "") {
-            if (Units.checkInternetConnection(applicationContext)) {
-                val latencyChecker = LatencyChecker()
-                val urls = arrayListOf<String>()
-                regionList.forEach {
-                    urls.add(String.format(BuildConfig.AWS_NEAREST_REGION_CHECK_URL, it))
-                }
+        lifecycleScope.launch {
+            if (mPreferenceManager.getValue(KEY_NEAREST_REGION, "") == "") {
+                if (Units.checkInternetConnection(applicationContext)) {
+                    val latencyChecker = LatencyChecker()
+                    val urls = arrayListOf<String>()
+                    regionList.forEach {
+                        urls.add(String.format(BuildConfig.AWS_NEAREST_REGION_CHECK_URL, it))
+                    }
 
-                val (fastestUrl, _) = runBlocking { latencyChecker.checkLatencyForUrls(urls) }
-                regionList.forEach {
-                    if (fastestUrl != null) {
-                        if (fastestUrl.contains(it)) {
-                            mPreferenceManager.setValue(KEY_NEAREST_REGION, it)
+                    val (fastestUrl, _) = runBlocking { latencyChecker.checkLatencyForUrls(urls) }
+                    regionList.forEach {
+                        if (fastestUrl != null) {
+                            if (fastestUrl.contains(it)) {
+                                mPreferenceManager.setValue(KEY_NEAREST_REGION, it)
+                            }
                         }
                     }
+                } else {
+                    mPreferenceManager.setValue(KEY_NEAREST_REGION, regionList[0])
                 }
-            } else {
-                mPreferenceManager.setValue(KEY_NEAREST_REGION, regionList[0])
             }
-        }
-        try {
-            amplifyHelper.initAmplify()
-        } catch (_: Exception) {}
 
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-        mGeofenceBottomSheetHelper = GeofenceBottomSheetHelper(this@BaseActivity)
-        mGeofenceUtils = GeofenceUtils()
+            val policy = ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+            mGeofenceBottomSheetHelper = GeofenceBottomSheetHelper(this@BaseActivity)
+            mGeofenceUtils = GeofenceUtils()
 
-        val preference = PreferenceManager(this)
-        if (Units.checkInternetConnection(applicationContext)) {
-            initMobileClient()
+            authHelper = AuthHelper(applicationContext)
+            val preference = PreferenceManager(applicationContext)
+            mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mAWSLocationHelper)
+            mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mAWSLocationHelper)
+            locationPermissionDialog()
         }
-        mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mAWSLocationHelper)
-        mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mAWSLocationHelper)
-        locationPermissionDialog()
     }
 
     fun showError(error: String) {
-        val snackBar = Snackbar.make(
-            findViewById(R.id.nav_host_fragment),
-            error,
-            Snackbar.LENGTH_SHORT
-        )
-        val textView = snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val snackBar =
+            Snackbar.make(
+                findViewById(R.id.nav_host_fragment),
+                error,
+                Snackbar.LENGTH_SHORT,
+            )
+        val textView =
+            snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.maxLines = 10
         snackBar.show()
     }
 
-    fun initMobileClient() {
-        if (!mAWSLocationHelper.checkClientInitialize()) {
-            mAWSLocationHelper.initAWSMobileClient(this@BaseActivity)
-        }
+    suspend fun initMobileClient() {
+        mAWSLocationHelper.initializeLocationCredentialsProvider(authHelper, this)
     }
+
     private fun locationPermissionDialog() {
         val dialogBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-        dialogBuilder.setMessage(resources.getString(R.string.location_permission_is_required))
+        dialogBuilder
+            .setMessage(resources.getString(R.string.location_permission_is_required))
             ?.setCancelable(true)
             ?.setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                 dialog.cancel()
@@ -144,7 +144,7 @@ open class BaseActivity : AppCompatActivity() {
                     Intent().apply {
                         action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                         data = Uri.fromParts("package", packageName, null)
-                    }
+                    },
                 )
             }
         mAlertDialog = dialogBuilder.create()
@@ -159,24 +159,21 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun getUserInfo(): LoginResponse? {
-        return if (!mPreferenceManager.getValue(KEY_USER_DETAILS, "").isNullOrEmpty()) {
+    fun getUserInfo(): LoginResponse? =
+        if (!mPreferenceManager.getValue(KEY_USER_DETAILS, "").isNullOrEmpty()) {
             val type = object : TypeToken<LoginResponse>() {}.type
             Gson().fromJson(mPreferenceManager.getValue(KEY_USER_DETAILS, ""), type)
         } else {
             null
         }
-    }
 
-    fun getLocationPermissionCount(): Int {
-        return mPreferenceManager.getIntValue(KEY_LOCATION_PERMISSION, 0)
-    }
+    fun getLocationPermissionCount(): Int = mPreferenceManager.getIntValue(KEY_LOCATION_PERMISSION, 0)
 
     fun updateLocationPermission(isLocation: Boolean = false) {
         if (getLocationPermissionCount() <= 1) {
             mPreferenceManager.setValue(
                 KEY_LOCATION_PERMISSION,
-                if (isLocation) 2 else getLocationPermissionCount().plus(1)
+                if (isLocation) 2 else getLocationPermissionCount().plus(1),
             )
         }
     }
@@ -196,53 +193,28 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun handleException(exception: Exception, message: String? = null) {
+    fun handleException(
+        exception: Exception,
+        message: String? = null,
+    ) {
         subTitle = ""
         when (exception) {
-            is ResourceNotFoundException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
+            is LocationException -> {
+                if (exception.message.contains("expired") || subTitle.contains("invalid")) {
+                    subTitle = "Stack is expired, refreshing"
                 }
-            }
-            is com.amazonaws.services.cognitoidentity.model.ResourceNotFoundException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
-            }
-            is com.amazonaws.services.cognitoidentityprovider.model.ResourceNotFoundException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
-            }
-            is aws.sdk.kotlin.services.location.model.ResourceNotFoundException,
-            is aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException,
-            is aws.sdk.kotlin.services.cognitoidentityprovider.model.ResourceNotFoundException -> {
-                setTitle()
             }
             is NotAuthorizedException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
+                setTitle()
             }
-            is InternalServerException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
+            is ResourceNotFoundException -> {
+                setTitle()
             }
-            is ValidationException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
+            is ResourceConflictException -> {
+                setTitle()
             }
-            is ThrottlingException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
-            }
-            is AmazonServiceException -> {
-                if (exception.statusCode == 400 || exception.statusCode == 403 || exception.statusCode == 404) {
-                    setTitle()
-                }
+            is ExternalServiceException -> {
+                setTitle()
             }
         }
         runOnUiThread {
@@ -256,9 +228,17 @@ open class BaseActivity : AppCompatActivity() {
                         showError(it)
                     }
                 }
+            } else if (subTitle.contains("expired") || subTitle.contains("invalid")) {
+                mAWSLocationHelper.checkSessionValid(this)
             } else {
                 showErrorDialog(subTitle)
             }
+        }
+    }
+
+    fun refreshToken() {
+        if (!mPreferenceManager.getValue(KEY_REFRESH_TOKEN, "").isNullOrEmpty()) {
+            mSignInViewModel.refreshTokensWithOkHttp()
         }
     }
 
@@ -275,18 +255,9 @@ open class BaseActivity : AppCompatActivity() {
 
     fun restartAppWithClearData() {
         lifecycleScope.launch {
-            when (
-                mPreferenceManager.getValue(
-                    KEY_CLOUD_FORMATION_STATUS,
-                    ""
-                )
-            ) {
-                AuthEnum.SIGNED_IN.name -> {
-                    AWSMobileClient.getInstance().signOut()
-                }
-            }
+            mAWSLocationHelper.locationCredentialsProvider?.clear()
             mPreferenceManager.setDefaultConfig()
-            delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
+            delay(RESTART_DELAY)
             restartApplication()
         }
     }

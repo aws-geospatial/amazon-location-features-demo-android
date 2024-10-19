@@ -1,7 +1,7 @@
 package com.aws.amazonlocation.utils.units
 
 import com.aws.amazonlocation.BaseTest
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.utils.KILOMETERS
 import com.aws.amazonlocation.utils.MILES
 import com.aws.amazonlocation.utils.Units

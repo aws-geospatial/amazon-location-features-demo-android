@@ -165,9 +165,9 @@
   <string name="error_route">ルート じゃない 見つかりました。</string>
   <string name="no_route_found">いいえ ルート 見つけた</string>
   <string name="error_switch_to_here">距離 です 大きい より 400 キロ、 できない 計算する 経由で エズリ、 親切に スイッチ に ここ プロバイダー</string>
-  <string name="error_switch_to_here_miles">距離 です 大きい より %s ミックス、 できない 計算する 経由で エズリ、 親切に スイッチ に ここ プロバイダー</string>
+  <string name="error_switch_to_here_miles" formatted="false">距離 です 大きい より %s ミックス、 できない 計算する 経由で エズリ、 親切に スイッチ に ここ プロバイダー</string>
   <string name="error_distance_400">で データソース Esri、 ウェイポイント にとって 車 そして トラック しなければならない です 以内に 400km、 そして ウェイポイント にとって 歩きます しなければならない です 以内に 40キロ。</string>
-  <string name="error_distance_248_miles">で データソース Esri、 ウェイポイント にとって 車 そして トラック しなければならない です 以内に %smiさん、 そして ウェイポイント にとって 歩きます しなければならない です 以内に %sm。</string>
+  <string name="error_distance_248_miles" formatted="false">で データソース Esri、 ウェイポイント にとって 車 そして トラック しなければならない です 以内に %smiさん、 そして ウェイポイント にとって 歩きます しなければならない です 以内に %sm。</string>
   <string name="connect_to_aws_account">接続 AWS 口座</string>
   <string name="label_preview">プレビュー</string>
   <string name="label_location_permission_denied">ロケーション 許可 拒否されました</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">学ぶ もっと</string>
   <string name="label_welcome_amazon">ウェルカム to\nAmazon ロケーション デモ</string>
   <string name="label_continue">続行</string>
-  <string name="label_right_aws">© 2023, Amazon ウェブ サービス、 インコーポレイテッド または その アフィリエイト。 [すべて] 権利 予約済み。</string>
+  <string name="label_right_aws">© 2024, Amazon ウェブ サービス、 インコーポレイテッド または その アフィリエイト。 [すべて] 権利 予約済み。</string>
   <string name="label_terms_desc">によって ダウンロード中、 インストール、 または を使用します その Amazon ロケーション デモ アプリ、 あなた 同意する に その アプリ **規約 &amp; 条件** にとって 使用。</string>
   <string name="label_terms_desc_terms_page">によって ダウンロード中、 インストール、 または を使用します その Amazon ロケーション デモ アプリ、 あなた 同意する に その アプリ **規約 &amp; 条件** にとって 使用。</string>
   <string name="text_terms_desc_coloured_1">規約 &amp; 条件</string>

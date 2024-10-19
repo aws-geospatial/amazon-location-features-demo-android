@@ -7,21 +7,22 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.aws.amazonlocation.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.*
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.utils.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.utils.*
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.CoreMatchers
 import org.hamcrest.core.AllOf.allOf
-import org.junit.* // ktlint-disable no-wildcard-imports
+import org.junit.*
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -129,7 +130,8 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
                 isDisplayed(),
             ),
         )
-        destinationEdt?.perform(replaceText(SEARCH_TEST_WORD_2))
+        destinationEdt?.perform(click())
+        destinationEdt?.perform(typeText(SEARCH_TEST_WORD_2))
 
         Thread.sleep(DELAY_2000)
 

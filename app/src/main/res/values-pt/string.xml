@@ -165,9 +165,9 @@
   <string name="error_route">Rota não encontrado.</string>
   <string name="no_route_found">Não rota encontrado</string>
   <string name="error_switch_to_here">Distância é maior do que 400 km, não posso calcular através da Esri, gentilmente interruptor para AQUI fornecedor</string>
-  <string name="error_switch_to_here_miles">Distância é maior do que %s mi, não posso calcular através da Esri, gentilmente interruptor para AQUI fornecedor</string>
+  <string name="error_switch_to_here_miles" formatted="false">Distância é maior do que %s mi, não posso calcular através da Esri, gentilmente interruptor para AQUI fornecedor</string>
   <string name="error_distance_400">Em Fonte de dados Esri, pontos de referência pelo carro e caminhão mosto ser dentro 400 km, e pontos de referência pelo caminhar mosto ser dentro 40 km.</string>
-  <string name="error_distance_248_miles">Em Fonte de dados Esri, pontos de referência pelo carro e caminhão mosto ser dentro %smi, e pontos de referência pelo caminhar mosto ser dentro %smi.</string>
+  <string name="error_distance_248_miles" formatted="false">Em Fonte de dados Esri, pontos de referência pelo carro e caminhão mosto ser dentro %smi, e pontos de referência pelo caminhar mosto ser dentro %smi.</string>
   <string name="connect_to_aws_account">Conectar AWS Conta</string>
   <string name="label_preview">prévia</string>
   <string name="label_location_permission_denied">Localização permissão negado</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">Aprenda Mais</string>
   <string name="label_welcome_amazon">Bem-vindo to\nAmazon Localização Demo</string>
   <string name="label_continue">Continuar</string>
-  <string name="label_right_aws">© 2023, Amazon Web Serviços, Inc. ou dela afiliados. Todos corretos reservado.</string>
+  <string name="label_right_aws">© 2024, Amazon Web Serviços, Inc. ou dela afiliados. Todos corretos reservado.</string>
   <string name="label_terms_desc">Por baixando, instalando, ou usando a Amazon Localização Demo Aplicativo, você aceita para a Aplicativos **Termos &amp; Condições** pelo usar.</string>
   <string name="label_terms_desc_terms_page">Por baixando, instalando, ou usando a Amazon Localização Demo Aplicativo, você aceita para a Aplicativos **Termos &amp; Condições** pelo usar.</string>
   <string name="text_terms_desc_coloured_1">Termos &amp; Condições</string>

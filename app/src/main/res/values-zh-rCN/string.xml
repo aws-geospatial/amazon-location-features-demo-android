@@ -165,9 +165,9 @@
   <string name="error_route">路线 不 找到了。</string>
   <string name="no_route_found">没有 路线 找到</string>
   <string name="error_switch_to_here">距离 是 更大 比 400 千米， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
-  <string name="error_switch_to_here_miles">距离 是 更大 比 %s mi， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
+  <string name="error_switch_to_here_miles" formatted="false">距离 是 更大 比 %s mi， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
   <string name="error_distance_400">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 400 千米， 和 航点 为了 走路 必须 是 之内 40 千米。</string>
-  <string name="error_distance_248_miles">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 %smi， 和 航点 为了 走路 必须 是 之内 %smi。</string>
+  <string name="error_distance_248_miles" formatted="false">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 %smi， 和 航点 为了 走路 必须 是 之内 %smi。</string>
   <string name="connect_to_aws_account">连接 AWS 账户</string>
   <string name="label_preview">预览</string>
   <string name="label_location_permission_denied">地点 许可 否认</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">学习 更多</string>
   <string name="label_welcome_amazon">欢迎光临 to\nAmazon 地点 演示</string>
   <string name="label_continue">继续</string>
-  <string name="label_right_aws">© 2023年， Amazon 网页 服务， 公司 要么 它的 附属公司。 全部 权利 保留的。</string>
+  <string name="label_right_aws">© 2024年， Amazon 网页 服务， 公司 要么 它的 附属公司。 全部 权利 保留的。</string>
   <string name="label_terms_desc">由 正在下载， 正在安装， 要么 使用 这 Amazon 地点 演示 应用程序， 你 同意 到 这 应用程序 **条款 &amp; 条件** 为了 使用。</string>
   <string name="label_terms_desc_terms_page">由 正在下载， 正在安装， 要么 使用 这 Amazon 地点 演示 应用程序， 你 同意 到 这 应用程序 **条款 &amp; 条件** 为了 使用。</string>
   <string name="text_terms_desc_coloured_1">条款 &amp; 条件</string>

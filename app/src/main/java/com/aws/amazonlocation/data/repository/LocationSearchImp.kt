@@ -1,6 +1,6 @@
 package com.aws.amazonlocation.data.repository
 
-import com.amazonaws.services.geo.model.Step
+import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
@@ -14,7 +14,7 @@ import com.aws.amazonlocation.domain.repository.LocationSearchRepository
 class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
     LocationSearchRepository {
 
-    override fun searchPlaceSuggestions(
+    override suspend fun searchPlaceSuggestions(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -24,7 +24,7 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
     }
 
-    override fun searchPlaceIndexForText(
+    override suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
@@ -33,7 +33,7 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, searchPlace)
     }
 
-    override fun calculateDistance(
+    override suspend fun calculateDistance(
         latDeparture: Double?,
         lngDeparture: Double?,
         latDestination: Double?,
@@ -55,7 +55,7 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         )
     }
 
-    override fun searchNavigationPlaceIndexForPosition(
+    override suspend fun searchNavigationPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         step: Step,
@@ -69,7 +69,7 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         )
     }
 
-    override fun searPlaceIndexForPosition(
+    override suspend fun searPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         searchPlace: SearchDataInterface

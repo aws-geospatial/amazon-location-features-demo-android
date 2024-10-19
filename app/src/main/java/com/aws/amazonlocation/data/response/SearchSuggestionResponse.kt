@@ -1,6 +1,7 @@
 package com.aws.amazonlocation.data.response
 
-import com.amplifyframework.geo.location.models.AmazonLocationPlace
+import aws.sdk.kotlin.services.location.model.Place
+
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -22,5 +23,5 @@ data class SearchSuggestionData(
     var distance: Double? = null,
     var isDestination: Boolean? = false,
     var isPlaceIndexForPosition: Boolean = false,
-    var amazonLocationPlace: AmazonLocationPlace? = null
+    var amazonLocationPlace: Place? = null
 )

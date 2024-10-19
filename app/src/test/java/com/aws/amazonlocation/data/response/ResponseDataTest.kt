@@ -1,10 +1,10 @@
 package com.aws.amazonlocation.data.response
 
-import com.amazonaws.services.geo.model.Place
-import com.amazonaws.services.geo.model.PlaceGeometry
-import com.amazonaws.services.geo.model.SearchForPositionResult
-import com.amazonaws.services.geo.model.SearchPlaceIndexForPositionResult
-import com.amazonaws.services.geo.model.SearchPlaceIndexForPositionSummary
+import aws.sdk.kotlin.services.location.model.Place
+import aws.sdk.kotlin.services.location.model.PlaceGeometry
+import aws.sdk.kotlin.services.location.model.SearchForPositionResult
+import aws.sdk.kotlin.services.location.model.SearchPlaceIndexForPositionResponse
+import aws.sdk.kotlin.services.location.model.SearchPlaceIndexForPositionSummary
 import com.aws.amazonlocation.mock.ESRI
 import com.aws.amazonlocation.mock.LIGHT
 import com.aws.amazonlocation.mock.NO_DATA_FOUND
@@ -15,7 +15,6 @@ import com.aws.amazonlocation.mock.TEST_DATA_2
 import com.aws.amazonlocation.mock.TEST_DATA_3
 import com.aws.amazonlocation.mock.TEST_DATA_4
 import com.aws.amazonlocation.mock.TEST_DATA_5
-import com.aws.amazonlocation.mock.TEST_DATA_6
 import com.aws.amazonlocation.mock.TEST_DATA_LAT
 import com.aws.amazonlocation.mock.TEST_DATA_LNG
 import com.aws.amazonlocation.mock.TEST_FAILED_ADD_GEOFENCE_DATA
@@ -41,28 +40,13 @@ class ResponseDataTest {
 
     @Test
     fun navigationDataTest() {
+        // `getAddress()` should return `destinationAddress` directly as other fields are empty
         val navigationData = Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_1
-        navigationData.getRegions()
         navigationData.destinationAddress = TEST_DATA
-        navigationData.getRegions()
         navigationData.subRegion = ""
-        navigationData.getRegions()
         navigationData.region = ""
-        navigationData.getRegions()
         navigationData.country = ""
-        navigationData.getRegions()
-        navigationData.region
-        navigationData.country
-        navigationData.duration
-        navigationData.distance
-        navigationData.startLat
-        navigationData.startLng
-        navigationData.endLat
-        navigationData.endLng
-        navigationData.destinationAddress
-        navigationData.subRegion
-        navigationData.country
-        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationData.country == "")
+        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationData.getAddress() == TEST_DATA)
     }
 
     @Test
@@ -101,33 +85,30 @@ class ResponseDataTest {
     @Test
     fun searchResponseTest() {
         val searchResponse = Responses.SEARCH_RESPONSE_TAJ
-        searchResponse.latitude = searchResponse.latitude
-        searchResponse.longitude = searchResponse.longitude
-        searchResponse.searchPlaceIndexForPositionResult = SearchPlaceIndexForPositionResult()
-            .withResults(
-                SearchForPositionResult()
-                    .withDistance(0.0)
-                    .withPlace(
-                        Place()
-                            .withCountry(TEST_DATA_2)
-                            .withGeometry(
-                                PlaceGeometry()
-                                    .withPoint(TEST_DATA_LAT, TEST_DATA_LNG)
-                            )
-                            .withInterpolated(false)
-                            .withLabel(TEST_DATA_3)
-                            .withRegion(TEST_DATA_4)
-                            .withSubRegion(TEST_DATA)
-                    )
+        searchResponse.searchPlaceIndexForPositionResult = SearchPlaceIndexForPositionResponse {
+            results = listOf(
+                SearchForPositionResult {
+                    distance = 0.0
+                    place = Place {
+                        country = TEST_DATA_2
+                        geometry = PlaceGeometry {
+                            point = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
+                        }
+                        interpolated = false
+                        label = TEST_DATA_3
+                        region = TEST_DATA_4
+                        subRegion = TEST_DATA
+                    }
+                }
             )
-            .withSummary(
-                SearchPlaceIndexForPositionSummary()
-                    .withDataSource(ESRI)
-                    .withLanguage(TEST_DATA_1)
-                    .withMaxResults(1)
-                    .withPosition(TEST_DATA_LAT, TEST_DATA_LNG)
-            )
-        Assert.assertTrue(TEST_FAILED_SEARCH_DATA, searchResponse.latitude == TEST_DATA_LNG)
+            summary = SearchPlaceIndexForPositionSummary {
+                dataSource = ESRI
+                language = TEST_DATA_1
+                maxResults = 1
+                position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
+            }
+        }
+        Assert.assertTrue(TEST_FAILED_SEARCH_DATA, searchResponse.latitude == TEST_DATA_LAT)
     }
 
     @Test
@@ -236,20 +217,6 @@ class ResponseDataTest {
         )
         mapStyleData.mapInnerData = arrayListOf(data)
         Assert.assertTrue(TEST_FAILED_MAP_STYLE_DATA, !mapStyleData.isSelected)
-    }
-
-    @Test
-    fun navigationResponseTest() {
-        val navigationResponse = Responses.RESPONSE_NAVIGATION_CAR
-        navigationResponse.distance = navigationResponse.distance
-        navigationResponse.duration = navigationResponse.duration
-        navigationResponse.navigationList = navigationResponse.navigationList
-        navigationResponse.endLat = navigationResponse.endLat
-        navigationResponse.endLng = navigationResponse.endLng
-        navigationResponse.startLat = navigationResponse.startLat
-        navigationResponse.startLng = navigationResponse.startLng
-        navigationResponse.destinationAddress = navigationResponse.destinationAddress
-        Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationResponse.duration == TEST_DATA_6)
     }
 
     @Test

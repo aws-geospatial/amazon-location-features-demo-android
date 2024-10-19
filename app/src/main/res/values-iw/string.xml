@@ -165,9 +165,9 @@
   <string name="error_route">מסלול לא מצא.</string>
   <string name="no_route_found">לא מסלול נמצא</string>
   <string name="error_switch_to_here">מרחק הווה רבתי מ 400 ק"מ, יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי כאן ספק</string>
-  <string name="error_switch_to_here_miles">מרחק הווה רבתי מ %s מי, יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי כאן ספק</string>
+  <string name="error_switch_to_here_miles" formatted="false">מרחק הווה רבתי מ %s מי, יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי כאן ספק</string>
   <string name="error_distance_400">ב מקור נתונים אסרי, נקודות דרך בשביל מכונית ו משאית צריך להיות בפנים 400 ק"מ, ו נקודות דרך בשביל ללכת צריך להיות בפנים 40 ק"מ.</string>
-  <string name="error_distance_248_miles">ב מקור נתונים אסרי, נקודות דרך בשביל מכונית ו משאית צריך להיות בפנים %smi, ו נקודות דרך בשביל ללכת צריך להיות בפנים %smi.</string>
+  <string name="error_distance_248_miles" formatted="false">ב מקור נתונים אסרי, נקודות דרך בשביל מכונית ו משאית צריך להיות בפנים %smi, ו נקודות דרך בשביל ללכת צריך להיות בפנים %smi.</string>
   <string name="connect_to_aws_account">התחבר AWS חשבון</string>
   <string name="label_preview">תצוגה מקדימה</string>
   <string name="label_location_permission_denied">מיקום רשות נדחה</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">ללמוד עוד</string>
   <string name="label_welcome_amazon">ברוכים הבאים to\nAmazon מיקום הדגמה</string>
   <string name="label_continue">המשך</string>
-  <string name="label_right_aws">© 2023, Amazon אינטרנט שירותים, "בע""מ" או שלו שותפים. כל זכויות שמורה.</string>
+  <string name="label_right_aws">© 2024, Amazon אינטרנט שירותים, "בע""מ" או שלו שותפים. כל זכויות שמורה.</string>
   <string name="label_terms_desc">על ידי הורדה, התקנה, או לנצל ה Amazon מיקום הדגמה אפליקציה, אתה מסכים כדי ה אפליקציות\ **תנאים &amp; תנאים** בשביל להשתמש.</string>
   <string name="label_terms_desc_terms_page">על ידי הורדה, התקנה, או לנצל ה Amazon מיקום הדגמה אפליקציה, אתה מסכים כדי ה אפליקציות\ **תנאים &amp; תנאים** בשביל להשתמש.</string>
   <string name="text_terms_desc_coloured_1">תנאים &amp; תנאים</string>

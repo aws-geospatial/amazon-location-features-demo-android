@@ -165,9 +165,9 @@
   <string name="error_route">노선 아니 발견.</string>
   <string name="no_route_found">아니요 노선 녹이다</string>
   <string name="error_switch_to_here">거리 입니다 더 큰 보다 400 km, 할 수 없습니다 계산합니다 통해 에스리, 친절한 변경하다 에 여기 공급자</string>
-  <string name="error_switch_to_here_miles">거리 입니다 더 큰 보다 %s 믹스, 할 수 없습니다 계산합니다 통해 에스리, 친절한 변경하다 에 여기 공급자</string>
+  <string name="error_switch_to_here_miles" formatted="false">거리 입니다 더 큰 보다 %s 믹스, 할 수 없습니다 계산합니다 통해 에스리, 친절한 변경하다 에 여기 공급자</string>
   <string name="error_distance_400">에서 데이터 소스 에스리, 중간 지점 ...에 대한 차 과 트럭 해야 합니다 있다 내에서 400km, 과 중간 지점 ...에 대한 도보 해야 합니다 있다 내에서 40km.</string>
-  <string name="error_distance_248_miles">에서 데이터 소스 에스리, 중간 지점 ...에 대한 차 과 트럭 해야 합니다 있다 내에서 %si, 과 중간 지점 ...에 대한 도보 해야 합니다 있다 내에서 %si.</string>
+  <string name="error_distance_248_miles" formatted="false">에서 데이터 소스 에스리, 중간 지점 ...에 대한 차 과 트럭 해야 합니다 있다 내에서 %si, 과 중간 지점 ...에 대한 도보 해야 합니다 있다 내에서 %si.</string>
   <string name="connect_to_aws_account">커넥트 AWS 계정</string>
   <string name="label_preview">시사</string>
   <string name="label_location_permission_denied">위치 허가 거부되었습니다</string>
@@ -179,7 +179,7 @@
   <string name="btn_learn_more">배우기 더 보기</string>
   <string name="label_welcome_amazon">어서 오십시오 to\nAmazon 위치 데모</string>
   <string name="label_continue">계속</string>
-  <string name="label_right_aws">© 2023, Amazon 웹 서비스, 주식회사 또는 그것의 계열사. 모두 권한 예약되어 있습니다.</string>
+  <string name="label_right_aws">© 2024, Amazon 웹 서비스, 주식회사 또는 그것의 계열사. 모두 권한 예약되어 있습니다.</string>
   <string name="label_terms_desc">에 의해 다운로드, 설치, 또는 를 사용하여 그 Amazon 위치 데모 앱, 당신 동의하다 에 그 앱\ \'의 **약관 &amp; 조건** ...에 대한 용도.</string>
   <string name="label_terms_desc_terms_page">에 의해 다운로드, 설치, 또는 를 사용하여 그 Amazon 위치 데모 앱, 당신 동의하다 에 그 앱\ \'의 **약관 &amp; 조건** ...에 대한 용도.</string>
   <string name="text_terms_desc_coloured_1">약관 &amp; 조건</string>

@@ -1,18 +1,13 @@
 package com.aws.amazonlocation.ui.main
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until.hasObject
-import com.amplifyframework.geo.maplibre.view.MapLibreView
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
@@ -34,13 +29,12 @@ import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.utils.retry_rule.Retry
 import com.aws.amazonlocation.waitUntil
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -53,11 +47,11 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
     fun testMapZoomIn() {
         try {
             enableGPS(ApplicationProvider.getApplicationContext())
-            var mapbox: MapboxMap? = null
+            var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
             Thread.sleep(DELAY_1000)
 
-            val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+            val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
@@ -90,11 +84,11 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
     @Retry
     fun testMapZoomOut() {
         try {
-            var mapbox: MapboxMap? = null
+            var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
             Thread.sleep(DELAY_1000)
 
-            val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+            val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
@@ -127,11 +121,11 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
     @Retry
     fun testMapZoomDoubleTap() {
         try {
-            var mapbox: MapboxMap? = null
+            var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
             Thread.sleep(DELAY_1000)
 
-            val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+            val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }

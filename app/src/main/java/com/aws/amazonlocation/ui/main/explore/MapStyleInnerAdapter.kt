@@ -8,8 +8,10 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.MapStyleInnerData
 import com.aws.amazonlocation.databinding.ItemMapNameBinding
 import com.aws.amazonlocation.utils.DESCRIPTION_TAG_ESRI
+import com.aws.amazonlocation.utils.DESCRIPTION_TAG_GRAB
 import com.aws.amazonlocation.utils.DESCRIPTION_TAG_HERE
 import com.aws.amazonlocation.utils.DESCRIPTION_TAG_OPEN
+import com.aws.amazonlocation.utils.GRAB
 import com.aws.amazonlocation.utils.HERE
 import com.aws.amazonlocation.utils.OPEN
 
@@ -61,6 +63,8 @@ class MapStyleInnerAdapter(
             DESCRIPTION_TAG_HERE + position
         } else if (innerStyle.mMapStyleName?.contains(OPEN) == true) {
             DESCRIPTION_TAG_OPEN + position
+        }  else if (innerStyle.mMapStyleName?.contains(GRAB) == true) {
+            DESCRIPTION_TAG_GRAB + position
         } else {
             DESCRIPTION_TAG_ESRI + position
         }

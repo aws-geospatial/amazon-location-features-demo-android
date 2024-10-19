@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.map_style // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.map_style
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -336,7 +336,10 @@ class MapStyleBottomSheetFragment(
                     mViewModel.typeOptions.filter { !it.isSelected }
                         .forEach { data -> data.isApplyFilter = false }
                 } else {
+                    clearSortingSelection()
+                    notifySortingAdapter()
                     setFilterNotSelected()
+                    collapseSearchMap(params)
                 }
                 if (filterList.isNotEmpty()) {
                     mViewModel.mStyleList.clear()
@@ -435,7 +438,7 @@ class MapStyleBottomSheetFragment(
             cardOpenData.setOnClickListener {
                 val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
                 if (mapName != getString(R.string.open_data)) {
-                    mapInterface.mapStyleClick(3, 0)
+                    mapInterface.mapStyleClick(if (!isGrabMapEnable(mPreferenceManager)) 2 else 3, 0)
                 }
             }
             cardGrabMap.setOnClickListener {
@@ -573,6 +576,7 @@ class MapStyleBottomSheetFragment(
             cardGrabMap.hide()
             cardEsri.show()
             cardHere.show()
+            cardOpenData.show()
         } else {
             groupFilterButton.show()
         }
