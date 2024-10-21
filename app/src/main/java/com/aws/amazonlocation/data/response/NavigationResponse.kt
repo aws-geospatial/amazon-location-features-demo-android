@@ -28,10 +28,10 @@ class NavigationData(
     var country: String? = null,
     var isDataSuccess: Boolean = false
 ) {
-    fun getRegions(): String {
-        var mRegion = ""
+    fun getAddress(): String {
+        var mAddress = ""
         if (isDataSuccess) {
-            mRegion += if (!destinationAddress.isNullOrEmpty()) {
+            mAddress += if (!destinationAddress.isNullOrEmpty()) {
                 destinationAddress
             } else if (!subRegion.isNullOrEmpty() && !region.isNullOrEmpty()) {
                 "$subRegion, $region"
@@ -43,8 +43,8 @@ class NavigationData(
                 ""
             }
         } else {
-            mRegion = destinationAddress.toString()
+            mAddress = destinationAddress.toString()
         }
-        return mRegion
+        return mAddress
     }
 }

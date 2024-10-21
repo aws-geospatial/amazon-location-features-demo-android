@@ -1,9 +1,7 @@
 package com.aws.amazonlocation.data.datasource
 
-import android.app.Activity
-import android.content.Context
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
-import com.amazonaws.services.geo.model.Step
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
@@ -13,15 +11,15 @@ import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
-import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.Date
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
 interface RemoteDataSource {
 
-    fun searchPlaceSuggestions(
+    suspend fun searchPlaceSuggestions(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -29,25 +27,14 @@ interface RemoteDataSource {
         isGrabMapSelected: Boolean
     )
 
-    fun searchPlaceIndexForText(
+    suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
         searchPlace: SearchPlaceInterface
     )
 
-    fun signInWithAmazon(
-        activity: Activity,
-        signInInterface: SignInInterface
-    )
-
-    fun signOutWithAmazon(
-        context: Context,
-        isDisconnectFromAWSRequired: Boolean,
-        signInInterface: SignInInterface
-    )
-
-    fun calculateRoute(
+    suspend fun calculateRoute(
         latDeparture: Double?,
         lngDeparture: Double?,
         latDestination: Double?,
@@ -58,14 +45,14 @@ interface RemoteDataSource {
         distanceInterface: DistanceInterface
     )
 
-    fun searchNavigationPlaceIndexForPosition(
+    suspend fun searchNavigationPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         step: Step,
         searchPlace: NavigationDataInterface
     )
 
-    fun searPlaceIndexForPosition(
+    suspend fun searPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         searchPlace: SearchDataInterface
@@ -73,7 +60,7 @@ interface RemoteDataSource {
 
     suspend fun getGeofenceList(collectionName: String, mGeofenceAPIInterface: GeofenceAPIInterface)
 
-    fun addGeofence(
+    suspend fun addGeofence(
         geofenceId: String,
         collectionName: String,
         radius: Double?,
@@ -91,7 +78,6 @@ interface RemoteDataSource {
         trackerName: String,
         position: List<Double>,
         deviceId: String,
-        date: Date,
         mTrackingInterface: BatchLocationUpdateInterface
     )
 
@@ -99,7 +85,6 @@ interface RemoteDataSource {
         trackerName: String,
         position1: List<Double>? = null,
         deviceId: String,
-        date: Date,
         identityId: String,
         mTrackingInterface: BatchLocationUpdateInterface,
     )
@@ -116,5 +101,11 @@ interface RemoteDataSource {
         trackerName: String,
         deviceId: String,
         historyInterface: LocationDeleteHistoryInterface
+    )
+
+    suspend fun fetchTokensWithOkHttp(authorizationCode: String, signInInterface: SignInInterface)
+
+    suspend fun refreshTokensWithOkHttp(
+        signInInterface: SignInInterface
     )
 }

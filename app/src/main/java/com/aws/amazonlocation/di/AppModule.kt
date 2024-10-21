@@ -9,7 +9,6 @@ import com.aws.amazonlocation.domain.repository.AuthRepository
 import com.aws.amazonlocation.domain.repository.GeofenceRepository
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
 import com.aws.amazonlocation.utils.AWSLocationHelper
-import com.aws.amazonlocation.utils.AmplifyHelper
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.PreferenceManager
@@ -36,14 +35,6 @@ object AppModule {
     @Singleton
     fun getAWSLocationHelper(mMapHelper: MapHelper, mPreferenceManager: PreferenceManager) =
         AWSLocationHelper(mMapHelper, mPreferenceManager)
-
-    @Provides
-    @Singleton
-    fun amplifyHelperInit(
-        @ApplicationContext appContext: Context,
-        mPreferenceManager: PreferenceManager
-    ) =
-        AmplifyHelper(appContext, mPreferenceManager)
 
     @Provides
     @Singleton

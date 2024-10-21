@@ -26,8 +26,7 @@ class SearchPlacesSuggestionAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SearchSuggestionData) {
             binding.apply {
-                val region =
-                    getRegion(data.amazonLocationPlace?.region, data.amazonLocationPlace?.subRegion, data.amazonLocationPlace?.country)
+                val region = getRegion(data.amazonLocationPlace?.region, data.amazonLocationPlace?.subRegion, data.amazonLocationPlace?.country)
 
                 if (region.isEmpty()) {
                     tvRegion.text = tvRegion.context.resources.getString(R.string.search_nearby)

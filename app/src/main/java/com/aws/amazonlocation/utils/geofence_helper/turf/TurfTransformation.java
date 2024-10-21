@@ -1,7 +1,8 @@
 package com.aws.amazonlocation.utils.geofence_helper.turf;
 
-import com.mapbox.geojson.Point;
-import com.mapbox.geojson.Polygon;
+
+import org.maplibre.geojson.Point;
+import org.maplibre.geojson.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,9 +116,6 @@ public final class TurfTransformation {
     @NonNull List<Point> original,
     double squaredTolerance
   ) {
-    if (original.size() <= 2) {
-      return original;
-    }
     Point prevCoordinate = original.get(0);
     List<Point> newCoordinates = new ArrayList<>();
     newCoordinates.add(prevCoordinate);

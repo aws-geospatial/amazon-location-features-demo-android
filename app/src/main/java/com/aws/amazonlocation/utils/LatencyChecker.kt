@@ -1,6 +1,5 @@
 package com.aws.amazonlocation.utils
 
-import android.util.Log
 import com.aws.amazonlocation.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.Request

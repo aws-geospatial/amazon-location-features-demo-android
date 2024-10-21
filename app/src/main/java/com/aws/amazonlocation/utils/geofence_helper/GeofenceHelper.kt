@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.utils.geofence_helper // ktlint-disable package-name
+package com.aws.amazonlocation.utils.geofence_helper
 
 import android.content.Context
 import android.widget.SeekBar
@@ -39,35 +39,35 @@ import com.aws.amazonlocation.utils.latNorth
 import com.aws.amazonlocation.utils.latSouth
 import com.aws.amazonlocation.utils.lonEast
 import com.aws.amazonlocation.utils.lonWest
-import com.mapbox.geojson.Feature
-import com.mapbox.geojson.LineString
-import com.mapbox.geojson.Point
-import com.mapbox.geojson.Point.fromLngLat
-import com.mapbox.geojson.Polygon
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolDragListener
-import com.mapbox.mapboxsdk.plugins.annotation.Symbol
-import com.mapbox.mapboxsdk.style.layers.FillLayer
-import com.mapbox.mapboxsdk.style.layers.LineLayer
-import com.mapbox.mapboxsdk.style.layers.Property
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillColor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillOpacity
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillOutlineColor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAnchor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.textAllowOverlap
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import com.mapbox.mapboxsdk.utils.BitmapUtils
+import org.maplibre.android.camera.CameraPosition
+import org.maplibre.android.camera.CameraUpdateFactory
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.geometry.LatLngBounds
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.Style
+import org.maplibre.android.plugins.annotation.OnSymbolDragListener
+import org.maplibre.android.plugins.annotation.Symbol
+import org.maplibre.android.style.layers.FillLayer
+import org.maplibre.android.style.layers.LineLayer
+import org.maplibre.android.style.layers.Property
+import org.maplibre.android.style.layers.PropertyFactory.fillColor
+import org.maplibre.android.style.layers.PropertyFactory.fillOpacity
+import org.maplibre.android.style.layers.PropertyFactory.fillOutlineColor
+import org.maplibre.android.style.layers.PropertyFactory.iconAllowOverlap
+import org.maplibre.android.style.layers.PropertyFactory.iconAnchor
+import org.maplibre.android.style.layers.PropertyFactory.iconIgnorePlacement
+import org.maplibre.android.style.layers.PropertyFactory.iconImage
+import org.maplibre.android.style.layers.PropertyFactory.lineColor
+import org.maplibre.android.style.layers.PropertyFactory.lineWidth
+import org.maplibre.android.style.layers.PropertyFactory.textAllowOverlap
+import org.maplibre.android.style.layers.SymbolLayer
+import org.maplibre.android.style.sources.GeoJsonSource
+import org.maplibre.android.utils.BitmapUtils
+import org.maplibre.geojson.Feature
+import org.maplibre.geojson.LineString
+import org.maplibre.geojson.Point
+import org.maplibre.geojson.Point.fromLngLat
+import org.maplibre.geojson.Polygon
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -76,7 +76,7 @@ class GeofenceHelper(
     private var mAppContext: Context,
     private var mTvSeekBar: AppCompatTextView?,
     private var mSeekBar: SeekBar?,
-    private var mMapboxMap: MapboxMap?,
+    private var mMapboxMap: MapLibreMap?,
     private var mGeofenceMapLatLngInterface: GeofenceMapLatLngInterface?,
     private var mPrefrenceManager: PreferenceManager?
 ) {
@@ -431,7 +431,7 @@ class GeofenceHelper(
 
     private fun upDateSeekbarText(radius: Int) {
         val isMetric = Units.isMetric(mPrefrenceManager?.getValue(KEY_UNIT_SYSTEM, ""))
-        var seekbarText: String = if (isMetric) {
+        val seekbarText: String = if (isMetric) {
             Units.getMetricsNew(mAppContext, radius.toDouble(), true)
         } else {
             Units.getMetrics(mAppContext, Units.meterToFeet(radius.toDouble()), false)

@@ -9,20 +9,21 @@ import android.text.format.DateUtils
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread
-import com.amazonaws.mobile.client.AWSMobileClient
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos
-import com.amazonaws.services.geo.AmazonLocationClient
-import com.amazonaws.services.geo.model.DevicePosition
-import com.amazonaws.services.geo.model.GetDevicePositionHistoryResult
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
+import aws.sdk.kotlin.services.location.model.DevicePosition
+import aws.sdk.kotlin.services.location.model.GetDevicePositionHistoryResponse
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
+import aws.smithy.kotlin.runtime.time.epochMilliseconds
+import com.amazonaws.services.iot.client.AWSIotMessage
+import com.amazonaws.services.iot.client.AWSIotMqttClient
+import com.amazonaws.services.iot.client.AWSIotQos
+import com.amazonaws.services.iot.client.AWSIotTopic
+import com.amazonaws.services.iot.client.auth.CredentialsProvider
+import com.amazonaws.services.iot.client.auth.StaticCredentialsProvider
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.MarkerEnum
 import com.aws.amazonlocation.data.enum.TrackingEnum
@@ -32,28 +33,60 @@ import com.aws.amazonlocation.domain.`interface`.TrackingInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.simulation.SimulationBottomSheetFragment
 import com.aws.amazonlocation.ui.main.welcome.WelcomeBottomSheetFragment
-import com.aws.amazonlocation.utils.*
+import com.aws.amazonlocation.utils.AWSLocationHelper
+import com.aws.amazonlocation.utils.AnalyticsAttribute
+import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.ChangeDataProviderInterface
+import com.aws.amazonlocation.utils.DateFormat
+import com.aws.amazonlocation.utils.DeleteTrackingDataInterface
+import com.aws.amazonlocation.utils.Durations
+import com.aws.amazonlocation.utils.EventType
+import com.aws.amazonlocation.utils.GeofenceCons
+import com.aws.amazonlocation.utils.KEY_MAP_NAME
+import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
+import com.aws.amazonlocation.utils.KEY_POOL_ID
+import com.aws.amazonlocation.utils.KEY_USER_REGION
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
+import com.aws.amazonlocation.utils.MapHelper
+import com.aws.amazonlocation.utils.MessageInterface
+import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.utils.TIME_OUT
+import com.aws.amazonlocation.utils.WEB_SOCKET_URL
+import com.aws.amazonlocation.utils.changeDataProviderDialog
+import com.aws.amazonlocation.utils.checkGeofenceInsideGrab
+import com.aws.amazonlocation.utils.deleteTrackingDataDialog
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfConstants
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeta
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfTransformation
+import com.aws.amazonlocation.utils.getLanguageCode
+import com.aws.amazonlocation.utils.hide
+import com.aws.amazonlocation.utils.isGrabMapSelected
+import com.aws.amazonlocation.utils.messageDialog
+import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.stickyHeaders.StickyHeaderDecoration
+import com.aws.amazonlocation.utils.validateIdentityPoolId
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.JsonParser
-import com.mapbox.geojson.LineString
-import com.mapbox.geojson.Point
-import com.mapbox.geojson.Point.fromLngLat
-import com.mapbox.geojson.Polygon
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.style.layers.FillLayer
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlinx.coroutines.delay
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.maplibre.android.camera.CameraUpdateFactory
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.geometry.LatLngBounds
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.style.layers.FillLayer
+import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.sources.GeoJsonSource
+import org.maplibre.geojson.LineString
+import org.maplibre.geojson.Point
+import org.maplibre.geojson.Point.fromLngLat
+import org.maplibre.geojson.Polygon
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -64,18 +97,17 @@ class TrackingUtils(
     val activity: Activity?,
     val mAWSLocationHelper: AWSLocationHelper
 ) {
+    var isChangeDataProviderClicked: Boolean = false
     private var imageId: Int = 0
     private var headerIdsToRemove = arrayListOf<String>()
     private var sourceIdsToRemove = arrayListOf<String>()
-    private var mqttManager: AWSIotMqttManager? = null
     private var adapter: TrackingHistoryAdapter? = null
     private var mBottomSheetTrackingBehavior: BottomSheetBehavior<ConstraintLayout>? = null
     private var mBindingTracking: BottomSheetTrackingBinding? = null
     private var mFragmentActivity: FragmentActivity? = null
     private var mTrackingInterface: TrackingInterface? = null
     private var mMapHelper: MapHelper? = null
-    private var mMapboxMap: MapboxMap? = null
-    private var mClient: AmazonLocationClient? = null
+    private var mMapboxMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mIsLocationUpdateEnable = false
     private var mGeofenceList = ArrayList<ListGeofenceResponseEntry>()
@@ -83,14 +115,14 @@ class TrackingUtils(
     private var isLoading = true
     private val mCircleUnit: String = TurfConstants.UNIT_METERS
     private var trackingHistoryData = arrayListOf<TrackingHistoryData>()
+    private var mqttClient: AWSIotMqttClient? = null
 
     private var headerId = 0
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapboxMap,
+        mapboxMap: MapLibreMap,
         mMapHelper: MapHelper
     ) {
-        mClient = AmazonLocationClient(AWSMobileClient.getInstance())
         this.mMapHelper = mMapHelper
         this.mMapboxMap = mapboxMap
         this.mActivity = activity
@@ -212,28 +244,30 @@ class TrackingUtils(
             }
             cardTrackerGeofenceSimulation.hide()
             btnTryTracker.setOnClickListener {
-                mPreferenceManager?.let {
-                    if (isGrabMapSelected(it, btnTryTracker.context)) {
+                mPreferenceManager?.let { manager ->
+                    if (isGrabMapSelected(manager, btnTryTracker.context)) {
                         mActivity?.changeDataProviderDialog(object : ChangeDataProviderInterface {
                             override fun changeDataProvider(dialog: DialogInterface) {
                                 mActivity?.getString(R.string.map_light)?.let { it1 ->
-                                    mPreferenceManager.setValue(
+                                    manager.setValue(
                                         KEY_MAP_STYLE_NAME,
                                         it1
                                     )
                                 }
                                 mActivity?.getString(R.string.esri)?.let { it1 ->
-                                    mPreferenceManager.setValue(
+                                    manager.setValue(
                                         KEY_MAP_NAME,
                                         it1
                                     )
                                 }
-                                (activity as MainActivity).lifecycleScope.launch {
-                                    if (!isRunningTest) {
-                                        delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
-                                        activity.restartApplication()
-                                    }
+                                isChangeDataProviderClicked = true
+                                mActivity?.let {
+                                    (it as MainActivity).changeMapStyle(
+                                        it.getString(R.string.esri),
+                                        it.getString(R.string.map_light)
+                                    )
                                 }
+                                isChangeDataProviderClicked = false
                             }
                         })
                     } else {
@@ -246,7 +280,7 @@ class TrackingUtils(
                 val isRtl =
                     languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
                 if (isRtl) {
-                    ViewCompat.setLayoutDirection(clPersistentBottomSheet, ViewCompat.LAYOUT_DIRECTION_RTL)
+                    clPersistentBottomSheet.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 }
             }
             tvDeleteTrackingData.setOnClickListener {
@@ -265,11 +299,13 @@ class TrackingUtils(
                     KEY_USER_REGION,
                     ""
                 )
-                if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
-                    mActivity?.getString(R.string.reconnect_with_aws_account)
-                        ?.let { it1 -> activity.showError(it1) }
-                    activity.restartAppWithClearData()
-                    return@setOnClickListener
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (!validateIdentityPoolId(mIdentityPoolId, regionData)) {
+                        mActivity?.getString(R.string.reconnect_with_aws_account)
+                            ?.let { it1 -> activity.showError(it1) }
+                        activity.restartAppWithClearData()
+                        return@launch
+                    }
                 }
                 if (mIsLocationUpdateEnable) {
                     mActivity?.getColor(R.color.color_primary_green)
@@ -337,24 +373,23 @@ class TrackingUtils(
             )
         }
     }
-
     private fun stopMqttManager() {
         mIsLocationUpdateEnable = false
-        if (mqttManager != null) {
+        if (mqttClient != null) {
             try {
-                mqttManager?.unsubscribeTopic("${mAWSLocationHelper.getCognitoCachingCredentialsProvider()?.identityId}/tracker")
+                mqttClient?.unsubscribe("${mAWSLocationHelper.getIdentityId()}/tracker")
             } catch (_: Exception) {
             }
 
             try {
-                mqttManager?.disconnect()
+                mqttClient?.disconnect()
             } catch (_: Exception) {
             }
-            mqttManager = null
+            mqttClient = null
             val properties = listOf(
                 Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.TRACKERS)
             )
-            (activity as MainActivity).analyticsHelper?.recordEvent(
+            (activity as MainActivity).analyticsUtils?.recordEvent(
                 EventType.STOP_TRACKING,
                 properties
             )
@@ -363,58 +398,39 @@ class TrackingUtils(
 
     private fun startMqttManager() {
         mIsLocationUpdateEnable = true
-        if (mqttManager != null) stopMqttManager()
-        val identityId: String? =
-            mAWSLocationHelper.getCognitoCachingCredentialsProvider()?.identityId
-
-        mqttManager =
-            AWSIotMqttManager(identityId, mPreferenceManager?.getValue(WEB_SOCKET_URL, ""))
-        mqttManager?.isAutoReconnect =
-            false // To be able to display Exceptions and debug the problem.
-        mqttManager?.keepAlive = 60
-        mqttManager?.setCleanSession(true)
+        if (mqttClient != null) stopMqttManager()
+        val identityId: String? = mAWSLocationHelper.getIdentityId()
+        val regionData = mPreferenceManager?.getValue(
+            KEY_USER_REGION,
+            ""
+        )
+        val credentials = createCredentialsProvider(mAWSLocationHelper.getCredentials())
+        mqttClient = AWSIotMqttClient(mPreferenceManager?.getValue(WEB_SOCKET_URL, ""), identityId, credentials, regionData)
 
         try {
-            val instance = mAWSLocationHelper.getCognitoCachingCredentialsProvider()
-            mqttManager?.connect(instance) { status, throwable ->
-                runOnUiThread {
-                    when (status) {
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Connecting -> {
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Connected -> {
-                            startTracking()
-                            identityId.let {
-                                if (it != null) {
-                                    subscribeTopic(it)
-                                }
-                            }
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.Reconnecting -> {
-                        }
-                        AWSIotMqttClientStatusCallback.AWSIotMqttClientStatus.ConnectionLost -> {
-                            throwable?.printStackTrace()
-                            if (mIsLocationUpdateEnable) {
-                                startTracking()
-                            }
-                            mBindingTracking?.apply {
-                                viewLoader.hide()
-                                tvStopTracking.show()
-                                cardStartTracking.isEnabled = true
-                            }
-                        }
-                        else -> {
-                            mBindingTracking?.apply {
-                                viewLoader.hide()
-                                tvStopTracking.show()
-                                cardStartTracking.isEnabled = true
-                            }
-                        }
-                    }
-                }
-            }
+            mqttClient?.connect()
+            mIsLocationUpdateEnable = true
+            startTracking()
+            identityId?.let { subscribeTopic(it) }
         } catch (e: Exception) {
             e.printStackTrace()
+            mBindingTracking?.apply {
+                viewLoader.hide()
+                tvStopTracking.show()
+                cardStartTracking.isEnabled = true
+            }
         }
+    }
+
+    private fun createCredentialsProvider(credentials: Credentials?): CredentialsProvider {
+        if (credentials?.accessKeyId == null || credentials.sessionToken == null) throw Exception("Credentials not found")
+        return StaticCredentialsProvider(
+            com.amazonaws.services.iot.client.auth.Credentials(
+                credentials.accessKeyId,
+                credentials.secretKey,
+                credentials.sessionToken,
+            )
+        )
     }
 
     private fun startTracking() {
@@ -444,7 +460,7 @@ class TrackingUtils(
         val properties = listOf(
             Pair(AnalyticsAttribute.SCREEN_NAME, AnalyticsAttributeValue.TRACKERS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(EventType.START_TRACKING, properties)
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.START_TRACKING, properties)
     }
 
     fun updateLatLngOnMap(latLng: LatLng) {
@@ -453,52 +469,53 @@ class TrackingUtils(
 
     private fun subscribeTopic(identityId: String) {
         try {
-            mqttManager?.subscribeToTopic(
-                "$identityId/tracker",
-                AWSIotMqttQos.QOS0
-            ) { _, data ->
-
-                val stringData = String(data)
-                if (stringData.isNotEmpty()) {
-                    val jsonObject = JsonParser.parseString(stringData).asJsonObject
-                    val type = jsonObject.get("trackerEventType").asString
-                    val geofenceName = jsonObject.get("geofenceId").asString
-                    val subTitle = if (type.equals("ENTER", true)) {
-                        val propertiesAws = listOf(
-                            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.TRACKERS),
-                            Pair(AnalyticsAttribute.GEOFENCE_ID, geofenceName),
-                            Pair(AnalyticsAttribute.EVENT_TYPE, AnalyticsAttributeValue.ENTER)
-                        )
-                        (activity as MainActivity).analyticsHelper?.recordEvent(EventType.GEO_EVENT_TRIGGERED, propertiesAws)
-                        "${mFragmentActivity?.getString(R.string.label_tracker_entered)} $geofenceName"
-                    } else {
-                        val propertiesAws = listOf(
-                            Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.TRACKERS),
-                            Pair(AnalyticsAttribute.GEOFENCE_ID, geofenceName),
-                            Pair(AnalyticsAttribute.EVENT_TYPE, AnalyticsAttributeValue.EXIT)
-                        )
-                        (activity as MainActivity).analyticsHelper?.recordEvent(EventType.GEO_EVENT_TRIGGERED, propertiesAws)
-                        "${mFragmentActivity?.getString(R.string.label_tracker_exited)} $geofenceName"
-                    }
-                    runOnUiThread {
-                        activity.messageDialog(
-                            title = geofenceName,
-                            subTitle = subTitle,
-                            false,
-                            object : MessageInterface {
-                                override fun onMessageClick(dialog: DialogInterface) {
-                                    dialog.dismiss()
-                                }
+            val topic = object : AWSIotTopic("$identityId/tracker", AWSIotQos.QOS0) {
+                override fun onMessage(message: AWSIotMessage?) {
+                    message?.let {
+                        val payloadBytes = it.payload
+                        val stringData = String(payloadBytes)
+                        if (stringData.isNotEmpty()) {
+                            val jsonObject = JsonParser.parseString(stringData).asJsonObject
+                            val type = jsonObject.get("trackerEventType").asString
+                            val geofenceName = jsonObject.get("geofenceId").asString
+                            val subTitle = if (type.equals("ENTER", true)) {
+                                val propertiesAws = listOf(
+                                    Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.TRACKERS),
+                                    Pair(AnalyticsAttribute.GEOFENCE_ID, geofenceName),
+                                    Pair(AnalyticsAttribute.EVENT_TYPE, AnalyticsAttributeValue.ENTER)
+                                )
+                                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.GEO_EVENT_TRIGGERED, propertiesAws)
+                                "${mFragmentActivity?.getString(R.string.label_tracker_entered)} $geofenceName"
+                            } else {
+                                val propertiesAws = listOf(
+                                    Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.TRACKERS),
+                                    Pair(AnalyticsAttribute.GEOFENCE_ID, geofenceName),
+                                    Pair(AnalyticsAttribute.EVENT_TYPE, AnalyticsAttributeValue.EXIT)
+                                )
+                                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.GEO_EVENT_TRIGGERED, propertiesAws)
+                                "${mFragmentActivity?.getString(R.string.label_tracker_exited)} $geofenceName"
                             }
-                        )
+                            activity.runOnUiThread {
+                                activity.messageDialog(
+                                    title = geofenceName,
+                                    subTitle = subTitle,
+                                    false,
+                                    object : MessageInterface {
+                                        override fun onMessageClick(dialog: DialogInterface) {
+                                            dialog.dismiss()
+                                        }
+                                    }
+                                )
+                            }
+                        }
                     }
                 }
             }
+            mqttClient?.subscribe(topic, TIME_OUT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
-
     private fun getCurrentDateData() {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, 23)
@@ -530,7 +547,8 @@ class TrackingUtils(
         mTrackingInterface?.getTodayLocationHistory(dateStart, dateEnd)
     }
 
-    private fun checkAndSetDate(date: Date): String {
+    private fun checkAndSetDate(long: Long): String {
+        val date = Date(long)
         val df = SimpleDateFormat(DateFormat.MMM_DD_YYYY, Locale.getDefault())
         val formattedDate: String = df.format(date)
 
@@ -593,19 +611,23 @@ class TrackingUtils(
             Pair(AnalyticsAttribute.NUMBER_OF_TRACKER_POINTS, mGeofenceList.size.toString()),
             Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.TRACKERS)
         )
-        (activity as MainActivity).analyticsHelper?.recordEvent(EventType.TRACKER_SAVED, properties)
+        (activity as MainActivity).analyticsUtils?.recordEvent(EventType.TRACKER_SAVED, properties)
         if (mGeofenceList.isNotEmpty()) {
             val mLatLngList = ArrayList<LatLng>()
             mGeofenceList.forEachIndexed { index, data ->
-                val latLng = LatLng(data.geometry.circle.center[1], data.geometry.circle.center[0])
-                if (checkGeofenceInsideGrab(latLng, mPreferenceManager, mActivity?.applicationContext)) {
-                    setDefaultIconWithGeofence(index)
-                    mLatLngList.add(latLng)
-                    drawGeofence(
-                        fromLngLat(latLng.longitude, latLng.latitude),
-                        data.geometry.circle.radius.toInt(),
-                        index
-                    )
+                data.geometry?.circle?.center?.let {
+                    val latLng = LatLng(it[1], it[0])
+                    if (checkGeofenceInsideGrab(latLng, mPreferenceManager, mActivity?.applicationContext)) {
+                        setDefaultIconWithGeofence(index)
+                        mLatLngList.add(latLng)
+                        data.geometry?.circle?.radius?.let { it1 ->
+                            drawGeofence(
+                                fromLngLat(latLng.longitude, latLng.latitude),
+                                it1.toInt(),
+                                index
+                            )
+                        }
+                    }
                 }
             }
             mMapHelper?.adjustMapBounds(
@@ -655,7 +677,7 @@ class TrackingUtils(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun locationHistoryListUI(data: GetDevicePositionHistoryResult) {
+    fun locationHistoryListUI(data: GetDevicePositionHistoryResponse) {
         headerId = 0
         sourceIdsToRemove.clear()
         headerIdsToRemove.clear()
@@ -685,8 +707,8 @@ class TrackingUtils(
             devicePositionList.addAll(data.devicePositions)
             devicePositionList.reverse()
             devicePositionList.forEachIndexed { index, devicePositionData ->
-                val isToday = DateUtils.isToday(devicePositionData.sampleTime.time)
-                val dateString = checkAndSetDate(devicePositionData.sampleTime)
+                val isToday = DateUtils.isToday(devicePositionData.sampleTime.epochMilliseconds)
+                val dateString = checkAndSetDate(devicePositionData.sampleTime.epochMilliseconds)
                 val latLng =
                     fromLngLat(devicePositionData.position[0], devicePositionData.position[1])
                 latLngList.add(
@@ -711,7 +733,7 @@ class TrackingUtils(
                     imageId++
                     if (devicePositionList.size > (index + 1)) {
                         val isNextToday =
-                            DateUtils.isToday(devicePositionList[index + 1].sampleTime.time)
+                            DateUtils.isToday(devicePositionList[index + 1].sampleTime.epochMilliseconds)
                         if (!isNextToday) {
                             lastData = true
                         }
@@ -721,11 +743,9 @@ class TrackingUtils(
                     if (lastData) {
                         headerIdsToRemove.add("layerId$headerId")
                         sourceIdsToRemove.add("sourceId$headerId")
-                        mMapHelper?.addTrackerLine(
+                        mMapHelper?.addLine(
                             coordinates,
-                            "layerId$headerId",
-                            "sourceId$headerId",
-                            R.color.color_primary_green
+                            true
                         )
                         setCameraZoomLevel()
                         coordinates.clear()
@@ -739,7 +759,7 @@ class TrackingUtils(
                     }
                     if (devicePositionList.size > (index + 1)) {
                         val nextDateString =
-                            checkAndSetDate(devicePositionList[index + 1].sampleTime)
+                            checkAndSetDate(devicePositionList[index + 1].sampleTime.epochMilliseconds)
                         if (nextDateString != dateString) {
                             lastData = true
                         }
@@ -749,11 +769,8 @@ class TrackingUtils(
                     if (lastData) {
                         headerIdsToRemove.add("layerId$headerId")
                         sourceIdsToRemove.add("sourceId$headerId")
-                        mMapHelper?.addTrackerLine(
-                            coordinates,
-                            "layerId$headerId",
-                            "sourceId$headerId",
-                            R.color.color_primary_green
+                        mMapHelper?.addLine(
+                            coordinates,true
                         )
                         setCameraZoomLevel()
                         coordinates.clear()
@@ -840,11 +857,11 @@ class TrackingUtils(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun locationHistoryTodayListUI(data: GetDevicePositionHistoryResult) {
+    fun locationHistoryTodayListUI(data: GetDevicePositionHistoryResponse) {
         if (!data.devicePositions.isNullOrEmpty()) {
             imageId = 0
             val date: Date = Calendar.getInstance().time
-            val dateString = checkAndSetDate(date)
+            val dateString = checkAndSetDate(date.time)
 
             trackingHistoryData.removeIf { it.headerString == dateString }
             mBindingTracking?.tvDeleteTrackingData?.show()
@@ -942,12 +959,7 @@ class TrackingUtils(
             } else {
                 headerIdsToRemove.add("layerId1")
                 sourceIdsToRemove.add("sourceId1")
-                mMapHelper?.addTrackerLine(
-                    coordinates,
-                    "layerId1",
-                    "sourceId1",
-                    R.color.color_primary_green
-                )
+                mMapHelper?.addLine(coordinates, true)
                 setCameraZoomLevel()
             }
 

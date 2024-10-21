@@ -14,7 +14,6 @@ import com.aws.amazonlocation.mock.GATE_WAY_OF_INDIA_LAT_LNG
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.tracking.TrackingViewModel
 import com.aws.amazonlocation.utils.TrackerCons
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -24,7 +23,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class TrackingVMBatchUpdateDevicePositionTest : BaseTest() {
@@ -49,18 +47,17 @@ class TrackingVMBatchUpdateDevicePositionTest : BaseTest() {
         mTrackingViewModel = TrackingViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun batchUpdateDevicePositionSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.batchUpdateDevicePosition(any(), any(), any(), any(), any())).thenAnswer {
-            val callback: BatchLocationUpdateInterface = it.arguments[4] as BatchLocationUpdateInterface
+        Mockito.`when`(mRemoteDataSourceImpl.batchUpdateDevicePosition(any(), any(), any(), any())).thenAnswer {
+            val callback: BatchLocationUpdateInterface = it.arguments[3] as BatchLocationUpdateInterface
             callback.success(UpdateBatchLocationResponse(null, true))
         }
 
         val position = listOf(GATE_WAY_OF_INDIA_LAT_LNG.longitude, GATE_WAY_OF_INDIA_LAT_LNG.latitude)
 
         mTrackingViewModel.mGetUpdateDevicePosition.test {
-            mTrackingViewModel.batchUpdateDevicePosition(TrackerCons.TRACKER_COLLECTION, position, DEVICE_ID, Date())
+            mTrackingViewModel.batchUpdateDevicePosition(TrackerCons.TRACKER_COLLECTION, position, DEVICE_ID)
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             cancelAndIgnoreRemainingEvents()

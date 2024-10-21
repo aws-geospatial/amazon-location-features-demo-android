@@ -1,10 +1,11 @@
-package com.aws.amazonlocation.ui.main.tracking // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.tracking
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import aws.smithy.kotlin.runtime.time.epochMilliseconds
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.TrackingHistoryData
 import com.aws.amazonlocation.databinding.RvLoaderItemBinding
@@ -50,7 +51,7 @@ class TrackingHistoryAdapter :
             binding.apply {
                 item.devicePositionData?.let {
                     tvLatLng.text = String.format("%7f , %7f", it.position[1], it.position[0])
-                    val date = convertToCustomFormat(it.receivedTime)
+                    val date = convertToCustomFormat(it.receivedTime.epochMilliseconds)
                     tvTime.text = date
                 }
                 when (item.headerData) {
@@ -74,9 +75,10 @@ class TrackingHistoryAdapter :
             }
         }
 
-        private fun convertToCustomFormat(receivedTime: Date): String? {
+        private fun convertToCustomFormat(receivedTime: Long): String? {
+            val date = Date(receivedTime)
             val destFormat = SimpleDateFormat(DateFormat.HH_MM_AA, Locale.getDefault())
-            return receivedTime.let { destFormat.format(it) }
+            return date.let { destFormat.format(it) }
         }
 
         companion object {

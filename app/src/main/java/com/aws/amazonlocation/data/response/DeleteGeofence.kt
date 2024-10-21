@@ -1,6 +1,6 @@
 package com.aws.amazonlocation.data.response
 
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

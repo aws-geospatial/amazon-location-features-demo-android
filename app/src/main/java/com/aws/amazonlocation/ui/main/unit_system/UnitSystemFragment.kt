@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.unit_system // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.unit_system
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,7 +50,7 @@ class UnitSystemFragment : BaseFragment() {
                 val properties = listOf(
                     Pair(AnalyticsAttribute.TYPE, resources.getString(R.string.automatic))
                 )
-                (activity as MainActivity).analyticsHelper?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
+                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
             }
 
             llMetric.setOnClickListener {
@@ -59,7 +59,7 @@ class UnitSystemFragment : BaseFragment() {
                 val properties = listOf(
                     Pair(AnalyticsAttribute.TYPE, resources.getString(R.string.metric))
                 )
-                (activity as MainActivity).analyticsHelper?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
+                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
             }
 
             llImperial.setOnClickListener {
@@ -68,7 +68,7 @@ class UnitSystemFragment : BaseFragment() {
                 val properties = listOf(
                     Pair(AnalyticsAttribute.TYPE, resources.getString(R.string.imperial))
                 )
-                (activity as MainActivity).analyticsHelper?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
+                (activity as MainActivity).analyticsUtils?.recordEvent(EventType.MAP_UNIT_CHANGE, properties)
             }
         }
     }

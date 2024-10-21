@@ -11,15 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.amplifyframework.geo.maplibre.view.MapLibreView
+        <org.maplibre.android.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mapbox_foregroundLoadColor="@color/white"
-            app:mapbox_renderTextureMode="true"
-            app:mapbox_renderTextureTranslucentSurface="true"
-            app:mapbox_uiAttribution="false"
-            app:mapbox_uiLogo="false" />
+            android:layout_height="match_parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mapLoading"

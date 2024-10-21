@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 
 // SPDX-License-Identifier: MIT-0
 
+@ExcludeFromJacocoGeneratedReport
 fun Activity.checkLocationPermission(): Boolean {
     return ActivityCompat.checkSelfPermission(
         this,

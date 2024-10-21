@@ -1,6 +1,6 @@
 package com.aws.amazonlocation.domain.usecase
 
-import com.amazonaws.services.geo.model.Step
+import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
@@ -13,7 +13,7 @@ import javax.inject.Inject
 // SPDX-License-Identifier: MIT-0
 class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepository: LocationSearchRepository) {
 
-    fun searchPlaceSuggestionList(
+    suspend fun searchPlaceSuggestionList(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -22,14 +22,14 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
     ) =
         mLocationSearchRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
 
-    fun searchPlaceIndexForText(
+    suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
         searchPlace: SearchPlaceInterface
     ) = mLocationSearchRepository.searchPlaceIndexForText(lat, lng, searchText, searchPlace)
 
-    fun calculateRoute(
+    suspend fun calculateRoute(
         latDeparture: Double?,
         lngDeparture: Double?,
         latDestination: Double?,
@@ -49,14 +49,14 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
         distanceInterface
     )
 
-    fun searchNavigationPlaceIndexForPosition(
+    suspend fun searchNavigationPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         step: Step,
         searchPlace: NavigationDataInterface
     ) = mLocationSearchRepository.searchNavigationPlaceIndexForPosition(lat, lng, step, searchPlace)
 
-    fun searPlaceIndexForPosition(
+    suspend fun searPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         searchPlace: SearchDataInterface

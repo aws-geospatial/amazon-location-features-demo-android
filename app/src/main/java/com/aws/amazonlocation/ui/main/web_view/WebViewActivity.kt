@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.web_view // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.web_view
 
 import android.annotation.SuppressLint
 import android.os.Bundle

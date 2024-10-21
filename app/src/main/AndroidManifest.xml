@@ -32,24 +32,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AmazonLocation"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".ui.main.web_view.WebViewActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.amazonaws.mobile.client.activities.HostedUIRedirectActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/AMAZON_LOCATION_SCHEMA" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="screenSize|orientation"
