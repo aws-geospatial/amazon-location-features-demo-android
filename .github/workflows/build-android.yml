@@ -19,8 +19,8 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: amazon-location-services-builds
-          SLACK_COLOR: '#FFFF00'
-          SLACK_ICON_EMOJI: ':hammer:'
+          SLACK_COLOR: "#FFFF00"
+          SLACK_ICON_EMOJI: ":hammer:"
           SLACK_LINK_NAMES: true
           SLACK_TITLE: ${{ format('Android Build №{0} started...', env.BUILD_NUM) }}
           SLACK_MESSAGE: |
@@ -85,7 +85,7 @@ jobs:
             ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.ConnectToAWSTest
 
       - name: Upload test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
@@ -123,9 +123,7 @@ jobs:
             aab_path:./app/build/outputs/bundle/release/app-release.aab
   slackNotification:
     name: slack
-    needs: [
-      build-android
-    ]
+    needs: [build-android]
     if: always()
     runs-on: ubuntu-latest
     env:
@@ -142,7 +140,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: amazon-location-services-builds
           SLACK_COLOR: ${{ env.SUCCESS == 'true' && 'success' || 'failure' }}
-          SLACK_ICON_EMOJI: ':tophat:'
+          SLACK_ICON_EMOJI: ":tophat:"
           SLACK_LINK_NAMES: true
           SLACK_TITLE: ${{ format('Android build №{0} {1}', env.BUILD_NUM, env.SUCCESS == 'true' && 'finished successfully :tada:' || 'failed!') }}
           SLACK_MESSAGE: |
