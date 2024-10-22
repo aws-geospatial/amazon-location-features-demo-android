@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.utils.screenshot_rule // ktlint-disable package-name
+package com.aws.amazonlocation.utils.screenshot_rule
 
 import android.os.Environment.DIRECTORY_PICTURES
 import android.os.Environment.getExternalStoragePublicDirectory

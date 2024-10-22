@@ -1,8 +1,8 @@
 package com.aws.amazonlocation.domain.`interface`
 
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.data.enum.GeofenceBottomSheetEnum
-import com.mapbox.mapboxsdk.geometry.LatLng
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 

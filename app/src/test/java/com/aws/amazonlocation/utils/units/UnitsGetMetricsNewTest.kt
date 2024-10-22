@@ -2,7 +2,7 @@ package com.aws.amazonlocation.utils.units
 
 import android.content.Context
 import com.aws.amazonlocation.BaseTest
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.utils.Units
 import org.junit.Assert
 import org.junit.Test

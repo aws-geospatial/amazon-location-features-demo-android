@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

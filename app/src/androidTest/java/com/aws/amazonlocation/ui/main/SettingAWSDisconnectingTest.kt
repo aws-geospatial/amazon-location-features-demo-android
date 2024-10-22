@@ -75,6 +75,11 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
 
         onView(withId(R.id.ns_cloud_formation)).perform(swipeUp())
         Thread.sleep(DELAY_1000)
+        val region =
+            uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
+        region?.click()
+
+        Thread.sleep(DELAY_1000)
         val logOut =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.disconnect_aws)))
         logOut?.click()

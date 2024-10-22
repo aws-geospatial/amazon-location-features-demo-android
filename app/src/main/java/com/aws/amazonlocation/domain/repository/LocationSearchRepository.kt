@@ -1,6 +1,6 @@
 package com.aws.amazonlocation.domain.repository
 
-import com.amazonaws.services.geo.model.Step
+import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
@@ -11,7 +11,7 @@ import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 // SPDX-License-Identifier: MIT-0
 interface LocationSearchRepository {
 
-    fun searchPlaceSuggestions(
+    suspend fun searchPlaceSuggestions(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -19,14 +19,14 @@ interface LocationSearchRepository {
         isGrabMapSelected: Boolean
     )
 
-    fun searchPlaceIndexForText(
+    suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
         searchPlace: SearchPlaceInterface
     )
 
-    fun calculateDistance(
+    suspend fun calculateDistance(
         latDeparture: Double?,
         lngDeparture: Double?,
         latDestination: Double?,
@@ -37,14 +37,14 @@ interface LocationSearchRepository {
         distanceInterface: DistanceInterface
     )
 
-    fun searchNavigationPlaceIndexForPosition(
+    suspend fun searchNavigationPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         step: Step,
         searchPlace: NavigationDataInterface
     )
 
-    fun searPlaceIndexForPosition(
+    suspend fun searPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         searchPlace: SearchDataInterface

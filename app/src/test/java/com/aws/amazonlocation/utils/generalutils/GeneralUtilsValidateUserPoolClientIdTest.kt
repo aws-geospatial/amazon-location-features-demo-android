@@ -14,7 +14,9 @@ class GeneralUtilsValidateUserPoolClientIdTest : BaseTest() {
 
     @Test
     fun validateUserPoolClientIdSuccess() {
-        val result = validateUserPoolClientId(IDENTITY_POOL_CLIENT_ID_TEST)
+        var result = validateUserPoolClientId(IDENTITY_POOL_CLIENT_ID_TEST)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result)
+        result = validateUserPoolClientId(null)
+        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, !result)
     }
 }

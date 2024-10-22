@@ -2,6 +2,7 @@ package com.aws.amazonlocation.utils
 
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.ui.main.simulation.NotificationData
+import com.google.android.gms.location.Priority
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -14,6 +15,27 @@ const val SEARCH_MAX_RESULT = 15
 const val SEARCH_MAX_SUGGESTION_RESULT = 5
 const val KILOMETERS = "Kilometers"
 const val MILES = "Miles"
+const val KEY_METHOD = "method"
+const val KEY_CODE = "code"
+const val SIGN_OUT = "signout"
+const val SIGN_IN = "signin"
+const val AUTHORIZATION_CODE = "authorization_code"
+const val KEY_EXPIRATION = "expiration"
+const val KEY_SESSION_TOKEN = "session_token"
+const val KEY_SECRET_KEY = "secret_key"
+const val KEY_ACCESS_KEY = "access_key"
+const val KEY_ANALYTICS_EXPIRATION = "expiration_analytics"
+const val KEY_ANALYTICS_SESSION_TOKEN = "session_token_analytics"
+const val KEY_ANALYTICS_SECRET_KEY = "secret_key_analytics"
+const val KEY_ANALYTICS_ACCESS_KEY = "access_key_analytics"
+const val KEY_IDENTITY_ID = "key_identity_id"
+const val KEY_RESPONSE_ACCESS_TOKEN = "access_token"
+const val KEY_RESPONSE_ID_TOKEN = "id_token"
+const val KEY_RESPONSE_REFRESH_TOKEN = "refresh_token"
+const val KEY_RESPONSE_EXPIRES_IN = "expires_in"
+const val KEY_REQUEST_GRANT_TYPE = "grant_type"
+const val KEY_REQUEST_CLIENT_ID = "client_id"
+const val KEY_REQUEST_REDIRECT_URI = "redirect_uri"
 const val KEY_POOL_ID = "POOL_ID"
 const val KEY_USER_POOL_ID = "KEY_USER_POOL_ID"
 const val KEY_USER_DOMAIN = "KEY_USER_DOMAIN"
@@ -32,15 +54,18 @@ const val KEY_MAP_NAME = "key_map_name"
 const val KEY_MAP_STYLE_NAME = "key_map_style_name"
 const val KEY_GRAB_DONT_ASK = "key_grab_dont_ask"
 const val KEY_OPEN_DATA_DONT_ASK = "key_open_data_dont_ask"
+const val KEY_END_POINT = "key_end_point"
+
 const val CLICK_DEBOUNCE = 1000L
 const val CLICK_DEBOUNCE_ENABLE = 1200L
 const val RESTART_DELAY = 800L
 const val DELAY_500 = 500L
 const val DELAY_300 = 300L
-const val DELAY_1000 = 1000L
+const val DELAY_PROCESS_1000 = 1000L
 const val DELAY_SIMULATION_2000 = 2000L
 const val DELAY_LANGUAGE_3000 = 3000L
 const val CLICK_TIME_DIFFERENCE = 1500
+const val TIME_OUT = 20000L
 const val KEY_AVOID_TOLLS = "Avoid Tolls"
 const val KEY_AVOID_FERRIES = "Avoid Ferries"
 const val AWS_CLOUD_INFORMATION_FRAGMENT = "AwsCloudInformationFragment"
@@ -61,10 +86,15 @@ const val CHANNEL_ID = "my_channel_simulation"
 const val CHANNEL_NAME = "simulation Notification Channel"
 const val GROUP_KEY_WORK_SIMULATION = BuildConfig.APPLICATION_ID + "SIMULATION"
 const val STRING_REPLACE_KEY = "**"
+const val PREFS_NAME_AUTH = "software.amazon.location.auth"
+const val PREFS_KEY_IDENTITY_ID = "identityId"
+const val DEFAULT_COUNTRY = "US"
 
 const val KEY_ID_TOKEN = "key_id_token"
 const val KEY_ACCESS_TOKEN = "key_access_token"
 const val KEY_REFRESH_TOKEN = "key_refresh_token"
+const val KEY_AUTH_FETCH_TIME = "key_auth_fetch_time"
+const val KEY_AUTH_EXPIRES_IN = "key_auth_expires_in"
 const val KEY_PROVIDER = "key_provider"
 const val KEY_NEAREST_REGION = "key_nearest_region"
 const val IOT_POLICY = "AmazonLocationIotPolicy"
@@ -91,9 +121,11 @@ const val TYPE_RASTER = "Raster"
 
 const val HERE = "Here"
 const val OPEN = "Open"
+const val GRAB = "Grab"
 const val DESCRIPTION_TAG_ESRI = "ESRI_"
 const val DESCRIPTION_TAG_HERE = "HERE_"
 const val DESCRIPTION_TAG_OPEN = "OPEN_"
+const val DESCRIPTION_TAG_GRAB = "GRAB_"
 
 const val MAP_STYLE_ATTRIBUTION = "MapStyleAttribution"
 
@@ -108,6 +140,11 @@ const val simulationLatNorth = 49.295509609061924
 const val simulationLonEast = -123.04870086158795
 const val simulationLatSouth = 49.25908827302493
 const val simulationLonWest = -123.17226119977276
+
+const val ACCURACY = Priority.PRIORITY_HIGH_ACCURACY
+const val LATENCY = 1000L
+const val WAIT_FOR_ACCURATE_LOCATION = false
+const val MIN_UPDATE_INTERVAL_MILLIS = 1000L
 
 const val LANGUAGE_CODE_GERMAN = "de"
 const val LANGUAGE_CODE_SPANISH = "es"

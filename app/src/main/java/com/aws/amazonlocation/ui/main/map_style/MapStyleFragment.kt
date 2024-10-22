@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.ui.main.map_style // ktlint-disable package-name
+package com.aws.amazonlocation.ui.main.map_style
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
+import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentMapStyleBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
@@ -27,6 +28,7 @@ import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.DELAY_300
 import com.aws.amazonlocation.utils.EventType
+import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_GRAB_DONT_ASK
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
@@ -242,7 +244,7 @@ class MapStyleFragment : BaseFragment() {
             ),
             mPreferenceManager.getValue(KEY_NEAREST_REGION, "")
         )
-        val isRestartNeeded =
+        var isRestartNeeded =
             if (defaultIdentityPoolId == BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP) {
                 false
             } else {
@@ -252,6 +254,10 @@ class MapStyleFragment : BaseFragment() {
                     selectedProvider != getString(R.string.grab)
                 }
             }
+        val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
+        if (mAuthStatus == AuthEnum.SIGNED_IN.name || mAuthStatus == AuthEnum.AWS_CONNECTED.name) {
+            isRestartNeeded = false
+        }
         if (selectedProvider == getString(R.string.grab) && mapName != getString(R.string.grab)) {
             val shouldShowGrabDialog = !mPreferenceManager.getValue(KEY_GRAB_DONT_ASK, false)
             if (shouldShowGrabDialog) {
@@ -261,6 +267,7 @@ class MapStyleFragment : BaseFragment() {
                         changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
                         if (isRestartNeeded) {
                             mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
+                            mAWSLocationHelper.locationCredentialsProvider?.clear()
                             lifecycleScope.launch {
                                 if (!isRunningTest) {
                                     delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
@@ -283,6 +290,7 @@ class MapStyleFragment : BaseFragment() {
                 changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
                 if (isRestartNeeded) {
                     mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
+                    mAWSLocationHelper.locationCredentialsProvider?.clear()
                     lifecycleScope.launch {
                         if (!isRunningTest) {
                             delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
@@ -431,7 +439,7 @@ class MapStyleFragment : BaseFragment() {
                                         Pair(AnalyticsAttribute.ID, selectedId),
                                         Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
                                     )
-                                    (activity as MainActivity).analyticsHelper?.recordEvent(
+                                    (activity as MainActivity).analyticsUtils?.recordEvent(
                                         EventType.MAP_STYLE_CHANGE,
                                         properties
                                     )
@@ -684,7 +692,10 @@ class MapStyleFragment : BaseFragment() {
                     mViewModel.typeOptions.filter { !it.isSelected }
                         .forEach { data -> data.isApplyFilter = false }
                 } else {
+                    clearSortingSelection()
+                    notifySortingAdapter()
                     setFilterNotSelected()
+                    collapseSearchMap(params)
                 }
                 if (filterList.isNotEmpty()) {
                     mViewModel.mStyleList.clear()
@@ -907,6 +918,7 @@ class MapStyleFragment : BaseFragment() {
             cardGrabMap.hide()
             cardEsri.show()
             cardHere.show()
+            cardOpenData.show()
         } else {
             groupFilterButton.show()
         }

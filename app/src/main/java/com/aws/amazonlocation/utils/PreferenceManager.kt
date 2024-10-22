@@ -67,6 +67,10 @@ class PreferenceManager(private val appContext: Context) {
         return mSharedPreferences.getInt(key, defaultValue)
     }
 
+    fun getLongValue(key: String, defaultValue: Long): Long {
+        return mSharedPreferences.getLong(key, defaultValue)
+    }
+
     fun getBooleanValue(key: String, defaultValue: Boolean): Boolean {
         return mSharedPreferences.getBoolean(key, defaultValue)
     }

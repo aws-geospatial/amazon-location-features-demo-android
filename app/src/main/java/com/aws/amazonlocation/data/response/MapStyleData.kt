@@ -1,4 +1,4 @@
-package com.aws.amazonlocation.data.response // ktlint-disable filename
+package com.aws.amazonlocation.data.response
 
 data class MapStyleData(
     var styleNameDisplay: String? = null,

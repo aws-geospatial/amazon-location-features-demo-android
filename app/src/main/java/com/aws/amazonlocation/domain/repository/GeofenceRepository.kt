@@ -1,13 +1,13 @@
 package com.aws.amazonlocation.domain.repository
 
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
-import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.Date
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -30,7 +30,7 @@ interface GeofenceRepository {
         mGeofenceAPIInterface: GeofenceAPIInterface
     )
 
-    fun searchPlaceSuggestions(
+    suspend fun searchPlaceSuggestions(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -38,7 +38,7 @@ interface GeofenceRepository {
         isGrabMapSelected: Boolean
     )
 
-    fun searchPlaceIndexForText(
+    suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
@@ -49,7 +49,6 @@ interface GeofenceRepository {
         trackerName: String,
         position: List<Double>,
         deviceId: String,
-        date: Date,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     )
 
@@ -57,7 +56,6 @@ interface GeofenceRepository {
         trackerName: String,
         position1: List<Double>? = null,
         deviceId: String,
-        date: Date,
         identityId: String,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     )

@@ -107,118 +107,6 @@ object Units {
         return mTime
     }
 
-    fun getDefaultAwsConfigJson(
-        poolID: String?,
-        region: String?
-    ): String {
-        return "{\n" +
-            "    \"UserAgent\": \"aws-amplify-cli/0.1.0\",\n" +
-            "    \"Version\": \"0.1.0\",\n" +
-            "    \"IdentityManager\": {\n" +
-            "        \"Default\": {}\n" +
-            "    },\n" +
-            "    \"CredentialsProvider\": {\n" +
-            "        \"CognitoIdentity\": {\n" +
-            "            \"Default\": {\n" +
-            "                \"PoolId\": \"$poolID\",\n" +
-            "                \"Region\": \"$region\"\n" +
-            "            }\n" +
-            "        }\n" +
-            "    }\n" +
-            "}"
-    }
-
-    fun getAwsConfigJson(
-        poolID: String?,
-        userPoolId: String? = null,
-        appClientId: String?,
-        domain: String?,
-        region: String?,
-        schema: String
-    ): String {
-        return "{\n" +
-            "    \"UserAgent\": \"aws-amplify-cli/0.1.0\",\n" +
-            "    \"Version\": \"0.1.0\",\n" +
-            "    \"IdentityManager\": {\n" +
-            "        \"Default\": {}\n" +
-            "    },\n" +
-            "    \"CredentialsProvider\": {\n" +
-            "        \"CognitoIdentity\": {\n" +
-            "            \"Default\": {\n" +
-            "                \"PoolId\": \"$poolID\",\n" +
-            "                \"Region\": \"$region\"\n" +
-            "            }\n" +
-            "        }\n" +
-            "    },\n" +
-            "    \"CognitoUserPool\": {\n" +
-            "        \"Default\": {\n" +
-            "            \"PoolId\": \"$userPoolId\",\n" +
-            "            \"AppClientId\": \"$appClientId\",\n" +
-            "            \"Region\": \"$region\"\n" +
-            "        }\n" +
-            "    },\n" +
-            "    \"Auth\": {\n" +
-            "        \"Default\": {\n" +
-            "            \"OAuth\": {\n" +
-            "              \"WebDomain\": \"$domain\",\n" +
-            "              \"AppClientId\": \"$appClientId\",\n" +
-            "              \"SignInRedirectURI\": \"$schema://signin/\",\n" +
-            "              \"SignOutRedirectURI\": \"$schema://signout/\",\n" +
-            "              \"Scopes\": [\n" +
-            "                \"email\",\n" +
-            "                \"openid\",\n" +
-            "                \"profile\"\n" +
-            "              ]\n" +
-            "            }\n" +
-            "          }\n" +
-            "    }\n" +
-            "}"
-    }
-
-    fun getAmplifyConfigJson(
-        poolID: String?,
-        region: String?
-    ): String {
-        return "{\n" +
-            "    \"UserAgent\": \"aws-amplify-cli/2.0\",\n" +
-            "    \"Version\": \"1.0\",\n" +
-            "    \"auth\": {\n" +
-            "        \"plugins\": {\n" +
-            "            \"awsCognitoAuthPlugin\": {\n" +
-            "                \"UserAgent\": \"aws-amplify-cli/0.1.0\",\n" +
-            "                \"Version\": \"0.1.0\",\n" +
-            "                \"IdentityManager\": {\n" +
-            "                    \"Default\": {}\n" +
-            "                },\n" +
-            "                \"CredentialsProvider\": {\n" +
-            "                    \"CognitoIdentity\": {\n" +
-            "                        \"Default\": {\n" +
-            "                            \"PoolId\": \"$poolID\",\n" +
-            "                            \"Region\": \"$region\"\n" +
-            "                        }\n" +
-            "                    }\n" +
-            "                }\n" +
-            "            }\n" +
-            "        }\n" +
-            "    },\n" +
-            "    \"geo\": {\n" +
-            "        \"plugins\": {\n" +
-            "            \"awsLocationGeoPlugin\": {\n" +
-            "                \"region\": \"$region\",\n" +
-            "                \"maps\": {\n" +
-            "                    \"items\": {\n" +
-            "                        \"${MapNames.ESRI_LIGHT}\": {\n" +
-            "                            \"style\": \"${MapStyles.VECTOR_ESRI_TOPOGRAPHIC}\"\n" +
-            "                        }\n" +
-            "                    },\n" +
-            "                    \"default\": \"${MapNames.ESRI_LIGHT}\"\n" +
-            "                }\n" +
-            "            }\n" +
-            "        }\n" +
-            "    }\n" +
-            "}"
-    }
-
     @SuppressLint("HardwareIds")
     fun getDeviceId(context: Context): String {
         return Settings.Secure.getString(
@@ -330,6 +218,7 @@ object Units {
         return sanitizedUrl
     }
 
+    @ExcludeFromJacocoGeneratedReport
     fun checkInternetConnection(context: Context): Boolean {
         return context.isInternetAvailable()
     }

@@ -47,7 +47,6 @@ class GeofenceVMGeofenceAddTest : BaseTest() {
         mGeofenceViewModel = GeofenceViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceAddSuccess() = runTest {
         Mockito.`when`(
@@ -82,7 +81,6 @@ class GeofenceVMGeofenceAddTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceAddFail() = runTest {
         Mockito.`when`(

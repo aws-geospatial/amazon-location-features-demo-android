@@ -9,9 +9,10 @@ import com.aws.amazonlocation.data.repository.GeofenceImp
 import com.aws.amazonlocation.data.response.UpdateBatchLocationResponse
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
-import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.mock.DEVICE_ID
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.simulation.SimulationViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -21,7 +22,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class SimulationVMEvaluateGeofence : BaseTest() {
@@ -46,13 +46,12 @@ class SimulationVMEvaluateGeofence : BaseTest() {
         simulationViewModel = SimulationViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getEvaluateGeofenceSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.evaluateGeofence(any(), any(), any(), any(), any(), any()))
+        Mockito.`when`(mRemoteDataSourceImpl.evaluateGeofence(any(), any(), any(), any(), any()))
             .thenAnswer {
                 val callback: BatchLocationUpdateInterface =
-                    it.arguments[5] as BatchLocationUpdateInterface
+                    it.arguments[4] as BatchLocationUpdateInterface
                 callback.success(UpdateBatchLocationResponse(null, true))
             }
 
@@ -61,7 +60,6 @@ class SimulationVMEvaluateGeofence : BaseTest() {
                 "test",
                 arrayListOf(49.281174, -123.116823),
                 DEVICE_ID,
-                Date(),
                 "test"
             )
             var result = awaitItem()

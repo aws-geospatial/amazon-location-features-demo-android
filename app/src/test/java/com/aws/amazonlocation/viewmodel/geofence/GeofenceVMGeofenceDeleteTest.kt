@@ -2,9 +2,10 @@ package com.aws.amazonlocation.viewmodel.geofence
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
-import com.amazonaws.services.geo.model.Circle
-import com.amazonaws.services.geo.model.GeofenceGeometry
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.Circle
+import aws.sdk.kotlin.services.location.model.GeofenceGeometry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
+import aws.smithy.kotlin.runtime.time.Instant
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
@@ -27,7 +28,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.kotlin.anyOrNull
 import org.robolectric.RobolectricTestRunner
-import java.util.Date
 
 @RunWith(RobolectricTestRunner::class)
 class GeofenceVMGeofenceDeleteTest : BaseTest() {
@@ -52,7 +52,6 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
         mGeofenceViewModel = GeofenceViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceAddSuccess() = runTest {
         Mockito.`when`(
@@ -66,16 +65,18 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
             callback.deleteGeofence(
                 DeleteGeofence(
                     position = 1,
-                    data = ListGeofenceResponseEntry().withCreateTime(Date()).withGeofenceId(TEST_DATA_8)
-                        .withStatus(TEST_DATA_7).withUpdateTime(Date())
-                        .withGeometry(
-                            GeofenceGeometry().withCircle(
-                                Circle().withCenter(
-                                    TEST_DATA_LAT_1,
-                                    TEST_DATA_LNG_1
-                                )
-                            )
-                        )
+                    data = ListGeofenceResponseEntry {
+                        geofenceId = TEST_DATA_8
+                        status = TEST_DATA_7
+                        createTime = Instant.now()
+                        updateTime = Instant.now()
+                        geometry = GeofenceGeometry {
+                            circle = Circle {
+                                center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
+                                radius = 100.0
+                            }
+                        }
+                    }
                 )
             )
         }
@@ -83,16 +84,18 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
         mGeofenceViewModel.mDeleteGeofence.test {
             mGeofenceViewModel.deleteGeofence(
                 1,
-                ListGeofenceResponseEntry().withCreateTime(Date()).withGeofenceId(TEST_DATA_8)
-                    .withStatus(TEST_DATA_7).withUpdateTime(Date())
-                    .withGeometry(
-                        GeofenceGeometry().withCircle(
-                            Circle().withCenter(
-                                TEST_DATA_LAT_1,
-                                TEST_DATA_LNG_1
-                            )
-                        )
-                    )
+                ListGeofenceResponseEntry {
+                    geofenceId = TEST_DATA_8
+                    status = TEST_DATA_7
+                    createTime = Instant.now()
+                    updateTime = Instant.now()
+                    geometry = GeofenceGeometry {
+                        circle = Circle {
+                            center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
+                            radius = 100.0
+                        }
+                    }
+                }
             )
             val result = awaitItem()
             assert(result is HandleResult.Success)
@@ -101,7 +104,6 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun geofenceDeleteFail() = runTest {
         Mockito.`when`(
@@ -120,16 +122,18 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
         mGeofenceViewModel.mDeleteGeofence.test {
             mGeofenceViewModel.deleteGeofence(
                 1,
-                ListGeofenceResponseEntry().withCreateTime(Date()).withGeofenceId(TEST_DATA_8)
-                    .withStatus(TEST_DATA_7).withUpdateTime(Date())
-                    .withGeometry(
-                        GeofenceGeometry().withCircle(
-                            Circle().withCenter(
-                                TEST_DATA_LAT_1,
-                                TEST_DATA_LNG_1
-                            )
-                        )
-                    )
+                ListGeofenceResponseEntry {
+                    geofenceId = TEST_DATA_8
+                    status = TEST_DATA_7
+                    createTime = Instant.now()
+                    updateTime = Instant.now()
+                    geometry = GeofenceGeometry {
+                        circle = Circle {
+                            center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
+                            radius = 100.00
+                        }
+                    }
+                }
             )
             val result = awaitItem()
             assert(result is HandleResult.Error)

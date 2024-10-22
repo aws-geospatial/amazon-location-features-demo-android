@@ -1,15 +1,15 @@
 package com.aws.amazonlocation.domain.usecase
 
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.GeofenceRepository
-import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.Date
 import javax.inject.Inject
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -38,7 +38,7 @@ class GeofenceUseCase @Inject constructor(private val mGeofenceRepository: Geofe
     ) =
         mGeofenceRepository.deleteGeofence(position, data, mGeofenceInterface)
 
-    fun searchPlaceSuggestionList(
+    suspend fun searchPlaceSuggestionList(
         lat: Double?,
         lng: Double?,
         searchText: String,
@@ -47,7 +47,7 @@ class GeofenceUseCase @Inject constructor(private val mGeofenceRepository: Geofe
     ) =
         mGeofenceRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
 
-    fun searchPlaceIndexForText(
+    suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
@@ -58,18 +58,16 @@ class GeofenceUseCase @Inject constructor(private val mGeofenceRepository: Geofe
         trackerName: String,
         position: List<Double>,
         deviceId: String,
-        date: Date,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
-    ) = mGeofenceRepository.batchUpdateDevicePosition(trackerName, position, deviceId, date, batchLocationUpdateInterface)
+    ) = mGeofenceRepository.batchUpdateDevicePosition(trackerName, position, deviceId, batchLocationUpdateInterface)
 
     suspend fun evaluateGeofence(
         trackerName: String,
         position1: List<Double>? = null,
         deviceId: String,
-        date: Date,
         identityId: String,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
-    ) = mGeofenceRepository.evaluateGeofence(trackerName, position1, deviceId, date, identityId, batchLocationUpdateInterface)
+    ) = mGeofenceRepository.evaluateGeofence(trackerName, position1, deviceId, identityId, batchLocationUpdateInterface)
 
     suspend fun getLocationHistory(
         trackerName: String,

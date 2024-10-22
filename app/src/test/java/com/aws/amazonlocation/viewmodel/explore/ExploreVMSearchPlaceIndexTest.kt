@@ -9,9 +9,8 @@ import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -46,7 +45,6 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
         mExploreVM = ExploreViewModel(locationSearchUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceIndexForTextSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
@@ -66,7 +64,6 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceIndexForTextError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
@@ -92,7 +89,6 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceIndexForTextInternetError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {

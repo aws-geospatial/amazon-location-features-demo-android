@@ -3,21 +3,17 @@ package com.aws.amazonlocation.ui.main
 import android.location.Location
 import android.view.View
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.amplifyframework.geo.maplibre.view.MapLibreView
-import com.aws.amazonlocation.ACCESS_COARSE_LOCATION
-import com.aws.amazonlocation.ACCESS_FINE_LOCATION
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.DELAY_1000
@@ -31,12 +27,6 @@ import com.aws.amazonlocation.TRACKING_ENTERED
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.mockLocations
-import com.google.android.material.card.MaterialCardView
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.delay
@@ -44,8 +34,12 @@ import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matcher
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
+import org.maplibre.android.camera.CameraUpdateFactory
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.location.LocationComponent
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -76,8 +70,8 @@ class TrackingGeofenceEnterTest : BaseTestMainActivity() {
         val labelStartTracking =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.label_start_tracking)))
         labelStartTracking?.click()
-        var mapbox: MapboxMap? = null
-        val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+        var mapbox: MapLibreMap? = null
+        val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
         mapView.getMapAsync {
             mapbox = it
         }

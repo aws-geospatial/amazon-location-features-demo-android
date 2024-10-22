@@ -3,9 +3,7 @@ package com.aws.amazonlocation
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.aws.amazonlocation.ui.main.CrashListener
-import com.aws.amazonlocation.utils.AmplifyHelper
 import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 import kotlin.system.exitProcess
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,8 +12,6 @@ import kotlin.system.exitProcess
 @HiltAndroidApp
 class AmazonLocationApp : Application() {
 
-    @Inject
-    lateinit var amplifyHelper: AmplifyHelper
     private var crashListener: CrashListener? = null
 
     override fun onCreate() {

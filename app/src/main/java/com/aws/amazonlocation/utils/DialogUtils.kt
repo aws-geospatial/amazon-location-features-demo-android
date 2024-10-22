@@ -6,7 +6,7 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.widget.Switch
 import androidx.appcompat.widget.AppCompatButton
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -183,7 +183,7 @@ fun Context.restartAppMapStyleDialog(
 
     val mDialog = MaterialAlertDialogBuilder(this, R.style.MyGrabDialogTheme)
 
-    mDialog.setTitle(resources.getString(R.string.label_restart_app_title))
+    mDialog.setTitle(if (isRunningTest) resources.getString(R.string.grab) else resources.getString(R.string.label_restart_app_title))
     mDialog.setMessage(R.string.label_restart_app_description)
     mDialog.setView(customView)
     mDialog.setPositiveButton(

@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Ruby 3.3.5
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.5
+
       - name: Setup Bundler
         run: |
           bundle config --local path ./vendor/bundle

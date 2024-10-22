@@ -27,7 +27,7 @@ class NavigationAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: NavigationData) {
             binding.apply {
-                tvNavigationAddress.text = data.getRegions()
+                tvNavigationAddress.text = data.getAddress()
 
                 data.distance?.let { distance ->
                     tvNavigationDistance.text = preferenceManager.getValue(KEY_UNIT_SYSTEM, "").let { unitSystem ->

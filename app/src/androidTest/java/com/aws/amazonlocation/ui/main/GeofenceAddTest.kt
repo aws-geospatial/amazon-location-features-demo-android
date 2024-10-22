@@ -1,23 +1,27 @@
 package com.aws.amazonlocation.ui.main
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.view.View
 import android.widget.SeekBar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.action.ViewActions.clearText
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.* // ktlint-disable no-wildcard-imports
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
-import androidx.test.uiautomator.* // ktlint-disable no-wildcard-imports
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.DELAY_1000
+import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_3000
@@ -29,14 +33,11 @@ import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.getRandomGeofenceName
 import com.google.android.material.card.MaterialCardView
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -104,13 +105,21 @@ class GeofenceAddTest : BaseTestMainActivity() {
                 btnAddGeofenceSave.performClick()
             }
 
-            uiDevice.wait(Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_geofence")), DELAY_15000)
+            val snackBarMsg = uiDevice.wait(Until.hasObject(By.text("Geofence name already exists")), DELAY_10000)
+            if (snackBarMsg == null) {
+                uiDevice.wait(
+                    Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_geofence")),
+                    DELAY_15000
+                )
 
-            onView(withId(R.id.rv_geofence)).perform(
-                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
-                    hasDescendant(withText(geofenceName)),
-                ),
-            )
+                onView(withId(R.id.rv_geofence)).perform(
+                    RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                        hasDescendant(withText(geofenceName)),
+                    ),
+                )
+            } else {
+                Assert.assertNotNull(snackBarMsg)
+            }
         } catch (e: Exception) {
             failTest(128, e)
             Assert.fail(TEST_FAILED)

@@ -6,26 +6,24 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
-import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils
-import com.amplifyframework.geo.maplibre.view.MapLibreView
 import com.aws.amazonlocation.*
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.core.AllOf.allOf
 import org.json.JSONObject
 import org.junit.*
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
+import org.maplibre.android.utils.ThreadUtils
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -122,11 +120,11 @@ class SettingsFragmentChangeDataProviderTest : BaseTestMainActivity() {
 
         Thread.sleep(DELAY_1000)
 
-        var mapbox: MapboxMap? = null
+        var mapbox: MapLibreMap? = null
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         Thread.sleep(DELAY_2000)
 
-        val mapView = mActivityRule.activity.findViewById<MapLibreView>(R.id.mapView)
+        val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
         mapView.getMapAsync {
             mapbox = it
         }
@@ -135,7 +133,7 @@ class SettingsFragmentChangeDataProviderTest : BaseTestMainActivity() {
 
         var matchesWithRequested: Boolean
 
-        ThreadUtils.runOnUiThread {
+        runOnUiThread {
             matchesWithRequested = mapbox?.style?.json?.let {
                 JSONObject(it).optJSONObject(
                     JSON_KEY_SOURCES,

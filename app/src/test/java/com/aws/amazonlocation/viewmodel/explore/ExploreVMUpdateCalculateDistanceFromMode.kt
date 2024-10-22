@@ -10,7 +10,18 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.AVOID_FERRIES
+import com.aws.amazonlocation.mock.AVOID_TOLLS
+import com.aws.amazonlocation.mock.DISTANCE_COORDINATE_FROM
+import com.aws.amazonlocation.mock.DISTANCE_COORDINATE_TO
+import com.aws.amazonlocation.mock.NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_ERROR_MESSAGE
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

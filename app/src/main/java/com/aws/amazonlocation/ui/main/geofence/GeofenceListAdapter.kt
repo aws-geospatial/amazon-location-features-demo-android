@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.amazonaws.services.geo.model.ListGeofenceResponseEntry
+import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.databinding.ItemGeofenceListBinding
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.checkGeofenceInsideGrab
@@ -12,7 +12,7 @@ import com.aws.amazonlocation.utils.geofence_helper.GeofenceHelper
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.invisible
 import com.aws.amazonlocation.utils.show
-import com.mapbox.mapboxsdk.geometry.LatLng
+import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -33,57 +33,63 @@ class GeofenceListAdapter(
         ) {
             binding.apply {
                 mGeofenceHelper?.let {
-                    if (checkGeofenceInsideGrab(
-                            LatLng(
-                                    data.geometry.circle.center[1],
-                                    data.geometry.circle.center[0]
+                    data.geometry?.circle?.center?.let {
+                        if (checkGeofenceInsideGrab(
+                                LatLng(
+                                    it[1],
+                                    it[0]
                                 ),
-                            mPreferenceManager,
-                            context
-                        )
-                    ) {
-                        clMainGeofence.alpha = 1.0F
-                        ivGeofenceIcon.show()
-                        ivGeofenceIconDisable.hide()
-                    } else {
-                        clMainGeofence.alpha = 0.3F
-                        ivGeofenceIconDisable.show()
-                        ivGeofenceIcon.invisible()
+                                mPreferenceManager,
+                                context
+                            )
+                        ) {
+                            clMainGeofence.alpha = 1.0F
+                            ivGeofenceIcon.show()
+                            ivGeofenceIconDisable.hide()
+                        } else {
+                            clMainGeofence.alpha = 0.3F
+                            ivGeofenceIconDisable.show()
+                            ivGeofenceIcon.invisible()
+                        }
                     }
                 }
                 tvGeofenceAddressType.text = data.geofenceId
                 tvGeofenceMessage.text = data.status
                 ivDeleteGeofence.setOnClickListener {
                     mGeofenceHelper?.let {
-                        if (checkGeofenceInsideGrab(
-                                LatLng(
-                                        data.geometry.circle.center[1],
-                                        data.geometry.circle.center[0]
+                        data.geometry?.circle?.center?.let {
+                            if (checkGeofenceInsideGrab(
+                                    LatLng(
+                                        it[1],
+                                        it[0]
                                     ),
-                                mPreferenceManager,
-                                context
-                            )
-                        ) {
-                            mGeofenceDeleteInterface.deleteGeofence(adapterPosition, data)
-                        } else {
-                            mGeofenceDeleteInterface.disableGeofenceClick()
+                                    mPreferenceManager,
+                                    context
+                                )
+                            ) {
+                                mGeofenceDeleteInterface.deleteGeofence(adapterPosition, data)
+                            } else {
+                                mGeofenceDeleteInterface.disableGeofenceClick()
+                            }
                         }
                     }
                 }
                 root.setOnClickListener {
                     mGeofenceHelper?.let {
-                        if (checkGeofenceInsideGrab(
-                                LatLng(
-                                        data.geometry.circle.center[1],
-                                        data.geometry.circle.center[0]
+                        data.geometry?.circle?.center?.let {
+                            if (checkGeofenceInsideGrab(
+                                    LatLng(
+                                        it[1],
+                                        it[0]
                                     ),
-                                mPreferenceManager,
-                                context
-                            )
-                        ) {
-                            mGeofenceDeleteInterface.editGeofence(adapterPosition, data)
-                        } else {
-                            mGeofenceDeleteInterface.disableGeofenceClick()
+                                    mPreferenceManager,
+                                    context
+                                )
+                            ) {
+                                mGeofenceDeleteInterface.editGeofence(adapterPosition, data)
+                            } else {
+                                mGeofenceDeleteInterface.disableGeofenceClick()
+                            }
                         }
                     }
                 }

@@ -18,14 +18,14 @@ fun View.invisible() {
     visibility = View.INVISIBLE
 }
 
-fun showViews(vararg view: View) {
+fun showViews(vararg view: View?) {
     view.forEach {
-        it.show()
+        it?.show()
     }
 }
 
-fun hideViews(vararg view: View) {
+fun hideViews(vararg view: View?) {
     view.forEach {
-        it.hide()
+        it?.hide()
     }
 }

@@ -3,7 +3,7 @@ package com.aws.amazonlocation.viewmodel.mapstyle
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
-import com.aws.amazonlocation.mock.* // ktlint-disable no-wildcard-imports
+import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.map_style.MapStyleViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

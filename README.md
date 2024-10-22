@@ -133,23 +133,8 @@ Note:
 
     ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite
     ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite2
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSConnectionSuite
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSSignInSuite
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingStartTrackingTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingStopTrackingTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingDeleteTrackingHistoryTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingStartTrackingHistoryLoggedTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingStartTrackingMapDisplayTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.GeofenceAddTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingGeofenceEnterTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingGeofenceExitTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.TrackingDeleteTrackingHistoryTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.GeofenceEditTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.GeofenceDeleteTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.SettingSignOutTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.SettingSignInTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.SettingAWSDisconnectingTest
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.main.ConnectToAWSTest
+    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSTrackingAndConnectionTestSuite
+    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSGeofenceAndConnectionTestSuite
 
 ## Resources
 > Maps (Name - Style)
