@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -53,8 +54,7 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
     @Before
     fun setUp() {
         preferenceManager = PreferenceManager(ApplicationProvider.getApplicationContext())
-        preferenceManager.setValue(KEY_MAP_STYLE_NAME, mActivityRule.activity.getString(R.string.map_light))
-        preferenceManager.setValue(KEY_MAP_NAME, mActivityRule.activity.getString(R.string.esri))
+        preferenceManager.setValue(KEY_MAP_STYLE_NAME, mActivityRule.activity.getString(R.string.map_standard))
     }
 
     @Test
@@ -73,7 +73,7 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
         btnCardMap?.perform(click())
         Thread.sleep(DELAY_1000)
 
-        uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.map_streets)))
+        uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.map_monochrome)))
             ?.click()
 
         Thread.sleep(DELAY_2000)
@@ -85,7 +85,7 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
         val edtSearch =
             onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
         edtSearch?.perform(click())
-        onView(withId(R.id.edt_search_places))?.perform(typeText(TEST_WORD_4))
+        onView(withId(R.id.edt_search_places))?.perform(replaceText(TEST_WORD_4))
         uiDevice.wait(
             Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
             DELAY_10000

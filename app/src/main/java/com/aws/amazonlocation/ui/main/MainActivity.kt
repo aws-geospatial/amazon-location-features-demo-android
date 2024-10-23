@@ -28,7 +28,6 @@ import androidx.navigation.ui.setupWithNavController
 import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
 import aws.sdk.kotlin.services.iot.IotClient
 import aws.sdk.kotlin.services.iot.model.AttachPolicyRequest
-import com.aws.amazonlocation.AmazonLocationApp
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.onError
@@ -53,7 +52,7 @@ import com.aws.amazonlocation.utils.AWS_CLOUD_INFORMATION_FRAGMENT
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
-import com.aws.amazonlocation.utils.AwsSignerInterceptor
+import com.aws.amazonlocation.utils.signer.AwsSignerInterceptor
 import com.aws.amazonlocation.utils.ConnectivityObserveInterface
 import com.aws.amazonlocation.utils.DELAY_LANGUAGE_3000
 import com.aws.amazonlocation.utils.Durations.DELAY_FOR_FRAGMENT_LOAD
@@ -73,7 +72,6 @@ import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_CODE
 import com.aws.amazonlocation.utils.KEY_EXPIRATION
 import com.aws.amazonlocation.utils.KEY_ID_TOKEN
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
@@ -123,8 +121,7 @@ import software.amazon.location.auth.EncryptedSharedPreferences
 
 // SPDX-License-Identifier: MIT-0
 class MainActivity :
-    BaseActivity(),
-    CrashListener {
+    BaseActivity(), CrashListener {
     private var isSessionStarted: Boolean = false
     private var isMapStyleChangeCalled: Boolean = false
     private var isAppNotFirstOpened: Boolean = false
@@ -222,18 +219,10 @@ class MainActivity :
                         val mapStyleNameDisplay =
                             mPreferenceManager.getValue(
                                 KEY_MAP_STYLE_NAME,
-                                getString(R.string.map_light),
+                                getString(R.string.map_standard),
                             )
-                                ?: getString(R.string.map_light)
-                        val mapNameSelected =
-                            getString(R.string.map_esri).let {
-                                mPreferenceManager.getValue(
-                                    KEY_MAP_NAME,
-                                    it,
-                                )
-                            }
-                                ?: getString(R.string.map_esri)
-                        changeMapStyle(mapNameSelected, mapStyleNameDisplay)
+                                ?: getString(R.string.map_standard)
+                        changeMapStyle(mapStyleNameDisplay)
                     }
 
                     is AWSCloudInformationFragment -> {
@@ -283,9 +272,6 @@ class MainActivity :
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN,
         )
-        if (!isRunningTest) {
-            (application as AmazonLocationApp).setCrashListener(this)
-        }
         isTablet = resources.getBoolean(R.bool.is_tablet)
         if (!isTablet) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -388,6 +374,7 @@ class MainActivity :
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                     if (mBinding.signInWebView.visibility == View.VISIBLE) {
                         hideViews(mBinding.signInWebView, mBinding.ivBackMain, mBinding.viewBottom, mBinding.appCompatTextView)
                         showViews(mBinding.bottomNavigationMain, mBinding.navHostFragment, mBinding.imgAmazonLogo, mBinding.ivAmazonInfo)
@@ -397,13 +384,11 @@ class MainActivity :
                     } else if (mNavController.currentDestination?.label == VERSION_FRAGMENT) {
                         mNavController.popBackStack()
                     } else if (mNavController.currentDestination?.label == ABOUT_FRAGMENT) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment !is ExploreFragment) {
                             mNavController.navigate(R.id.explore_fragment)
                         }
                         moveToExploreScreen()
                     } else if (mNavController.currentDestination?.label == SETTING_FRAGMENT) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment !is ExploreFragment) {
                             mNavController.navigate(R.id.explore_fragment)
                         }
@@ -412,10 +397,9 @@ class MainActivity :
                         mBottomSheetHelper.hideAttributeSheet()
                     } else if (mBottomSheetHelper.isSearchBottomSheetExpandedOrHalfExpand()) {
                         mBottomSheetHelper.collapseSearchBottomSheet()
-                    } else if (mBottomSheetHelper.isMapStyleExpandedOrHalfExpand()) {
-                        mBottomSheetHelper.hideMapStyleSheet()
+                    } else if (fragment is ExploreFragment && fragment.isMapStyleExpandedOrHalfExpand()) {
+                        fragment.hideMapStyleSheet()
                     } else if (mBottomSheetHelper.isNavigationBottomSheetHalfExpand()) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment is ExploreFragment) {
                             fragment.navigationExit()
                         }
@@ -467,18 +451,11 @@ class MainActivity :
                             val mapStyleNameDisplay =
                                 mPreferenceManager.getValue(
                                     KEY_MAP_STYLE_NAME,
-                                    getString(R.string.map_light),
-                                ) ?: getString(R.string.map_light)
-                            val mapNameSelected =
-                                getString(R.string.map_esri).let {
-                                    mPreferenceManager.getValue(
-                                        KEY_MAP_NAME,
-                                        it,
-                                    )
-                                } ?: getString(R.string.map_esri)
+                                    getString(R.string.map_standard),
+                                ) ?: getString(R.string.map_standard)
                             isMapStyleChangeCalled = true
                             async {
-                                changeMapStyle(mapNameSelected, mapStyleNameDisplay)
+                                changeMapStyle(mapStyleNameDisplay)
                             }.await()
                         }
                         getTokenAndAttachPolicy()
@@ -511,14 +488,11 @@ class MainActivity :
     }
 
     fun changeMapStyle(
-        mapNameSelected: String,
         mapStyleNameDisplay: String,
     ) {
         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
         if (fragment is ExploreFragment) {
             fragment.mapStyleChange(
-                false,
-                mapNameSelected,
                 mapStyleNameDisplay,
             )
         }
@@ -1009,8 +983,8 @@ class MainActivity :
             fragment.showDirectionAndCurrentLocationIcon()
         }
         mBottomSheetHelper.hideSearchBottomSheet(false)
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+        if (!isTablet && fragment is ExploreFragment) {
+            fragment.hideMapStyleSheet()
         }
         mGeofenceUtils?.hideAllGeofenceBottomSheet()
         mTrackingUtils?.hideTrackingBottomSheet()
@@ -1049,8 +1023,9 @@ class MainActivity :
         } else {
             mBinding.bottomNavigationMain.hide()
         }
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
+        if (!isTablet && fragment is ExploreFragment) {
+            fragment.hideMapStyleSheet()
         }
         showSimulationTop()
         if (checkInternetConnection(applicationContext)) {
@@ -1139,9 +1114,9 @@ class MainActivity :
             mNavHostFragment.childFragmentManager.fragments[0]
         if (fragment is ExploreFragment) {
             fragment.showDirectionAndCurrentLocationIcon()
-        }
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+            if (!isTablet) {
+                fragment.hideMapStyleSheet()
+            }
         }
         lifecycleScope.launch {
             if (fragment !is ExploreFragment) {
@@ -1155,12 +1130,8 @@ class MainActivity :
     }
 
     private fun checkMap(): Boolean {
-        val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-        if (mapName == getString(R.string.map_esri)) {
-            enableTrackingDialog()
-            return false
-        }
-        return true
+        enableTrackingDialog()
+        return false
     }
 
     private fun showTrackingBottomSheet() {

@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.data.response
 
+import aws.sdk.kotlin.services.geoplaces.model.Address
 import aws.sdk.kotlin.services.location.model.Place
 
 
@@ -10,10 +11,8 @@ import aws.sdk.kotlin.services.location.model.Place
 data class SearchSuggestionResponse(
     var text: String? = null,
     var maxResults: Int? = null,
-    var language: String? = null,
-    var dataSource: String? = null,
     var data: ArrayList<SearchSuggestionData> = ArrayList(),
-    var error: String ? = null
+    var error: String ? = null,
 )
 
 data class SearchSuggestionData(
@@ -23,5 +22,7 @@ data class SearchSuggestionData(
     var distance: Double? = null,
     var isDestination: Boolean? = false,
     var isPlaceIndexForPosition: Boolean = false,
-    var amazonLocationPlace: Place? = null
+    var amazonLocationPlace: Address? = null,
+    var position: List<Double> ? = null,
+    var queryId: String ? = null
 )

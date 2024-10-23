@@ -132,9 +132,9 @@ const val UNIT_KM_TO_M_OUTPUT = 1000.0
 const val UNIT_MI_TO_FT_INPUT = 1.0
 const val UNIT_MI_TO_FT_OUTPUT = 5280.0
 
-const val UNIT_TIME_SEC_1 = 50.0
-const val UNIT_TIME_SEC_2 = 120.0
-const val UNIT_TIME_SEC_3 = 3600.0
+const val UNIT_TIME_SEC_1 = 50L
+const val UNIT_TIME_SEC_2 = 120L
+const val UNIT_TIME_SEC_3 = 3600L
 
 const val UNIT_TIME_1_OUTPUT = "50 sec"
 const val UNIT_TIME_2_OUTPUT = "2 min"

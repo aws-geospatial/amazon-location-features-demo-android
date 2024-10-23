@@ -45,6 +45,7 @@ class SearchPlacesAdapter(
                                 tvDistance.context,
                                 it,
                                 isMetric,
+                                false
                             )
                         }
                     }
@@ -54,7 +55,7 @@ class SearchPlacesAdapter(
                 }
 
                 tvRegion.text =
-                    getRegion(data.amazonLocationPlace?.region, data.amazonLocationPlace?.subRegion, data.amazonLocationPlace?.country)
+                    getRegion(data.amazonLocationPlace?.region?.name, data.amazonLocationPlace?.subRegion?.name, data.amazonLocationPlace?.country?.name)
 
                 binding.clMain.setOnClickListener {
                     mSearchPlaceInterface.placeClick(adapterPosition)

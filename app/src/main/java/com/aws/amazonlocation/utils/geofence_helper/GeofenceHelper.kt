@@ -34,11 +34,6 @@ import com.aws.amazonlocation.utils.geofence_helper.turf.TurfConstants.UNIT_METR
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeasurement
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeta
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfTransformation
-import com.aws.amazonlocation.utils.isGrabMapSelected
-import com.aws.amazonlocation.utils.latNorth
-import com.aws.amazonlocation.utils.latSouth
-import com.aws.amazonlocation.utils.lonEast
-import com.aws.amazonlocation.utils.lonWest
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
@@ -132,27 +127,8 @@ class GeofenceHelper(
                 )
             }
         }
-        mPrefrenceManager?.let { preferenceManager ->
-            if (isGrabMapSelected(preferenceManager, mAppContext)) {
-                if (mLatLng != null) {
-                    mLatLng?.let {
-                        if (!(it.latitude in latSouth..latNorth && it.longitude in lonWest..lonEast)) {
-                            return mDefaultLatLngGrab
-                        }
-                    }
-                } else {
-                    return mDefaultLatLngGrab
-                }
-            }
-        }
         return if (mLatLng == null) {
-            mPrefrenceManager?.let {
-                if (isGrabMapSelected(it, mAppContext)) {
-                    mDefaultLatLngGrab
-                } else {
-                    mDefaultLatLng
-                }
-            }
+            mDefaultLatLng
         } else {
             mLatLng
         }
@@ -432,7 +408,10 @@ class GeofenceHelper(
     private fun upDateSeekbarText(radius: Int) {
         val isMetric = Units.isMetric(mPrefrenceManager?.getValue(KEY_UNIT_SYSTEM, ""))
         val seekbarText: String = if (isMetric) {
-            Units.getMetricsNew(mAppContext, radius.toDouble(), true)
+            Units.getMetricsNew(mAppContext, radius.toDouble(),
+                isMetric = true,
+                isMeterToFleetNeeded = false
+            )
         } else {
             Units.getMetrics(mAppContext, Units.meterToFeet(radius.toDouble()), false)
         }

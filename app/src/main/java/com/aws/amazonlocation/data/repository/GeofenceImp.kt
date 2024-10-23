@@ -51,9 +51,8 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         lng: Double?,
         searchText: String,
         searchPlace: SearchPlaceInterface,
-        isGrabMapSelected: Boolean
     ) {
-        mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
+        mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
     }
 
     override suspend fun searchPlaceIndexForText(
@@ -62,7 +61,7 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         searchText: String?,
         searchPlace: SearchPlaceInterface
     ) {
-        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, searchPlace)
+        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, null,searchPlace)
     }
 
     override suspend fun batchUpdateDevicePosition(

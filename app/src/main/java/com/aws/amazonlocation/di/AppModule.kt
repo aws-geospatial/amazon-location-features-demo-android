@@ -8,7 +8,11 @@ import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.repository.AuthRepository
 import com.aws.amazonlocation.domain.repository.GeofenceRepository
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
-import com.aws.amazonlocation.utils.AWSLocationHelper
+import com.aws.amazonlocation.utils.providers.GeofenceProvider
+import com.aws.amazonlocation.utils.providers.LocationProvider
+import com.aws.amazonlocation.utils.providers.PlacesProvider
+import com.aws.amazonlocation.utils.providers.RoutesProvider
+import com.aws.amazonlocation.utils.providers.TrackingProvider
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.PreferenceManager
@@ -33,8 +37,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getAWSLocationHelper(mMapHelper: MapHelper, mPreferenceManager: PreferenceManager) =
-        AWSLocationHelper(mMapHelper, mPreferenceManager)
+    fun getAWSLocationProvider(mPreferenceManager: PreferenceManager) =
+        LocationProvider(mPreferenceManager)
 
     @Provides
     @Singleton
@@ -48,25 +52,55 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun getAWSPlacesProvider(mMapHelper: MapHelper,mPreferenceManager: PreferenceManager) =
+        PlacesProvider(mMapHelper, mPreferenceManager)
+
+    @Provides
+    @Singleton
+    fun getAWSRoutesProvider(mPreferenceManager: PreferenceManager) =
+        RoutesProvider(mPreferenceManager)
+
+    @Provides
+    @Singleton
+    fun getAWSGeofenceProvider() = GeofenceProvider()
+
+    @Provides
+    @Singleton
+    fun getAWSTrackingProvider() = TrackingProvider()
+
+    @Provides
+    @Singleton
     fun providesCommonRepositoryImp(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: AWSLocationHelper
+        mAWSLocationHelper: LocationProvider,
+        mAWSPlacesProvider: PlacesProvider,
+        mAWSRoutesProvider: RoutesProvider,
+        mAWSGeofenceProvider: GeofenceProvider,
+        mAWSTrackingProvider: TrackingProvider,
     ): AuthRepository =
-        AuthImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper))
+        AuthImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
 
     @Provides
     @Singleton
     fun providesLocationSearchRepository(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: AWSLocationHelper
+        mAWSLocationHelper: LocationProvider,
+        mAWSPlacesProvider: PlacesProvider,
+        mAWSRoutesProvider: RoutesProvider,
+        mAWSGeofenceProvider: GeofenceProvider,
+        mAWSTrackingProvider: TrackingProvider,
     ): LocationSearchRepository =
-        LocationSearchImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper))
+        LocationSearchImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
 
     @Provides
     @Singleton
     fun providesGeofenceRepository(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: AWSLocationHelper
+        mAWSLocationHelper: LocationProvider,
+        mAWSPlacesProvider: PlacesProvider,
+        mAWSRoutesProvider: RoutesProvider,
+        mAWSGeofenceProvider: GeofenceProvider,
+        mAWSTrackingProvider: TrackingProvider,
     ): GeofenceRepository =
-        GeofenceImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper))
+        GeofenceImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
 }

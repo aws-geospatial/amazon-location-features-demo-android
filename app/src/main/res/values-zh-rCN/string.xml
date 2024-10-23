@@ -78,8 +78,7 @@
   <string name="label_walk">步行</string>
   <string name="label_drive">开车</string>
   <string name="label_truck">卡车</string>
-  <string name="label_bicycle">自行车</string>
-  <string name="label_motorcycle">摩托车</string>
+  <string name="label_scooter">小型摩托车</string>
   <string name="label_search_starting_point">搜寻 开始 点</string>
   <string name="exit">退出</string>
   <string name="log_out">日志 出</string>
@@ -100,20 +99,6 @@
   <string name="edit_geofence">编辑 Geofence</string>
   <string name="label_map_style">地图 风格</string>
   <string name="label_map_style_description">正在改变 数据 提供者 也 影响 地方 &amp; 路线 API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">请 输入 正确的 身份 池 id</string>
   <string name="label_enter_domain">已输入 用户 域 是 错了</string>
   <string name="label_enter_user_pool_client_id">已输入 用户 池 客户 id 是 错了</string>
@@ -122,9 +107,6 @@
   <string name="data_provider">数据 提供者</string>
   <string name="map_style">地图 风格</string>
   <string name="aws_cloudformation">连接 您的 AWS 账户</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">你 是 连接的</string>
   <string name="label_connected_description">连接 您的 AWS 帐户 到 启用 地理围栏 和 追踪器。 这个 将 确保 您的 追踪 和 地理围栏 数据 是 只有 已存储 在 您的 账户。 之后 你 日志 在， 所有 功能 的 这 演示 应用程序 将 运行 使用 资源 你 部署 在 您的 AWS 账户。 日志 出 如果 你 愿望 到 继续 正在运行 这 演示 应用程序 使用 资源 在 AWS 的 演示 应用 账户。</string>
   <string name="label_how_to_remove">怎么样 到 移除：</string>
@@ -164,10 +146,6 @@
   <string name="reconnect_with_aws_account">堆栈 是 腐败， 改变 背部 到 默认 堆</string>
   <string name="error_route">路线 不 找到了。</string>
   <string name="no_route_found">没有 路线 找到</string>
-  <string name="error_switch_to_here">距离 是 更大 比 400 千米， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
-  <string name="error_switch_to_here_miles" formatted="false">距离 是 更大 比 %s mi， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
-  <string name="error_distance_400">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 400 千米， 和 航点 为了 走路 必须 是 之内 40 千米。</string>
-  <string name="error_distance_248_miles" formatted="false">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 %smi， 和 航点 为了 走路 必须 是 之内 %smi。</string>
   <string name="connect_to_aws_account">连接 AWS 账户</string>
   <string name="label_preview">预览</string>
   <string name="label_location_permission_denied">地点 许可 否认</string>
@@ -188,9 +166,6 @@
   <string name="label_legal_and_privacy">合法 和 隐私</string>
   <string name="label_version">版本</string>
   <string name="label_sign_out">标志 出</string>
-  <string name="distance_is_greater_than_400_km">距离 是 更大 比 400 公里</string>
-  <string name="distance_is_greater_than_248_mi">距离 是 更大 比 %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">不能 计算 通过 埃斯里， 好心地 开关 到 \n这里 提供者。</string>
   <string name="label_here_attribution_text">© 2022 这里</string>
   <string name="label_partner_attribution">合作伙伴 归因</string>
   <string name="label_software_attribution">软件 归因</string>

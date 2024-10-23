@@ -1,8 +1,6 @@
 package com.aws.amazonlocation
 
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_ESRI
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_HERE
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_OPEN
+import com.aws.amazonlocation.utils.MAP
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -37,15 +35,10 @@ const val TEST_WORD_3 = "School"
 const val TEST_WORD_4 = "Shyamal Cross Road"
 const val TEST_WORD_5 = "auburn sydney"
 const val TEST_WORD_6 = "manly beach sydney"
-const val TEST_WORD_7 = "Shyamal Cross Road AMTS Bus Stand"
-const val TEST_WORD_8 = "port said"
 const val TEST_WORD_9 = "cloverdale perth"
 const val TEST_WORD_10 = "Kewdale Perth"
-const val TEST_WORD_11 = "Singapore"
 const val TEST_WORD_12 = "Guoco Midtown Square"
 const val TEST_WORD_13 = "Kluang "
-const val TEST_WORD_14 = "dark"
-const val TEST_WORD_15 = "Dark Gray"
 const val TEST_IMAGE_LABEL = "Rio Tinto, Esposende, Braga, PRT"
 const val TEST_IMAGE_LABEL_1 = "Rio Tinto, Gondomar, Porto, PRT"
 const val ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION"
@@ -130,15 +123,7 @@ const val TEST_FAILED_MAP_STYLE_NOT_CHANGED = "Map style not changed"
 const val TEST_FAILED_NO_DATA_FOUND = "No data found"
 const val TEST_FAILED_NO_MESSAGE_FOUND = "Expected message not found"
 
-val STYLE_TAG_ESRI_1 = DESCRIPTION_TAG_ESRI + 1
-val STYLE_TAG_ESRI_2 = DESCRIPTION_TAG_ESRI + 2
-val STYLE_TAG_ESRI_3 = DESCRIPTION_TAG_ESRI + 3
-val STYLE_TAG_ESRI_4 = DESCRIPTION_TAG_ESRI + 4
-val STYLE_TAG_ESRI_5 = DESCRIPTION_TAG_ESRI + 5
-
-val STYLE_TAG_HERE_1 = DESCRIPTION_TAG_HERE + 1
-val STYLE_TAG_HERE_2 = DESCRIPTION_TAG_HERE + 2
-val STYLE_TAG_HERE_3 = DESCRIPTION_TAG_HERE + 3
-val STYLE_TAG_HERE_4 = DESCRIPTION_TAG_HERE + 4
-
-val STYLE_TAG_OPEN_1 = DESCRIPTION_TAG_OPEN + 1
+val MAP_1 = MAP + 0
+val MAP_2 = MAP + 1
+val MAP_3 = MAP + 2
+val MAP_4 = MAP + 3

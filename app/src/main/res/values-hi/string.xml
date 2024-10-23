@@ -78,8 +78,7 @@
   <string name="label_walk">वॉक</string>
   <string name="label_drive">ड्राइव</string>
   <string name="label_truck">ट्रक</string>
-  <string name="label_bicycle">साइकल</string>
-  <string name="label_motorcycle">मोटरसाइकल</string>
+  <string name="label_scooter">स्कूटर</string>
   <string name="label_search_starting_point">खोजें शुरुआत में बिंदु</string>
   <string name="exit">बाहर निकलें</string>
   <string name="log_out">लॉग इन करें बाहर</string>
@@ -100,20 +99,6 @@
   <string name="edit_geofence">संपादित करें जियोफेंस</string>
   <string name="label_map_style">नक्शा स्टाइल</string>
   <string name="label_map_style_description">बदल रहा है डेटा प्रदाता भी प्रभावित करता है प्लेसेस &amp; रूट्स एपीआई</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">कृपया दर्ज करें उचित पहचान पूल आईडी</string>
   <string name="label_enter_domain">दर्ज किया गया उपभोक्ता डोमेन है गलत</string>
   <string name="label_enter_user_pool_client_id">दर्ज किया गया उपभोक्ता पूल ग्राहक आईडी है गलत</string>
@@ -122,9 +107,6 @@
   <string name="data_provider">डेटा प्रदाता</string>
   <string name="map_style">नक्शा अंदाज</string>
   <string name="aws_cloudformation">कनेक्ट करें तुम्हारा एडब्ल्यूएस अकाउंट</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">आप हैं जुड़े हुए</string>
   <string name="label_connected_description">कनेक्ट करें तुम्हारा एडब्ल्यूएस लेखा को सक्षम जियोफेंस और ट्रैकर्स। यह होगा सुनिश्चित तुम्हारा नज़र रखना और जियोफेंसिंग डेटा है मात्र संग्रहित में तुम्हारा खाता। के बाद आप लॉग इन करें में, सभी विशेषताएं का यह डेमो ऐप होगा दौड़ना इस्तेमाल करते हुए साधनों आप तैनात में तुम्हारा एडब्ल्यूएस खाता। लॉग इन करें बाहर अगर आप इच्छा को जारी रखें दौड़ना यह डेमो ऐप इस्तेमाल करते हुए साधनों में एडब्ल्यूएस प्रदर्शन ऐप खाता।</string>
   <string name="label_how_to_remove">कैसे को निकालें:</string>
@@ -164,10 +146,6 @@
   <string name="reconnect_with_aws_account">स्टैक है भ्रष्ट, स्विच करना पीछे को चूक ढेर</string>
   <string name="error_route">रूट ना पाया।</string>
   <string name="no_route_found">नहीं रास्ता पाया</string>
-  <string name="error_switch_to_here">दूरी है बृहत्तर की तुलना में 400 किमी, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
-  <string name="error_switch_to_here_miles">दूरी है बृहत्तर की तुलना में %s मील, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
-  <string name="error_distance_400">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर 400 किमी, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर 40 किमी।</string>
-  <string name="error_distance_248_miles" formatted="false">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर %smi, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर %smi।</string>
   <string name="connect_to_aws_account">कनेक्ट करें एडब्ल्यूएस अकाउंट</string>
   <string name="label_preview">पूर्वावलोकन</string>
   <string name="label_location_permission_denied">लोकेशन अनुमति इनकार किया</string>
@@ -188,9 +166,6 @@
   <string name="label_legal_and_privacy">लीगल और प्राइवेसी</string>
   <string name="label_version">वर्ज़न</string>
   <string name="label_sign_out">साइन इन करें बाहर</string>
-  <string name="distance_is_greater_than_400_km">दूरी है बृहत्तर की तुलना में 400 किमी</string>
-  <string name="distance_is_greater_than_248_mi">दूरी है बृहत्तर की तुलना में %s मील</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">नहीं कर सकते गणना के जरिए एस्री, कृपया स्विच को \nयहां प्रदाता।</string>
   <string name="label_here_attribution_text">© 2022 यहां</string>
   <string name="label_partner_attribution">पार्टनर एट्रिब्यूशन</string>
   <string name="label_software_attribution">सॉफ़्टवेयर एट्रिब्यूशन</string>

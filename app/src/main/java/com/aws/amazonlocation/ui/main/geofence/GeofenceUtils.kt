@@ -151,7 +151,7 @@ class GeofenceUtils {
             setGeofenceSearchSuggestionAdapter()
             setGeofenceSearchPlaceAdapter()
             cardGeofenceLiveLocation.setOnClickListener {
-                mMapHelper?.checkLocationComponentEnable((mActivity as BaseActivity), true)
+                mMapHelper?.checkLocationComponentEnable()
             }
 
             ivAddGeofenceClose.setOnClickListener {
@@ -361,36 +361,7 @@ class GeofenceUtils {
             }
             cardTrackerGeofenceSimulation.hide()
             btnTryGeofence.setOnClickListener {
-                preferenceManager?.let { manager ->
-                    if (isGrabMapSelected(manager, btnTryGeofence.context)) {
-                        mActivity?.changeDataProviderDialog(object : ChangeDataProviderInterface {
-                            override fun changeDataProvider(dialog: DialogInterface) {
-                                mActivity?.getString(R.string.map_light)?.let { it1 ->
-                                    manager.setValue(
-                                        KEY_MAP_STYLE_NAME,
-                                        it1
-                                    )
-                                }
-                                mActivity?.getString(R.string.esri)?.let { it1 ->
-                                    manager.setValue(
-                                        KEY_MAP_NAME,
-                                        it1
-                                    )
-                                }
-                                isChangeDataProviderClicked = true
-                                mActivity?.let {
-                                    (it as MainActivity).changeMapStyle(
-                                        it.getString(R.string.esri),
-                                        it.getString(R.string.map_light),
-                                    )
-                                }
-                                isChangeDataProviderClicked = false
-                            }
-                        })
-                    } else {
-                        openSimulationWelcome()
-                    }
-                }
+                openSimulationWelcome()
             }
 
             clAddGeofence.setOnClickListener {
@@ -801,37 +772,12 @@ class GeofenceUtils {
             mGeofenceList.forEach { data ->
                 mGeofenceHelper?.let {
                     data.geometry?.circle?.center?.let {
-                        if (checkGeofenceInsideGrab(
-                                LatLng(
-                                    it[1],
-                                    it[0]
-                                ), preferenceManager, mActivity?.applicationContext
+                        mLatLngList.add(
+                            LatLng(
+                                it[1],
+                                it[0]
                             )
-                        ) {
-                            mActivity?.let { activity ->
-                                mMapHelper?.addGeofenceMarker(
-                                    activity,
-                                    data,
-                                    object : MarkerClickInterface {
-                                        override fun markerClick(placeData: String) {
-                                            mGeofenceList.forEachIndexed { index, data ->
-                                                if (data.geofenceId == placeData) {
-                                                    if (checkInternetConnection()) {
-                                                        editGeofenceBottomSheet(index, data)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                )
-                            }
-                            mLatLngList.add(
-                                LatLng(
-                                    it[1],
-                                    it[0]
-                                )
-                            )
-                        }
+                        )
                     }
                 }
             }
@@ -878,7 +824,7 @@ class GeofenceUtils {
     }
 
     private fun setGeofenceSearchData(position: Int) {
-        val coordinates = mPlaceList[position].amazonLocationPlace?.geometry?.point
+        val coordinates = mPlaceList[position].position
         val latLng = coordinates?.get(1)?.let { LatLng(it, coordinates[0]) }
         mBindingAddGeofence?.let { view ->
             view.edtAddGeofenceSearch.setText(mPlaceList[position].amazonLocationPlace?.label)
@@ -998,7 +944,7 @@ class GeofenceUtils {
         mangeAddGeofenceUI(context = context)
         mGeofenceList.removeAt(position)
         if (mGeofenceList.isEmpty()) {
-            mMapHelper?.checkLocationComponentEnable((mActivity as BaseActivity), false)
+            mMapHelper?.checkLocationComponentEnable()
             mMapHelper?.mSymbolOptionList?.clear()
             mMapHelper?.deleteAllGeofenceMarker()
             checkGeofenceList(true)

@@ -14,7 +14,6 @@ import com.aws.amazonlocation.mock.DEFAULT_LOCATION
 import com.aws.amazonlocation.mock.Responses
 import com.aws.amazonlocation.mock.SEARCH_TEXT_RIO_TINTO
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -51,10 +50,9 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
         mExploreVM = ExploreViewModel(locationSearchUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceSuggestionSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any(), any())).thenAnswer {
+        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
             callback.getSearchPlaceSuggestionResponse(Responses.RESPONSE_SEARCH_TEXT_RIO_TINTO)
         }
@@ -62,7 +60,7 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
         mExploreVM.mLatLng = DEFAULT_LOCATION
 
         mExploreVM.searchForSuggestionsResultList.test {
-            mExploreVM.searchPlaceSuggestion(SEARCH_TEXT_RIO_TINTO, true)
+            mExploreVM.searchPlaceSuggestion(SEARCH_TEXT_RIO_TINTO)
             var result = awaitItem()
             assert(result is HandleResult.Loading)
             result = awaitItem()
@@ -72,16 +70,15 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceSuggestionError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any(), any())).thenAnswer {
+        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
             callback.internetConnectionError(mContext.resources.getString(R.string.check_your_internet_connection_and_try_again))
         }
 
         mExploreVM.searchForSuggestionsResultList.test {
-            mExploreVM.searchPlaceSuggestion(SEARCH_TEXT_RIO_TINTO, false)
+            mExploreVM.searchPlaceSuggestion(SEARCH_TEXT_RIO_TINTO)
             var result = awaitItem()
             assert(result is HandleResult.Loading)
             result = awaitItem()

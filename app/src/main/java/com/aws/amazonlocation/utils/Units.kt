@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 // SPDX-License-Identifier: MIT-0
 object Units {
 
-    fun getMetricsNew(context: Context, distance: Double, isMetric: Boolean): String {
+    fun getMetricsNew(context: Context, distance: Double, isMetric: Boolean, isMeterToFleetNeeded: Boolean): String {
         val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
             maximumFractionDigits = 2
         }
@@ -28,7 +28,7 @@ object Units {
         return if (isMetric) {
             "${formatter.format(distance / 1000)} ${context.getString(R.string.label_km)}"
         } else {
-            "${formatter.format(distance / 5280)} ${context.getString(R.string.label_mi)}"
+            "${formatter.format((if (isMeterToFleetNeeded) meterToFeet(distance) else distance) / 5280)} ${context.getString(R.string.label_mi)}"
         }
     }
 
@@ -51,35 +51,18 @@ object Units {
         }
     }
 
-    fun convertToLowerUnit(distance: Double, isMetric: Boolean): Double {
-        return if (isMetric) {
-            kiloMeterToMeter(distance)
-        } else {
-            milesToFeet(distance)
-        }
-    }
-
-    fun kiloMeterToMeter(kiloMeter: Double): Double {
-        return kiloMeter * 1000
-    }
-
-    fun milesToFeet(miles: Double): Double {
-        return miles * 5280
-    }
-
     fun meterToFeet(meter: Double): Double {
         return meter * 3.2808399
     }
 
-    fun getTime(context: Context, second: Double): String {
-        val mSeconds = second.toInt().toLong()
-        TimeUnit.SECONDS.toDays(mSeconds).toInt()
+    fun getTime(context: Context, second: Long): String {
+        TimeUnit.SECONDS.toDays(second).toInt()
         val mHours: Long =
-            TimeUnit.SECONDS.toHours(mSeconds)
+            TimeUnit.SECONDS.toHours(second)
         val mMinute: Long =
-            TimeUnit.SECONDS.toMinutes(mSeconds) - TimeUnit.SECONDS.toHours(mSeconds) * 60
+            TimeUnit.SECONDS.toMinutes(second) - TimeUnit.SECONDS.toHours(second) * 60
         val mSecondNew: Long =
-            TimeUnit.SECONDS.toSeconds(mSeconds) - TimeUnit.SECONDS.toMinutes(mSeconds) * 60
+            TimeUnit.SECONDS.toSeconds(second) - TimeUnit.SECONDS.toMinutes(second) * 60
 
         var mTime = if (mMinute == 0L && mHours == 0L) {
             buildString {
@@ -125,16 +108,6 @@ object Units {
         return when (locale.country.uppercase()) {
             "US", "MM", "LR" -> false
             else -> true
-        }
-    }
-
-    fun getDistanceUnit(distanceUnit: String?): String {
-        return when (distanceUnit) {
-            "Metric", "metric" -> KILOMETERS
-            "Imperial", "imperial" -> MILES
-            else -> {
-                if (isMetricUsingCountry()) KILOMETERS else MILES
-            }
         }
     }
 

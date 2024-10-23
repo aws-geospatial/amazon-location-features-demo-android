@@ -1,6 +1,7 @@
 package com.aws.amazonlocation.utils.analytics
 
 import android.os.Build
+import android.util.Log
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.*
 import aws.smithy.kotlin.runtime.auth.awscredentials.CredentialsProvider
@@ -9,12 +10,12 @@ import aws.smithy.kotlin.runtime.time.TimestampFormat
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.data.enum.AuthEnum
-import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.DEFAULT_COUNTRY
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_END_POINT
 import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.utils.providers.LocationProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ import java.util.UUID
 import kotlinx.coroutines.runBlocking
 
 class AnalyticsUtils(
-    private val mAWSLocationHelper: AWSLocationHelper,
+    private val mAWSLocationHelper: LocationProvider,
     private val mPreferenceManager: PreferenceManager,
 ) {
     private var credentialProvider: CredentialsProvider?= null
@@ -178,7 +179,9 @@ class AnalyticsUtils(
                         }
                 }
             try {
-               pinpointClient?.putEvents(putEventsRequest)
+                Log.e("TAG", "recordEvent: $putEventsRequest")
+                val result = pinpointClient?.putEvents(putEventsRequest)
+                Log.e("TAG", "recordEvent: $result")
                 if (sessionStopEvent != null){
                     session = SessionData()
                 }

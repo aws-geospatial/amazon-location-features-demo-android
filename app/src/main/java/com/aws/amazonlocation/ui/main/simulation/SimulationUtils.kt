@@ -29,9 +29,9 @@ import com.aws.amazonlocation.databinding.BottomSheetTrackSimulationBinding
 import com.aws.amazonlocation.domain.`interface`.SimulationInterface
 import com.aws.amazonlocation.ui.base.BaseActivity
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.CLICK_DEBOUNCE_ENABLE
 import com.aws.amazonlocation.utils.DELAY_PROCESS_1000
 import com.aws.amazonlocation.utils.DELAY_SIMULATION_2000
@@ -103,7 +103,7 @@ import software.amazon.location.auth.EncryptedSharedPreferences
 class SimulationUtils(
     val mPreferenceManager: PreferenceManager? = null,
     val activity: Activity?,
-    val mAWSLocationHelper: AWSLocationHelper
+    val mAWSLocationHelper: LocationProvider
 ) {
     private var routeData: ArrayList<RouteSimulationDataItem>? = null
     private var isCoroutineStarted: Boolean = false
@@ -1239,6 +1239,6 @@ class SimulationUtils(
     private fun MapLibreMap.removeViewBounds() {
         setLatLngBoundsForCameraTarget(null)
         style?.let { mMapHelper?.updateZoomRange(it) }
-        mMapHelper?.checkLocationComponentEnable((mActivity as BaseActivity), false)
+        mMapHelper?.checkLocationComponentEnable()
     }
 }

@@ -64,7 +64,10 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
             onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_1))
-            Thread.sleep(DELAY_10000)
+            uiDevice.wait(
+                Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
+                DELAY_20000
+            )
             val rvSearchPlaceSuggestion =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_search_places_suggestion)
             if (rvSearchPlaceSuggestion.adapter?.itemCount != null) {

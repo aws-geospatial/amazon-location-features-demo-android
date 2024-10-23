@@ -4,9 +4,15 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.mock.ESRI
+import com.aws.amazonlocation.mock.GRAB
+import com.aws.amazonlocation.mock.HERE
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_HERE
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_ESRI
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_HERE
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -35,10 +41,9 @@ class ExploreVMSetMapListData : BaseTest() {
         mExploreVM = ExploreViewModel(locationSearchUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun setMapListDataSuccess() = runTest {
-        mExploreVM.setMapListData(context, true)
+        mExploreVM.setMapListData(context)
 
         mExploreVM.mStyleList[0].styleNameDisplay = ESRI
         mExploreVM.mStyleList[0].isSelected = mExploreVM.mStyleList[0].isSelected
@@ -53,7 +58,7 @@ class ExploreVMSetMapListData : BaseTest() {
 
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
-            mExploreVM.mStyleList.size == 4
+            mExploreVM.mStyleList.size == 1
         )
 
         Assert.assertTrue(
@@ -62,21 +67,8 @@ class ExploreVMSetMapListData : BaseTest() {
         )
 
         Assert.assertTrue(
-            TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_ESRI,
-            mExploreVM.mStyleList[2].styleNameDisplay == GRAB
-        )
-        Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI,
-            mExploreVM.mStyleList[0].mapInnerData?.size == 6
-        )
-
-        Assert.assertTrue(
-            TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_HERE,
-            mExploreVM.mStyleList[1].styleNameDisplay == HERE
-        )
-        Assert.assertTrue(
-            TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_HERE,
-            mExploreVM.mStyleList[1].mapInnerData?.size == 5
+            mExploreVM.mStyleList[0].mapInnerData?.size == 4
         )
     }
 }

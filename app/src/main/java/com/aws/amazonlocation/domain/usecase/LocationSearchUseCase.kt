@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.domain.usecase
 
+import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
@@ -17,17 +18,17 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
         lat: Double?,
         lng: Double?,
         searchText: String,
-        isGrabMapSelected: Boolean,
         searchPlace: SearchPlaceInterface
     ) =
-        mLocationSearchRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
+        mLocationSearchRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
 
     suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
+        queryId: String?,
         searchPlace: SearchPlaceInterface
-    ) = mLocationSearchRepository.searchPlaceIndexForText(lat, lng, searchText, searchPlace)
+    ) = mLocationSearchRepository.searchPlaceIndexForText(lat, lng, searchText, queryId, searchPlace)
 
     suspend fun calculateRoute(
         latDeparture: Double?,
@@ -48,13 +49,6 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
         travelMode,
         distanceInterface
     )
-
-    suspend fun searchNavigationPlaceIndexForPosition(
-        lat: Double?,
-        lng: Double?,
-        step: Step,
-        searchPlace: NavigationDataInterface
-    ) = mLocationSearchRepository.searchNavigationPlaceIndexForPosition(lat, lng, step, searchPlace)
 
     suspend fun searPlaceIndexForPosition(
         lat: Double?,

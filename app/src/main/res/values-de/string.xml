@@ -78,8 +78,7 @@
   <string name="label_walk">Gehen</string>
   <string name="label_drive">Fahren</string>
   <string name="label_truck">Lastwagen</string>
-  <string name="label_bicycle">Fahrrad</string>
-  <string name="label_motorcycle">Motorrad</string>
+  <string name="label_scooter">Roller</string>
   <string name="label_search_starting_point">Suche beginnend Punkt</string>
   <string name="exit">Ausfahrt</string>
   <string name="log_out">Loggen aus</string>
@@ -100,20 +99,6 @@
   <string name="edit_geofence">Bearbeiten Geofence</string>
   <string name="label_map_style">Karte Stil</string>
   <string name="label_map_style_description">Ändern Daten Anbieter ebenfalls wirkt Orte &amp; Routen API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">Bitte eintragen richtig Identität bündeln id</string>
   <string name="label_enter_domain">Eingetragen Benutzer Domäne ist falsch</string>
   <string name="label_enter_user_pool_client_id">Eingetragen Benutzer bündeln Auftraggeber id ist falsch</string>
@@ -122,9 +107,6 @@
   <string name="data_provider">Daten Anbieter</string>
   <string name="map_style">Karte Stil</string>
   <string name="aws_cloudformation">Verbinden dein AWS Konto</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">Du sind verbunden</string>
   <string name="label_connected_description">Verbinden dein AWS Konto zu ermöglichen Geofences und Tracker. Das Testament sicherstellen dein Verfolgung und Geofencing Daten ist nur gelagert in dein Konto. Nach Sie Log in, alles Eigenschaften von die Demoversion App Testament Lauf unter Verwendung von Ressourcen Sie bereitstellen in dein AWS Konto. Loggen aus wenn Sie wünschen zu fortsetzen laufend die Demoversion App unter Verwendung von Ressourcen in AWSs Demo App Konto.</string>
   <string name="label_how_to_remove">Wie zu entfernen:</string>
@@ -164,10 +146,6 @@
   <string name="reconnect_with_aws_account">Stapel ist beschädigt, umschalten zurück zu Standard stapeln</string>
   <string name="error_route">Route nicht gefunden.</string>
   <string name="no_route_found">Nein Route gefunden</string>
-  <string name="error_switch_to_here">Entfernung ist größer als 400 km, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
-  <string name="error_switch_to_here_miles" formatted="false">Entfernung ist größer als %s mi, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
-  <string name="error_distance_400">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb 400 km, und Wegpunkte zum gehen Muss Sein innerhalb 40 km.</string>
-  <string name="error_distance_248_miles" formatted="false">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb %smi, und Wegpunkte zum gehen Muss Sein innerhalb %smi.</string>
   <string name="connect_to_aws_account">Verbinden AWS Konto</string>
   <string name="label_preview">Vorschau</string>
   <string name="label_location_permission_denied">Standort Genehmigung verweigert</string>
@@ -188,9 +166,6 @@
   <string name="label_legal_and_privacy">Rechtlich und Datenschutz</string>
   <string name="label_version">Version</string>
   <string name="label_sign_out">Schild aus</string>
-  <string name="distance_is_greater_than_400_km">Entfernung ist größer als 400 km</string>
-  <string name="distance_is_greater_than_248_mi">Entfernung ist größer als %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Kann nicht berechnen über Esri, freundlich Schalter zu \nHier Anbieter.</string>
   <string name="label_here_attribution_text">© 2022 HIER</string>
   <string name="label_partner_attribution">Partnerin Namensnennung</string>
   <string name="label_software_attribution">Software Namensnennung</string>

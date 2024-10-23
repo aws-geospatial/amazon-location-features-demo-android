@@ -146,7 +146,7 @@
             android:visibility="gone"
             android:textDirection="locale"
             android:textAlignment="viewStart"
-            android:text="@string/error_switch_to_here"
+            android:text="@string/no_route_found"
             android:textColor="@color/color_32ADE6"
             app:layout_constraintEnd_toEndOf="@id/sheet_direction_gl_direction_end"
             app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"

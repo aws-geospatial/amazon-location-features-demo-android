@@ -7,12 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.databinding.ItemGeofenceListBinding
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.aws.amazonlocation.utils.checkGeofenceInsideGrab
 import com.aws.amazonlocation.utils.geofence_helper.GeofenceHelper
 import com.aws.amazonlocation.utils.hide
-import com.aws.amazonlocation.utils.invisible
 import com.aws.amazonlocation.utils.show
-import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -34,23 +31,9 @@ class GeofenceListAdapter(
             binding.apply {
                 mGeofenceHelper?.let {
                     data.geometry?.circle?.center?.let {
-                        if (checkGeofenceInsideGrab(
-                                LatLng(
-                                    it[1],
-                                    it[0]
-                                ),
-                                mPreferenceManager,
-                                context
-                            )
-                        ) {
-                            clMainGeofence.alpha = 1.0F
-                            ivGeofenceIcon.show()
-                            ivGeofenceIconDisable.hide()
-                        } else {
-                            clMainGeofence.alpha = 0.3F
-                            ivGeofenceIconDisable.show()
-                            ivGeofenceIcon.invisible()
-                        }
+                        clMainGeofence.alpha = 1.0F
+                        ivGeofenceIcon.show()
+                        ivGeofenceIconDisable.hide()
                     }
                 }
                 tvGeofenceAddressType.text = data.geofenceId
@@ -58,38 +41,14 @@ class GeofenceListAdapter(
                 ivDeleteGeofence.setOnClickListener {
                     mGeofenceHelper?.let {
                         data.geometry?.circle?.center?.let {
-                            if (checkGeofenceInsideGrab(
-                                    LatLng(
-                                        it[1],
-                                        it[0]
-                                    ),
-                                    mPreferenceManager,
-                                    context
-                                )
-                            ) {
-                                mGeofenceDeleteInterface.deleteGeofence(adapterPosition, data)
-                            } else {
-                                mGeofenceDeleteInterface.disableGeofenceClick()
-                            }
+                            mGeofenceDeleteInterface.deleteGeofence(adapterPosition, data)
                         }
                     }
                 }
                 root.setOnClickListener {
                     mGeofenceHelper?.let {
                         data.geometry?.circle?.center?.let {
-                            if (checkGeofenceInsideGrab(
-                                    LatLng(
-                                        it[1],
-                                        it[0]
-                                    ),
-                                    mPreferenceManager,
-                                    context
-                                )
-                            ) {
-                                mGeofenceDeleteInterface.editGeofence(adapterPosition, data)
-                            } else {
-                                mGeofenceDeleteInterface.disableGeofenceClick()
-                            }
+                            mGeofenceDeleteInterface.editGeofence(adapterPosition, data)
                         }
                     }
                 }

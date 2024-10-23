@@ -9,9 +9,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_map_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dp_8"
+        android:layout_marginHorizontal="@dimen/dp_8"
         app:strokeColor="@color/color_primary_green"
         app:strokeWidth="@dimen/dp_0"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +21,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_checked"
-            android:layout_width="@dimen/dp_104"
-            android:layout_height="@dimen/dp_80"
-            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:src="@drawable/light" />
     </com.google.android.material.card.MaterialCardView>

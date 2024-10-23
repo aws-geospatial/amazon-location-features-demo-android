@@ -78,8 +78,7 @@
   <string name="label_walk">Camminare</string>
   <string name="label_drive">Guidare</string>
   <string name="label_truck">Camion</string>
-  <string name="label_bicycle">bicicletta</string>
-  <string name="label_motorcycle">motocicletta</string>
+  <string name="label_scooter">Scooter</string>
   <string name="label_search_starting_point">Cerca di partenza punto</string>
   <string name="exit">Esci</string>
   <string name="log_out">Registro fuori</string>
@@ -100,20 +99,6 @@
   <string name="edit_geofence">Modifica Geofence</string>
   <string name="label_map_style">Mappa Stile</string>
   <string name="label_map_style_description">Cambiando dato fornitore anche colpisce Luoghi &amp; Percorsi API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">Per favore inserire corretto identità piscina id</string>
   <string name="label_enter_domain">Entrato utente dominio è sbagliato</string>
   <string name="label_enter_user_pool_client_id">Entrato utente piscina cliente id è sbagliato</string>
@@ -122,9 +107,6 @@
   <string name="data_provider">Dati fornitore</string>
   <string name="map_style">Mappa stile</string>
   <string name="aws_cloudformation">Connetti tuo AWS Account</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">Tu siamo connesso</string>
   <string name="label_connected_description">Connetti tuo AWS conto a abilitare Geofence e Localizzatori. Questo volontà garantire tuo tracciamento e geofencing dato è solo immagazzinato nel tuo conto. Dopo voi tronco nel, tutti caratteristiche di lo Dimostrazione App volontà correre utilizzando risorse voi dispiegare nel tuo AWS conto. Registro fuori se voi desiderio a continua correre lo Dimostrazione App utilizzando risorse nel di AWS manifestazione app conto.</string>
   <string name="label_how_to_remove">Come a rimuovere:</string>
@@ -164,10 +146,6 @@
   <string name="reconnect_with_aws_account">Pila è corrotto, commutazione indietro a predefinito pila</string>
   <string name="error_route">Percorso non trovato.</string>
   <string name="no_route_found">No itinerario trovato</string>
-  <string name="error_switch_to_here">Distanza è maggiore che 400 km, non posso calcolare tramite Esri, cortesemente interruttore a QUI fornitore</string>
-  <string name="error_switch_to_here_miles" formatted="false">Distanza è maggiore che %s mi, non posso calcolare tramite Esri, cortesemente interruttore a QUI fornitore</string>
-  <string name="error_distance_400">Nel Fonte dati Esri, waypoint per auto e autocarro dovere essere entro 400 km, e waypoint per camminare dovere essere entro 40 km.</string>
-  <string name="error_distance_248_miles" formatted="false">Nel Fonte dati Esri, waypoint per auto e autocarro dovere essere entro %smi, e waypoint per camminare dovere essere entro %smi.</string>
   <string name="connect_to_aws_account">Connetti AWS Account</string>
   <string name="label_preview">Anteprima</string>
   <string name="label_location_permission_denied">Posizione autorizzazione negato</string>
@@ -188,9 +166,6 @@
   <string name="label_legal_and_privacy">Legale e Privacy</string>
   <string name="label_version">Versione</string>
   <string name="label_sign_out">Segno fuori</string>
-  <string name="distance_is_greater_than_400_km">Distanza è maggiore che 400 km</string>
-  <string name="distance_is_greater_than_248_mi">Distanza è maggiore che %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Non posso calcolare tramite Esri, cortesemente interruttore a \nEcco fornitore.</string>
   <string name="label_here_attribution_text">© 2022 QUI</string>
   <string name="label_partner_attribution">Partner Attribuzione</string>
   <string name="label_software_attribution">Software Attribuzione</string>

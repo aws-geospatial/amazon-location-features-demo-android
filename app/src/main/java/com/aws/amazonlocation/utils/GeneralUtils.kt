@@ -595,35 +595,6 @@ fun validateUserPoolClientId(mUserPoolClientId: String?): Boolean {
     return matcher.matches()
 }
 
-fun isGrabMapEnable(mPreferenceManager: PreferenceManager): Boolean {
-    var isGrabMapEnable = false
-    val region = mPreferenceManager.getValue(KEY_USER_REGION, "")
-    val mAuthStatus = mPreferenceManager.getValue(
-        KEY_CLOUD_FORMATION_STATUS,
-        AuthEnum.DEFAULT.name
-    )
-    when (mAuthStatus) {
-        AuthEnum.AWS_CONNECTED.name, AuthEnum.SIGNED_IN.name -> {
-            if (SE_REGION_LIST.contains(region)) {
-                isGrabMapEnable = true
-            }
-        }
-        else -> {
-            isGrabMapEnable = true
-        }
-    }
-    return isGrabMapEnable
-}
-
-fun isGrabMapSelected(mPreferenceManager: PreferenceManager, context: Context): Boolean {
-    var isGrabMapEnable = false
-    val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, "")
-    if (mapName == context.getString(R.string.grab)) {
-        isGrabMapEnable = true
-    }
-    return isGrabMapEnable
-}
-
 fun setLocale(languageCode: String, context: Context) {
     val locale = Locale(languageCode)
     Locale.setDefault(locale)
@@ -638,23 +609,4 @@ fun getLanguageCode(): String? {
         Locale.getDefault().language
     }
     return languageCode
-}
-
-fun checkGeofenceInsideGrab(
-    mLatLng: LatLng,
-    mPreferenceManager: PreferenceManager?,
-    context: Context?
-): Boolean {
-    context?.let {
-        mPreferenceManager?.let { preferenceManager ->
-            if (isGrabMapSelected(preferenceManager, it)) {
-                mLatLng.let {
-                    return (it.latitude in latSouth..latNorth && it.longitude in lonWest..lonEast)
-                }
-            } else {
-                return true
-            }
-        }
-    }
-    return true
 }

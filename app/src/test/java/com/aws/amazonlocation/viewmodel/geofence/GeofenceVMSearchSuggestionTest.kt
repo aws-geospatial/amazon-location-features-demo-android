@@ -46,14 +46,12 @@ class GeofenceVMSearchSuggestionTest : BaseTest() {
         mGeofenceViewModel = GeofenceViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceSuggestionSuccess() = runTest {
         Mockito.`when`(
             mRemoteDataSourceImpl.searchPlaceSuggestions(
                 anyOrNull(),
                 anyOrNull(),
-                any(),
                 any(),
                 any()
             )
@@ -65,8 +63,7 @@ class GeofenceVMSearchSuggestionTest : BaseTest() {
         mGeofenceViewModel.mGeofenceSearchForSuggestionsResultList.test {
             mGeofenceViewModel.geofenceSearchPlaceSuggestion(
                 SEARCH_TEXT_RIO_TINTO,
-                DEFAULT_LOCATION,
-                true
+                DEFAULT_LOCATION
             )
             val result = awaitItem()
             assert(result is HandleResult.Success)

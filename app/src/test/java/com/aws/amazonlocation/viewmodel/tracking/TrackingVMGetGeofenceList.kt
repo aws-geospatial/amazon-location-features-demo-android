@@ -46,7 +46,6 @@ class TrackingVMGetGeofenceList : BaseTest() {
         mTrackingViewModel = TrackingViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getGeofenceListSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(any(), any())).thenAnswer {
@@ -65,7 +64,6 @@ class TrackingVMGetGeofenceList : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getGeofenceListError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(any(), any()))

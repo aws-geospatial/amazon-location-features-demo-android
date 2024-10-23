@@ -18,8 +18,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import aws.sdk.kotlin.services.geoplaces.model.Address
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import aws.sdk.kotlin.services.location.model.Place
+import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.enum.MarkerEnum
@@ -86,7 +87,6 @@ class MapHelper(
     private val appContext: Context,
 ) {
     private var region: String? = ""
-    var isGrabSelectedAndOutsideBound: Boolean = false
     private val mSourceId: String = "line-source"
     private val mDotSourceId: String = "dot-source"
     private val mDotDestinationSourceId: String = "dot-destination-source"
@@ -94,7 +94,6 @@ class MapHelper(
     private var mDotLayerId: String = "dot-layer"
     private var mDotDestinationLayerId: String = "dot-destination-layer"
     private val mDefaultLatLng = LatLng(49.281174, -123.116823)
-    val mDefaultLatLngGrab = LatLng(1.2840123, 103.8487542)
     var mSymbolManager: SymbolManager? = null
     private var mSymbolManagerWithClick: SymbolManager? = null
     private var mSymbolManagerTracker: SymbolManager? = null
@@ -120,7 +119,7 @@ class MapHelper(
         mapView: MapView,
         mapLibreMap: MapLibreMap?,
         mapStyle: String,
-        style: String,
+        colorSchemes: String,
         isMapLoadedInterface: IsMapLoadedInterface,
         mapStyleChangedListener: MapStyleChangeListener,
         activity: FragmentActivity?,
@@ -131,17 +130,13 @@ class MapHelper(
         mapLibreMap?.let {
             this.mMapboxMap = it
             if (!it.locationComponent.isLocationComponentActivated) {
-                if (isGrabMapSelected(mPreferenceManager, appContext)) {
-                    moveCameraToLocation(mDefaultLatLngGrab)
-                } else {
-                    moveCameraToLocation(mDefaultLatLng)
-                }
+                moveCameraToLocation(mDefaultLatLng)
             }
             mMapboxMap?.setStyle(
                 Style
                     .Builder()
                     .fromUri(
-                        getMapUri(mapStyle, style),
+                        getMapUri(mapStyle, colorSchemes, BuildConfig.API_KEY),
                     ),
             ) { style ->
                 updateZoomRange(style)
@@ -191,14 +186,14 @@ class MapHelper(
 
     fun updateStyle(
         mapStyle: String,
-        style: String,
+        colorSchemes: String,
     ) {
         setRegion()
         mMapboxMap?.setStyle(
             Style
                 .Builder()
                 .fromUri(
-                    getMapUri(mapStyle, style),
+                    getMapUri(mapStyle, colorSchemes, BuildConfig.API_KEY),
                 ),
         ) {
             mapStyleChangeListener?.onMapStyleChanged(mapStyle)
@@ -207,8 +202,12 @@ class MapHelper(
         }
     }
 
-    private fun getMapUri(mapStyle: String, style: String): String {
-        return "https://maps.geo.$region.amazonaws.com/maps/v0/maps/$mapStyle/style-descriptor?style=$style"
+    private fun getMapUri(mapStyle: String, colorSchemes: String, apiKey: String): String {
+        val countryName = mPreferenceManager?.getValue(KEY_POLITICAL_VIEW, "") ?: ""
+        val baseUrl = "https://maps.geo.${BuildConfig.API_KEY_REGION}.amazonaws.com/v2/styles/$mapStyle/descriptor?key=$apiKey"
+        val politicalView = if (countryName.isNotEmpty()) "&political-view=$countryName" else ""
+
+        return if (mapStyle == "Hybrid" || mapStyle == "Satellite") baseUrl+politicalView else "$baseUrl&color-scheme=$colorSchemes$politicalView"
     }
 
     @SuppressLint("MissingPermission")
@@ -335,6 +334,7 @@ class MapHelper(
             currentPlace.amazonLocationPlace?.let { amazonLocationPlace ->
                 setMarkerData(
                     amazonLocationPlace,
+                    currentPlace.position,
                     style,
                     activity,
                     markerType,
@@ -345,7 +345,7 @@ class MapHelper(
 
                 if (markerType == MarkerEnum.DIRECTION_ICON) {
                     if (originPlace != null) {
-                        originPlace.amazonLocationPlace?.geometry?.point?.let {
+                        originPlace.position?.let {
                             list.add(
                                 LatLng(
                                     it[1],
@@ -423,6 +423,7 @@ class MapHelper(
             currentPlace?.amazonLocationPlace?.let { amazonLocationPlace ->
                 setMarkerData(
                     amazonLocationPlace,
+                    currentPlace.position,
                     style,
                     activity,
                     markerType,
@@ -436,7 +437,8 @@ class MapHelper(
     }
 
     private fun setMarkerData(
-        amazonLocationPlace: Place,
+        amazonLocationPlace: Address,
+        position: List<Double>?,
         style: Style,
         activity: Activity,
         markerType: MarkerEnum,
@@ -445,7 +447,7 @@ class MapHelper(
         isFromMapClick: Boolean,
     ) {
         val latLng =
-            amazonLocationPlace.geometry?.point?.let {
+            position?.let {
                 LatLng(
                     it[1],
                     it[0],
@@ -475,7 +477,7 @@ class MapHelper(
         } else {
             mSymbolManager?.create(symbolOptions)
         }
-        amazonLocationPlace.geometry?.point?.let {
+        position?.let {
             list.add(
                 LatLng(
                     it[1],
@@ -886,14 +888,14 @@ class MapHelper(
         val list = ArrayList<LatLng>()
         placeList.forEach { searchPlace ->
             if (!searchPlace.isPlaceIndexForPosition) {
-                searchPlace.amazonLocationPlace?.let { amazonPlace ->
+                searchPlace.amazonLocationPlace?.let {
                     addMarkerWithClick(
                         activity,
                         markerType,
                         searchPlace,
                         mMarkerClickInterface,
                     )
-                    amazonPlace.geometry?.point?.let {
+                    searchPlace.position?.let {
                         list.add(
                             LatLng(
                                 it[1],
@@ -915,7 +917,7 @@ class MapHelper(
     ) {
         mMapboxMap?.getStyle { style ->
             currentPlace.amazonLocationPlace?.let { amazonLocationPlace ->
-                amazonLocationPlace.geometry?.point?.let {
+                currentPlace.position?.let {
                     val latLng =
                         LatLng(
                             it[1],
@@ -1064,7 +1066,6 @@ class MapHelper(
     }
 
     fun getLiveLocation(): LatLng? {
-        isGrabSelectedAndOutsideBound = false
         var mLatLng: LatLng? = null
         if (mMapboxMap?.locationComponent?.isLocationComponentActivated == true) {
             mMapboxMap?.locationComponent?.lastKnownLocation?.apply {
@@ -1075,29 +1076,8 @@ class MapHelper(
                     )
             }
         }
-        mPreferenceManager?.let { preferenceManager ->
-            if (isGrabMapSelected(preferenceManager, appContext)) {
-                if (mLatLng != null) {
-                    mLatLng?.let {
-                        if (!(it.latitude in latSouth..latNorth && it.longitude in lonWest..lonEast)) {
-                            isGrabSelectedAndOutsideBound = true
-                            return mDefaultLatLngGrab
-                        }
-                    }
-                } else {
-                    isGrabSelectedAndOutsideBound = true
-                    return mDefaultLatLngGrab
-                }
-            }
-        }
         return if (mLatLng == null) {
-            mPreferenceManager?.let {
-                if (isGrabMapSelected(it, appContext)) {
-                    mDefaultLatLngGrab
-                } else {
-                    mDefaultLatLng
-                }
-            }
+            mDefaultLatLng
         } else {
             mLatLng
         }
@@ -1293,20 +1273,12 @@ class MapHelper(
     }
 
     // check map box location component enable or not for get live location
-    fun checkLocationComponentEnable(
-        mBaseActivity: BaseActivity?,
-        isLiveLocationClicked: Boolean,
-    ) {
+    fun checkLocationComponentEnable() {
         mMapboxMap?.let {
             if (it.locationComponent.isLocationComponentActivated) {
                 getLiveLocation()
-                    ?.let { LatLng ->
-                        if (isLiveLocationClicked) {
-                            if (LatLng.longitude == mDefaultLatLngGrab.longitude && LatLng.latitude == mDefaultLatLngGrab.latitude) {
-                                mBaseActivity?.showError(mBaseActivity.getString(R.string.your_location_not_supported_by_grab))
-                            }
-                        }
-                        moveCameraToLocation(LatLng)
+                    ?.let { latLng ->
+                        moveCameraToLocation(latLng)
                     }
             } else {
                 enableLocationComponent()
@@ -1401,7 +1373,7 @@ class MapHelper(
 
     fun deleteGeofenceMarker(position: Int) {
         mGeofenceSM?.delete(mSymbolOptionList[position])
-        mSymbolOptionList.removeAt(position)
+        mSymbolOptionList?.removeAt(position)
     }
 
     fun deleteAllGeofenceMarker() {
@@ -1551,29 +1523,15 @@ class MapHelper(
     }
 
     private fun setStyleLanguage(style: Style) {
-        val r = this.appContext.resources
-        val mapName = mPreferenceManager?.getValue(KEY_MAP_NAME, r.getString(R.string.esri))
-        var expression: Expression? = null
-        val languageCode = getLanguageCode()
 
-        if (mapName == r.getString(R.string.here) || mapName == r.getString(R.string.grab)) {
-            expression =
+        val languageCode = getLanguageCode()
+        val expression: Expression? = Expression.coalesce(
                 Expression.coalesce(
-                    Expression.get("name:$languageCode"),
-                    Expression.get("name"),
-                )
-        } else {
-            if (mapName == r.getString(R.string.esri)) {
-                expression =
-                    Expression.coalesce(
-                        Expression.coalesce(
-                            Expression.get("_name_$languageCode"),
-                            Expression.get("_name_global"),
-                        ),
-                        Expression.get("_name"),
-                    )
-            }
-        }
+                    Expression.get("_name_$languageCode"),
+                    Expression.get("_name_global"),
+                ),
+                Expression.get("_name"),
+            )
         for (layer in style.layers) {
             if (layer is SymbolLayer) {
                 val textField = textField(expression)
@@ -1584,14 +1542,10 @@ class MapHelper(
 
     fun updateZoomRange(style: Style) {
         mMapboxMap?.getStyle {
-            val r = this.appContext.resources
-            val mapName = mPreferenceManager?.getValue(KEY_MAP_NAME, r.getString(R.string.esri))
-            if (mapName != r.getString(R.string.open_data)) {
-                setStyleLanguage(style)
-            }
+            setStyleLanguage(style)
             val cameraPosition = mMapboxMap?.cameraPosition
             val zoom = cameraPosition?.zoom
-            val minZoom = minZoomLevel(style)
+            val minZoom = minZoomLevel()
             val maxZoom = MapCameraZoom.MAX_ZOOM
             if (zoom != null) {
                 if (zoom < minZoom) {
@@ -1613,38 +1567,7 @@ class MapHelper(
         }
     }
 
-    private fun minZoomLevel(style: Style): Double =
-        try {
-            val sources = JSONObject(style.json).getJSONObject(JSON_KEY_STYLE_SOURCES)
-            when {
-                sources.has(JSON_KEY_STYLE_ESRI) -> {
-                    sources.getJSONObject(JSON_KEY_STYLE_ESRI).optDouble(
-                        JSON_KEY_STYLE_MINZOOM,
-                        MapLibreConstants.MINIMUM_ZOOM.toDouble(),
-                    )
-                }
-
-                sources.has(JSON_KEY_STYLE_HERE) -> {
-                    sources.getJSONObject(JSON_KEY_STYLE_HERE).optDouble(
-                        JSON_KEY_STYLE_MINZOOM,
-                        MapLibreConstants.MINIMUM_ZOOM.toDouble(),
-                    )
-                }
-
-                sources.has(JSON_KEY_STYLE_RASTER) -> {
-                    sources.getJSONObject(JSON_KEY_STYLE_RASTER).optDouble(
-                        JSON_KEY_STYLE_MINZOOM,
-                        MapLibreConstants.MINIMUM_ZOOM.toDouble(),
-                    )
-                }
-
-                else -> {
-                    MapLibreConstants.MINIMUM_ZOOM.toDouble()
-                }
-            }
-        } catch (e: Exception) {
-            MapLibreConstants.MINIMUM_ZOOM.toDouble()
-        }
+    private fun minZoomLevel(): Double = MapLibreConstants.MINIMUM_ZOOM.toDouble()
 
     // Class is used to interpolate the marker animation.
     private val latLngEvaluators: Array<TypeEvaluator<LatLng>> =

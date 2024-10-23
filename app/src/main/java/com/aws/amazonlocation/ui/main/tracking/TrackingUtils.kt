@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
 import aws.sdk.kotlin.services.location.model.DevicePosition
@@ -33,7 +32,6 @@ import com.aws.amazonlocation.domain.`interface`.TrackingInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.simulation.SimulationBottomSheetFragment
 import com.aws.amazonlocation.ui.main.welcome.WelcomeBottomSheetFragment
-import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.ChangeDataProviderInterface
@@ -42,8 +40,6 @@ import com.aws.amazonlocation.utils.DeleteTrackingDataInterface
 import com.aws.amazonlocation.utils.Durations
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.GeofenceCons
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
-import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_POOL_ID
 import com.aws.amazonlocation.utils.KEY_USER_REGION
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
@@ -54,16 +50,14 @@ import com.aws.amazonlocation.utils.MessageInterface
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.TIME_OUT
 import com.aws.amazonlocation.utils.WEB_SOCKET_URL
-import com.aws.amazonlocation.utils.changeDataProviderDialog
-import com.aws.amazonlocation.utils.checkGeofenceInsideGrab
 import com.aws.amazonlocation.utils.deleteTrackingDataDialog
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfConstants
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeta
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfTransformation
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
-import com.aws.amazonlocation.utils.isGrabMapSelected
 import com.aws.amazonlocation.utils.messageDialog
+import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.stickyHeaders.StickyHeaderDecoration
 import com.aws.amazonlocation.utils.validateIdentityPoolId
@@ -95,7 +89,7 @@ import org.maplibre.geojson.Polygon
 class TrackingUtils(
     val mPreferenceManager: PreferenceManager? = null,
     val activity: Activity?,
-    val mAWSLocationHelper: AWSLocationHelper
+    val mAWSLocationHelper: LocationProvider
 ) {
     var isChangeDataProviderClicked: Boolean = false
     private var imageId: Int = 0
@@ -244,36 +238,7 @@ class TrackingUtils(
             }
             cardTrackerGeofenceSimulation.hide()
             btnTryTracker.setOnClickListener {
-                mPreferenceManager?.let { manager ->
-                    if (isGrabMapSelected(manager, btnTryTracker.context)) {
-                        mActivity?.changeDataProviderDialog(object : ChangeDataProviderInterface {
-                            override fun changeDataProvider(dialog: DialogInterface) {
-                                mActivity?.getString(R.string.map_light)?.let { it1 ->
-                                    manager.setValue(
-                                        KEY_MAP_STYLE_NAME,
-                                        it1
-                                    )
-                                }
-                                mActivity?.getString(R.string.esri)?.let { it1 ->
-                                    manager.setValue(
-                                        KEY_MAP_NAME,
-                                        it1
-                                    )
-                                }
-                                isChangeDataProviderClicked = true
-                                mActivity?.let {
-                                    (it as MainActivity).changeMapStyle(
-                                        it.getString(R.string.esri),
-                                        it.getString(R.string.map_light)
-                                    )
-                                }
-                                isChangeDataProviderClicked = false
-                            }
-                        })
-                    } else {
-                        openSimulationWelcome()
-                    }
-                }
+                openSimulationWelcome()
             }
             if ((activity as MainActivity).isTablet) {
                 val languageCode = getLanguageCode()
@@ -617,16 +582,14 @@ class TrackingUtils(
             mGeofenceList.forEachIndexed { index, data ->
                 data.geometry?.circle?.center?.let {
                     val latLng = LatLng(it[1], it[0])
-                    if (checkGeofenceInsideGrab(latLng, mPreferenceManager, mActivity?.applicationContext)) {
-                        setDefaultIconWithGeofence(index)
-                        mLatLngList.add(latLng)
-                        data.geometry?.circle?.radius?.let { it1 ->
-                            drawGeofence(
-                                fromLngLat(latLng.longitude, latLng.latitude),
-                                it1.toInt(),
-                                index
-                            )
-                        }
+                    setDefaultIconWithGeofence(index)
+                    mLatLngList.add(latLng)
+                    data.geometry?.circle?.radius?.let { it1 ->
+                        drawGeofence(
+                            fromLngLat(latLng.longitude, latLng.latitude),
+                            it1.toInt(),
+                            index
+                        )
                     }
                 }
             }

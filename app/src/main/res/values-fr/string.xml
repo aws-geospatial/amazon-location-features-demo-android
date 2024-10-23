@@ -78,8 +78,7 @@
   <string name="label_walk">Marchez</string>
   <string name="label_drive">Conduire</string>
   <string name="label_truck">Camion</string>
-  <string name="label_bicycle">Vélo</string>
-  <string name="label_motorcycle">Motocyclette</string>
+  <string name="label_scooter">Scooter</string>
   <string name="label_search_starting_point">Rechercher commençant point</string>
   <string name="exit">Sortir</string>
   <string name="log_out">Journal en dehors</string>
@@ -100,20 +99,6 @@
   <string name="edit_geofence">Modifier Geofence</string>
   <string name="label_map_style">Carte Style</string>
   <string name="label_map_style_description">En mutation données fournisseur également affecte Lieux et Itinéraires API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">Veuillez entrer correct identité piscine identifiant</string>
   <string name="label_enter_domain">Entré utilisateur domaine est faux</string>
   <string name="label_enter_user_pool_client_id">Entré utilisateur piscine client identifiant est faux</string>
@@ -122,9 +107,6 @@
   <string name="data_provider">Données fournisseur</string>
   <string name="map_style">Carte style</string>
   <string name="aws_cloudformation">Connecter votre AWS Compte</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">Vous sont connecté</string>
   <string name="label_connected_description">Connecter votre AWS compte pour activer Géofences et Traceurs. Ce volonté veiller à ce que votre suivi et géofencing données est seulement conservé dans votre compte. Après vous bûche dans, tous fonctionnalités de le Démo Appli volonté courir en utilisant ressources vous déployer dans votre AWS compte. Journal en dehors si vous souhait pour continuer course le Démo Appli en utilisant ressources dans d\'AWS démo appli compte.</string>
   <string name="label_how_to_remove">Comment pour supprimer :</string>
@@ -164,10 +146,6 @@
   <string name="reconnect_with_aws_account">Empiler est corrompu, basculement retour pour défaut empiler</string>
   <string name="error_route">Parcours pas trouvé.</string>
   <string name="no_route_found">Non route trouvé</string>
-  <string name="error_switch_to_here">Distance est plus grand que 400 km, ne peut pas calculer via Esri, gentiment interrupteur pour ICI fournisseur</string>
-  <string name="error_switch_to_here_miles" formatted="false">Distance est plus grand que %s mi, ne peut pas calculer via Esri, gentiment interrupteur pour ICI fournisseur</string>
-  <string name="error_distance_400">Dans Source de données Esri, points de cheminement pour voiture et un camion doit être dans 400 km, et points de cheminement pour marche doit être dans 40 km.</string>
-  <string name="error_distance_248_miles" formatted="false">Dans Source de données Esri, points de cheminement pour voiture et un camion doit être dans %smi, et points de cheminement pour marche doit être dans %smi.</string>
   <string name="connect_to_aws_account">Connecter AWS Compte</string>
   <string name="label_preview">Aperçu</string>
   <string name="label_location_permission_denied">Emplacement autorisation nié</string>
@@ -188,9 +166,6 @@
   <string name="label_legal_and_privacy">Légal et Confidentialité</string>
   <string name="label_version">Version</string>
   <string name="label_sign_out">Signe en dehors</string>
-  <string name="distance_is_greater_than_400_km">Distance est plus grand que 400 km</string>
-  <string name="distance_is_greater_than_248_mi">Distance est plus grand que %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Je ne peux pas calculer via Esri, gentiment interrupteur pour \nIci fournisseur.</string>
   <string name="label_here_attribution_text">© 2022 ICI</string>
   <string name="label_partner_attribution">Partenaire Attribution</string>
   <string name="label_software_attribution">Logiciel Attribution</string>
