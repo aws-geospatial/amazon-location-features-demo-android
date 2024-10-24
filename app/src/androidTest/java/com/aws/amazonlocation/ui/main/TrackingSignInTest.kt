@@ -72,21 +72,8 @@ class TrackingSignInTest : BaseTestMainActivity() {
             .perform(webClick())
 
         uiDevice.wait(
-            Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker))),
-            DELAY_20000
-        )
-
-        uiDevice.wait(
-            Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker))),
-            DELAY_1000
-        )
-        val labelContinue =
-            uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker)))
-        labelContinue?.click()
-
-        uiDevice.wait(
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracking))),
-            DELAY_1000
+            DELAY_20000
         )
     }
 }
