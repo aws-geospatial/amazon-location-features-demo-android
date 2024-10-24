@@ -15,9 +15,7 @@
   <string name="privacy_policy">Por continuando, tú acordar a Amazon\'s Condiciones de Uso y Privacidad Aviso.</string>
   <string name="condition_of_use">Condiciones de Uso</string>
   <string name="privacy_notice">Privacidad Aviso</string>
-  <string name="login_success">Signo en Exitosamente</string>
   <string name="sign_out_successfully">Signo fuera con éxito</string>
-  <string name="sign_out_failed">Signo fuera falló, por favor intentar otra vez...</string>
   <string name="sign_in_to_access_tracking">Signo en a acceso Rastreo y Geofence características o proceder a Explora la mapa</string>
   <string name="sign_in_required">Signo en requerido</string>
   <string name="maybe_later">Tal vez luego</string>
@@ -117,10 +115,6 @@
   <string name="label_tracking_history">Rastreo Historia</string>
   <string name="label_tracking_your_activity">Rastreo vuestro dispositivo ubicación</string>
   <string name="label_enable_tracking">Habilitar En directo Rastreadores</string>
-  <string name="label_enable_tracker">Habilitar rastreador</string>
-  <string name="label_enable_tracker_description">Tú poder utilizar ninguna dato proveedora salvo Esri por vuestro activo administración o rastreo utilizar casos. Si tú quiero a utilizar Esri por vuestro activo administración o rastreo utilizar caso, por favor leer términos y condiciones</string>
-  <string name="label_enable_tracker_view_terms">Ver Términos y Condiciones</string>
-  <string name="label_enable_tracker_continue_to_tracker">Continuar</string>
   <string name="label_enable_tracking_detail">Habilitando la rasgo voluntad permitir tú a pista vuestro dispositivo y conseguir notificadas cuando la dispositivo entra o salidas ninguna de vuestro geofences.</string>
   <string name="label_check_your_internet_connection_and_try_again">Comprobar vuestro internet conexión y intentar nuevamente</string>
   <string name="label_not_tracking_your_activity">No rastreo vuestro dispositivo ubicación</string>
@@ -166,7 +160,6 @@
   <string name="label_legal_and_privacy">Legal y Privacidad</string>
   <string name="label_version">Versión</string>
   <string name="label_sign_out">Signo fuera</string>
-  <string name="label_here_attribution_text">© 2022 AQUÍ</string>
   <string name="label_partner_attribution">Socio Atribución</string>
   <string name="label_software_attribution">Software Atribución</string>
   <string name="label_click_learn_more_for_software_attribution">Haga clic aprender más por software atribución</string>
@@ -179,13 +172,6 @@
   <string name="imperial">Imperial</string>
   <string name="subtitle_imperial">Millas, libras</string>
   <string name="automatic">Automático</string>
-  <string name="label_restart_app_title">Habilitar Grab</string>
-  <string name="label_restart_app_description">Grab provee Mapas, Rutas y Lugar búsqueda en Malasia, Filipinas, Tailandia, Singapur, Viet Nam, Indonesia, Myanmar, y Camboya. \n\nMientras coche y motocicleta rutas somos disponible a través de la encima países, la bicicleta y para caminar rutas somos soportado en solamente clave ciudades tal tan Singapur, Yakarta, Manila, Klang Valle, Bangkok, Ho Chi Minh Ciudad, y Hanói. </string>
-  <string name="enable_grab">Habilitar Grab</string>
-  <string name="dont_ask_again">No pedir nuevamente</string>
-  <string name="your_location_not_supported_by_grab">Tu corriente ubicación es exterior países soportado por Grab. En la actualidad, Grab soporta Malasia, Filipinas, Tailandia, Singapur, Viet Nam, Indonesia, Myanmar, Camboya.</string>
-  <string name="label_current_location_disabled">Actual ubicación inhabilitado</string>
-  <string name="label_grab_limitation">Distancia no puedo estar calculado, ya que vuestro corriente ubicación ha estado inhabilitado pendiente a grab limitación</string>
   <string name="label_automatic_sub_title_mile">Basado en vuestro navegador ajustes (Millas, libras)</string>
   <string name="label_automatic_sub_title_km">Basado en vuestro navegador ajustes (Kilómetros, kilogramos)</string>
   <string name="label_sec">segundo</string>
@@ -250,10 +236,24 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Para suave simulación experiencia por favor permitir notificación permiso de ajustes.</string>
-  <string name="label_change_data_provider">Cambiar Datos Proveedor</string>
-  <string name="label_change_data_provider_des">GrabMaps no apoyo simulación, por favor cambio dato proveedora a Esri o AQUÍ a utilizar Geofence o rastreador características.</string>
-  <string name="label_switch_to_esri">Conmutador a Esri</string>
   <string name="region">Región</string>
-  <string name="label_enable_open_data">Habilitar Datos abiertos</string>
-  <string name="label_enable_open_data_des">Datos abiertos usos Esri por Rutas y Lugares búsqueda funcionalidad a mejorar vuestro experiencia.</string>
+  <string name="mode_light">Luz</string>
+  <string name="mode_dark">Oscuro</string>
+  <string name="label_political_view">Político vista</string>
+  <string name="label_map_representation_for_different_countries">Mapa representación por diferente países</string>
+  <string name="description_arg">Argentina\'s vista en la Del sur patagónico Hielo Campo y Tierra Del Fuego, incluido la Falkland Islas, Sur Georgia, y Sur Sandwich Islas</string>
+  <string name="description_egy">Egipto\'s vista en Pájaro Tawil</string>
+  <string name="description_ind">India\'s vista en Gilgit-Baltistán</string>
+  <string name="description_ken">Kenia\'s vista en la Ilemi Triángulo</string>
+  <string name="description_mar">Marruecos\'s vista en Occidental Sáhara</string>
+  <string name="description_pak">Pakistán\'s vista en Jammu y Cachemira y la Junagadh Zona</string>
+  <string name="description_rus">Rusia\'s vista en Crimea</string>
+  <string name="description_sdn">Sudán\'s vista en la Halaib Triángulo</string>
+  <string name="description_srb">Serbia\'s vista en Kosovo, Vukovar, y Sarengrado Islas</string>
+  <string name="description_sur">Surinam\'s vista en la Courantyne Cabeceras y Ley Cabeceras</string>
+  <string name="description_syr">Siria\'s vista en la Golán Alturas</string>
+  <string name="description_tur">Turquía\'s vista en Chipre y Septentrional Chipre</string>
+  <string name="description_tza">Tanzania\'s vista en lago Malawi</string>
+  <string name="description_ury">Uruguay\'s vista en Rincón de Artigas</string>
+  <string name="description_vnm">Vietnam vista en la Paracelso Islas y Spratly Islas</string>
 </resources>

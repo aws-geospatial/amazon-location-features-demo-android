@@ -24,7 +24,7 @@ import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_NO_DATA_FOUND
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
-import com.aws.amazonlocation.TEST_WORD_12
+import com.aws.amazonlocation.TEST_WORD_GUOCO_MIDTOWN_SQUARE
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -50,7 +50,7 @@ class AfterSearchDirectionErrorExistsTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_12))
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_GUOCO_MIDTOWN_SQUARE))
             BuildConfig.APPLICATION_ID
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),

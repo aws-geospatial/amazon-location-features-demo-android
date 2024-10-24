@@ -18,7 +18,7 @@ import com.aws.amazonlocation.GO
 import com.aws.amazonlocation.MY_LOCATION
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_LIST
-import com.aws.amazonlocation.TEST_WORD_4
+import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -43,7 +43,7 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
 
             val edtSearch = waitForView(allOf(withId(R.id.edt_search_places), isDisplayed()))
-            edtSearch?.perform(click(), replaceText(TEST_WORD_4))
+            edtSearch?.perform(click(), replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
             val rvRecyclerView = waitForView(
                 allOf(

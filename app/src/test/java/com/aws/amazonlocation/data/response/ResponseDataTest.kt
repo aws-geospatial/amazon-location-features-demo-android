@@ -7,9 +7,7 @@ import aws.sdk.kotlin.services.geoplaces.model.Region
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResultItem
 import aws.sdk.kotlin.services.geoplaces.model.SubRegion
-import aws.sdk.kotlin.services.location.model.PlaceGeometry
-import com.aws.amazonlocation.mock.ESRI
-import com.aws.amazonlocation.mock.LIGHT
+import com.aws.amazonlocation.mock.STANDARD
 import com.aws.amazonlocation.mock.NO_DATA_FOUND
 import com.aws.amazonlocation.mock.Responses
 import com.aws.amazonlocation.mock.TEST_DATA
@@ -30,7 +28,6 @@ import com.aws.amazonlocation.mock.TEST_FAILED_SEARCH_SUGGESTION_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_SIGN_OUT_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_TRACKING_HISTORY_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_UPDATE_BATCH_DATA
-import com.aws.amazonlocation.mock.VECTOR
 import java.util.Date
 import org.junit.Assert
 import org.junit.Test
@@ -202,7 +199,7 @@ class ResponseDataTest {
         )
 
         val mapStyleData = MapStyleData(
-            styleNameDisplay = ESRI,
+            styleNameDisplay = STANDARD,
             isSelected = false,
             mapInnerData = null
         )

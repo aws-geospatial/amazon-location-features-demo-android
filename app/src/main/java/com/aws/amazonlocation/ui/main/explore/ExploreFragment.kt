@@ -193,7 +193,7 @@ class ExploreFragment :
     private var mIsTrackingLocationClicked: Boolean = false
     private var isLiveLocationClick: Boolean = false
     private lateinit var mBinding: FragmentExploreBinding
-    private var mMapboxMap: MapLibreMap? = null
+    private var mMapLibreMap: MapLibreMap? = null
     private var mAdapter: SearchPlacesAdapter? = null
     private var mAdapterDirection: SearchPlacesAdapter? = null
     private var mPlaceList = ArrayList<SearchSuggestionData>()
@@ -930,7 +930,7 @@ class ExploreFragment :
                                     mBinding.cardNavigationTimeDialog.hide()
                                     mMapHelper.removeLine()
                                     mMapHelper.removeLocationListener()
-                                    mMapboxMap?.removeOnScaleListener(this@ExploreFragment)
+                                    mMapLibreMap?.removeOnScaleListener(this@ExploreFragment)
                                 } else {
                                     bearing?.let { mMapHelper.bearingCamera(it, latLng) }
                                     CoroutineScope(Dispatchers.IO).launch {
@@ -1046,7 +1046,7 @@ class ExploreFragment :
                             }
                             if (isLocationUpdatedNeeded) {
                                 mMapHelper.setUpdateRoute(mRouteUpDate)
-                                mMapboxMap?.addOnScaleListener(this@ExploreFragment)
+                                mMapLibreMap?.addOnScaleListener(this@ExploreFragment)
                             }
                         }.onError { it ->
                             isLocationUpdatedNeeded = false
@@ -2819,7 +2819,7 @@ class ExploreFragment :
                                 .toString()
                                 .isEmpty()
                         ) {
-                            mMapboxMap?.removeOnMapClickListener(this@ExploreFragment)
+                            mMapLibreMap?.removeOnMapClickListener(this@ExploreFragment)
                             mBaseActivity?.mGeofenceUtils?.showAddGeofenceDefaultUI()
                         }
                         if (bottomSheetAddGeofence.edtAddGeofenceSearch.hasFocus()) {
@@ -2984,16 +2984,13 @@ class ExploreFragment :
             if (isGPSEnabled(requireContext())) {
                 var destinationLatLng: LatLng? = null
                 val originLatLng: LatLng? = mMapHelper.getLiveLocation()
-                mViewModel.mSearchSuggestionData?.let {
+                val position =  mViewModel.mSearchSuggestionData?.position
+                position?.let {
                     destinationLatLng =
-                        it.position?.get(1)?.let { it1 ->
-                            it.position?.get(0)?.let { it2 ->
-                                LatLng(
-                                    it1,
-                                    it2,
-                                )
-                            }
-                        }
+                        LatLng(
+                            it[1],
+                            it[0],
+                        )
                 }
                 originLatLng?.let {
                     val distance =
@@ -3162,17 +3159,14 @@ class ExploreFragment :
                 isCalculateWalkApiError = false
                 isCalculateTruckApiError = false
                 isCalculateScooterApiError = false
+                val position =  mViewModel.mSearchSuggestionData?.position
                 mViewModel.calculateDistance(
                     latitude = liveLocationLatLng?.latitude,
                     longitude = liveLocationLatLng?.longitude,
                     latDestination =
-                    mViewModel.mSearchSuggestionData?.position?.get(
-                        1,
-                    ),
+                    position?.get(1),
                     lngDestination =
-                    mViewModel.mSearchSuggestionData?.position?.get(
-                        0,
-                    ),
+                    position?.get(0),
                     isAvoidFerries = mIsAvoidFerries,
                     isAvoidTolls = mIsAvoidTolls,
                     isWalkingAndTruckCall = true,
@@ -3275,17 +3269,12 @@ class ExploreFragment :
                 }
             } else {
                 isLocationUpdatedNeeded = false
-                mViewModel.mSearchDirectionOriginData?.let {
-                    it.position
-                        ?.get(1)
-                        ?.let { it1 ->
-                            it.position?.get(0)?.let { it2 ->
-                                LatLng(
-                                    it1,
-                                    it2,
-                                )
-                            }
-                        }?.let { it2 -> mMapHelper.navigationZoomCamera(it2, isZooming) }
+                val position = mViewModel.mSearchDirectionOriginData?.position
+                position?.let {
+                    LatLng(
+                        it[1],
+                        it[0],
+                    ).let { it2 -> mMapHelper.navigationZoomCamera(it2, isZooming) }
                 }
                 mData?.let {
                     drawPolyLineOnMapCardClick(
@@ -3404,18 +3393,12 @@ class ExploreFragment :
                     )
                 }
         } else if (mViewModel.mSearchDirectionOriginData?.isDestination == true) {
-            mViewModel.mSearchDirectionOriginData
-                ?.position
-                ?.get(1)
-                ?.let {
-                    mViewModel.mSearchDirectionOriginData
-                        ?.position
-                        ?.get(0)?.let { it1 ->
-                            LatLng(
-                                it,
-                                it1,
-                            )
-                        }
+            val position = mViewModel.mSearchDirectionOriginData?.position
+            position?.let {
+                    LatLng(
+                        it[1],
+                        it[0],
+                    )
                 }?.let {
                     latLngList.add(
                         it,
@@ -3424,23 +3407,17 @@ class ExploreFragment :
         }
 
         if (mViewModel.mSearchDirectionOriginData != null) {
-            mViewModel.mSearchDirectionOriginData
-                ?.position
-                ?.get(1)
-                ?.let {
-                    mViewModel.mSearchDirectionOriginData
-                        ?.position
-                        ?.get(0)?.let { it1 ->
-                            LatLng(
-                                it,
-                                it1,
-                            )
-                        }
-                }?.let {
-                    latLngList.add(
-                        it,
-                    )
-                }
+            val position = mViewModel.mSearchDirectionOriginData?.position
+            position?.let {
+                LatLng(
+                    it[1],
+                    it[0],
+                )
+            }?.let {
+                latLngList.add(
+                    it,
+                )
+            }
         }
         mMapHelper.getLiveLocation()?.let { it1 -> latLngList.add(it1) }
         mMapHelper.adjustMapBounds(
@@ -3485,7 +3462,7 @@ class ExploreFragment :
         mRouteFinish = true
         mNavigationList.clear()
         mMapHelper.removeLocationListener()
-        mMapboxMap?.removeOnScaleListener(this)
+        mMapLibreMap?.removeOnScaleListener(this)
         mBinding.cardNavigationTimeDialog.hide()
         mNavigationAdapter?.notifyDataSetChanged()
         mBottomSheetHelper.hideNavigationSheet()
@@ -4086,44 +4063,30 @@ class ExploreFragment :
     private fun BottomSheetDirectionSearchBinding.showOriginToDestinationRoute() {
         clearDirectionData()
         setApiError()
+        val positionOrigin = mViewModel.mSearchDirectionOriginData?.position
+        val positionDestination = mViewModel.mSearchDirectionDestinationData?.position
         mViewModel.calculateDistance(
             latitude =
-                mViewModel.mSearchDirectionOriginData?.position?.get(
-                    1,
-                ),
+            positionOrigin?.get(1),
             longitude =
-                mViewModel.mSearchDirectionOriginData?.position?.get(
-                    0,
-                ),
+            positionOrigin?.get(0),
             latDestination =
-                mViewModel.mSearchDirectionDestinationData?.position?.get(
-                    1,
-                ),
+            positionDestination?.get(1),
             lngDestination =
-                mViewModel.mSearchDirectionDestinationData?.position?.get(
-                    0,
-                ),
+            positionDestination?.get(0),
             isAvoidFerries = mIsAvoidFerries,
             isAvoidTolls = mIsAvoidTolls,
             isWalkingAndTruckCall = false,
         )
         mViewModel.calculateDistance(
             latitude =
-            mViewModel.mSearchDirectionOriginData?.position?.get(
-                1,
-            ),
+            positionOrigin?.get(1),
             longitude =
-            mViewModel.mSearchDirectionOriginData?.position?.get(
-                0,
-            ),
+            positionOrigin?.get(0),
             latDestination =
-            mViewModel.mSearchDirectionDestinationData?.position?.get(
-                1,
-            ),
+            positionDestination?.get(1),
             lngDestination =
-            mViewModel.mSearchDirectionDestinationData?.position?.get(
-                0,
-            ),
+            positionDestination?.get(0),
             isAvoidFerries = mIsAvoidFerries,
             isAvoidTolls = mIsAvoidTolls,
             isWalkingAndTruckCall = true,
@@ -4481,15 +4444,15 @@ class ExploreFragment :
         dialog.dismiss()
     }
 
-    override fun onMapReady(mapboxMap: MapLibreMap) {
-        mapboxMap.addOnMapClickListener(this)
+    override fun onMapReady(mapLibreMap: MapLibreMap) {
+        mapLibreMap.addOnMapClickListener(this)
         val mapStyleNameDisplay =
             mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_standard))
                 ?: getString(R.string.map_standard)
         val colorScheme = mPreferenceManager.getValue(KEY_COLOR_SCHEMES, ATTRIBUTE_LIGHT) ?: ATTRIBUTE_LIGHT
         mMapHelper.initSymbolManager(
             mBinding.mapView,
-            mapboxMap,
+            mapLibreMap,
             mapStyleNameDisplay,
             colorScheme,
             this,
@@ -4500,24 +4463,24 @@ class ExploreFragment :
         activity?.let {
             mBaseActivity?.mGeofenceUtils?.setMapBox(
                 it,
-                mapboxMap,
+                mapLibreMap,
                 mMapHelper,
                 mPreferenceManager,
             )
             mBaseActivity?.mTrackingUtils?.setMapBox(
                 it,
-                mapboxMap,
+                mapLibreMap,
                 mMapHelper,
             )
         }
-        mapboxMap.uiSettings.isCompassEnabled = false
-        this.mMapboxMap = mapboxMap
-        mapboxMap.addOnCameraIdleListener {
+        mapLibreMap.uiSettings.isCompassEnabled = false
+        this.mMapLibreMap = mapLibreMap
+        mapLibreMap.addOnCameraIdleListener {
             mViewModel.mLatLng =
-                mapboxMap.cameraPosition.target?.let {
+                mapLibreMap.cameraPosition.target?.let {
                     LatLng(
                         it.latitude,
-                        mapboxMap.cameraPosition.target!!.longitude,
+                        mapLibreMap.cameraPosition.target!!.longitude,
                     )
                 }
         }
@@ -4526,7 +4489,7 @@ class ExploreFragment :
 
     fun setMapBoxInSimulation() {
         activity?.let {
-            mMapboxMap?.let { it1 ->
+            mMapLibreMap?.let { it1 ->
                 mBaseActivity?.mSimulationUtils?.setMapBox(
                     it,
                     it1,
@@ -4850,7 +4813,7 @@ class ExploreFragment :
 
     override fun onScale(detector: StandardScaleGestureDetector) {
         mMapHelper.getLiveLocation()?.let { mLatLng ->
-            mMapboxMap?.easeCamera(
+            mMapLibreMap?.easeCamera(
                 CameraUpdateFactory.newCameraPosition(
                     CameraPosition
                         .Builder()
@@ -4883,8 +4846,8 @@ class ExploreFragment :
             }
         lifecycleScope.launch {
             delay(DELAY_500)
-            mMapboxMap?.setLatLngBoundsForCameraTarget(null)
-            mMapboxMap?.style?.let { mMapHelper.updateZoomRange(it) }
+            mMapLibreMap?.setLatLngBoundsForCameraTarget(null)
+            mMapLibreMap?.style?.let { mMapHelper.updateZoomRange(it) }
             mMapHelper.checkLocationComponentEnable()
         }
         if (activity is MainActivity) {

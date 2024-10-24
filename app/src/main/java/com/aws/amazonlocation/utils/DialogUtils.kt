@@ -42,28 +42,6 @@ fun Context.cloudFormationInfo() {
     }
 }
 
-fun Context.enableTracker(clickListener: EnableTrackerInterface) {
-    val mDialog = MaterialAlertDialogBuilder(this, R.style.EnableTrackerAlertStyle)
-    mDialog.setTitle(this.resources.getString(R.string.label_enable_tracker))
-    mDialog.setMessage(this.resources.getString(R.string.label_enable_tracker_description))
-    mDialog.setCancelable(true)
-    mDialog.setPositiveButton(
-        this.resources.getString(R.string.label_enable_tracker_view_terms)
-    ) { dialog, _ ->
-        dialog.dismiss()
-        clickListener.viewTermsAndCondition(dialog)
-    }
-    mDialog.setNegativeButton(
-        this.resources.getString(R.string.label_enable_tracker_continue_to_tracker)
-    ) { dialog, _ ->
-        clickListener.continueToTracker(dialog)
-    }
-    mDialog.setOnCancelListener {
-        clickListener.cancel()
-    }
-    mDialog.show()
-}
-
 fun Context.geofenceDeleteDialog(
     position: Int,
     data: ListGeofenceResponseEntry,

@@ -34,7 +34,6 @@ import com.aws.amazonlocation.ui.main.simulation.SimulationBottomSheetFragment
 import com.aws.amazonlocation.ui.main.welcome.WelcomeBottomSheetFragment
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
-import com.aws.amazonlocation.utils.ChangeDataProviderInterface
 import com.aws.amazonlocation.utils.DateFormat
 import com.aws.amazonlocation.utils.DeleteTrackingDataInterface
 import com.aws.amazonlocation.utils.Durations
@@ -101,7 +100,7 @@ class TrackingUtils(
     private var mFragmentActivity: FragmentActivity? = null
     private var mTrackingInterface: TrackingInterface? = null
     private var mMapHelper: MapHelper? = null
-    private var mMapboxMap: MapLibreMap? = null
+    private var mMapLibreMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mIsLocationUpdateEnable = false
     private var mGeofenceList = ArrayList<ListGeofenceResponseEntry>()
@@ -114,11 +113,11 @@ class TrackingUtils(
     private var headerId = 0
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapLibreMap,
+        mapLibreMap: MapLibreMap,
         mMapHelper: MapHelper
     ) {
         this.mMapHelper = mMapHelper
-        this.mMapboxMap = mapboxMap
+        this.mMapLibreMap = mapLibreMap
         this.mActivity = activity
     }
 
@@ -548,9 +547,9 @@ class TrackingUtils(
                 }
             }
             mGeofenceList.forEachIndexed { index, _ ->
-                mMapboxMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$index")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$index")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index")
             }
             trackingHistoryData.clear()
             if (adapter != null) {
@@ -1008,7 +1007,7 @@ class TrackingUtils(
     }
 
     private fun setDefaultIconWithGeofence(index: Int) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             if (style.getSource(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index") == null) {
                 style.addSource(GeoJsonSource(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index"))
             }
@@ -1025,7 +1024,7 @@ class TrackingUtils(
      * Add a [FillLayer] to display a [Polygon] in a the shape of a circle.
      */
     private fun initPolygonCircleFillLayer(index: Int) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             val fillLayer = FillLayer(
                 GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$index",
                 GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index"
@@ -1062,7 +1061,7 @@ class TrackingUtils(
      * @param circleCenter the center coordinate to be used in the Turf calculation.
      */
     private fun drawPolygonCircle(circleCenter: Point, radius: Int, index: Int) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             // Use Turf to calculate the Polygon's coordinates
             val polygonArea: Polygon = getTurfPolygon(circleCenter, radius.toDouble())
             val pointList = TurfMeta.coordAll(polygonArea, false)
@@ -1082,7 +1081,7 @@ class TrackingUtils(
                 latLngList.add(LatLng(singlePoint.latitude(), singlePoint.longitude()))
             }
 
-            mMapboxMap?.easeCamera(
+            mMapLibreMap?.easeCamera(
                 CameraUpdateFactory.newLatLngBounds(
                     LatLngBounds.Builder()
                         .includes(latLngList)

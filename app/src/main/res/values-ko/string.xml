@@ -15,9 +15,7 @@
   <string name="privacy_policy">에 의해 계속, 당신 동의하다 에 Amazon\'s 조건 의 용도 과 프라이버시 공지.</string>
   <string name="condition_of_use">조건 의 용도</string>
   <string name="privacy_notice">프라이버시 공지</string>
-  <string name="login_success">서명 에서 성공적으로</string>
   <string name="sign_out_successfully">서명 밖으로 성공적으로</string>
-  <string name="sign_out_failed">서명 밖으로 실패, 제발 시도해 보십시오 다시 말하지만...</string>
   <string name="sign_in_to_access_tracking">서명 에서 에 접속하다 트래킹 과 지오펜스 특징 또는 계속 진행합니다 에 둘러보기 그 지도</string>
   <string name="sign_in_required">서명 에서 필수</string>
   <string name="maybe_later">아마도 후에</string>
@@ -117,10 +115,6 @@
   <string name="label_tracking_history">트래킹 역사</string>
   <string name="label_tracking_your_activity">트래킹 당신의 장치 위치</string>
   <string name="label_enable_tracking">활성화 라이브 트래커</string>
-  <string name="label_enable_tracker">활성화 트래커</string>
-  <string name="label_enable_tracker_description">당신 양철통 용도 어떤 데이터 공급자 를 제외하고 에스리 ...에 대한 당신의 자산 관리 또는 추적 용도 사례. 만약 당신 원하는 에 용도 에스리 ...에 대한 당신의 자산 관리 또는 추적 용도 케이스, 제발 읽기 용어 과 정황</string>
-  <string name="label_enable_tracker_view_terms">보기 약관 과 조건</string>
-  <string name="label_enable_tracker_continue_to_tracker">계속</string>
   <string name="label_enable_tracking_detail">활성화 그 특색 의지 허용 당신 에 선로 당신의 장치 과 얻다 통지 언제 그 장치 가 들어갑니다 또는 가 종료됩니다 어떤 의 당신의 지오펜스.</string>
   <string name="label_check_your_internet_connection_and_try_again">체크 당신의 인터넷 연결 과 시도해 보십시오 다시</string>
   <string name="label_not_tracking_your_activity">아니요 추적 당신의 장치 위치</string>
@@ -166,7 +160,6 @@
   <string name="label_legal_and_privacy">법률 과 프라이버시</string>
   <string name="label_version">버전</string>
   <string name="label_sign_out">서명 밖으로</string>
-  <string name="label_here_attribution_text">© 2022 여기</string>
   <string name="label_partner_attribution">파트너 저작자 표시</string>
   <string name="label_software_attribution">소프트웨어 저작자 표시</string>
   <string name="label_click_learn_more_for_software_attribution">클릭 배우다 더 ...에 대한 소프트웨어 속성</string>
@@ -179,13 +172,6 @@
   <string name="imperial">장엄한</string>
   <string name="subtitle_imperial">마일즈, 파운드</string>
   <string name="automatic">오토매틱</string>
-  <string name="label_restart_app_title">활성화 Grab</string>
-  <string name="label_restart_app_description">Grab 에서 제공합니다 지도, 노선 과 장소 수색 에서 말레이시아, 필리핀, 태국, 싱가포르, 베트남, 인도네시아, 미얀마, 과 캄보디아.\n\n그 동안 차 과 오토바이 노선 입니다 유효한 건너서 그 이상 국가, 그 자전거 과 보행 노선 입니다 지원 에서 만 키 도시 같은 같이 싱가포르, 자카르타, 마닐라, 클랑 밸리, 방콕, 호 치 민 도시, 과 하노이. </string>
-  <string name="enable_grab">활성화 Grab</string>
-  <string name="dont_ask_again">하지 말아야 할 일 물어보십시오 다시</string>
-  <string name="your_location_not_supported_by_grab">당신의 전류 위치 입니다 외부 국가 지원 에 의해 Grab. 현재, Grab 지원합니다 말레이시아, 필리핀, 태국, 싱가포르, 베트남, 인도네시아, 미얀마, 캄보디아.</string>
-  <string name="label_current_location_disabled">전류 위치 비활성화</string>
-  <string name="label_grab_limitation">거리 할 수 없습니다 있다 계산된, 이후 당신의 전류 위치 가지고 있습니다 있었다 비활성화 때문에 에 grab 한정</string>
   <string name="label_automatic_sub_title_mile">기반 ...에 당신의 브라우저 설정 (마일즈, 파운드)</string>
   <string name="label_automatic_sub_title_km">기반 ...에 당신의 브라우저 설정 (킬로미터, 킬로그램)</string>
   <string name="label_sec">초</string>
@@ -250,10 +236,24 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">에 대해 부드러운 시뮬레이션 경험 제발 허용 알림 허가 …에서 설정.</string>
-  <string name="label_change_data_provider">변경 데이터 제공자</string>
-  <string name="label_change_data_provider_des">GrabMaps 하지\ \'하지 않습니다 지원하다 시뮬레이션, 제발 변화 데이터 공급자 에 에스리 또는 여기 에 용도 지오펜스 또는 트래커 특징.</string>
-  <string name="label_switch_to_esri">스위치 에 에스리</string>
   <string name="region">지역</string>
-  <string name="label_enable_open_data">활성화 오픈 데이터</string>
-  <string name="label_enable_open_data_des">오픈 데이터 사용 에스리 ...에 대한 노선 과 장소 수색 기능성 에 높이다 당신의 경험.</string>
+  <string name="mode_light">라이트</string>
+  <string name="mode_dark">어둠</string>
+  <string name="label_political_view">정치적 전망</string>
+  <string name="label_map_representation_for_different_countries">지도 대표 ...에 대한 다른 국가</string>
+  <string name="description_arg">아르헨티나 전망 ...에 그 남부 파타고니아 아이스 필드 과 티에라 델 푸에고, 을 포함하여 그 포클랜드 섬, 남쪽 조지아, 과 남쪽 샌드위치 섬</string>
+  <string name="description_egy">이집트 전망 ...에 비르 타윌</string>
+  <string name="description_ind">인도\ \'의 전망 ...에 길기트-발티스탄</string>
+  <string name="description_ken">케냐\ \'의 전망 ...에 그 일레미 트라이앵글</string>
+  <string name="description_mar">모로코 전망 ...에 서부 사하라</string>
+  <string name="description_pak">파키스탄 전망 ...에 잠무 과 카슈미르 과 그 주나가드 지역</string>
+  <string name="description_rus">러시아 전망 ...에 크리미아</string>
+  <string name="description_sdn">수단 전망 ...에 그 할라비 트라이앵글</string>
+  <string name="description_srb">세르비아 전망 ...에 코소보, 부코바르, 과 사렌그라드 섬</string>
+  <string name="description_sur">수리남 전망 ...에 그 쿠란타인 상류 과 라와 상류</string>
+  <string name="description_syr">시리아 전망 ...에 그 골란 하이츠</string>
+  <string name="description_tur">터키 전망 ...에 키프로스 과 북부 키프로스</string>
+  <string name="description_tza">탄자니아 전망 ...에 호수 말라위</string>
+  <string name="description_ury">우루과이 전망 ...에 린콘 de 아르티가스</string>
+  <string name="description_vnm">베트남 전망 ...에 그 파라셀 섬 과 스프래틀리 섬</string>
 </resources>

@@ -17,28 +17,29 @@ class MapStyleViewModel @Inject constructor() : ViewModel() {
     var mPoliticalSearchData = ArrayList<PoliticalData>()
 
     fun setMapListData(context: Context) {
-        val items = arrayListOf(
-            MapStyleInnerData(
-                context.getString(R.string.map_standard),
-                false,
-                R.drawable.light
-            ),
-            MapStyleInnerData(
-                context.getString(R.string.map_monochrome),
-                false,
-                R.drawable.streets
-            ),
-            MapStyleInnerData(
-                context.getString(R.string.map_hybrid),
-                false,
-                R.drawable.navigation
-            ),
-            MapStyleInnerData(
-                context.getString(R.string.map_satellite),
-                false,
-                R.drawable.dark_gray
-            ),
-        )
+        val items =
+            arrayListOf(
+                MapStyleInnerData(
+                    context.getString(R.string.map_standard),
+                    false,
+                    R.drawable.standard_light,
+                ),
+                MapStyleInnerData(
+                    context.getString(R.string.map_monochrome),
+                    false,
+                    R.drawable.monochrome,
+                ),
+                MapStyleInnerData(
+                    context.getString(R.string.map_hybrid),
+                    false,
+                    R.drawable.hybrid,
+                ),
+                MapStyleInnerData(
+                    context.getString(R.string.map_satellite),
+                    false,
+                    R.drawable.satellite,
+                ),
+            )
         mStyleList.clear()
 
         mStyleList =
@@ -55,77 +56,77 @@ class MapStyleViewModel @Inject constructor() : ViewModel() {
         val item = arrayListOf(
             PoliticalData(
                 countryName = context.getString(R.string.label_arg),
-                description = "Argentina's view on the Southern Patagonian Ice Field and Tierra Del Fuego, including the Falkland Islands, South Georgia, and South Sandwich Islands",
+                description = context.getString(R.string.description_arg),
                 countryCode = context.getString(R.string.flag_arg),
             ),
             PoliticalData(
-                countryName = "EGY",
-                description = "Egypt's view on Bir Tawil",
+                countryName = context.getString(R.string.label_egy),
+                description = context.getString(R.string.description_egy),
                 countryCode = context.getString(R.string.flag_egy),
             ),
             PoliticalData(
-                countryName = "IND",
-                description = "India's view on Gilgit-Baltistan",
+                countryName = context.getString(R.string.label_ind),
+                description = context.getString(R.string.description_ind),
                 countryCode = context.getString(R.string.flag_ind),
             ),
             PoliticalData(
-                countryName = "KEN",
-                description = "Kenya's view on the Ilemi Triangle",
+                countryName = context.getString(R.string.label_ken),
+                description = context.getString(R.string.description_ken),
                 countryCode = context.getString(R.string.flag_ken),
             ),
             PoliticalData(
-                countryName = "MAR",
-                description = "Morocco's view on Western Sahara",
+                countryName = context.getString(R.string.label_mar),
+                description = context.getString(R.string.description_mar),
                 countryCode = context.getString(R.string.flag_mar),
             ),
             PoliticalData(
-                countryName = "PAK",
-                description = "Pakistan's view on Jammu and Kashmir and the Junagadh Area",
+                countryName = context.getString(R.string.label_pak),
+                description = context.getString(R.string.description_pak),
                 countryCode = context.getString(R.string.flag_pak),
             ),
             PoliticalData(
-                countryName = "RUS",
-                description = "Russia's view on Crimea",
+                countryName = context.getString(R.string.label_rus),
+                description = context.getString(R.string.description_rus),
                 countryCode = context.getString(R.string.flag_rus),
             ),
             PoliticalData(
-                countryName = "SDN",
-                description = "Sudan's view on the Halaib Triangle",
+                countryName = context.getString(R.string.label_sdn),
+                description = context.getString(R.string.description_sdn),
                 countryCode = context.getString(R.string.flag_sdn),
             ),
             PoliticalData(
-                countryName = "SRB",
-                description = "Serbia's view on Kosovo, Vukovar, and Sarengrad Islands",
+                countryName = context.getString(R.string.label_srb),
+                description = context.getString(R.string.description_srb),
                 countryCode = context.getString(R.string.flag_srb),
             ),
             PoliticalData(
-                countryName = "SUR",
-                description = "Suriname's view on the Courantyne Headwaters and Lawa Headwaters",
+                countryName = context.getString(R.string.label_sur),
+                description = context.getString(R.string.description_sur),
                 countryCode = context.getString(R.string.flag_sur),
             ),
             PoliticalData(
-                countryName = "SYR",
-                description = "Syria's view on the Golan Heights",
+                countryName = context.getString(R.string.label_syr),
+                description = context.getString(R.string.description_syr),
                 countryCode = context.getString(R.string.flag_syr),
             ),
             PoliticalData(
-                countryName = "TUR",
-                description = "Turkey's view on Cyprus and Northern Cyprus",
+                countryName = context.getString(R.string.label_tur),
+                description = context.getString(R.string.description_tur),
                 countryCode = context.getString(R.string.flag_tur),
             ),
             PoliticalData(
-                countryName = "TZA",
-                description = "Tanzania's view on Lake Malawi",
+                countryName = context.getString(R.string.label_tza),
+                description = context.getString(R.string.description_tza),
                 countryCode = context.getString(R.string.flag_tza),
             ),
             PoliticalData(
-                countryName = "URY",
-                description = "Uruguay's view on Rincon de Artigas",
+                countryName = context.getString(R.string.label_ury),
+                description = context.getString(R.string.description_ury),
                 countryCode = context.getString(R.string.flag_ury),
             ),
             PoliticalData(
-                countryName = "VNM",
-                description = "Vietnam's view on the Paracel Islands and Spratly Islands",
+                countryName = context.getString(R.string.label_vnm),
+                description = context.getString(R.string.description_vnm),
                 countryCode = context.getString(R.string.flag_vnm),
             )
         )

@@ -19,8 +19,6 @@ import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.databinding.BottomSheetAddGeofenceBinding
 import com.aws.amazonlocation.databinding.BottomSheetGeofenceListBinding
 import com.aws.amazonlocation.domain.`interface`.GeofenceInterface
-import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
-import com.aws.amazonlocation.ui.base.BaseActivity
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.explore.SearchPlacesAdapter
 import com.aws.amazonlocation.ui.main.explore.SearchPlacesSuggestionAdapter
@@ -63,7 +61,7 @@ class GeofenceUtils {
     private var mGeofenceListAdapter: GeofenceListAdapter? = null
     private var mGeofenceList = ArrayList<ListGeofenceResponseEntry>()
     private var mFragmentActivity: FragmentActivity? = null
-    private var mMapboxMap: MapLibreMap? = null
+    private var mMapLibreMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mGeofenceHelper: GeofenceHelper? = null
     private var mGeofenceInterface: GeofenceInterface? = null
@@ -75,12 +73,12 @@ class GeofenceUtils {
 
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapLibreMap,
+        mapLibreMap: MapLibreMap,
         mMapHelper: MapHelper,
         prefrenceManager: PreferenceManager
     ) {
         this.mMapHelper = mMapHelper
-        this.mMapboxMap = mapboxMap
+        this.mMapLibreMap = mapLibreMap
         this.mActivity = activity
         this.preferenceManager = prefrenceManager
     }
@@ -102,13 +100,13 @@ class GeofenceUtils {
     }
 
     private fun initGeofence() {
-        mMapboxMap?.let {
+        mMapLibreMap?.let {
             mGeofenceHelper =
                 GeofenceHelper(
                     mActivity!!,
                     mBindingAddGeofence?.tvSeekbarRadius,
                     mBindingAddGeofence?.seekbarGeofenceRadius,
-                    mMapboxMap,
+                    mMapLibreMap,
                     mMapLatLngListener,
                     preferenceManager
                 )

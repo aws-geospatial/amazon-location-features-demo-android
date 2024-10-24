@@ -14,7 +14,6 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
@@ -22,7 +21,7 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_COUNT_NOT_EQUAL_TO_FIVE
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
-import com.aws.amazonlocation.TEST_WORD_1
+import com.aws.amazonlocation.TEST_WORD_RIO_TINTO
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -46,7 +45,7 @@ class ExploreFragmentSearchTotalResultTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_1))
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_RIO_TINTO))
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
                 DELAY_20000

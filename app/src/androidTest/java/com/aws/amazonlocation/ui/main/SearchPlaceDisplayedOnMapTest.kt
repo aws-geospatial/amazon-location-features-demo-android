@@ -21,7 +21,7 @@ import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_IMAGE_NULL
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
-import com.aws.amazonlocation.TEST_WORD_1
+import com.aws.amazonlocation.TEST_WORD_RIO_TINTO
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -52,7 +52,7 @@ class SearchPlaceDisplayedOnMapTest : BaseTestMainActivity() {
         val edtSearch =
             onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
         edtSearch.perform(click())
-        onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_1))
+        onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_RIO_TINTO))
         uiDevice.wait(
             Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
             DELAY_20000

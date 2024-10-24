@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/cl_main"
+    android:paddingTop="@dimen/dp_12"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dp_20">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_country"
+        android:layout_width="wrap_content"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_height="@dimen/dp_20"
+        android:src="@drawable/icon_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_country_name"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_4"
+        android:gravity="start"
+        android:text="@string/flag_arg"
+        android:textDirection="locale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_country"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Mike’s Wings London" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        style="@style/SP13HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:gravity="start"
+        android:textDirection="locale"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/rb_country"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_country_name"
+        tools:text="Mike’s Wings London" />
+
+    <androidx.appcompat.widget.AppCompatRadioButton
+        android:id="@+id/rb_country"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:button="@null"
+        android:clickable="false"
+        android:background="@android:color/transparent"
+        android:drawableEnd="@drawable/ic_radio_button_unchecked"
+        android:layout_gravity="start"
+        android:textAlignment="textStart"
+        android:textColor="@color/color_medium_black"
+        android:textDirection="locale"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

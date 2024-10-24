@@ -15,9 +15,7 @@
   <string name="privacy_policy">Par poursuivant, vous d\'accord pour Amazon\'s Conditions de Utiliser et Confidentialité Remarque.</string>
   <string name="condition_of_use">Conditions de Utiliser</string>
   <string name="privacy_notice">Confidentialité Notice</string>
-  <string name="login_success">Signe dans Avec succès</string>
   <string name="sign_out_successfully">Signe en dehors avec succès</string>
-  <string name="sign_out_failed">Signe en dehors échoué, s\'il vous plaît essayer encore une fois...</string>
   <string name="sign_in_to_access_tracking">Signe dans pour accès Suivi et Geofence fonctionnalités ou continuer pour Explorez le carte</string>
   <string name="sign_in_required">Signe dans requis</string>
   <string name="maybe_later">Peut-être plus tard</string>
@@ -117,10 +115,6 @@
   <string name="label_tracking_history">Suivi L\'histoire</string>
   <string name="label_tracking_your_activity">Suivi votre appareil emplacement</string>
   <string name="label_enable_tracking">Activer En direct Traceurs</string>
-  <string name="label_enable_tracker">Activer Traqueur</string>
-  <string name="label_enable_tracker_description">Vous peut utiliser n\'importe quel données fournisseur sauf Esri pour votre actif gestion ou suivi utiliser étuis. Si vous vouloir pour utiliser Esri pour votre actif gestion ou suivi utiliser étui, s\'il vous plaît lire termes et conditions</string>
-  <string name="label_enable_tracker_view_terms">Afficher Termes et Conditions</string>
-  <string name="label_enable_tracker_continue_to_tracker">Poursuivre</string>
   <string name="label_enable_tracking_detail">Activation le fonctionnalité volonté permettre vous pour piste votre appareil et obtenir informé quand le appareil entre ou sorties n\'importe quel de votre géofences.</string>
   <string name="label_check_your_internet_connection_and_try_again">Vérifiez votre internet connexion et essayer encore</string>
   <string name="label_not_tracking_your_activity">Non suivi votre appareil emplacement</string>
@@ -166,7 +160,6 @@
   <string name="label_legal_and_privacy">Légal et Confidentialité</string>
   <string name="label_version">Version</string>
   <string name="label_sign_out">Signe en dehors</string>
-  <string name="label_here_attribution_text">© 2022 ICI</string>
   <string name="label_partner_attribution">Partenaire Attribution</string>
   <string name="label_software_attribution">Logiciel Attribution</string>
   <string name="label_click_learn_more_for_software_attribution">Cliquez apprendre plus pour logiciel attribution</string>
@@ -179,13 +172,6 @@
   <string name="imperial">Impérial</string>
   <string name="subtitle_imperial">Des kilomètres, livres</string>
   <string name="automatic">Automatique</string>
-  <string name="label_restart_app_title">Activer Grab</string>
-  <string name="label_restart_app_description">Grab fournit Cartes, Itinéraires et Lieu chercher dans Malaisie, Philippines, Thaïlande, Singapour, Viêt-nam, Indonésie, Myanmar, et Cambodge. \n \nPendant voiture et motocyclette itinéraires sont disponible à travers le ci-dessus pays, le vélo et marche itinéraires sont prise en charge dans seulement clé villes tel comme Singapour, Jakarta, Manille, Klang Vallée, Bangkok, Non Chi Minh Ville, et Hanoï. </string>
-  <string name="enable_grab">Activer Grab</string>
-  <string name="dont_ask_again">Ne le faites pas demander encore</string>
-  <string name="your_location_not_supported_by_grab">Votre actuel emplacement est à l\'extérieur pays prise en charge par Grab. À l\'heure actuelle, Grab appuis Malaisie, Philippines, Thaïlande, Singapour, Viêt-nam, Indonésie, Myanmar, Cambodge.</string>
-  <string name="label_current_location_disabled">Actuel emplacement handicapé</string>
-  <string name="label_grab_limitation">Distance ne peut pas être calculé, depuis votre actuel emplacement a été handicapé en raison pour grab restriction</string>
   <string name="label_automatic_sub_title_mile">Basé sur votre navigateur paramètres (Kilomètres, livres)</string>
   <string name="label_automatic_sub_title_km">Basé sur votre navigateur paramètres (Kilomètres, kilogrammes)</string>
   <string name="label_sec">seconde</string>
@@ -250,10 +236,24 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Pour lisse simulation expérience s\'il vous plaît permettre notification autorisation à partir de paramètres.</string>
-  <string name="label_change_data_provider">Changement Données Prestataire</string>
-  <string name="label_change_data_provider_des">GrabMaps ne soutenir simulation, s\'il vous plaît changer données fournisseur pour Esri ou ICI pour utiliser Geofence ou Traqueur fonctionnalités.</string>
-  <string name="label_switch_to_esri">Interrupteur pour Esri</string>
   <string name="region">Région</string>
-  <string name="label_enable_open_data">Activer Données ouvertes</string>
-  <string name="label_enable_open_data_des">Données ouvertes les usages Esri pour Itinéraires et Lieux chercher fonctionnalité pour améliorer votre expérience.</string>
+  <string name="mode_light">Lumière</string>
+  <string name="mode_dark">Sombre</string>
+  <string name="label_political_view">Politique voir</string>
+  <string name="label_map_representation_for_different_countries">Carte représentation pour différent pays</string>
+  <string name="description_arg">Argentine voir sur le Du sud Patagonien Glace Champ et Tierra Del Feu, comprenant le Malouines Îles, Sud Géorgie, et Sud Sandwich Îles</string>
+  <string name="description_egy">Égypte voir sur Bir Tawil</string>
+  <string name="description_ind">Inde voir sur Gilgit-Baltistan</string>
+  <string name="description_ken">Kenya voir sur le Ilémi Triangle</string>
+  <string name="description_mar">Maroc voir sur Occidental Sahara</string>
+  <string name="description_pak">Pakistan voir sur Jammu et Cachemire et le Junagadh Région</string>
+  <string name="description_rus">Russie voir sur Crimée</string>
+  <string name="description_sdn">Soudan voir sur le Halaib Triangle</string>
+  <string name="description_srb">Serbie voir sur Kosovo, Vukovar, et Sarengrad Îles</string>
+  <string name="description_sur">Surinam voir sur le Courantyne cours supérieurs et Lawa cours supérieurs</string>
+  <string name="description_syr">Syrie voir sur le Golan Hauteurs</string>
+  <string name="description_tur">Turquie voir sur Chypre et Nordique Chypre</string>
+  <string name="description_tza">Tanzanie voir sur Lac Malawi</string>
+  <string name="description_ury">Uruguay voir sur Rincón de Artigas</string>
+  <string name="description_vnm">Vietnam voir sur le Paracelle Îles et Spratly Îles</string>
 </resources>

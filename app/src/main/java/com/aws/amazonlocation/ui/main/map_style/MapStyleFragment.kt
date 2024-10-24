@@ -21,16 +21,15 @@ import com.aws.amazonlocation.ui.main.explore.PoliticalAdapter
 import com.aws.amazonlocation.utils.ATTRIBUTE_DARK
 import com.aws.amazonlocation.utils.ATTRIBUTE_LIGHT
 import com.aws.amazonlocation.utils.DELAY_300
-import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_COLOR_SCHEMES
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_POLITICAL_VIEW
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
-import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
+import com.aws.amazonlocation.utils.hideKeyboard
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.isInternetAvailable
 import com.aws.amazonlocation.utils.show
@@ -83,7 +82,6 @@ class MapStyleFragment : BaseFragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun setMapStyleAdapter() {
         mBinding.apply {
-            nsvPolitical.isNestedScrollingEnabled = true
             mViewModel.setMapListData(rvMapStyle.context)
             mViewModel.setPoliticalListData(rvPoliticalView.context)
             val mapStyleName =
@@ -145,7 +143,7 @@ class MapStyleFragment : BaseFragment() {
                 languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
             val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
             selectedCountry.takeIf { it.isNotEmpty() }?.let { country ->
-                mViewModel.mPoliticalData.find { it.countryName == country }?.let {
+                mViewModel.mPoliticalSearchData.find { it.countryName == country }?.let {
                     it.isSelected = true
                     tvPoliticalDescription.apply {
                         text = "${it.countryName}. ${it.description}"
@@ -160,9 +158,13 @@ class MapStyleFragment : BaseFragment() {
                 object : PoliticalAdapter.PoliticalInterface {
                     override fun countryClick(position: Int) {
                         if (mViewModel.mPoliticalData[position].isSelected) return
+                        mViewModel.mPoliticalSearchData.forEach {
+                            it.isSelected = false
+                        }
                         mViewModel.mPoliticalData.forEach {
                             it.isSelected = false
                         }
+                        hideKeyboard(requireActivity(), etSearchCountry)
                         mViewModel.mPoliticalData[position].isSelected = true
                         mPoliticalAdapter?.notifyDataSetChanged()
                         clApply.show()
@@ -227,9 +229,12 @@ class MapStyleFragment : BaseFragment() {
         mBinding.apply {
             ivMapStyleBack.setOnClickListener {
                 if (clSearchPolitical.visibility == View.VISIBLE) {
+                    etSearchCountry.setText("")
                     appCompatTextView2.text = getString(R.string.label_map_style)
                     showViews(rvMapStyle, cardColorScheme, clPoliticalView)
                     hideViews(clSearchPolitical, clApply)
+                    val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
+                    clearSelectionAndSetOriginalData(selectedCountry)
                 } else {
                     backPress()
                 }
@@ -249,14 +254,10 @@ class MapStyleFragment : BaseFragment() {
                 }
             }
             clPoliticalView.setOnClickListener {
-                val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
-                selectedCountry.takeIf { it.isNotEmpty() }?.let { country ->
-                    mViewModel.mPoliticalData.find { it.countryName == country }?.let {
-                        it.isSelected = true
-                        activity?.runOnUiThread {
-                            mPoliticalAdapter?.notifyDataSetChanged()
-                        }
-                    }
+                mViewModel.mPoliticalData.find { it.isSelected }?.let {
+                    if (mBaseActivity?.isTablet != true) {
+                        clApply.show()
+                    } else clApply.show()
                 }
                 mViewModel.mPoliticalData.find { it.isSelected }?.let {
                     clApply.show()
@@ -319,6 +320,23 @@ class MapStyleFragment : BaseFragment() {
             }
             tilSearch.isEndIconVisible = false
         }
+    }
+
+    private fun clearSelectionAndSetOriginalData(selectedCountry: String) {
+        mViewModel.mPoliticalData.forEach {
+            it.isSelected = false
+        }
+        mViewModel.mPoliticalSearchData.forEach {
+            it.isSelected = false
+        }
+        if (selectedCountry.isNotEmpty()) {
+            selectedCountry.takeIf { it.isNotEmpty() }?.let { country ->
+                mViewModel.mPoliticalSearchData.find { it.countryName == country }?.let {
+                    it.isSelected = true
+                }
+            }
+        }
+        mPoliticalAdapter?.notifyDataSetChanged()
     }
 
     private fun backPress() {

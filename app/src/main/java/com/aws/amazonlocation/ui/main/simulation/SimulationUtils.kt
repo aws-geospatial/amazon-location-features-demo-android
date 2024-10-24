@@ -27,7 +27,6 @@ import com.aws.amazonlocation.data.response.SimulationHistoryData
 import com.aws.amazonlocation.data.response.SimulationHistoryInnerData
 import com.aws.amazonlocation.databinding.BottomSheetTrackSimulationBinding
 import com.aws.amazonlocation.domain.`interface`.SimulationInterface
-import com.aws.amazonlocation.ui.base.BaseActivity
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
@@ -117,7 +116,7 @@ class SimulationUtils(
     private var mFragmentActivity: FragmentActivity? = null
     private var simulationInterface: SimulationInterface? = null
     private var mMapHelper: MapHelper? = null
-    private var mMapboxMap: MapLibreMap? = null
+    private var mMapLibreMap: MapLibreMap? = null
     private var mActivity: Activity? = null
     private var mIsLocationUpdateEnable = false
     private var simulationHistoryData = arrayListOf<SimulationHistoryData>()
@@ -138,11 +137,11 @@ class SimulationUtils(
 
     fun setMapBox(
         activity: Activity,
-        mapboxMap: MapLibreMap,
+        mapLibreMap: MapLibreMap,
         mMapHelper: MapHelper
     ) {
         this.mMapHelper = mMapHelper
-        this.mMapboxMap = mapboxMap
+        this.mMapLibreMap = mapLibreMap
         this.mActivity = activity
     }
 
@@ -189,8 +188,8 @@ class SimulationUtils(
             .build()
 
         // Set the bounds to restrict the visible area on the map
-        mMapboxMap?.limitViewToBounds(bounds)
-        mMapboxMap?.setMinZoomPreference(SIMULATION_CAMERA_ZOOM_1)
+        mMapLibreMap?.limitViewToBounds(bounds)
+        mMapLibreMap?.setMinZoomPreference(SIMULATION_CAMERA_ZOOM_1)
     }
 
     private fun initData() {
@@ -274,9 +273,9 @@ class SimulationUtils(
     private fun removeGeofenceWithPosition(position: Int) {
         if (mGeofenceList.isNotEmpty()) {
             mGeofenceList[position].forEachIndexed { index, _ ->
-                mMapboxMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$position$index")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$position$index")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$position$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$position$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$position$index")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$position$index")
             }
         }
     }
@@ -588,7 +587,7 @@ class SimulationUtils(
     }
 
     private fun drawSimulationPolygonCircle(circleCenter: Point, radius: Int, index: String) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             // Use Turf to calculate the Polygon's coordinates
             val polygonArea: Polygon = getTurfPolygon(circleCenter, radius.toDouble())
             val pointList = TurfMeta.coordAll(polygonArea, false)
@@ -678,7 +677,7 @@ class SimulationUtils(
     }
 
     private fun setDefaultIconWithGeofence(index: String) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             if (style.getSource(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + index) == null) {
                 style.addSource(GeoJsonSource(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + index))
             }
@@ -691,7 +690,7 @@ class SimulationUtils(
      * Add a [FillLayer] to display a [Polygon] in a the shape of a circle.
      */
     private fun initPolygonCircleFillLayer(index: String) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             val fillLayer = FillLayer(
                 GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + index,
                 GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + index
@@ -1146,7 +1145,7 @@ class SimulationUtils(
     }
 
     fun hideSimulationBottomSheet() {
-        mMapboxMap?.removeViewBounds()
+        mMapLibreMap?.removeViewBounds()
         simulationBinding?.apply {
             closeTrackingCard()
             closeNotificationCard()
@@ -1187,9 +1186,9 @@ class SimulationUtils(
         }
         mGeofenceList.forEachIndexed { index, data ->
             data.forEachIndexed { indexInner, _ ->
-                mMapboxMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$index$indexInner")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$index$indexInner")
-                mMapboxMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index$indexInner")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.CIRCLE_CENTER_LAYER_ID + "$index$indexInner")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_ID + "$index$indexInner")
+                mMapLibreMap?.style?.removeLayer(GeofenceCons.TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID + "$index$indexInner")
             }
         }
         mGeofenceList.clear()

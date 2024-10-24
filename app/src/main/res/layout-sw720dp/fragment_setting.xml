@@ -176,7 +176,7 @@
                 app:layout_constraintEnd_toStartOf="@id/iv_back_arrow_map_style"
                 app:layout_constraintStart_toEndOf="@id/iv_map_style"
                 app:layout_constraintTop_toBottomOf="@id/tv_map_style"
-                tools:text="Esri" />
+                tools:text="Standard" />
 
             <View
                 android:id="@+id/view_map_style"

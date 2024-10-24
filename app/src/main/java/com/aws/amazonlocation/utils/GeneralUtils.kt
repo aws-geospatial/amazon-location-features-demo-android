@@ -29,6 +29,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.CheckResult
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -41,7 +42,6 @@ import aws.sdk.kotlin.services.cognitoidentity.model.GetIdRequest
 import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.ui.main.MainActivity
@@ -609,4 +609,10 @@ fun getLanguageCode(): String? {
         Locale.getDefault().language
     }
     return languageCode
+}
+
+fun hideKeyboard(activity: Activity, appCompatEditText: AppCompatEditText) {
+    val imm: InputMethodManager =
+        activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(appCompatEditText.windowToken, 0)
 }

@@ -193,9 +193,7 @@
             app:cardCornerRadius="@dimen/dp_8"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/color_view"
-            app:strokeWidth="@dimen/dp_1">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -206,10 +204,9 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_marginVertical="@dimen/dp_10"
-                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginStart="@dimen/sp_16"
                     android:layout_marginEnd="@dimen/dp_8"
                     android:src="@drawable/icon_search"
-                    android:tint="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/til_search"
                     app:layout_constraintStart_toStartOf="parent"
@@ -225,6 +222,7 @@
                     app:endIconDrawable="@drawable/ic_close_search"
                     app:endIconMode="custom"
                     app:hintEnabled="false"
+                    android:paddingEnd="@dimen/dp_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_search"
                     app:layout_constraintStart_toEndOf="@+id/iv_search"
@@ -252,52 +250,46 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_political"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_country"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
             android:paddingBottom="@dimen/dp_16"
             android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/cl_apply"
             app:layout_constraintTop_toBottomOf="@+id/card_search_country">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_country"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginHorizontal="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_1"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:elevation="@dimen/dp_0"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_country"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    app:cardCornerRadius="@dimen/dp_8"
-                    android:elevation="@dimen/dp_0"
-                    android:paddingBottom="@dimen/dp_2"
-                    android:visibility="visible"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:strokeColor="@color/color_view"
-                    app:strokeWidth="@dimen/dp_1">
+                    android:layout_height="match_parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_political_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_political_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:nestedScrollingEnabled="false"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_apply"
@@ -348,6 +340,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <include
             android:id="@+id/layout_no_data_found_political"
             layout="@layout/layout_no_data_found_political"

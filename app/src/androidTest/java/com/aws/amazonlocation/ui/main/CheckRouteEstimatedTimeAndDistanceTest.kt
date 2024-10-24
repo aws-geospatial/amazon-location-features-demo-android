@@ -21,8 +21,8 @@ import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_DISTANCE_OR_TIME_EMPTY
-import com.aws.amazonlocation.TEST_WORD_10
-import com.aws.amazonlocation.TEST_WORD_9
+import com.aws.amazonlocation.TEST_WORD_KEWDALE_PERTH
+import com.aws.amazonlocation.TEST_WORD_CLOVERDALE_PERTH
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.waitForView
@@ -52,7 +52,7 @@ class CheckRouteEstimatedTimeAndDistanceTest : BaseTestMainActivity() {
             Thread.sleep(DELAY_2000)
 
             val sourceEdt = waitForView(CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed()))
-            sourceEdt?.perform(click(), replaceText(TEST_WORD_9))
+            sourceEdt?.perform(click(), replaceText(TEST_WORD_CLOVERDALE_PERTH))
 
             Thread.sleep(DELAY_2000)
 
@@ -78,7 +78,7 @@ class CheckRouteEstimatedTimeAndDistanceTest : BaseTestMainActivity() {
                     isDisplayed(),
                 ),
             )
-            destinationEdt?.perform(click(), replaceText(TEST_WORD_10))
+            destinationEdt?.perform(click(), replaceText(TEST_WORD_KEWDALE_PERTH))
 
             Thread.sleep(DELAY_2000)
 

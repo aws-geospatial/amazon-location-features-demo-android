@@ -4,14 +4,10 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.ESRI
-import com.aws.amazonlocation.mock.GRAB
-import com.aws.amazonlocation.mock.HERE
+import com.aws.amazonlocation.mock.STANDARD
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_HERE
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_ESRI
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_HERE
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_STANDARD
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -45,7 +41,7 @@ class ExploreVMSetMapListData : BaseTest() {
     fun setMapListDataSuccess() = runTest {
         mExploreVM.setMapListData(context)
 
-        mExploreVM.mStyleList[0].styleNameDisplay = ESRI
+        mExploreVM.mStyleList[0].styleNameDisplay = STANDARD
         mExploreVM.mStyleList[0].isSelected = mExploreVM.mStyleList[0].isSelected
         mExploreVM.mStyleList[0].mapInnerData?.get(0)?.image
         mExploreVM.mStyleList[0].mapInnerData?.get(0)?.mMapName =
@@ -62,12 +58,12 @@ class ExploreVMSetMapListData : BaseTest() {
         )
 
         Assert.assertTrue(
-            TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_ESRI,
-            mExploreVM.mStyleList[0].styleNameDisplay == ESRI
+            TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_STANDARD,
+            mExploreVM.mStyleList[0].styleNameDisplay == STANDARD
         )
 
         Assert.assertTrue(
-            TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI,
+            TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD,
             mExploreVM.mStyleList[0].mapInnerData?.size == 4
         )
     }

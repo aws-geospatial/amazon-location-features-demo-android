@@ -15,9 +15,7 @@
   <string name="privacy_policy">Di continuando, voi concordare a Amazon\'s Condizioni di Usa e Privacy Avviso.</string>
   <string name="condition_of_use">Condizioni di Usa</string>
   <string name="privacy_notice">Privacy Avviso</string>
-  <string name="login_success">Segno nel Con successo</string>
   <string name="sign_out_successfully">Segno fuori con successo</string>
-  <string name="sign_out_failed">Segno fuori fallito, per favore provare ancora...</string>
   <string name="sign_in_to_access_tracking">Segno nel a accesso Monitoraggio e Geofence caratteristiche o procedere a Esplora lo mappa</string>
   <string name="sign_in_required">Segno nel necessario</string>
   <string name="maybe_later">Forse dopo</string>
@@ -117,10 +115,6 @@
   <string name="label_tracking_history">Monitoraggio Storia</string>
   <string name="label_tracking_your_activity">Monitoraggio tuo dispositivo posizione</string>
   <string name="label_enable_tracking">Abilita Dal vivo Localizzatori</string>
-  <string name="label_enable_tracker">Abilita Localizzatore</string>
-  <string name="label_enable_tracker_description">Tu lattina uso qualsiasi dato fornitore eccetto Esri per tuo bene gestione o tracciamento uso casi. Se voi volere a uso Esri per tuo bene gestione o tracciamento uso custodia, per favore leggere termini e condizioni</string>
-  <string name="label_enable_tracker_view_terms">Visualizza Termini e Condizioni</string>
-  <string name="label_enable_tracker_continue_to_tracker">Continua</string>
   <string name="label_enable_tracking_detail">Abilitare lo caratteristica volontà permettere voi a brano tuo dispositivo e ottenere notificate quando lo dispositivo entrare o uscite qualsiasi di tuo geofence.</string>
   <string name="label_check_your_internet_connection_and_try_again">Controlla tuo internet connessione e provare nuovamente</string>
   <string name="label_not_tracking_your_activity">Non tracciamento tuo dispositivo posizione</string>
@@ -166,7 +160,6 @@
   <string name="label_legal_and_privacy">Legale e Privacy</string>
   <string name="label_version">Versione</string>
   <string name="label_sign_out">Segno fuori</string>
-  <string name="label_here_attribution_text">© 2022 QUI</string>
   <string name="label_partner_attribution">Partner Attribuzione</string>
   <string name="label_software_attribution">Software Attribuzione</string>
   <string name="label_click_learn_more_for_software_attribution">Fare clic imparare di più per software attribuzione</string>
@@ -179,13 +172,6 @@
   <string name="imperial">Imperiale</string>
   <string name="subtitle_imperial">Miglia, sterline</string>
   <string name="automatic">Automatico</string>
-  <string name="label_restart_app_title">Abilita Grab</string>
-  <string name="label_restart_app_description">Grab fornisce Mappe, Percorsi e Luogo ricerca nel Malesia, Filippine, Thailandia, Singapore, Vietnam, Indonesia, Myanmar, e Cambogia. \n\nMentre auto e moto itinerari siamo disponibile attraverso lo sopra paesi, lo bicicletta e camminando itinerari siamo supportato nel solo chiave città tale come Singapore, Giacarta, Manila, Klang Valle, Bangkok, Ho Chi Minh Città, e Hanoi. </string>
-  <string name="enable_grab">Abilita Grab</string>
-  <string name="dont_ask_again">Non chiedere nuovamente</string>
-  <string name="your_location_not_supported_by_grab">Il tuo attuale posizione è fuori paesi supportato da Grab. Attualmente, Grab supporti Malesia, Filippine, Thailandia, Singapore, Vietnam, Indonesia, Myanmar, Cambogia.</string>
-  <string name="label_current_location_disabled">Corrente posizione disabili</string>
-  <string name="label_grab_limitation">Distanza non posso essere calcolato, da tuo attuale posizione ha stato disabili dovuto a grab limitazione</string>
   <string name="label_automatic_sub_title_mile">Basato sul tuo browser impostazioni (Miglia, sterline)</string>
   <string name="label_automatic_sub_title_km">Basato sul tuo browser impostazioni (Chilometri, chilogrammi)</string>
   <string name="label_sec">secondo</string>
@@ -250,10 +236,24 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Per liscia simulazione esperienza per favore permettere notifica autorizzazione da impostazioni.</string>
-  <string name="label_change_data_provider">Cambia Dati Fornitore</string>
-  <string name="label_change_data_provider_des">GrabMaps non fa supportare simulazione, per favore cambiare dato fornitore a Esri o QUI a uso Geofence o Localizzatore caratteristiche.</string>
-  <string name="label_switch_to_esri">Interruttore a Esri</string>
   <string name="region">Regione</string>
-  <string name="label_enable_open_data">Abilita Dati aperti</string>
-  <string name="label_enable_open_data_des">Dati aperti utilizza Esri per Percorsi e Luoghi ricerca funzionalità a accrescere tuo esperienza.</string>
+  <string name="mode_light">Leggero</string>
+  <string name="mode_dark">Scuro</string>
+  <string name="label_political_view">Politico vista</string>
+  <string name="label_map_representation_for_different_countries">Mappa rappresentanza per differente paesi</string>
+  <string name="description_arg">Argentina\'s vista sul lo Meridionale patagonico Ghiaccio Campo e Tierra Del Fuoco, compresi lo Falkland Isole, Sud Georgia, e Sud Sandwich Isole</string>
+  <string name="description_egy">Egitto\'s vista sul Bird Tawil</string>
+  <string name="description_ind">India\'s vista sul Gilgit-Baltistan</string>
+  <string name="description_ken">Kenya\'s vista sul lo Ilemi Triangolo</string>
+  <string name="description_mar">Marocco\'s vista sul Occidentale Sahara</string>
+  <string name="description_pak">pakistani vista sul Jammu e Kashmir e lo Junagadh Zona</string>
+  <string name="description_rus">Russia\ vista sul Crimea</string>
+  <string name="description_sdn">Sudan\'s vista sul lo Halaib Triangolo</string>
+  <string name="description_srb">Serbia\ vista sul Kosovo, Vukovar, e Sarengrad Isole</string>
+  <string name="description_sur">Suriname\'s vista sul lo Courantyne Sorgenti e Lawa Sorgenti</string>
+  <string name="description_syr">Siria\'s vista sul lo Golan Altezze</string>
+  <string name="description_tur">Turchia\'s vista sul Cipro e Settentrionale Cipro</string>
+  <string name="description_tza">della Tanzania vista sul Lago Malawi</string>
+  <string name="description_ury">Uruguay\'s vista sul Rincon de Artigas</string>
+  <string name="description_vnm">Vietnam\'s vista sul lo Paracel Isole e Spratly Isole</string>
 </resources>

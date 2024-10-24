@@ -38,17 +38,6 @@ class ExploreFragmentChangeStyleTest : BaseTestMainActivity() {
     fun testMapStyleChange() {
         try {
             Thread.sleep(DELAY_2000)
-            val btnContinueToApp = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/btn_continue_to_app"))
-            if (btnContinueToApp.exists()) {
-                btnContinueToApp.click()
-                Thread.sleep(DELAY_2000)
-            }
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_1))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_2))?.click()
-            uiDevice.findObject(By.text(ALLOW))?.click()
-            Thread.sleep(DELAY_2000)
-            enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
 
             Thread.sleep(DELAY_2000)

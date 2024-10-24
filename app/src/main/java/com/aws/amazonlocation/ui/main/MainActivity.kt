@@ -95,12 +95,10 @@ import com.aws.amazonlocation.utils.SIGN_OUT
 import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.VERSION_FRAGMENT
-import com.aws.amazonlocation.utils.enableTracker
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.invisible
-import com.aws.amazonlocation.utils.isRunningTest
 import com.aws.amazonlocation.utils.makeTransparentStatusBar
 import com.aws.amazonlocation.utils.regionDisplayName
 import com.aws.amazonlocation.utils.setLocale
@@ -1130,7 +1128,10 @@ class MainActivity :
     }
 
     private fun checkMap(): Boolean {
-        enableTrackingDialog()
+        showTracking()
+        mBinding.bottomNavigationMain.menu
+            .findItem(R.id.menu_tracking)
+            .isChecked = true
         return false
     }
 
@@ -1263,35 +1264,6 @@ class MainActivity :
         runOnUiThread {
             alertDialog?.hide()
         }
-    }
-
-    private fun enableTrackingDialog() {
-        enableTracker(
-            object : EnableTrackerInterface {
-                override fun continueToTracker(dialog: DialogInterface) {
-                    showTracking()
-                    mBinding.bottomNavigationMain.menu
-                        .findItem(R.id.menu_tracking)
-                        .isChecked = true
-                }
-
-                override fun cancel() {
-                    mBinding.bottomNavigationMain.menu
-                        .findItem(R.id.menu_explore)
-                        .isChecked = true
-                    setExplorer()
-                }
-
-                override fun viewTermsAndCondition(dialog: DialogInterface) {
-                    resultLauncher.launch(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(BuildConfig.BASE_DOMAIN + BuildConfig.AWS_TERMS_URL),
-                        ),
-                    )
-                }
-            },
-        )
     }
 
     fun setWelcomeToExplorer() {
