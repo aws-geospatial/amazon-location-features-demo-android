@@ -19,6 +19,7 @@ import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.databinding.BottomSheetAddGeofenceBinding
 import com.aws.amazonlocation.databinding.BottomSheetGeofenceListBinding
 import com.aws.amazonlocation.domain.`interface`.GeofenceInterface
+import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.explore.SearchPlacesAdapter
 import com.aws.amazonlocation.ui.main.explore.SearchPlacesSuggestionAdapter
@@ -437,8 +438,6 @@ class GeofenceUtils {
     private fun setGeofenceAdapter() {
         mBindingGeofenceList?.let {
             mGeofenceListAdapter = GeofenceListAdapter(
-                preferenceManager,
-                mActivity?.applicationContext,
                 mGeofenceList,
                 object : GeofenceListAdapter.GeofenceDeleteInterface {
                     override fun deleteGeofence(position: Int, data: ListGeofenceResponseEntry) {
@@ -770,6 +769,23 @@ class GeofenceUtils {
             mGeofenceList.forEach { data ->
                 mGeofenceHelper?.let {
                     data.geometry?.circle?.center?.let {
+                        mActivity?.let { activity ->
+                            mMapHelper?.addGeofenceMarker(
+                                activity,
+                                data,
+                                object : MarkerClickInterface {
+                                    override fun markerClick(placeData: String) {
+                                        mGeofenceList.forEachIndexed { index, data ->
+                                            if (data.geofenceId == placeData) {
+                                                if (checkInternetConnection()) {
+                                                    editGeofenceBottomSheet(index, data)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            )
+                        }
                         mLatLngList.add(
                             LatLng(
                                 it[1],

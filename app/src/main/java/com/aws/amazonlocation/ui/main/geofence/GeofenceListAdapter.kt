@@ -1,12 +1,10 @@
 package com.aws.amazonlocation.ui.main.geofence
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.databinding.ItemGeofenceListBinding
-import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.geofence_helper.GeofenceHelper
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.show
@@ -15,8 +13,6 @@ import com.aws.amazonlocation.utils.show
 
 // SPDX-License-Identifier: MIT-0
 class GeofenceListAdapter(
-    private var mPreferenceManager: PreferenceManager?,
-    private var context: Context?,
     private var mGeofenceList: ArrayList<ListGeofenceResponseEntry>,
     private var mGeofenceDeleteInterface: GeofenceDeleteInterface
 ) : RecyclerView.Adapter<GeofenceListAdapter.GeofenceVH>() {

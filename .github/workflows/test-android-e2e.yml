@@ -46,8 +46,9 @@ jobs:
           profile: Nexus 6
           script: |
             adb emu geo fix 72.58727 23.02579
-            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite
-            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite2
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.MapLoadAndPlaceSearchFlowSuite
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.SearchDirectionFlowSuite
+            ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.MapStylesSettingAndExplorerFlowSuite
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSTrackingAndConnectionTestSuite
             ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSGeofenceAndConnectionTestSuite
 
