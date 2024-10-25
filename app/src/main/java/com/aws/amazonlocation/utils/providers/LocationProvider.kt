@@ -17,7 +17,6 @@ import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.ui.base.BaseActivity
-import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.utils.AUTHORIZATION_CODE
 import com.aws.amazonlocation.utils.KEY_ACCESS_KEY
 import com.aws.amazonlocation.utils.KEY_ANALYTICS_ACCESS_KEY
@@ -46,6 +45,7 @@ import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
 import com.aws.amazonlocation.utils.KEY_USER_POOL_ID
 import com.aws.amazonlocation.utils.KEY_USER_REGION
 import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.Units.getDefaultIdentityPoolId
 import com.aws.amazonlocation.utils.regionDisplayName
 import java.io.IOException
@@ -76,26 +76,31 @@ class LocationProvider(
     private val client = OkHttpClient()
     private var getRoutesClient: GeoRoutesClient?= null
     private var getPlaceClient: GeoPlacesClient?= null
-    suspend fun initializeLocationCredentialsProvider(
-        authHelper: AuthHelper,
-        baseActivity: BaseActivity,
-    ) {
+
+    fun initPlaceRoutesClients() {
+        val mRegion = Units.getRegion(mPreferenceManager)
         if (getRoutesClient == null) {
             getRoutesClient =
                 GeoRoutesClient {
-                    region = BuildConfig.API_KEY_REGION
-                    endpointUrl = Url.parse("https://geo.${BuildConfig.API_KEY_REGION}.amazonaws.com/v2")
+                    region = mRegion
+                    endpointUrl = Url.parse("https://geo.$mRegion.amazonaws.com/v2")
                     credentialsProvider = createEmptyCredentialsProvider()
                 }
         }
         if (getPlaceClient== null) {
             getPlaceClient =
                 GeoPlacesClient {
-                    region = BuildConfig.API_KEY_REGION
-                    endpointUrl = Url.parse("https://geo.${BuildConfig.API_KEY_REGION}.amazonaws.com/v2")
+                    region = mRegion
+                    endpointUrl = Url.parse("https://geo.$mRegion.amazonaws.com/v2")
                     credentialsProvider = createEmptyCredentialsProvider()
                 }
         }
+    }
+
+    suspend fun initializeLocationCredentialsProvider(
+        authHelper: AuthHelper,
+        baseActivity: BaseActivity,
+    ) {
         val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
         if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
             initializeAuthLocationCredentialsProvider(authHelper, baseActivity)
@@ -123,7 +128,6 @@ class LocationProvider(
                     }.await()
             locationClient = locationCredentialsProvider?.getLocationClient()
             mBaseActivity = baseActivity
-            (baseActivity as MainActivity).addInterceptor()
         }
     }
 
@@ -169,7 +173,6 @@ class LocationProvider(
                             )
                         }.await()
                 locationClient = locationCredentialsProvider?.getLocationClient()
-                (baseActivity as MainActivity).addInterceptor()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -237,7 +240,6 @@ class LocationProvider(
                                 )
                             }.await()
                     locationClient = locationCredentialsProvider?.getLocationClient()
-                    (mBaseActivity as MainActivity).addInterceptor()
                 }
             } else {
                 throw Exception("Credentials generation failed")
@@ -461,5 +463,4 @@ class LocationProvider(
                 sessionToken = null,
             ),
         )
-
 }

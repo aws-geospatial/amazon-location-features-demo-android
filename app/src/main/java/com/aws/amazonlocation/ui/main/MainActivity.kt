@@ -2,12 +2,9 @@ package com.aws.amazonlocation.ui.main
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -51,12 +48,9 @@ import com.aws.amazonlocation.utils.ABOUT_FRAGMENT
 import com.aws.amazonlocation.utils.AWS_CLOUD_INFORMATION_FRAGMENT
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
-import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
-import com.aws.amazonlocation.utils.signer.AwsSignerInterceptor
 import com.aws.amazonlocation.utils.ConnectivityObserveInterface
 import com.aws.amazonlocation.utils.DELAY_LANGUAGE_3000
 import com.aws.amazonlocation.utils.Durations.DELAY_FOR_FRAGMENT_LOAD
-import com.aws.amazonlocation.utils.EnableTrackerInterface
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IOT_POLICY
 import com.aws.amazonlocation.utils.IOT_POLICY_UN_AUTH
@@ -73,11 +67,9 @@ import com.aws.amazonlocation.utils.KEY_CODE
 import com.aws.amazonlocation.utils.KEY_EXPIRATION
 import com.aws.amazonlocation.utils.KEY_ID_TOKEN
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
-import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
 import com.aws.amazonlocation.utils.KEY_RE_START_APP
 import com.aws.amazonlocation.utils.KEY_SECRET_KEY
-import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
 import com.aws.amazonlocation.utils.KEY_SESSION_TOKEN
 import com.aws.amazonlocation.utils.KEY_USER_DOMAIN
 import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
@@ -92,15 +84,14 @@ import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.SETTING_FRAGMENT
 import com.aws.amazonlocation.utils.SIGN_IN
 import com.aws.amazonlocation.utils.SIGN_OUT
-import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.VERSION_FRAGMENT
+import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.invisible
 import com.aws.amazonlocation.utils.makeTransparentStatusBar
-import com.aws.amazonlocation.utils.regionDisplayName
 import com.aws.amazonlocation.utils.setLocale
 import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.showViews
@@ -111,8 +102,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import org.maplibre.android.module.http.HttpRequestUtil
 import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -1203,33 +1192,6 @@ class MainActivity :
         } else {
             isMapStyleChangeCalled = false
         }
-    }
-
-    fun addInterceptor() {
-        HttpRequestUtil.setOkHttpClient(null)
-        val defaultIdentityPoolId: String =
-            Units.getDefaultIdentityPoolId(
-                mPreferenceManager.getValue(
-                    KEY_SELECTED_REGION,
-                    regionDisplayName[0],
-                ),
-                mPreferenceManager.getValue(KEY_NEAREST_REGION, ""),
-            )
-        val region = defaultIdentityPoolId.split(":")[0]
-        HttpRequestUtil.setOkHttpClient(
-            OkHttpClient
-                .Builder()
-                .addInterceptor(
-                    AwsSignerInterceptor(
-                        mServiceName,
-                        mAWSLocationHelper.getRegion() ?: region,
-                        mAWSLocationHelper.locationCredentialsProvider,
-                        mPreferenceManager,
-                        mAWSLocationHelper,
-                        this
-                    ),
-                ).build(),
-        )
     }
 
     private val mCloudFormationInterface =

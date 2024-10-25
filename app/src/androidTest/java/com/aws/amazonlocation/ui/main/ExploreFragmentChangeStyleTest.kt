@@ -44,7 +44,6 @@ class ExploreFragmentChangeStyleTest : BaseTestMainActivity() {
 
             goToMapStyles()
 
-            // Check esri maps styles
             waitForView(allOf(withContentDescription(MAP_1), isDisplayed()))?.perform(click())
             waitForView(allOf(withContentDescription(MAP_2), isDisplayed()))?.perform(click())
             waitForView(allOf(withContentDescription(MAP_3), isDisplayed()))?.perform(click())

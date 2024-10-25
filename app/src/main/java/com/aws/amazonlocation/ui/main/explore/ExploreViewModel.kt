@@ -543,11 +543,6 @@ class ExploreViewModel
                     countryCode = context.getString(R.string.flag_mar),
             ),
             PoliticalData(
-                countryName = context.getString(R.string.label_pak),
-                    description = context.getString(R.string.description_pak),
-                    countryCode = context.getString(R.string.flag_pak),
-            ),
-            PoliticalData(
                 countryName = context.getString(R.string.label_rus),
                     description = context.getString(R.string.description_rus),
                     countryCode = context.getString(R.string.flag_rus),

@@ -141,9 +141,6 @@ object Units {
                 regionList[1] -> {
                     BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU
                 }
-                regionList[2] -> {
-                    BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP
-                }
                 else -> {
                     BuildConfig.DEFAULT_IDENTITY_POOL_ID
                 }
@@ -153,13 +150,55 @@ object Units {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU
         }
         regionDisplayName[2] -> {
-            BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP
-        }
-        regionDisplayName[3] -> {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID
         }
         else -> {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID
+        }
+    }
+    fun getApiKey(mPreferenceManager: PreferenceManager?): String =
+        getAPIKey(
+            mPreferenceManager?.getValue(
+                KEY_SELECTED_REGION,
+                regionDisplayName[0],
+            ) ?: regionDisplayName[0],
+            mPreferenceManager?.getValue(KEY_NEAREST_REGION, "") ?: "",
+        )
+
+    fun getRegion(mPreferenceManager: PreferenceManager?): String {
+        var mRegion = mPreferenceManager?.getValue(KEY_SELECTED_REGION, regionDisplayName[0]) ?: regionDisplayName[0]
+        if (mRegion == regionDisplayName[0]) {
+            mRegion = mPreferenceManager?.getValue(KEY_NEAREST_REGION, regionList[0]) ?: regionList[0]
+        }
+        mRegion = "eu-central-1" //TODO remove this line once all region and api key are updated
+        return mRegion
+    }
+
+    fun getAPIKey(
+        selectedRegion: String?,
+        nearestRegion: String?
+    ) = when (selectedRegion) {
+        regionDisplayName[0] -> {
+            when (nearestRegion) {
+                regionList[0] -> {
+                    BuildConfig.API_KEY_US_EAST
+                }
+                regionList[1] -> {
+                    BuildConfig.API_KEY_EU_CENTRAL
+                }
+                else -> {
+                    BuildConfig.API_KEY_US_EAST
+                }
+            }
+        }
+        regionDisplayName[1] -> {
+            BuildConfig.API_KEY_EU_CENTRAL
+        }
+        regionDisplayName[2] -> {
+            BuildConfig.API_KEY_US_EAST
+        }
+        else -> {
+            BuildConfig.API_KEY_US_EAST
         }
     }
 
@@ -171,9 +210,6 @@ object Units {
         }
         BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU -> {
             BuildConfig.SIMULATION_WEB_SOCKET_URL_EU
-        }
-        BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP -> {
-            BuildConfig.SIMULATION_WEB_SOCKET_URL_AP
         }
         else -> {
             BuildConfig.SIMULATION_WEB_SOCKET_URL

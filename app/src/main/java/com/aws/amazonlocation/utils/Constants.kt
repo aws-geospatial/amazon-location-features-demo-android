@@ -145,8 +145,8 @@ val regionMapList: MutableMap<String, String> = mutableMapOf(
     Pair("South America (São Paulo) sa-east-1", "sa-east-1")
 )
 
-val regionList = arrayListOf("us-east-1", "eu-west-1", "ap-southeast-1")
-val regionDisplayName = arrayListOf("Automatic", "Europe (Ireland) eu-west-1", "Asia Pacific (Singapore) ap-southeast-1", "US-East (N. Virginia) us-east-1")
+val regionList = arrayListOf("us-east-1", "eu-west-1")
+val regionDisplayName = arrayListOf("Automatic", "Europe (Ireland) eu-west-1", "US-East (N. Virginia) us-east-1")
 
 /**
  *  * Validate Latitude and Longitude from string.
@@ -163,7 +163,6 @@ const val userPoolClientId = "[\\w+]+"
 const val regionPattern = "^[a-zA-Z-]+-\\d+$"
 
 const val LOCATION_AWS_PREFIX = "location.aws.com.demo."
-const val LOCATION_MAPS_PREFIX = "maps."
 const val LOCATION_TRACKERS_PREFIX = "trackers."
 const val LOCATION_GEOFENCE_S_PREFIX = "geofences."
 
@@ -255,7 +254,6 @@ object EventType {
     const val APPLICATION_ERROR = "APPLICATION_ERROR"
 
     const val MAP_STYLE_CHANGE = "MAP_STYLE_CHANGE"
-    const val MAP_PROVIDER_CHANGE = "MAP_PROVIDER_CHANGE"
     const val PLACE_SEARCH = "PLACES_SEARCH"
     const val ROUTE_SEARCH = "ROUTE_SEARCH"
     const val ROUTE_OPTION_CHANGED = "ROUTE_OPTION_CHANGED"
@@ -327,7 +325,6 @@ object AnalyticsAttributeValue {
     const val ABOUT = "About"
     const val SIMULATION = "Simulation"
     const val UNITS = "Units"
-    const val DATA_PROVIDER = "Data provider"
     const val MAP_STYLE = "Map style"
     const val LANGUAGES = "Languages"
     const val DEFAULT_ROUTE_OPTIONS = "Default route options"

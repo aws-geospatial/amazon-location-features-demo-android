@@ -60,7 +60,7 @@ class AnalyticsTest : BaseTestMainActivity() {
 
     /**
      * This method check successful record of below mentioned events,
-     * PLACES_SEARCH, SCREEN_OPEN, MAP_PROVIDER_CHANGE, MAP_UNIT_CHANGE
+     * PLACES_SEARCH, SCREEN_OPEN, MAP_UNIT_CHANGE
      */
     @Test
     fun checkAnalyticsContent() {

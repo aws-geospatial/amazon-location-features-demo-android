@@ -1,6 +1,5 @@
 package com.aws.amazonlocation.utils.providers
 
-import android.content.Context
 import aws.sdk.kotlin.services.georoutes.GeoRoutesClient
 import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesRequest
 import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
@@ -10,10 +9,10 @@ import aws.sdk.kotlin.services.georoutes.model.RouteAvoidanceOptions
 import aws.sdk.kotlin.services.georoutes.model.RouteLegAdditionalFeature
 import aws.sdk.kotlin.services.georoutes.model.RouteTravelMode
 import aws.sdk.kotlin.services.georoutes.model.RouteTravelStepType
-import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.ui.base.BaseActivity
 import com.aws.amazonlocation.utils.KEY_UNIT_SYSTEM
 import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.utils.Units.getApiKey
 import com.aws.amazonlocation.utils.Units.isMetric
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -44,7 +43,7 @@ class RoutesProvider(
             }
 
             val request = CalculateRoutesRequest {
-                key = BuildConfig.API_KEY
+                key = getApiKey(mPreferenceManager)
                 origin = listOfNotNull(lngDeparture, latDeparture)
                 destination = listOfNotNull(lngDestination, latDestination)
                 avoid = RouteAvoidanceOptions {

@@ -30,8 +30,8 @@ android {
         buildConfigField 'String', 'AWS_PRIVACY_NOTICE',"\"https://aws.amazon.com/privacy/\""
         buildConfigField 'String', 'AWS_NEAREST_REGION_CHECK_URL',"\"https://dynamodb.%s.amazonaws.com/\""
 
-        buildConfigField 'String', 'API_KEY',"\"${customConfig.getProperty("API_KEY")}\""
-        buildConfigField 'String', 'API_KEY_REGION',"\"${customConfig.getProperty("API_KEY_REGION")}\""
+        buildConfigField 'String', 'API_KEY_EU_CENTRAL',"\"${customConfig.getProperty("API_KEY_EU_CENTRAL")}\""
+        buildConfigField 'String', 'API_KEY_US_EAST',"\"${customConfig.getProperty("API_KEY_US_EAST")}\""
         buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID")}\""
         buildConfigField 'String', 'DEFAULT_REGION',"\"${customConfig.getProperty("DEFAULT_REGION")}\""
         buildConfigField 'String', 'IDENTITY_POOL_ID',"\"${customConfig.getProperty("IDENTITY_POOL_ID")}\""
@@ -41,13 +41,11 @@ android {
         buildConfigField 'String', 'WEB_SOCKET_URL',"\"${customConfig.getProperty("WEB_SOCKET_URL")}\""
         buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL")}\""
         buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL_EU',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL_EU")}\""
-        buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL_AP',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL_AP")}\""
         buildConfigField 'String', 'USER_LOGIN_NAME',"\"${customConfig.getProperty("USER_LOGIN_NAME")}\""
         buildConfigField 'String', 'USER_LOGIN_PASSWORD',"\"${customConfig.getProperty("USER_LOGIN_PASSWORD")}\""
         buildConfigField 'String', 'ANALYTICS_IDENTITY_POOL_ID',"\"${customConfig.getProperty("ANALYTICS_IDENTITY_POOL_ID")}\""
         buildConfigField 'String', 'ANALYTICS_APP_ID',"\"${customConfig.getProperty("ANALYTICS_APP_ID")}\""
         buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID_EU',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID_EU")}\""
-        buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID_AP',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID_AP")}\""
     }
     signingConfigs {
         release {

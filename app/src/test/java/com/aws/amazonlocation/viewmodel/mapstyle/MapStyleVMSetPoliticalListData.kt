@@ -35,7 +35,7 @@ class MapStyleVMSetPoliticalListData : BaseTest() {
 
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
-            mMapStyleViewModel.mPoliticalData.size == 15
+            mMapStyleViewModel.mPoliticalData.size == 14
         )
         val testPoliticalData = PoliticalData("testCountry", "description", "AR", false)
         mMapStyleViewModel.mPoliticalData.add(testPoliticalData)
@@ -43,7 +43,7 @@ class MapStyleVMSetPoliticalListData : BaseTest() {
 
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
-            mMapStyleViewModel.mPoliticalData.size == 16
+            mMapStyleViewModel.mPoliticalData.size == 15
         )
 
         Assert.assertTrue(

@@ -128,6 +128,7 @@ open class BaseActivity : AppCompatActivity() {
 
     suspend fun initMobileClient() {
         mAWSLocationHelper.initializeLocationCredentialsProvider(authHelper, this)
+        mAWSLocationHelper.initPlaceRoutesClients()
     }
 
     private fun locationPermissionDialog() {

@@ -134,7 +134,7 @@ class MapHelper(
                 Style
                     .Builder()
                     .fromUri(
-                        getMapUri(mapStyle, colorSchemes, BuildConfig.API_KEY),
+                        getMapUri(mapStyle, colorSchemes, Units.getApiKey(mPreferenceManager)),
                     ),
             ) { style ->
                 updateZoomRange(style)
@@ -191,7 +191,7 @@ class MapHelper(
             Style
                 .Builder()
                 .fromUri(
-                    getMapUri(mapStyle, colorSchemes, BuildConfig.API_KEY),
+                    getMapUri(mapStyle, colorSchemes, Units.getApiKey(mPreferenceManager)),
                 ),
         ) {
             mapStyleChangeListener?.onMapStyleChanged(mapStyle)
@@ -202,7 +202,9 @@ class MapHelper(
 
     private fun getMapUri(mapStyle: String, colorSchemes: String, apiKey: String): String {
         val countryName = mPreferenceManager?.getValue(KEY_POLITICAL_VIEW, "") ?: ""
-        val baseUrl = "https://maps.geo.${BuildConfig.API_KEY_REGION}.amazonaws.com/v2/styles/$mapStyle/descriptor?key=$apiKey"
+        val region = Units.getRegion(mPreferenceManager)
+
+        val baseUrl = "https://maps.geo.$region.amazonaws.com/v2/styles/$mapStyle/descriptor?key=$apiKey"
         val politicalView = if (countryName.isNotEmpty()) "&political-view=$countryName" else ""
 
         return if (mapStyle == "Hybrid" || mapStyle == "Satellite") baseUrl+politicalView else "$baseUrl&color-scheme=$colorSchemes$politicalView"

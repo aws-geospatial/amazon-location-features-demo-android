@@ -45,7 +45,6 @@ class MapStyleFragment : BaseFragment() {
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var mBinding: FragmentMapStyleBinding
     private val mViewModel: MapStyleViewModel by viewModels()
-    private var mAdapter: MapStyleAdapter? = null
     private var isTablet = false
     private var isLargeTablet = false
     private var columnCount = 2
@@ -208,7 +207,6 @@ class MapStyleFragment : BaseFragment() {
     private fun init() {
         setColumnCount()
         layoutManager.spanCount = columnCount
-        mAdapter?.notifyDataSetChanged()
     }
 
     private fun setColumnCount() {

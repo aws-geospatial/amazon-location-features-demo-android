@@ -262,7 +262,6 @@
     <string name="description_ind">India\'s view on Gilgit-Baltistan</string>
     <string name="description_ken">Kenya\'s view on the Ilemi Triangle</string>
     <string name="description_mar">Morocco\'s view on Western Sahara</string>
-    <string name="description_pak">Pakistan\'s view on Jammu and Kashmir and the Junagadh Area</string>
     <string name="description_rus">Russia\'s view on Crimea</string>
     <string name="description_sdn">Sudan\'s view on the Halaib Triangle</string>
     <string name="description_srb">Serbia\'s view on Kosovo, Vukovar, and Sarengrad Islands</string>
@@ -278,7 +277,6 @@
     <string name="flag_ind" translatable="false">🇮🇳</string>
     <string name="flag_ken" translatable="false">🇰🇪</string>
     <string name="flag_mar" translatable="false">🇲🇦</string>
-    <string name="flag_pak" translatable="false">🇵🇰</string>
     <string name="flag_rus" translatable="false">🇷🇺</string>
     <string name="flag_sdn" translatable="false">🇸🇩</string>
     <string name="flag_srb" translatable="false">🇷🇸</string>
@@ -294,7 +292,6 @@
     <string name="label_ind" translatable="false">IND</string>
     <string name="label_ken" translatable="false">KEN</string>
     <string name="label_mar" translatable="false">MAR</string>
-    <string name="label_pak" translatable="false">PAK</string>
     <string name="label_rus" translatable="false">RUS</string>
     <string name="label_sdn" translatable="false">SDN</string>
     <string name="label_srb" translatable="false">SRB</string>
