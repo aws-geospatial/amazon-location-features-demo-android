@@ -170,7 +170,7 @@ object Units {
         if (mRegion == regionDisplayName[0]) {
             mRegion = mPreferenceManager?.getValue(KEY_NEAREST_REGION, regionList[0]) ?: regionList[0]
         }
-        mRegion = "eu-central-1" //TODO remove this line once all region and api key are updated
+        mRegion = "us-east-1" //TODO remove this line once all region and api key are updated
         return mRegion
     }
 

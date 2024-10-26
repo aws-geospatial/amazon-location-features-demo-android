@@ -234,7 +234,7 @@ class MapStyleFragment : BaseFragment() {
                     val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
                     clearSelectionAndSetOriginalData(selectedCountry)
                 } else {
-                    backPress()
+                    findNavController().popBackStack()
                 }
             }
             toggleMode.addOnButtonCheckedListener { _, checkedId, isChecked ->
