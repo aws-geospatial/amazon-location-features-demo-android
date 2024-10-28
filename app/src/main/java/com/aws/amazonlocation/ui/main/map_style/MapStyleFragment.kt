@@ -1,85 +1,55 @@
 package com.aws.amazonlocation.ui.main.map_style
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.res.Configuration
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentMapStyleBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.ui.main.explore.SortingAdapter
-import com.aws.amazonlocation.utils.AnalyticsAttribute
-import com.aws.amazonlocation.utils.AnalyticsAttributeValue
+import com.aws.amazonlocation.ui.main.explore.PoliticalAdapter
+import com.aws.amazonlocation.utils.ATTRIBUTE_DARK
+import com.aws.amazonlocation.utils.ATTRIBUTE_LIGHT
 import com.aws.amazonlocation.utils.DELAY_300
-import com.aws.amazonlocation.utils.EventType
-import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
-import com.aws.amazonlocation.utils.KEY_GRAB_DONT_ASK
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
+import com.aws.amazonlocation.utils.KEY_COLOR_SCHEMES
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
-import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
-import com.aws.amazonlocation.utils.KEY_OPEN_DATA_DONT_ASK
-import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
-import com.aws.amazonlocation.utils.MapNames
-import com.aws.amazonlocation.utils.MapStyleRestartInterface
-import com.aws.amazonlocation.utils.RESTART_DELAY
-import com.aws.amazonlocation.utils.Units
-import com.aws.amazonlocation.utils.enableOpenData
+import com.aws.amazonlocation.utils.KEY_POLITICAL_VIEW
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
+import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
+import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
-import com.aws.amazonlocation.utils.hideSoftKeyboard
+import com.aws.amazonlocation.utils.hideKeyboard
 import com.aws.amazonlocation.utils.hideViews
-import com.aws.amazonlocation.utils.isGrabMapEnable
 import com.aws.amazonlocation.utils.isInternetAvailable
-import com.aws.amazonlocation.utils.isRunningTest
-import com.aws.amazonlocation.utils.regionDisplayName
-import com.aws.amazonlocation.utils.restartAppMapStyleDialog
-import com.aws.amazonlocation.utils.restartApplication
 import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.showViews
 import com.aws.amazonlocation.utils.textChanges
-import com.google.android.material.card.MaterialCardView
 import kotlin.math.ceil
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 class MapStyleFragment : BaseFragment() {
 
-    private lateinit var mLayoutManagerEsri: GridLayoutManager
-    private lateinit var mLayoutManagerHere: GridLayoutManager
-    private lateinit var mLayoutManagerGrab: GridLayoutManager
+    private lateinit var layoutManager: GridLayoutManager
     private lateinit var mBinding: FragmentMapStyleBinding
     private val mViewModel: MapStyleViewModel by viewModels()
-    private var mAdapter: EsriMapStyleAdapter? = null
-    private var mHereAdapter: EsriMapStyleAdapter? = null
-    private var mGrabAdapter: EsriMapStyleAdapter? = null
     private var isTablet = false
     private var isLargeTablet = false
-    private var columnCount = 3
-    private var isGrabMapEnable = false
+    private var columnCount = 2
     private var mMapStyleAdapter: SettingMapStyleAdapter? = null
-    private var mProviderAdapter: SortingAdapter? = null
-    private var mAttributeAdapter: SortingAdapter? = null
-    private var mTypeAdapter: SortingAdapter? = null
-    private var isFilterApplied: Boolean = false
-    private var isNoDataFoundVisible: Boolean = false
+    private var mPoliticalAdapter: PoliticalAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,13 +69,9 @@ class MapStyleFragment : BaseFragment() {
         if ((activity is MainActivity)) {
             isTablet = (activity as MainActivity).isTablet
         }
-        isGrabMapEnable = isGrabMapEnable(mPreferenceManager)
         isLargeTablet = requireContext().resources.getBoolean(R.bool.is_large_tablet)
         if (isTablet) {
             setColumnCount()
-        }
-        mBinding.apply {
-            mViewModel.setMapListData(requireContext(), isGrabMapEnable)
         }
         setMapStyleAdapter()
         backPress()
@@ -115,30 +81,28 @@ class MapStyleFragment : BaseFragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun setMapStyleAdapter() {
         mBinding.apply {
-            mViewModel.setMapListData(rvMapStyle.context, isGrabMapEnable(mPreferenceManager))
-            val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                ?: getString(R.string.map_esri)
+            mViewModel.setMapListData(rvMapStyle.context)
+            mViewModel.setPoliticalListData(rvPoliticalView.context)
             val mapStyleName =
-                mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_light))
-                    ?: getString(R.string.map_light)
+                mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_standard))
+                    ?: getString(R.string.map_standard)
+            val colorScheme = mPreferenceManager.getValue(KEY_COLOR_SCHEMES, ATTRIBUTE_LIGHT) ?: ATTRIBUTE_LIGHT
+            toggleMode.check(if(colorScheme == ATTRIBUTE_LIGHT) R.id.btn_light else R.id.btn_dark)
             mViewModel.mStyleList.forEach {
-                if (it.styleNameDisplay.equals(mapName)) {
-                    it.isSelected = true
-                    it.mapInnerData?.forEach { mapStyleInnerData ->
-                        if (mapStyleInnerData.mapName.equals(mapStyleName)) {
-                            mapStyleInnerData.isSelected = true
+                it.isSelected = true
+                it.mapInnerData?.forEach { mapStyleInnerData ->
+                    if (mapStyleInnerData.mapName.equals(mapStyleName)) {
+                        if (mapStyleInnerData.mapName == getString(R.string.map_satellite) || mapStyleInnerData.mapName == getString(R.string.map_hybrid)) {
+                            disableToggle()
+                        } else {
+                            enableToggle()
                         }
+                        mapStyleInnerData.isSelected = true
                     }
-                } else {
-                    it.isSelected = false
                 }
             }
-            layoutNoDataFound.tvNoMatchingFound.text = getString(R.string.label_style_search_error_title)
-            layoutNoDataFound.tvMakeSureSpelledCorrect.text = getString(R.string.label_style_search_error_des)
-            if (!isGrabMapEnable(mPreferenceManager)) {
-                cardGrabMap.hide()
-            }
-            setMapTileSelection(mapName)
+            layoutNoDataFoundPolitical.tvNoMatchingFound.text = getString(R.string.label_style_search_error_title)
+            layoutNoDataFoundPolitical.tvMakeSureSpelledCorrect.text = getString(R.string.label_style_search_error_des)
             rvMapStyle.layoutManager = LinearLayoutManager(requireContext())
             mMapStyleAdapter =
                 SettingMapStyleAdapter(
@@ -148,36 +112,28 @@ class MapStyleFragment : BaseFragment() {
                         override fun mapStyleClick(position: Int, innerPosition: Int) {
                             if (checkInternetConnection()) {
                                 if (position != -1 && innerPosition != -1) {
-                                    val selectedProvider =
-                                        mViewModel.mStyleList[position].styleNameDisplay
                                     val selectedInnerData =
                                         mViewModel.mStyleList[position].mapInnerData?.get(
                                             innerPosition
                                         )?.mapName
-                                    for (data in mViewModel.mStyleListForFilter) {
-                                        if (data.styleNameDisplay.equals(selectedProvider)) {
-                                            data.mapInnerData.let {
-                                                if (it != null) {
-                                                    for (innerData in it) {
-                                                        if (innerData.mapName.equals(
-                                                                selectedInnerData
-                                                            )
-                                                        ) {
-                                                            if (innerData.isSelected) return
-                                                        }
+                                    for (data in mViewModel.mStyleList) {
+                                        data.mapInnerData.let {
+                                            if (it != null) {
+                                                for (innerData in it) {
+                                                    if (innerData.mapName.equals(
+                                                            selectedInnerData
+                                                        )
+                                                    ) {
+                                                        if (innerData.isSelected) return
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                    selectedProvider?.let {
-                                        selectedInnerData?.let { it1 ->
-                                            mapStyleChange(
-                                                false,
-                                                it,
-                                                it1
-                                            )
-                                        }
+                                    selectedInnerData?.let { it1 ->
+                                        changeStyle(
+                                            it1
+                                        )
                                     }
                                 }
                             }
@@ -186,273 +142,73 @@ class MapStyleFragment : BaseFragment() {
                 )
             rvMapStyle.adapter = mMapStyleAdapter
 
-            rvProvider.layoutManager = LinearLayoutManager(requireContext())
-            mProviderAdapter =
-                SortingAdapter(
-                    mViewModel.providerOptions,
-                    object : SortingAdapter.MapInterface {
-                        override fun mapClick(position: Int, isSelected: Boolean) {
-                            if (position != -1) {
-                                mViewModel.providerOptions[position].isSelected = isSelected
-                            }
-                        }
-                    }
-                )
-            rvProvider.adapter = mProviderAdapter
-
-            rvAttribute.layoutManager = LinearLayoutManager(requireContext())
-            mAttributeAdapter =
-                SortingAdapter(
-                    mViewModel.attributeOptions,
-                    object : SortingAdapter.MapInterface {
-                        override fun mapClick(position: Int, isSelected: Boolean) {
-                            if (position != -1) {
-                                mViewModel.attributeOptions[position].isSelected = isSelected
-                            }
-                        }
-                    }
-                )
-            rvAttribute.adapter = mAttributeAdapter
-
-            rvType.layoutManager = LinearLayoutManager(requireContext())
-            mTypeAdapter =
-                SortingAdapter(
-                    mViewModel.typeOptions,
-                    object : SortingAdapter.MapInterface {
-                        override fun mapClick(position: Int, isSelected: Boolean) {
-                            if (position != -1) {
-                                mViewModel.typeOptions[position].isSelected = isSelected
-                            }
-                        }
-                    }
-                )
-            rvType.adapter = mTypeAdapter
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun mapStyleChange(
-        isMapClick: Boolean,
-        selectedProvider: String,
-        selectedInnerData: String
-    ) {
-        val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-        val defaultIdentityPoolId: String = Units.getDefaultIdentityPoolId(
-            mPreferenceManager.getValue(
-                KEY_SELECTED_REGION,
-                regionDisplayName[0]
-            ),
-            mPreferenceManager.getValue(KEY_NEAREST_REGION, "")
-        )
-        var isRestartNeeded =
-            if (defaultIdentityPoolId == BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP) {
-                false
-            } else {
-                if (mapName == getString(R.string.esri) || mapName == getString(R.string.here)) {
-                    selectedProvider == getString(R.string.grab)
-                } else {
-                    selectedProvider != getString(R.string.grab)
-                }
-            }
-        val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
-        if (mAuthStatus == AuthEnum.SIGNED_IN.name || mAuthStatus == AuthEnum.AWS_CONNECTED.name) {
-            isRestartNeeded = false
-        }
-        if (selectedProvider == getString(R.string.grab) && mapName != getString(R.string.grab)) {
-            val shouldShowGrabDialog = !mPreferenceManager.getValue(KEY_GRAB_DONT_ASK, false)
-            if (shouldShowGrabDialog) {
-                activity?.restartAppMapStyleDialog(object : MapStyleRestartInterface {
-                    override fun onOkClick(dialog: DialogInterface, dontAskAgain: Boolean) {
-                        mPreferenceManager.setValue(KEY_GRAB_DONT_ASK, dontAskAgain)
-                        changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
-                        if (isRestartNeeded) {
-                            mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
-                            mAWSLocationHelper.locationCredentialsProvider?.clear()
-                            lifecycleScope.launch {
-                                if (!isRunningTest) {
-                                    delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
-                                    activity?.restartApplication()
-                                }
-                            }
-                        }
-                    }
-
-                    override fun onLearnMoreClick(dialog: DialogInterface) {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(BuildConfig.GRAB_LEARN_MORE)
-                            )
-                        )
-                    }
-                })
-            } else {
-                changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
-                if (isRestartNeeded) {
-                    mPreferenceManager.setValue(KEY_SELECTED_REGION, regionDisplayName[2])
-                    mAWSLocationHelper.locationCredentialsProvider?.clear()
-                    lifecycleScope.launch {
-                        if (!isRunningTest) {
-                            delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting
-                            activity?.restartApplication()
-                        }
+            val languageCode = getLanguageCode()
+            val isRtl =
+                languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
+            val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
+            selectedCountry.takeIf { it.isNotEmpty() }?.let { country ->
+                mViewModel.mPoliticalSearchData.find { it.countryName == country }?.let {
+                    it.isSelected = true
+                    tvPoliticalDescription.apply {
+                        text = "${it.countryName}. ${it.description}"
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.color_primary_green))
                     }
                 }
             }
-        } else if (selectedProvider == getString(R.string.open_data) && mapName != getString(R.string.open_data)) {
-            val shouldShowOpenDataDialog = !mPreferenceManager.getValue(KEY_OPEN_DATA_DONT_ASK, false)
-            if (shouldShowOpenDataDialog) {
-                activity?.enableOpenData(object : MapStyleRestartInterface {
-                    override fun onOkClick(dialog: DialogInterface, dontAskAgain: Boolean) {
-                        changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
-                        mPreferenceManager.setValue(KEY_OPEN_DATA_DONT_ASK, dontAskAgain)
+            rvPoliticalView.layoutManager = LinearLayoutManager(requireContext())
+            mPoliticalAdapter = PoliticalAdapter(
+                mViewModel.mPoliticalData,
+                isRtl,
+                object : PoliticalAdapter.PoliticalInterface {
+                    override fun countryClick(position: Int) {
+                        if (mViewModel.mPoliticalData[position].isSelected) return
+                        mViewModel.mPoliticalSearchData.forEach {
+                            it.isSelected = false
+                        }
+                        mViewModel.mPoliticalData.forEach {
+                            it.isSelected = false
+                        }
+                        hideKeyboard(requireActivity(), etSearchCountry)
+                        mViewModel.mPoliticalData[position].isSelected = true
+                        mPoliticalAdapter?.notifyDataSetChanged()
+                        clApply.show()
                     }
-
-                    override fun onLearnMoreClick(dialog: DialogInterface) {}
-                })
-            } else {
-                changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
-            }
-        } else {
-            changeMapStyle(isMapClick, selectedProvider, selectedInnerData)
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun changeMapStyle(
-        isMapClick: Boolean,
-        selectedProvider: String,
-        selectedInnerData: String
-    ) {
-        if (isMapClick) {
-            repeat(mViewModel.mStyleList.size) {
-                mViewModel.mStyleList[it].isSelected = false
-            }
-            repeat(mViewModel.mStyleListForFilter.size) {
-                mViewModel.mStyleListForFilter[it].isSelected = false
-            }
-            changeStyle(selectedProvider, selectedInnerData)
-            for (data in mViewModel.mStyleListForFilter) {
-                if (data.styleNameDisplay.equals(selectedProvider)) {
-                    data.isSelected = !data.isSelected
-                }
-            }
-            mMapStyleAdapter?.notifyDataSetChanged()
-        } else {
-            changeStyle(selectedProvider, selectedInnerData)
+                },
+            )
+            rvPoliticalView.adapter = mPoliticalAdapter
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun changeStyle(
-        selectedProvider: String,
-        selectedInnerData: String
+        mapStyleName: String
     ) {
-        mBinding.apply {
-            setMapTileSelection(selectedProvider)
-        }
         mViewModel.mStyleList.forEach {
             it.mapInnerData?.forEach { innerData ->
                 innerData.isSelected = false
             }
         }
-        mViewModel.mStyleListForFilter.forEach {
-            it.mapInnerData?.forEach { innerData ->
-                innerData.isSelected = false
-            }
-        }
-        for (data in mViewModel.mStyleListForFilter) {
-            if (data.styleNameDisplay.equals(selectedProvider)) {
-                data.mapInnerData.let {
-                    if (it != null) {
-                        for (innerData in it) {
-                            if (innerData.mapName.equals(selectedInnerData)) {
-                                innerData.isSelected = true
-                                var selectedId = ""
-                                if (data.styleNameDisplay != getString(R.string.grab)) {
-                                    when (innerData.mapName) {
-                                        getString(R.string.map_light) -> {
-                                            selectedId = MapNames.ESRI_LIGHT
-                                        }
-                                        getString(R.string.map_streets) -> {
-                                            selectedId = MapNames.ESRI_STREET_MAP
-                                        }
-                                        getString(R.string.map_navigation) -> {
-                                            selectedId = MapNames.ESRI_NAVIGATION
-                                        }
-                                        getString(R.string.map_dark_gray) -> {
-                                            selectedId = MapNames.ESRI_DARK_GRAY_CANVAS
-                                        }
-                                        getString(R.string.map_light_gray) -> {
-                                            selectedId = MapNames.ESRI_LIGHT_GRAY_CANVAS
-                                        }
-                                        getString(R.string.map_imagery) -> {
-                                            selectedId = MapNames.ESRI_IMAGERY
-                                        }
-                                        resources.getString(R.string.map_contrast) -> {
-                                            selectedId = MapNames.HERE_CONTRAST
-                                        }
-                                        resources.getString(R.string.map_explore) -> {
-                                            selectedId = MapNames.HERE_EXPLORE
-                                        }
-                                        resources.getString(R.string.map_explore_truck) -> {
-                                            selectedId = MapNames.HERE_EXPLORE_TRUCK
-                                        }
-                                        resources.getString(R.string.map_hybrid) -> {
-                                            selectedId = MapNames.HERE_HYBRID
-                                        }
-                                        resources.getString(R.string.map_raster) -> {
-                                            selectedId = MapNames.HERE_IMAGERY
-                                        }
-                                        resources.getString(R.string.map_standard_light) -> {
-                                            selectedId = MapNames.OPEN_DATA_STANDARD_LIGHT
-                                        }
-                                        resources.getString(R.string.map_standard_dark) -> {
-                                            selectedId = MapNames.OPEN_DATA_STANDARD_DARK
-                                        }
-                                        resources.getString(R.string.map_visualization_light) -> {
-                                            selectedId = MapNames.OPEN_DATA_VISUALIZATION_LIGHT
-                                        }
-                                        resources.getString(R.string.map_visualization_dark) -> {
-                                            selectedId = MapNames.OPEN_DATA_VISUALIZATION_DARK
-                                        }
-                                    }
-                                } else {
-                                    when (innerData.mapName) {
-                                        resources.getString(R.string.map_grab_light) -> {
-                                            selectedId = MapNames.GRAB_LIGHT
-                                        }
-                                        resources.getString(R.string.map_grab_dark) -> {
-                                            selectedId = MapNames.GRAB_DARK
-                                        }
-                                    }
-                                }
-                                innerData.mapName?.let { it1 ->
-                                    mPreferenceManager.setValue(
-                                        KEY_MAP_STYLE_NAME,
-                                        it1
-                                    )
-                                }
-                                data.styleNameDisplay?.let { mapName ->
-                                    val properties = listOf(
-                                        Pair(AnalyticsAttribute.PROVIDER, mapName),
-                                        Pair(AnalyticsAttribute.ID, selectedId),
-                                        Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
-                                    )
-                                    (activity as MainActivity).analyticsUtils?.recordEvent(
-                                        EventType.MAP_STYLE_CHANGE,
-                                        properties
-                                    )
-                                    mPreferenceManager.setValue(
-                                        KEY_MAP_NAME,
-                                        mapName
-                                    )
-                                }
+        for (data in mViewModel.mStyleList) {
+            data.mapInnerData.let {
+                if (it != null) {
+                    for (innerData in it) {
+                        if (innerData.mapName.equals(mapStyleName)) {
+                            innerData.isSelected = true
+                            innerData.mapName?.let { it1 ->
+                                mPreferenceManager.setValue(
+                                    KEY_MAP_STYLE_NAME,
+                                    it1
+                                )
                             }
                         }
                     }
                 }
             }
+        }
+        if (mapStyleName == getString(R.string.map_satellite) || mapStyleName == getString(R.string.map_hybrid)) {
+            disableToggle()
+        } else {
+            enableToggle()
         }
         mMapStyleAdapter?.notifyDataSetChanged()
     }
@@ -460,14 +216,7 @@ class MapStyleFragment : BaseFragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun init() {
         setColumnCount()
-        mLayoutManagerHere.spanCount = columnCount
-        mLayoutManagerEsri.spanCount = columnCount
-        mHereAdapter?.notifyDataSetChanged()
-        mAdapter?.notifyDataSetChanged()
-        if (isGrabMapEnable) {
-            mLayoutManagerGrab.spanCount = columnCount
-            mGrabAdapter?.notifyDataSetChanged()
-        }
+        layoutManager.spanCount = columnCount
     }
 
     private fun setColumnCount() {
@@ -484,444 +233,118 @@ class MapStyleFragment : BaseFragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun FragmentMapStyleBinding.setDefaultMapStyleList() {
-        mViewModel.mStyleList.clear()
-        mViewModel.mStyleList.addAll(mViewModel.mStyleListForFilter)
-        activity?.runOnUiThread {
-            etSearchMap.setText("")
-            mMapStyleAdapter?.notifyDataSetChanged()
-        }
-    }
-
-    private fun FragmentMapStyleBinding.mapStyleShowSorting() {
-        showViews(
-            nsvFilter,
-            viewDivider,
-            tvClearSelection,
-            btnApplyFilter
-        )
-        layoutNoDataFound.root.hide()
-        tvClearFilter.hide()
-        rvMapStyle.hide()
-    }
-
-    private fun FragmentMapStyleBinding.mapStyleShowList() {
-        hideViews(
-            nsvFilter,
-            viewDivider,
-            tvClearSelection,
-            btnApplyFilter
-        )
-        rvMapStyle.show()
-    }
-
-    private fun FragmentMapStyleBinding.setMapTileSelection(
-        mapName: String
-    ) {
-        val colorToSet = ContextCompat.getColor(requireContext(), R.color.color_primary_green)
-
-        val selectedCard: MaterialCardView = when (mapName) {
-            resources.getString(R.string.esri) -> {
-                cardEsri
-            }
-            resources.getString(R.string.here) -> {
-                cardHere
-            }
-            resources.getString(R.string.grab) -> {
-                cardGrabMap
-            }
-            resources.getString(R.string.open_data) -> {
-                cardOpenData
-            }
-            else -> cardEsri
-        }
-
-        val cardList = listOf(cardEsri, cardHere, cardGrabMap, cardOpenData)
-
-        cardList.forEach { card ->
-            card.strokeColor = if (card == selectedCard) colorToSet
-            else ContextCompat.getColor(requireContext(), R.color.white)
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun notifySortingAdapter() {
-        mTypeAdapter?.notifyDataSetChanged()
-        mAttributeAdapter?.notifyDataSetChanged()
-        mProviderAdapter?.notifyDataSetChanged()
-    }
-
-    private fun FragmentMapStyleBinding.openSearch(params: ViewGroup.LayoutParams?) {
-        viewLine.hide()
-        tilSearch.show()
-        params?.width = ViewGroup.LayoutParams.MATCH_PARENT
-        cardSearchFilter.layoutParams = params
-        etSearchMap.clearFocus()
-        groupFilterButton.hide()
-        scrollMapStyle.isFillViewport = true
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     private fun clickListener() {
-        mBinding.ivMapStyleBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
         mBinding.apply {
-            @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class, kotlinx.coroutines.FlowPreview::class)
-            etSearchMap.textChanges().debounce(DELAY_300).onEach { text ->
-                mapStyleShowList()
-                searchText(text)
-            }.launchIn(lifecycleScope)
-            val params = cardSearchFilter.layoutParams
-            tilSearch.setEndIconOnClickListener {
-                isNoDataFoundVisible = false
-                mapStyleShowList()
-                setDefaultMapStyleList()
-                etSearchMap.setText("")
-                tilSearch.clearFocus()
-                etSearchMap.clearFocus()
-                tilSearch.isEndIconVisible = false
-                activity?.hideSoftKeyboard(etSearchMap)
-                val providerNames = arrayListOf<String>()
-                val attributeNames = arrayListOf<String>()
-                val typeNames = arrayListOf<String>()
-                mViewModel.providerOptions.filter { it.isSelected }
-                    .forEach { data -> providerNames.add(data.name) }
-                mViewModel.attributeOptions.filter { it.isSelected }
-                    .forEach { data -> attributeNames.add(data.name) }
-                mViewModel.typeOptions.filter { it.isSelected }
-                    .forEach { data -> typeNames.add(data.name) }
-                val filterList = mViewModel.filterAndSortItems(
-                    requireContext(),
-                    null,
-                    providerNames.ifEmpty { null },
-                    attributeNames.ifEmpty { null },
-                    typeNames.ifEmpty { null }
-                )
-                if (filterList.isNotEmpty()) {
-                    mViewModel.mStyleList.clear()
-                    mViewModel.mStyleList.addAll(filterList)
-                    activity?.runOnUiThread {
-                        mMapStyleAdapter?.notifyDataSetChanged()
-                    }
-                    mapStyleShowList()
-                    layoutNoDataFound.root.hide()
-                    tvClearFilter.hide()
-                    isNoDataFoundVisible = false
+            ivMapStyleBack.setOnClickListener {
+                if (clSearchPolitical.visibility == View.VISIBLE) {
+                    etSearchCountry.setText("")
+                    appCompatTextView2.text = getString(R.string.label_map_style)
+                    showViews(rvMapStyle, cardColorScheme, clPoliticalView)
+                    hideViews(clSearchPolitical, clApply)
+                    val selectedCountry = mPreferenceManager.getValue(KEY_POLITICAL_VIEW, "") ?: ""
+                    clearSelectionAndSetOriginalData(selectedCountry)
                 } else {
-                    isNoDataFoundVisible = true
-                    mViewModel.mStyleList.clear()
-                    activity?.runOnUiThread {
-                        mMapStyleAdapter?.notifyDataSetChanged()
-                    }
-                    mapStyleShowList()
-                    showNoDataFoundFilter()
+                    findNavController().popBackStack()
                 }
             }
-            tilSearch.isEndIconVisible = false
-            ivSearch.setOnClickListener {
-                openSearch(params)
+            toggleMode.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                when (checkedId) {
+                    R.id.btn_light -> {
+                        if (isChecked) {
+                            mPreferenceManager.setValue(KEY_COLOR_SCHEMES, ATTRIBUTE_LIGHT)
+                        }
+                    }
+                    R.id.btn_dark -> {
+                        if (isChecked) {
+                            mPreferenceManager.setValue(KEY_COLOR_SCHEMES, ATTRIBUTE_DARK)
+                        }
+                    }
+                }
             }
+            clPoliticalView.setOnClickListener {
+                mViewModel.mPoliticalData.find { it.isSelected }?.let {
+                    if (mBaseActivity?.isTablet != true) {
+                        clApply.show()
+                    } else clApply.show()
+                }
+                mViewModel.mPoliticalData.find { it.isSelected }?.let {
+                    clApply.show()
+                }
+                appCompatTextView2.text = getString(R.string.label_political_view)
+                hideViews(rvMapStyle, cardColorScheme, clPoliticalView)
+                showViews(clSearchPolitical)
+            }
+            etSearchCountry
+                .textChanges()
+                .debounce(DELAY_300)
+                .onEach { text ->
+                    tilSearch.isEndIconVisible = !text.isNullOrEmpty()
+                    val result =  mViewModel.searchPoliticalData(text.toString())
+                    if (result.isEmpty()) {
+                        layoutNoDataFoundPolitical.root.show()
+                        mViewModel.mPoliticalData.clear()
+                    } else {
+                        layoutNoDataFoundPolitical.root.hide()
+                        mViewModel.mPoliticalData.clear()
+                        mViewModel.mPoliticalData.addAll(result)
+                    }
+                    activity?.runOnUiThread {
+                        mPoliticalAdapter?.notifyDataSetChanged()
+                    }
+                }.launchIn(lifecycleScope)
 
-            tvClearFilter.setOnClickListener {
-                clearSortingSelection()
-                notifySortingAdapter()
-                setFilterNotSelected()
-                searchText(etSearchMap.text.toString().trim())
+            tilSearch.setEndIconOnClickListener {
+                etSearchCountry.setText("")
+            }
+            layoutNoDataFoundPolitical.tvClearFilter.setOnClickListener {
+                etSearchCountry.setText("")
             }
             tvClearSelection.setOnClickListener {
-                clearSortingSelection()
-                notifySortingAdapter()
-                imgFilterSelected.hide()
-                isNoDataFoundVisible = false
-                isFilterApplied = false
-                layoutNoDataFound.root.hide()
-                tvClearFilter.hide()
-                mViewModel.mStyleList.clear()
-                mViewModel.mStyleList.addAll(mViewModel.mStyleListForFilter)
-                mMapStyleAdapter?.notifyDataSetChanged()
+                mViewModel.mPoliticalData.forEach {
+                    it.isSelected = false
+                }
+                activity?.runOnUiThread {
+                    mPoliticalAdapter?.notifyDataSetChanged()
+                }
             }
             btnApplyFilter.setOnClickListener {
-                val providerNames = arrayListOf<String>()
-                val attributeNames = arrayListOf<String>()
-                val typeNames = arrayListOf<String>()
-                mViewModel.providerOptions.filter { it.isSelected }
-                    .forEach { data -> providerNames.add(data.name) }
-                mViewModel.attributeOptions.filter { it.isSelected }
-                    .forEach { data -> attributeNames.add(data.name) }
-                mViewModel.typeOptions.filter { it.isSelected }
-                    .forEach { data -> typeNames.add(data.name) }
-                val filterList = mViewModel.filterAndSortItems(
-                    requireContext(),
-                    etSearchMap.text.toString().trim().ifEmpty { null },
-                    providerNames.ifEmpty { null },
-                    attributeNames.ifEmpty { null },
-                    typeNames.ifEmpty { null }
-                )
-                if (providerNames.isNotEmpty() || attributeNames.isNotEmpty() || typeNames.isNotEmpty()) {
-                    imgFilterSelected.show()
-                    imgFilter.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_primary_green
-                        )
-                    )
-                    isFilterApplied = true
-                    if (providerNames.isNotEmpty()) {
-                        providerNames.forEach { name ->
-                            mViewModel.providerOptions.filter { it.name == name }
-                                .forEach { data -> data.isApplyFilter = true }
-                        }
+                val selectedItem = mViewModel.mPoliticalData.find { it.isSelected }
+                if (selectedItem != null) {
+                    mPreferenceManager.setValue(KEY_POLITICAL_VIEW, selectedItem.countryName)
+                    tvPoliticalDescription.apply {
+                        text = "${selectedItem.countryName}. ${selectedItem.description}"
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.color_primary_green))
                     }
-                    if (attributeNames.isNotEmpty()) {
-                        attributeNames.forEach { name ->
-                            mViewModel.attributeOptions.filter { it.name == name }
-                                .forEach { data -> data.isApplyFilter = true }
-                        }
-                    }
-                    if (typeNames.isNotEmpty()) {
-                        typeNames.forEach { name ->
-                            mViewModel.typeOptions.filter { it.name == name }
-                                .forEach { data -> data.isApplyFilter = true }
-                        }
-                    }
-                    mViewModel.providerOptions.filter { !it.isSelected }
-                        .forEach { data -> data.isApplyFilter = false }
-                    mViewModel.attributeOptions.filter { !it.isSelected }
-                        .forEach { data -> data.isApplyFilter = false }
-                    mViewModel.typeOptions.filter { !it.isSelected }
-                        .forEach { data -> data.isApplyFilter = false }
                 } else {
-                    clearSortingSelection()
-                    notifySortingAdapter()
-                    setFilterNotSelected()
-                    collapseSearchMap(params)
-                }
-                if (filterList.isNotEmpty()) {
-                    mViewModel.mStyleList.clear()
-                    mViewModel.mStyleList.addAll(filterList)
-                    activity?.runOnUiThread {
-                        mMapStyleAdapter?.notifyDataSetChanged()
+                    mPreferenceManager.setValue(KEY_POLITICAL_VIEW, "")
+                    tvPoliticalDescription.apply {
+                        text = getString(R.string.label_map_representation_for_different_countries)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.color_hint_text))
                     }
-                    mapStyleShowList()
-                    isNoDataFoundVisible = false
-                } else {
-                    isNoDataFoundVisible = true
-                    mViewModel.mStyleList.clear()
-                    activity?.runOnUiThread {
-                        mMapStyleAdapter?.notifyDataSetChanged()
-                    }
-                    mapStyleShowList()
-                    showNoDataFoundFilter()
                 }
+                appCompatTextView2.text = getString(R.string.label_map_style)
+                showViews(rvMapStyle, cardColorScheme, clPoliticalView)
+                hideViews(clSearchPolitical, clApply)
             }
-            imgFilter.setOnClickListener {
-                if (nsvFilter.isVisible) {
-                    mViewModel.providerOptions.forEach {
-                        if (it.isSelected) {
-                            if (!it.isApplyFilter) {
-                                it.isSelected = false
-                            }
-                        } else {
-                            if (it.isApplyFilter) {
-                                it.isSelected = true
-                            }
-                        }
-                    }
-                    mViewModel.attributeOptions.forEach {
-                        if (it.isSelected) {
-                            if (!it.isApplyFilter) {
-                                it.isSelected = false
-                            }
-                        } else {
-                            if (it.isApplyFilter) {
-                                it.isSelected = true
-                            }
-                        }
-                    }
-                    mViewModel.typeOptions.forEach {
-                        if (it.isSelected) {
-                            if (!it.isApplyFilter) {
-                                it.isSelected = false
-                            }
-                        } else {
-                            if (it.isApplyFilter) {
-                                it.isSelected = true
-                            }
-                        }
-                    }
-                    notifySortingAdapter()
-                    mapStyleShowList()
-                    if (isNoDataFoundVisible) {
-                        layoutNoDataFound.root.show()
-                        if (isFilterApplied) {
-                            tvClearFilter.show()
-                        } else {
-                            tvClearFilter.hide()
-                        }
-                    }
-                    collapseSearchMap(params)
-                } else {
-                    activity?.hideSoftKeyboard(etSearchMap)
-                    mapStyleShowSorting()
-                    openSearch(params)
-                    imgFilter.setColorFilter(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_primary_green
-                        )
-                    )
-                }
-            }
-            clMapStyleMain.setOnClickListener {
-                if (etSearchMap.text.isNullOrEmpty() && tilSearch.isVisible && !nsvFilter.isVisible) {
-                    collapseSearchMap(params)
-                }
-            }
-            cardEsri.setOnClickListener {
-                val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                if (mapName != getString(R.string.esri)) {
-                    mapStyleChange(
-                        false,
-                        getString(R.string.esri),
-                        getString(R.string.map_light)
-                    )
-                }
-            }
-            cardHere.setOnClickListener {
-                val mapName =
-                    mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                if (mapName != getString(R.string.here)) {
-                    mapStyleChange(
-                        false,
-                        getString(R.string.here),
-                        getString(R.string.map_explore)
-                    )
-                }
-            }
-            cardOpenData.setOnClickListener {
-                val mapName =
-                    mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                if (mapName != getString(R.string.open_data)) {
-                    mapStyleChange(
-                        false,
-                        getString(R.string.open_data),
-                        getString(R.string.map_standard_light)
-                    )
-                }
-            }
-            cardGrabMap.setOnClickListener {
-                val mapName =
-                    mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                if (mapName != getString(R.string.grab)) {
-                    mapStyleChange(
-                        false,
-                        getString(R.string.grab),
-                        getString(R.string.map_grab_light)
-                    )
-                }
-            }
+            tilSearch.isEndIconVisible = false
         }
     }
 
-    private fun FragmentMapStyleBinding.showNoDataFoundFilter() {
-        layoutNoDataFound.root.show()
-        if (isFilterApplied) {
-            tvClearFilter.show()
-        } else {
-            tvClearFilter.hide()
+    private fun clearSelectionAndSetOriginalData(selectedCountry: String) {
+        mViewModel.mPoliticalData.forEach {
+            it.isSelected = false
         }
-        rvMapStyle.hide()
-    }
-
-    private fun FragmentMapStyleBinding.searchText(text: CharSequence?) {
-        tilSearch.isEndIconVisible = !text.isNullOrEmpty()
-        val providerNames = arrayListOf<String>()
-        val attributeNames = arrayListOf<String>()
-        val typeNames = arrayListOf<String>()
-        mViewModel.providerOptions.filter { it.isSelected }
-            .forEach { data -> providerNames.add(data.name) }
-        mViewModel.attributeOptions.filter { it.isSelected }
-            .forEach { data -> attributeNames.add(data.name) }
-        mViewModel.typeOptions.filter { it.isSelected }
-            .forEach { data -> typeNames.add(data.name) }
-        val filterList = mViewModel.filterAndSortItems(
-            requireContext(),
-            text.toString().ifEmpty { null },
-            providerNames.ifEmpty { null },
-            attributeNames.ifEmpty { null },
-            typeNames.ifEmpty { null }
-        )
-        if (filterList.isNotEmpty()) {
-            mViewModel.mStyleList.clear()
-            mViewModel.mStyleList.addAll(filterList)
-            activity?.runOnUiThread {
-                mMapStyleAdapter?.notifyDataSetChanged()
+        mViewModel.mPoliticalSearchData.forEach {
+            it.isSelected = false
+        }
+        if (selectedCountry.isNotEmpty()) {
+            selectedCountry.takeIf { it.isNotEmpty() }?.let { country ->
+                mViewModel.mPoliticalSearchData.find { it.countryName == country }?.let {
+                    it.isSelected = true
+                }
             }
-            rvMapStyle.show()
-            layoutNoDataFound.root.hide()
-            tvClearFilter.hide()
-            isNoDataFoundVisible = false
-        } else {
-            mViewModel.mStyleList.clear()
-            activity?.runOnUiThread {
-                mMapStyleAdapter?.notifyDataSetChanged()
-            }
-            isNoDataFoundVisible = true
-            showNoDataFoundFilter()
         }
-    }
-
-    private fun FragmentMapStyleBinding.setFilterNotSelected() {
-        isFilterApplied = false
-        imgFilterSelected.hide()
-        imgFilter.setColorFilter(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.color_img_tint
-            )
-        )
-    }
-
-    private fun clearSortingSelection() {
-        mViewModel.providerOptions.forEachIndexed { index, _ ->
-            mViewModel.providerOptions[index].isSelected = false
-            mViewModel.providerOptions[index].isApplyFilter = false
-        }
-        mViewModel.attributeOptions.forEachIndexed { index, _ ->
-            mViewModel.attributeOptions[index].isSelected = false
-            mViewModel.attributeOptions[index].isApplyFilter = false
-        }
-        mViewModel.typeOptions.forEachIndexed { index, _ ->
-            mViewModel.typeOptions[index].isSelected = false
-            mViewModel.typeOptions[index].isApplyFilter = false
-        }
-    }
-
-    private fun FragmentMapStyleBinding.collapseSearchMap(params: ViewGroup.LayoutParams?) {
-        if (!isFilterApplied) {
-            imgFilter.setColorFilter(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_img_tint
-                )
-            )
-        }
-        activity?.runOnUiThread {
-            scrollMapStyle.isFillViewport = false
-            params?.width = ViewGroup.LayoutParams.WRAP_CONTENT
-            cardSearchFilter.layoutParams = params
-        }
-        tilSearch.hide()
-        viewLine.show()
-        if (!isGrabMapEnable(mPreferenceManager)) {
-            cardGrabMap.hide()
-            cardEsri.show()
-            cardHere.show()
-            cardOpenData.show()
-        } else {
-            groupFilterButton.show()
-        }
+        mPoliticalAdapter?.notifyDataSetChanged()
     }
 
     private fun backPress() {
@@ -939,6 +362,16 @@ class MapStyleFragment : BaseFragment() {
         }
     }
     fun hideKeyBoard() {
-        mBinding.etSearchMap.clearFocus()
+        mBinding.etSearchCountry.clearFocus()
+    }
+
+    private fun enableToggle() {
+        mBinding.toggleMode.isEnabled = true
+        mBinding.toggleMode.alpha = 1.0f
+    }
+
+    private fun disableToggle() {
+        mBinding.toggleMode.isEnabled = false
+        mBinding.toggleMode.alpha = 0.5f
     }
 }

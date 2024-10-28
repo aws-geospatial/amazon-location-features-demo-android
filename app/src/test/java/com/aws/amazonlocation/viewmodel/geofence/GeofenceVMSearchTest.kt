@@ -48,18 +48,18 @@ class GeofenceVMSearchTest : BaseTest() {
         mGeofenceViewModel = GeofenceViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceSuccess() = runTest {
         Mockito.`when`(
             mRemoteDataSourceImpl.searchPlaceIndexForText(
                 anyOrNull(),
                 anyOrNull(),
-                any(),
+                anyOrNull(),
+                anyOrNull(),
                 any()
             )
         ).thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.success(Responses.RESPONSE_SEARCH_TEXT_RIO_TINTO)
         }
 
@@ -75,18 +75,18 @@ class GeofenceVMSearchTest : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun searchPlaceFail() = runTest {
         Mockito.`when`(
             mRemoteDataSourceImpl.searchPlaceIndexForText(
                 anyOrNull(),
                 anyOrNull(),
-                any(),
+                anyOrNull(),
+                anyOrNull(),
                 any()
             )
         ).thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.error(SearchSuggestionResponse(error = NO_DATA_FOUND))
         }
 

@@ -1,16 +1,16 @@
 package com.aws.amazonlocation.data.response
 
-import aws.sdk.kotlin.services.location.model.Place
-import aws.sdk.kotlin.services.location.model.PlaceGeometry
-import aws.sdk.kotlin.services.location.model.SearchForPositionResult
-import aws.sdk.kotlin.services.location.model.SearchPlaceIndexForPositionResponse
-import aws.sdk.kotlin.services.location.model.SearchPlaceIndexForPositionSummary
-import com.aws.amazonlocation.mock.ESRI
-import com.aws.amazonlocation.mock.LIGHT
+import aws.sdk.kotlin.services.geoplaces.model.Address
+import aws.sdk.kotlin.services.geoplaces.model.Country
+import aws.sdk.kotlin.services.geoplaces.model.PlaceType
+import aws.sdk.kotlin.services.geoplaces.model.Region
+import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
+import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResultItem
+import aws.sdk.kotlin.services.geoplaces.model.SubRegion
+import com.aws.amazonlocation.mock.STANDARD
 import com.aws.amazonlocation.mock.NO_DATA_FOUND
 import com.aws.amazonlocation.mock.Responses
 import com.aws.amazonlocation.mock.TEST_DATA
-import com.aws.amazonlocation.mock.TEST_DATA_1
 import com.aws.amazonlocation.mock.TEST_DATA_2
 import com.aws.amazonlocation.mock.TEST_DATA_3
 import com.aws.amazonlocation.mock.TEST_DATA_4
@@ -28,7 +28,6 @@ import com.aws.amazonlocation.mock.TEST_FAILED_SEARCH_SUGGESTION_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_SIGN_OUT_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_TRACKING_HISTORY_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_UPDATE_BATCH_DATA
-import com.aws.amazonlocation.mock.VECTOR
 import java.util.Date
 import org.junit.Assert
 import org.junit.Test
@@ -65,8 +64,6 @@ class ResponseDataTest {
         val searchSuggestionResponse = Responses.RESPONSE_SEARCH_TEXT_RIO_TINTO
         searchSuggestionResponse.text = searchSuggestionResponse.text
         searchSuggestionResponse.maxResults = searchSuggestionResponse.maxResults
-        searchSuggestionResponse.language = searchSuggestionResponse.language
-        searchSuggestionResponse.dataSource = searchSuggestionResponse.dataSource
         searchSuggestionResponse.error = searchSuggestionResponse.error
         searchSuggestionResponse.data[0].isPlaceIndexForPosition
         searchSuggestionResponse.data[0].isDestination
@@ -85,28 +82,25 @@ class ResponseDataTest {
     @Test
     fun searchResponseTest() {
         val searchResponse = Responses.SEARCH_RESPONSE_TAJ
-        searchResponse.searchPlaceIndexForPositionResult = SearchPlaceIndexForPositionResponse {
-            results = listOf(
-                SearchForPositionResult {
-                    distance = 0.0
-                    place = Place {
-                        country = TEST_DATA_2
-                        geometry = PlaceGeometry {
-                            point = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
-                        }
-                        interpolated = false
+        searchResponse.latitude = TEST_DATA_LAT
+        searchResponse.longitude = TEST_DATA_LNG
+        searchResponse.reverseGeocodeResponse = ReverseGeocodeResponse {
+            pricingBucket = "test"
+            resultItems = listOf(
+                ReverseGeocodeResultItem {
+                    placeId = "test"
+                    title = "testTitle"
+                    placeType = PlaceType.Block
+                    distance = 0L
+                    position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
+                    address = Address {
+                        country = Country {name = TEST_DATA_2}
                         label = TEST_DATA_3
-                        region = TEST_DATA_4
-                        subRegion = TEST_DATA
+                        region = Region{name = TEST_DATA_4}
+                        subRegion = SubRegion {name = TEST_DATA}
                     }
                 }
             )
-            summary = SearchPlaceIndexForPositionSummary {
-                dataSource = ESRI
-                language = TEST_DATA_1
-                maxResults = 1
-                position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
-            }
         }
         Assert.assertTrue(TEST_FAILED_SEARCH_DATA, searchResponse.latitude == TEST_DATA_LAT)
     }
@@ -186,9 +180,6 @@ class ResponseDataTest {
     fun mapStyleInnerDataTest() {
         val data = MapStyleInnerData(
             mapName = null,
-            ESRI,
-            listOf(LIGHT),
-            listOf(VECTOR),
             isSelected = false,
             image = 0,
             mMapName = null,
@@ -201,9 +192,6 @@ class ResponseDataTest {
     fun mapStyleDataTest() {
         val data = MapStyleInnerData(
             mapName = null,
-            ESRI,
-            listOf(LIGHT),
-            listOf(VECTOR),
             isSelected = false,
             image = 0,
             mMapName = null,
@@ -211,7 +199,7 @@ class ResponseDataTest {
         )
 
         val mapStyleData = MapStyleData(
-            styleNameDisplay = ESRI,
+            styleNameDisplay = STANDARD,
             isSelected = false,
             mapInnerData = null
         )

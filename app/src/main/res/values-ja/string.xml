@@ -15,9 +15,7 @@
   <string name="privacy_policy">によって 継続、 あなた 同意する に Amazon\'s 条件 の 使用 そして プライバシー 通知。</string>
   <string name="condition_of_use">条件 の 使用</string>
   <string name="privacy_notice">プライバシー 通知</string>
-  <string name="login_success">サイン に 成功しました</string>
   <string name="sign_out_successfully">サイン アウト 首尾よく</string>
-  <string name="sign_out_failed">サイン アウト 失敗、 お願い 試してみる もう一度...</string>
   <string name="sign_in_to_access_tracking">サイン に に アクセス トラッキング そして ジオフェンス 特徴 または 続行します に 探索 その 地図</string>
   <string name="sign_in_required">サイン に 必須</string>
   <string name="maybe_later">たぶん 後</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">ウォーク</string>
   <string name="label_drive">ドライブ</string>
   <string name="label_truck">トラック</string>
-  <string name="label_bicycle">自転車</string>
-  <string name="label_motorcycle">オートバイ</string>
+  <string name="label_scooter">スクーター</string>
   <string name="label_search_starting_point">検索 開始 ポイント</string>
   <string name="exit">出口</string>
   <string name="log_out">ログ アウト</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">[編集] ジオフェンス</string>
   <string name="label_map_style">マップ スタイル</string>
   <string name="label_map_style_description">変更 データ プロバイダー また 影響する 場所 &amp; ルート API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">お願いします 入る 適切な アイデンティティ プール ID</string>
   <string name="label_enter_domain">入力済み ユーザー ドメイン です 間違っています</string>
   <string name="label_enter_user_pool_client_id">入力済み ユーザー プール クライアント ID です 間違っています</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">[データ] プロバイダー</string>
   <string name="map_style">マップ スタイル</string>
   <string name="aws_cloudformation">接続 きみの AWS 口座</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">あなた です 接続されています</string>
   <string name="label_connected_description">接続 きみの AWS アカウント に 有効にします ジオフェンス そして トラッカー。 これ だろう 確保 きみの 追跡 そして ジオフェンシング データ です のみ 保存された に きみの アカウント。 後 あなた ログ で、 すべて 特徴 の その デモ アプリ だろう 走る を使用します リソース あなた 配備する に きみの AWS アカウント。 ログ アウト もし あなた 願い に 続行します 実行しています その デモ アプリ を使用します リソース に AWS デモ アプリ アカウント。</string>
   <string name="label_how_to_remove">どうやって に 削除:</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">トラッキング 歴史</string>
   <string name="label_tracking_your_activity">トラッキング きみの 端末 ロケーション</string>
   <string name="label_enable_tracking">有効にする ライブ トラッカー</string>
-  <string name="label_enable_tracker">有効にする トラッカー</string>
-  <string name="label_enable_tracker_description">あなた できます つかいます 任意の データ プロバイダー を除きます Esri にとって きみの 資産 管理 または 追跡 つかいます ケース。 もし あなた 欲しいです に つかいます Esri にとって きみの 資産 管理 または 追跡 つかいます ケース、 お願い 読む 条項 そして 条件</string>
-  <string name="label_enable_tracker_view_terms">[ビュー] 規約 そして 条件</string>
-  <string name="label_enable_tracker_continue_to_tracker">続行</string>
   <string name="label_enable_tracking_detail">有効化 その 特徴 だろう 許す あなた に トラック きみの 端末 そして 取得する 通知済み いつ その 端末 入る または 出る 任意の の きみの ジオフェンス。</string>
   <string name="label_check_your_internet_connection_and_try_again">チェック きみの インターネット 接続 そして 試してみる 再び</string>
   <string name="label_not_tracking_your_activity">ない 追跡 きみの 端末 ロケーション</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">スタック です 破損した、 スイッチング 戻ります に デフォルト スタック</string>
   <string name="error_route">ルート じゃない 見つかりました。</string>
   <string name="no_route_found">いいえ ルート 見つけた</string>
-  <string name="error_switch_to_here">距離 です 大きい より 400 キロ、 できない 計算する 経由で エズリ、 親切に スイッチ に ここ プロバイダー</string>
-  <string name="error_switch_to_here_miles" formatted="false">距離 です 大きい より %s ミックス、 できない 計算する 経由で エズリ、 親切に スイッチ に ここ プロバイダー</string>
-  <string name="error_distance_400">で データソース Esri、 ウェイポイント にとって 車 そして トラック しなければならない です 以内に 400km、 そして ウェイポイント にとって 歩きます しなければならない です 以内に 40キロ。</string>
-  <string name="error_distance_248_miles" formatted="false">で データソース Esri、 ウェイポイント にとって 車 そして トラック しなければならない です 以内に %smiさん、 そして ウェイポイント にとって 歩きます しなければならない です 以内に %sm。</string>
   <string name="connect_to_aws_account">接続 AWS 口座</string>
   <string name="label_preview">プレビュー</string>
   <string name="label_location_permission_denied">ロケーション 許可 拒否されました</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">リーガル そして プライバシー</string>
   <string name="label_version">バージョン</string>
   <string name="label_sign_out">サイン アウト</string>
-  <string name="distance_is_greater_than_400_km">距離 です 大きい より 400 キロ</string>
-  <string name="distance_is_greater_than_248_mi">距離 です 大きい より %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">できない 計算する 経由で エズリ、 親切に スイッチ に \nここ プロバイダー。</string>
-  <string name="label_here_attribution_text">© 2022 ここ</string>
   <string name="label_partner_attribution">パートナー アトリビューション</string>
   <string name="label_software_attribution">ソフトウェア アトリビューション</string>
   <string name="label_click_learn_more_for_software_attribution">クリック 学ぶ もっと にとって ソフトウェア アトリビューション</string>
@@ -204,13 +172,6 @@
   <string name="imperial">インペリアル</string>
   <string name="subtitle_imperial">マイル、 ポンド</string>
   <string name="automatic">自動</string>
-  <string name="label_restart_app_title">有効にする Grab</string>
-  <string name="label_restart_app_description">Grab 提供する マップ、 ルート そして 場所 検索 に マレーシア、 フィリピン、 タイ、 シンガポール、 ベトナム、 インドネシア、 ミャンマー、 そして カンボジア。\n\nその間 車 そして オートバイ ルート です 使用可能です に渡って その 上 国、 その 自転車 そして 歩く ルート です サポートされている に のみ キー 都市 そのような なので シンガポール、 ジャカルタ、 マニラ、 クラン バレー、 バンコク、 ホー チー ミン シティ、 そして ハノイ。 </string>
-  <string name="enable_grab">有効にする Grab</string>
-  <string name="dont_ask_again">してはいけない 尋ねる 再び</string>
-  <string name="your_location_not_supported_by_grab">きみの 現在 ロケーション です 外側 国 サポートされている によって Grab. 現在、 Grab サポートする マレーシア、 フィリピン、 タイ、 シンガポール、 ベトナム、 インドネシア、 ミャンマー、 カンボジア。</string>
-  <string name="label_current_location_disabled">現在 ロケーション 無効になっています</string>
-  <string name="label_grab_limitation">距離 できない です 計算された、 以来 きみの 現在 ロケーション 持っている されている 無効になっています 期限 に grab 制限</string>
   <string name="label_automatic_sub_title_mile">ベース オン きみの ブラウザ 設定 (マイル、 ポンド)</string>
   <string name="label_automatic_sub_title_km">ベース オン きみの ブラウザ 設定 (キロメートル、 キログラム)</string>
   <string name="label_sec">秒</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">クリア 選択</string>
   <string name="label_style_search_error_title">いいえ マッチング スタイル 見つけた</string>
   <string name="label_style_search_error_des">作る 承知しました きみの 検索 です 綴られた 正しく そして 試してみる もう一度、 作る 承知しました あなた 持っている 適用された その 適切な フィルタ または 削除する その フィルタ そして 試してみる 再び</string>
-  <string name="label_geofence_disable_error">選択済み ジオフェンス です じゃない 使用可能です に その Grab 地図 プロバイダー。 お願いします スイッチ に もう一つ 地図 プロバイダー に 見る そして 管理する 選択された ジオフェンス。</string>
   <string name="label_clear_filters">クリア フィルター</string>
   <string name="label_try_trackers_amp_geofences_simulation">やってみる トラッカー &amp; ジオフェンス シミュレーション</string>
   <string name="label_requires_connection_to_aws_cloudformation">必要 接続 に AWS クラウド形成</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">にとって スムーズ シミュレーション 経験 お願い 許す 通知 許可 から 設定。</string>
-  <string name="label_change_data_provider">変更 [データ] プロバイダー</string>
-  <string name="label_change_data_provider_des">GrabMaps しない サポート シミュレーション、 お願い 変化する データ プロバイダー に Esri または ここ に つかいます ジオフェンス または トラッカー 機能。</string>
-  <string name="label_switch_to_esri">[スイッチ] に Esri</string>
   <string name="region">リージョン</string>
-  <string name="label_enable_open_data">有効化 オープンデータ</string>
-  <string name="label_enable_open_data_des">オープンデータ 使用する Esri にとって ルート そして 場所 検索 機能性 に 強化します きみの 経験。</string>
+  <string name="mode_light">ライト</string>
+  <string name="mode_dark">ダーク</string>
+  <string name="label_political_view">政治的 見る</string>
+  <string name="label_map_representation_for_different_countries">マップ 表現 にとって 違う 国</string>
+  <string name="description_arg">アルゼンチン 見る オン その 南部 パタゴニア人 アイス フィールド そして ティエラ デル フエゴ、 を含む その フォークランド 島々、 南 ジョージア、 そして 南 サンドイッチ 島々</string>
+  <string name="description_egy">エジプト 見る オン バール タウィル</string>
+  <string name="description_ind">インドの 見る オン ギルギット・バルティスタン</string>
+  <string name="description_ken">ケニアの 見る オン その イレミ 三角形</string>
+  <string name="description_mar">モロッコの 見る オン 西部 サハラ</string>
+  <string name="description_rus">ロシアの 見る オン クリミア</string>
+  <string name="description_sdn">スーダンの 見る オン その ハライブ 三角形</string>
+  <string name="description_srb">セルビア\ 見る オン コソボ、 ヴコヴァル、 そして サレングラド 島々</string>
+  <string name="description_sur">スリナム\ 見る オン その クーランタイン 源流 そして ラワ 源流</string>
+  <string name="description_syr">シリア 見る オン その ゴラン ハイツ</string>
+  <string name="description_tur">トルコの 見る オン キプロス そして 北方だ キプロス</string>
+  <string name="description_tza">タンザニア 見る オン 湖 マラウイ</string>
+  <string name="description_ury">ウルグアイ\ 見る オン リンコン de アルティガス</string>
+  <string name="description_vnm">ベトナムの 見る オン その パラセル 島々 そして スプラトリー 島々</string>
 </resources>

@@ -34,7 +34,7 @@ class SearchPlacesAdapter(
                     groupDistance.hide()
                     tvRegion.hide()
                 } else {
-                    tvPlaceName.text = data.amazonLocationPlace?.label?.split(",")?.toTypedArray()?.get(0) ?: data.amazonLocationPlace?.label
+                    tvPlaceName.text = data.amazonLocationAddress?.label?.split(",")?.toTypedArray()?.get(0) ?: data.amazonLocationAddress?.label
                 }
 
                 if (data.distance != null && preferenceManager != null) {
@@ -45,6 +45,7 @@ class SearchPlacesAdapter(
                                 tvDistance.context,
                                 it,
                                 isMetric,
+                                false
                             )
                         }
                     }
@@ -54,7 +55,7 @@ class SearchPlacesAdapter(
                 }
 
                 tvRegion.text =
-                    getRegion(data.amazonLocationPlace?.region, data.amazonLocationPlace?.subRegion, data.amazonLocationPlace?.country)
+                    getRegion(data.amazonLocationAddress?.region?.name, data.amazonLocationAddress?.subRegion?.name, data.amazonLocationAddress?.country?.name)
 
                 binding.clMain.setOnClickListener {
                     mSearchPlaceInterface.placeClick(adapterPosition)

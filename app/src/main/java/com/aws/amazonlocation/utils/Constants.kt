@@ -13,9 +13,6 @@ const val KEY_USER_DETAILS = "user_details"
 const val KEY_LOCATION_PERMISSION = "location_permission"
 const val SEARCH_MAX_RESULT = 15
 const val SEARCH_MAX_SUGGESTION_RESULT = 5
-const val KILOMETERS = "Kilometers"
-const val MILES = "Miles"
-const val KEY_METHOD = "method"
 const val KEY_CODE = "code"
 const val SIGN_OUT = "signout"
 const val SIGN_IN = "signin"
@@ -48,12 +45,11 @@ const val KEY_TAB_ENUM = "KEY_TAB_ENUM"
 const val KEY_CLOUD_FORMATION_STATUS = "KEY_CLOUD_FORMATION_STATUS"
 const val KEY_UNIT_SYSTEM = "KEY_UNIT_SYSTEM"
 const val KEY_SELECTED_REGION = "KEY_SELECTED_REGION"
-const val HTTPS = "https://"
 const val KEY_URL = "KEY_URL"
 const val KEY_MAP_NAME = "key_map_name"
 const val KEY_MAP_STYLE_NAME = "key_map_style_name"
-const val KEY_GRAB_DONT_ASK = "key_grab_dont_ask"
-const val KEY_OPEN_DATA_DONT_ASK = "key_open_data_dont_ask"
+const val KEY_COLOR_SCHEMES = "key_color_schemes"
+const val KEY_POLITICAL_VIEW = "key_political_view"
 const val KEY_END_POINT = "key_end_point"
 
 const val CLICK_DEBOUNCE = 1000L
@@ -66,6 +62,7 @@ const val DELAY_SIMULATION_2000 = 2000L
 const val DELAY_LANGUAGE_3000 = 3000L
 const val CLICK_TIME_DIFFERENCE = 1500
 const val TIME_OUT = 20000L
+const val MQTT_CONNECT_TIME_OUT = 1000L
 const val KEY_AVOID_TOLLS = "Avoid Tolls"
 const val KEY_AVOID_FERRIES = "Avoid Ferries"
 const val AWS_CLOUD_INFORMATION_FRAGMENT = "AwsCloudInformationFragment"
@@ -95,46 +92,19 @@ const val KEY_ACCESS_TOKEN = "key_access_token"
 const val KEY_REFRESH_TOKEN = "key_refresh_token"
 const val KEY_AUTH_FETCH_TIME = "key_auth_fetch_time"
 const val KEY_AUTH_EXPIRES_IN = "key_auth_expires_in"
-const val KEY_PROVIDER = "key_provider"
 const val KEY_NEAREST_REGION = "key_nearest_region"
 const val IOT_POLICY = "AmazonLocationIotPolicy"
 const val IOT_POLICY_UN_AUTH = "AmazonLocationIotPolicyUnauth"
 
 const val STRING_FORMAT = "%.2f, %.2f"
-
-const val JSON_KEY_STYLE_SOURCES = "sources"
-const val JSON_KEY_STYLE_ESRI = "esri"
-const val JSON_KEY_STYLE_HERE = "omv"
-const val JSON_KEY_STYLE_RASTER = "raster-tiles"
-const val JSON_KEY_STYLE_MINZOOM = "minzoom"
-const val JSON_KEY_STYLE_MAXZOOM = "maxzoom"
-const val TRAVEL_MODE_CAR = "Car"
-const val TRAVEL_MODE_BICYCLE = "Bicycle"
-const val TRAVEL_MODE_MOTORCYCLE = "Motorcycle"
 const val ATTRIBUTE_LIGHT = "Light"
 const val ATTRIBUTE_DARK = "Dark"
-const val ATTRIBUTE_SATELLITE = "Satellite"
-const val ATTRIBUTE_3D = "3D"
-const val ATTRIBUTE_TRUCK = "Truck"
-const val TYPE_VECTOR = "Vector"
-const val TYPE_RASTER = "Raster"
 
-const val HERE = "Here"
-const val OPEN = "Open"
-const val GRAB = "Grab"
-const val DESCRIPTION_TAG_ESRI = "ESRI_"
-const val DESCRIPTION_TAG_HERE = "HERE_"
-const val DESCRIPTION_TAG_OPEN = "OPEN_"
-const val DESCRIPTION_TAG_GRAB = "GRAB_"
+const val MAP = "MAP"
+const val MILES = "miles"
+const val KILOMETERS = "kilometers"
 
 const val MAP_STYLE_ATTRIBUTION = "MapStyleAttribution"
-
-val SE_REGION_LIST = arrayListOf("ap-southeast-1")
-
-const val latNorth = 31.952162238024968
-const val lonEast = 146.25
-const val latSouth = -21.943045533438166
-const val lonWest = 90.0
 
 const val simulationLatNorth = 49.295509609061924
 const val simulationLonEast = -123.04870086158795
@@ -176,8 +146,8 @@ val regionMapList: MutableMap<String, String> = mutableMapOf(
     Pair("South America (São Paulo) sa-east-1", "sa-east-1")
 )
 
-val regionList = arrayListOf("us-east-1", "eu-west-1", "ap-southeast-1")
-val regionDisplayName = arrayListOf("Automatic", "Europe (Ireland) eu-west-1", "Asia Pacific (Singapore) ap-southeast-1", "US-East (N. Virginia) us-east-1")
+val regionList = arrayListOf("us-east-1", "eu-west-1")
+val regionDisplayName = arrayListOf("Automatic", "Europe (Ireland) eu-west-1", "US-East (N. Virginia) us-east-1")
 
 /**
  *  * Validate Latitude and Longitude from string.
@@ -194,18 +164,8 @@ const val userPoolClientId = "[\\w+]+"
 const val regionPattern = "^[a-zA-Z-]+-\\d+$"
 
 const val LOCATION_AWS_PREFIX = "location.aws.com.demo."
-const val LOCATION_MAPS_PREFIX = "maps."
 const val LOCATION_TRACKERS_PREFIX = "trackers."
 const val LOCATION_GEOFENCE_S_PREFIX = "geofences."
-const val LOCATION_ROUTES_PREFIX = "routes."
-const val LOCATION_PLACES_PREFIX = "places."
-
-const val ESRI_PLACE_INDEX = LOCATION_AWS_PREFIX + LOCATION_PLACES_PREFIX + "Esri.PlaceIndex"
-const val HERE_PLACE_INDEX = LOCATION_AWS_PREFIX + LOCATION_PLACES_PREFIX + "HERE.PlaceIndex"
-const val GRAB_PLACE_INDEX = LOCATION_AWS_PREFIX + LOCATION_PLACES_PREFIX + "Grab.PlaceIndex"
-const val ESRI_ROUTE_CALCULATOR = LOCATION_AWS_PREFIX + LOCATION_ROUTES_PREFIX + "Esri.RouteCalculator"
-const val HERE_ROUTE_CALCULATOR = LOCATION_AWS_PREFIX + LOCATION_ROUTES_PREFIX + "HERE.RouteCalculator"
-const val GRAB_ROUTE_CALCULATOR = LOCATION_AWS_PREFIX + LOCATION_ROUTES_PREFIX + "Grab.RouteCalculator"
 
 object Credentials {
     const val CLOUD_FORMATION_REMOVE_URL = BuildConfig.CLOUD_FORMATION_URL
@@ -219,7 +179,6 @@ object Distance {
 }
 
 object MapCameraZoom {
-    const val SIMULATION_CAMERA_ZOOM = 9.0
     const val SIMULATION_CAMERA_ZOOM_1 = 10.0
     const val NAVIGATION_CAMERA_ZOOM = 14.0
     const val DEFAULT_CAMERA_ZOOM = 14.0
@@ -268,46 +227,6 @@ object TrackerCons {
     const val TRACKER_COLLECTION = LOCATION_AWS_PREFIX + LOCATION_TRACKERS_PREFIX + "Tracker"
 }
 
-object MapNames {
-    const val ESRI_LIGHT = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.Light"
-    const val ESRI_STREET_MAP = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.Streets"
-    const val ESRI_NAVIGATION = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.Navigation"
-    const val ESRI_DARK_GRAY_CANVAS = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.DarkGrayCanvas"
-    const val ESRI_LIGHT_GRAY_CANVAS = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.LightGrayCanvas"
-    const val ESRI_IMAGERY = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Esri.Imagery"
-    const val HERE_CONTRAST = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "HERE.Contrast"
-    const val HERE_EXPLORE = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "HERE.Explore"
-    const val HERE_EXPLORE_TRUCK = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "HERE.ExploreTruck"
-    const val HERE_HYBRID = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "HERE.Hybrid"
-    const val HERE_IMAGERY = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "HERE.Imagery"
-    const val GRAB_LIGHT = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Grab.StandardLight"
-    const val GRAB_DARK = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "Grab.StandardDark"
-    const val OPEN_DATA_STANDARD_LIGHT = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "OpenData.StandardLight"
-    const val OPEN_DATA_STANDARD_DARK = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "OpenData.StandardDark"
-    const val OPEN_DATA_VISUALIZATION_LIGHT = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "OpenData.VisualizationLight"
-    const val OPEN_DATA_VISUALIZATION_DARK = LOCATION_AWS_PREFIX + LOCATION_MAPS_PREFIX + "OpenData.VisualizationDark"
-}
-
-object MapStyles {
-    const val VECTOR_ESRI_TOPOGRAPHIC = "VectorEsriTopographic"
-    const val VECTOR_ESRI_STREETS = "VectorEsriStreets"
-    const val VECTOR_ESRI_NAVIGATION = "VectorEsriNavigation"
-    const val VECTOR_ESRI_DARK_GRAY_CANVAS = "VectorEsriDarkGrayCanvas"
-    const val VECTOR_ESRI_LIGHT_GRAY_CANVAS = "VectorEsriLightGrayCanvas"
-    const val RASTER_ESRI_IMAGERY = "RasterEsriImagery"
-    const val VECTOR_HERE_CONTRAST = "VectorHereContrast"
-    const val VECTOR_HERE_EXPLORE = "VectorHereExplore"
-    const val VECTOR_HERE_EXPLORE_TRUCK = "VectorHereExploreTruck"
-    const val HYBRID_HERE_EXPLORE_SATELLITE = "HybridHereExploreSatellite"
-    const val RASTER_HERE_EXPLORE_SATELLITE = "RasterHereExploreSatellite"
-    const val GRAB_LIGHT = "VectorGrabStandardLight"
-    const val GRAB_DARK = "VectorGrabStandardDark"
-    const val VECTOR_OPEN_DATA_STANDARD_LIGHT = "VectorOpenDataStandardLight"
-    const val VECTOR_OPEN_DATA_STANDARD_DARK = "VectorOpenDataStandardDark"
-    const val VECTOR_OPEN_DATA_VISUALIZATION_LIGHT = "VectorOpenDataVisualizationLight"
-    const val VECTOR_OPEN_DATA_VISUALIZATION_DARK = "VectorOpenDataVisualizationDark"
-}
-
 object DateFormat {
     const val MMM_DD_YYYY = "MMM dd, yyyy"
     const val HH_MM_AA = "HH:mm aa"
@@ -336,7 +255,6 @@ object EventType {
     const val APPLICATION_ERROR = "APPLICATION_ERROR"
 
     const val MAP_STYLE_CHANGE = "MAP_STYLE_CHANGE"
-    const val MAP_PROVIDER_CHANGE = "MAP_PROVIDER_CHANGE"
     const val PLACE_SEARCH = "PLACES_SEARCH"
     const val ROUTE_SEARCH = "ROUTE_SEARCH"
     const val ROUTE_OPTION_CHANGED = "ROUTE_OPTION_CHANGED"
@@ -408,7 +326,6 @@ object AnalyticsAttributeValue {
     const val ABOUT = "About"
     const val SIMULATION = "Simulation"
     const val UNITS = "Units"
-    const val DATA_PROVIDER = "Data provider"
     const val MAP_STYLE = "Map style"
     const val LANGUAGES = "Languages"
     const val DEFAULT_ROUTE_OPTIONS = "Default route options"

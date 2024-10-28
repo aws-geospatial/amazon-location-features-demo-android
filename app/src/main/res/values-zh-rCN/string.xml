@@ -15,9 +15,7 @@
   <string name="privacy_policy">由 继续， 你 同意 到 Amazon\'s 条件 的 使用 和 隐私 通知。</string>
   <string name="condition_of_use">条件 的 使用</string>
   <string name="privacy_notice">隐私 通知</string>
-  <string name="login_success">标志 在 成功地</string>
   <string name="sign_out_successfully">标志 出 成功地</string>
-  <string name="sign_out_failed">标志 出 失败了， 拜托 尝试 再说一遍...</string>
   <string name="sign_in_to_access_tracking">标志 在 到 访问 追踪 和 Geofence 功能 要么 继续 到 探索 这 地图</string>
   <string name="sign_in_required">标志 在 规定的</string>
   <string name="maybe_later">也许 后来</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">步行</string>
   <string name="label_drive">开车</string>
   <string name="label_truck">卡车</string>
-  <string name="label_bicycle">自行车</string>
-  <string name="label_motorcycle">摩托车</string>
+  <string name="label_scooter">小型摩托车</string>
   <string name="label_search_starting_point">搜寻 开始 点</string>
   <string name="exit">退出</string>
   <string name="log_out">日志 出</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">编辑 Geofence</string>
   <string name="label_map_style">地图 风格</string>
   <string name="label_map_style_description">正在改变 数据 提供者 也 影响 地方 &amp; 路线 API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">请 输入 正确的 身份 池 id</string>
   <string name="label_enter_domain">已输入 用户 域 是 错了</string>
   <string name="label_enter_user_pool_client_id">已输入 用户 池 客户 id 是 错了</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">数据 提供者</string>
   <string name="map_style">地图 风格</string>
   <string name="aws_cloudformation">连接 您的 AWS 账户</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">你 是 连接的</string>
   <string name="label_connected_description">连接 您的 AWS 帐户 到 启用 地理围栏 和 追踪器。 这个 将 确保 您的 追踪 和 地理围栏 数据 是 只有 已存储 在 您的 账户。 之后 你 日志 在， 所有 功能 的 这 演示 应用程序 将 运行 使用 资源 你 部署 在 您的 AWS 账户。 日志 出 如果 你 愿望 到 继续 正在运行 这 演示 应用程序 使用 资源 在 AWS 的 演示 应用 账户。</string>
   <string name="label_how_to_remove">怎么样 到 移除：</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">追踪 历史</string>
   <string name="label_tracking_your_activity">追踪 您的 设备 位置</string>
   <string name="label_enable_tracking">启用 直播 追踪器</string>
-  <string name="label_enable_tracker">启用 追踪器</string>
-  <string name="label_enable_tracker_description">你 能够 使用 任何 数据 提供者 除了 Esri 为了 您的 资产 管理 要么 追踪 使用 案例。 如果 你 想 到 使用 Esri 为了 您的 资产 管理 要么 追踪 使用 案例， 拜托 读 条款 和 条件</string>
-  <string name="label_enable_tracker_view_terms">查看 条款 和 条件</string>
-  <string name="label_enable_tracker_continue_to_tracker">继续</string>
   <string name="label_enable_tracking_detail">正在启用 这 功能 将 允许 你 到 跟踪 您的 设备 和 得到 已通知 什么时候 这 设备 进入 要么 退出 任何 的 您的 地理围栏。</string>
   <string name="label_check_your_internet_connection_and_try_again">查看 您的 互联网 连接 和 尝试 再次</string>
   <string name="label_not_tracking_your_activity">不是 追踪 您的 设备 位置</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">堆栈 是 腐败， 改变 背部 到 默认 堆</string>
   <string name="error_route">路线 不 找到了。</string>
   <string name="no_route_found">没有 路线 找到</string>
-  <string name="error_switch_to_here">距离 是 更大 比 400 千米， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
-  <string name="error_switch_to_here_miles" formatted="false">距离 是 更大 比 %s mi， 不能 计算 通过 埃斯里， 好心地 开关 到 这里 提供者</string>
-  <string name="error_distance_400">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 400 千米， 和 航点 为了 走路 必须 是 之内 40 千米。</string>
-  <string name="error_distance_248_miles" formatted="false">在 数据源 Esri， 航点 为了 汽车 和 卡车 必须 是 之内 %smi， 和 航点 为了 走路 必须 是 之内 %smi。</string>
   <string name="connect_to_aws_account">连接 AWS 账户</string>
   <string name="label_preview">预览</string>
   <string name="label_location_permission_denied">地点 许可 否认</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">合法 和 隐私</string>
   <string name="label_version">版本</string>
   <string name="label_sign_out">标志 出</string>
-  <string name="distance_is_greater_than_400_km">距离 是 更大 比 400 公里</string>
-  <string name="distance_is_greater_than_248_mi">距离 是 更大 比 %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">不能 计算 通过 埃斯里， 好心地 开关 到 \n这里 提供者。</string>
-  <string name="label_here_attribution_text">© 2022 这里</string>
   <string name="label_partner_attribution">合作伙伴 归因</string>
   <string name="label_software_attribution">软件 归因</string>
   <string name="label_click_learn_more_for_software_attribution">点击 学习 更多 为了 软件 归因</string>
@@ -204,13 +172,6 @@
   <string name="imperial">帝国的</string>
   <string name="subtitle_imperial">迈尔斯， 英镑</string>
   <string name="automatic">自动</string>
-  <string name="label_restart_app_title">启用 Grab</string>
-  <string name="label_restart_app_description">Grab 提供 地图， 路线 和 地点 搜索 在 马来西亚， 菲律宾， 泰国， 新加坡， 越南， 印度尼西亚， 缅甸， 和 柬埔寨。\n\n同时 汽车 和 摩托车 路线 是 可用 横过 这 以上 国家， 这 自行车 和 走着 路线 是 支持的 在 只有 钥匙 城市 这样 如同 新加坡， 雅加达， 马尼拉， 巴生 山谷， 曼谷， 哈 Chi 明 城市， 和 河内。 </string>
-  <string name="enable_grab">启用 Grab</string>
-  <string name="dont_ask_again">不要 问 再次</string>
-  <string name="your_location_not_supported_by_grab">你的 当前的 位置 是 外面 国家 支持的 通过 Grab. 目前， Grab 支持 马来西亚， 菲律宾， 泰国， 新加坡， 越南， 印度尼西亚， 缅甸， 柬埔寨。</string>
-  <string name="label_current_location_disabled">当前 位置 残疾的</string>
-  <string name="label_grab_limitation">距离 不能 是 已计算， 以来 您的 当前的 位置 有 是 残疾的 到期 到 grab 局限性</string>
   <string name="label_automatic_sub_title_mile">基于 上 您的 浏览器 设置 （迈尔斯， 磅）</string>
   <string name="label_automatic_sub_title_km">基于 上 您的 浏览器 设置 （千米， 千克）</string>
   <string name="label_sec">秒</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">清除 选择</string>
   <string name="label_style_search_error_title">没有 匹配 风格 找到</string>
   <string name="label_style_search_error_des">制作 当然 您的 搜索 是 拼出的 正确地 和 尝试 再说一遍， 使 当然 你 有 应用的 这 适当 过滤 要么 去除 这 过滤 和 尝试 再次</string>
-  <string name="label_geofence_disable_error">已选中 geofence 是 不 可用 在 这 Grab 地图 提供者。 请 开关 到 另一 地图 提供者 到 观点 和 管理 已选中 地理围栏。</string>
   <string name="label_clear_filters">清除 过滤器</string>
   <string name="label_try_trackers_amp_geofences_simulation">试试 追踪器 &amp; 地理围栏 模拟</string>
   <string name="label_requires_connection_to_aws_cloudformation">需要 连接 到 AWS 云形成</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">对于 光滑 模拟 经历 拜托 允许 通知 许可 从 设置。</string>
-  <string name="label_change_data_provider">改变 数据 提供商</string>
-  <string name="label_change_data_provider_des">GrabMaps 不是 支撑 模拟， 拜托 改变 数据 提供者 到 Esri 要么 这里 到 使用 Geofence 要么 追踪器 功能。</string>
-  <string name="label_switch_to_esri">交换机 到 Esri</string>
   <string name="region">区域</string>
-  <string name="label_enable_open_data">启用 开放数据</string>
-  <string name="label_enable_open_data_des">开放数据 使用 Esri 为了 路线 和 地点 搜索 功能 到 提高 您的 经验。</string>
+  <string name="mode_light">光</string>
+  <string name="mode_dark">黑暗</string>
+  <string name="label_political_view">政治 观点</string>
+  <string name="label_map_representation_for_different_countries">地图 代表 为了 不同的 国家</string>
+  <string name="description_arg">阿根廷的 观点 上 这 南方 巴塔哥尼亚的 冰 字段 和 Tierra 德尔 Fuego， 包括 这 福克兰 岛屿， 南方 格鲁吉亚， 和 南方 三明治 岛屿</string>
+  <string name="description_egy">埃及的 观点 上 比尔 塔维尔</string>
+  <string name="description_ind">印度的 观点 上 吉尔吉特-巴尔蒂斯坦</string>
+  <string name="description_ken">肯尼亚的 观点 上 这 伊莱米 三角形</string>
+  <string name="description_mar">摩洛哥的 观点 上 西方的 撒哈拉</string>
+  <string name="description_rus">俄罗斯的 观点 上 克里米亚</string>
+  <string name="description_sdn">苏丹 观点 上 这 哈莱布 三角形</string>
+  <string name="description_srb">塞尔维亚的 观点 上 科索沃， 武科瓦尔， 和 萨伦格勒 岛屿</string>
+  <string name="description_sur">苏里南 观点 上 这 库兰坦 源头 和 Lawa 源头</string>
+  <string name="description_syr">叙利亚 观点 上 这 戈兰 高度</string>
+  <string name="description_tur">土耳其的 观点 上 塞浦路斯 和 北方 塞浦路斯</string>
+  <string name="description_tza">坦桑尼亚的 观点 上 湖 马拉维</string>
+  <string name="description_ury">乌拉圭 观点 上 林康 de 阿蒂加斯</string>
+  <string name="description_vnm">越南 观点 上 这 帕拉塞尔 岛屿 和 南沙群岛 岛屿</string>
 </resources>

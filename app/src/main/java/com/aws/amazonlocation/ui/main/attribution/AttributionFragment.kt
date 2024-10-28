@@ -14,7 +14,6 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.FragmentAttributionBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_URL
 import com.aws.amazonlocation.utils.MAP_STYLE_ATTRIBUTION
 import com.aws.amazonlocation.utils.attributionPattern
@@ -48,7 +47,7 @@ class AttributionFragment : BaseFragment() {
     private fun init() {
         mBinding.apply {
             tvAttribution.text =
-                mPreferenceManager.getValue(MAP_STYLE_ATTRIBUTION, getString(R.string.esri))
+                mPreferenceManager.getValue(MAP_STYLE_ATTRIBUTION, "")
                     ?.replace(Regex(attributionPattern), "") ?: ""
 
         }
@@ -64,23 +63,12 @@ class AttributionFragment : BaseFragment() {
                 )
             }
             btnLearnMore.setOnClickListener {
-                val mapName =
-                    mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                if (mapName == getString(R.string.map_esri)) {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(BuildConfig.ATTRIBUTION_LEARN_MORE_ESRI_URL)
-                        )
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(BuildConfig.ATTRIBUTION_LEARN_MORE_HERE_URL)
                     )
-                } else {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(BuildConfig.ATTRIBUTION_LEARN_MORE_HERE_URL)
-                        )
-                    )
-                }
+                )
             }
             ivBack?.setOnClickListener {
                 findNavController().popBackStack()

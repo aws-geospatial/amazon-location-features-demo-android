@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.BottomSheetAttributionBinding
 import com.aws.amazonlocation.databinding.BottomSheetDirectionSearchBinding
-import com.aws.amazonlocation.databinding.BottomSheetMapStyleBinding
 import com.aws.amazonlocation.databinding.BottomSheetNavigationBinding
 import com.aws.amazonlocation.databinding.BottomSheetSearchBinding
 import com.aws.amazonlocation.ui.base.BaseActivity
@@ -22,7 +21,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 class BottomSheetHelper {
 
     private lateinit var mBottomSheetSearchPlaces: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var mBottomSheetMapStyle: BottomSheetBehavior<ConstraintLayout>
     private lateinit var mBottomSheetDirectionsSearch: BottomSheetBehavior<ConstraintLayout>
     private lateinit var mBottomSheetDirections: BottomSheetBehavior<ConstraintLayout>
     private lateinit var mNavigationBottomSheet: BottomSheetBehavior<ConstraintLayout>
@@ -108,20 +106,6 @@ class BottomSheetHelper {
         return mBottomSheetSearchPlaces.state == BottomSheetBehavior.STATE_HALF_EXPANDED
     }
 
-    fun isMapStyleExpandedOrHalfExpand(): Boolean {
-        if (!::mBottomSheetMapStyle.isInitialized) {
-            return false
-        }
-        return mBottomSheetMapStyle.state == BottomSheetBehavior.STATE_HALF_EXPANDED || mBottomSheetMapStyle.state == BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    fun isMapStyleVisible(): Boolean {
-        if (!::mBottomSheetMapStyle.isInitialized) {
-            return false
-        }
-        return mBottomSheetMapStyle.state != BottomSheetBehavior.STATE_HIDDEN
-    }
-
     fun isDirectionSearchExpandedOrHalfExpand(): Boolean {
         return mBottomSheetDirectionsSearch.state == BottomSheetBehavior.STATE_HALF_EXPANDED || mBottomSheetDirectionsSearch.state == BottomSheetBehavior.STATE_EXPANDED
     }
@@ -142,84 +126,7 @@ class BottomSheetHelper {
         mBottomSheetDirections.isDraggable = false
     }
 
-    // set map style bottom sheet
-    fun setMapStyleBottomSheet(activity: FragmentActivity?, view: BottomSheetMapStyleBinding, mBaseActivity: BaseActivity?) {
-        mBottomSheetMapStyle =
-            BottomSheetBehavior.from(view.clMapStyleBottomSheet)
-        mBottomSheetMapStyle.isHideable = true
-        mBottomSheetMapStyle.state = BottomSheetBehavior.STATE_HIDDEN
-        mBottomSheetMapStyle.isFitToContents = false
-        mBottomSheetMapStyle.expandedOffset =
-            view.clMapStyleBottomSheet.context.resources.getDimension(R.dimen.dp_15).toInt()
-
-        mBottomSheetMapStyle.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-                            view.imgAmazonLogoMapStyle?.alpha = 1f
-                            view.ivAmazonInfoMapStyle?.alpha = 1f
-                            directionSheetDraggable(false)
-                        }
-                        BottomSheetBehavior.STATE_EXPANDED -> {
-                            view.imgAmazonLogoMapStyle?.alpha = 0f
-                            view.ivAmazonInfoMapStyle?.alpha = 0f
-                            directionSheetDraggable(false)
-                        }
-                        BottomSheetBehavior.STATE_DRAGGING -> {
-                        }
-                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                            view.imgAmazonLogoMapStyle?.alpha = 1f
-                            view.ivAmazonInfoMapStyle?.alpha = 1f
-                            if (isMapStyleExpandedOrHalfExpand() && isDirectionSearchSheetVisible()) {
-                                collapseDirectionSearch()
-                            }
-                            directionSheetDraggable(false)
-                            activity?.hideKeyboard()
-                        }
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                            directionSheetDraggable(true)
-                            if (exportFragment?.mBaseActivity?.mTrackingUtils?.isTrackingSheetCollapsed() != null) {
-                                exportFragment?.mBaseActivity?.mTrackingUtils?.isTrackingSheetCollapsed()
-                                    ?.let {
-                                        if (!isDirectionSearchSheetVisible() && !isDirectionSheetVisible()) {
-                                            if (!it && exportFragment?.mBaseActivity?.mGeofenceUtils?.isGeofenceSheetCollapsed() != null) {
-                                                exportFragment?.mBaseActivity?.mGeofenceUtils?.isGeofenceSheetCollapsed()
-                                                    ?.let { it1 ->
-                                                        if (!it1) {
-                                                            if (exportFragment?.mBaseActivity?.mSimulationUtils?.isSimulationBottomSheetVisible() != true) {
-                                                                hideSearchBottomSheet(false)
-                                                            } else {
-                                                                exportFragment?.mBaseActivity?.mSimulationUtils?.setSimulationDraggable()
-                                                            }
-                                                        } else {
-                                                            mBaseActivity?.bottomNavigationVisibility(true)
-                                                        }
-                                                    }
-                                            } else {
-                                                mBaseActivity?.bottomNavigationVisibility(true)
-                                            }
-                                        }
-                                    }
-                            } else {
-                                if (exportFragment?.mBaseActivity?.mSimulationUtils?.isSimulationBottomSheetVisible() != true) {
-                                    hideSearchBottomSheet(false)
-                                } else {
-                                    exportFragment?.mBaseActivity?.mSimulationUtils?.setSimulationDraggable()
-                                }
-                            }
-                        }
-                        BottomSheetBehavior.STATE_SETTLING -> {
-                        }
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                }
-            })
-    }
-
-    private fun directionSheetDraggable(isDraggable: Boolean) {
+    fun directionSheetDraggable(isDraggable: Boolean) {
         if (isDirectionSearchSheetVisible()) {
             mBottomSheetDirectionsSearch.isDraggable = isDraggable
         }
@@ -390,21 +297,6 @@ class BottomSheetHelper {
 
     fun hideDirectionSheet() {
         mBottomSheetDirections.state = BottomSheetBehavior.STATE_HIDDEN
-    }
-
-    fun expandMapStyleSheet() {
-        mBottomSheetMapStyle.state = BottomSheetBehavior.STATE_EXPANDED
-        hideSearchBottomSheet(true)
-    }
-
-    fun halfExpandMapStyleSheet() {
-        mBottomSheetMapStyle.halfExpandedRatio = 0.5f
-        mBottomSheetMapStyle.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        hideSearchBottomSheet(true)
-    }
-
-    fun hideMapStyleSheet() {
-        mBottomSheetMapStyle.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     fun expandAttributeSheet() {

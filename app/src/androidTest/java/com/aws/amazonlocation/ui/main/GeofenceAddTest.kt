@@ -28,7 +28,7 @@ import com.aws.amazonlocation.DELAY_3000
 import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
-import com.aws.amazonlocation.TEST_WORD_4
+import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.getRandomGeofenceName
@@ -76,7 +76,7 @@ class GeofenceAddTest : BaseTestMainActivity() {
                 onView(withId(R.id.card_add_geofence)).perform(click())
             }
             Thread.sleep(DELAY_5000)
-            onView(withId(R.id.edt_add_geofence_search)).perform(clearText(), typeText(TEST_WORD_4))
+            onView(withId(R.id.edt_add_geofence_search)).perform(clearText(), typeText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
             Thread.sleep(DELAY_15000)
             val rvGeofenceSearchPlaces =

@@ -20,7 +20,7 @@ import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.GO
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
-import com.aws.amazonlocation.TEST_WORD_4
+import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -61,7 +61,7 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
             Thread.sleep(DELAY_2000)
 
             val destinationEdt = waitForView(allOf(withId(R.id.edt_search_dest), isDisplayed()))
-            destinationEdt?.perform(click(), replaceText(TEST_WORD_4))
+            destinationEdt?.perform(click(), replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
             Thread.sleep(DELAY_2000)
 

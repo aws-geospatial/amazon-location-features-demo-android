@@ -2,23 +2,24 @@ package com.aws.amazonlocation.data.datasource
 
 import android.content.Context
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.DataSourceException
-import com.aws.amazonlocation.data.response.NavigationData
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
-import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.isInternetAvailable
 import com.aws.amazonlocation.utils.isRunningRemoteDataSourceImplTest
+import com.aws.amazonlocation.utils.providers.GeofenceProvider
+import com.aws.amazonlocation.utils.providers.LocationProvider
+import com.aws.amazonlocation.utils.providers.PlacesProvider
+import com.aws.amazonlocation.utils.providers.RoutesProvider
+import com.aws.amazonlocation.utils.providers.TrackingProvider
 import com.aws.amazonlocation.utils.validateLatLng
 import java.util.Date
 import javax.inject.Inject
@@ -29,7 +30,11 @@ import org.maplibre.android.geometry.LatLng
 // SPDX-License-Identifier: MIT-0
 class RemoteDataSourceImpl(
     var mContext: Context,
-    var mAWSLocationHelper: AWSLocationHelper,
+    var mLocationProvider: LocationProvider,
+    var mPlacesProvider: PlacesProvider,
+    var mRoutesProvider: RoutesProvider,
+    var mGeofenceProvider: GeofenceProvider,
+    var mTrackingProvider: TrackingProvider,
 ) : RemoteDataSource {
     @Inject
     lateinit var mPreferenceManager: PreferenceManager
@@ -38,12 +43,11 @@ class RemoteDataSourceImpl(
         lat: Double?,
         lng: Double?,
         searchText: String,
-        searchPlace: SearchPlaceInterface,
-        isGrabMapSelected: Boolean,
+        searchPlace: SearchPlaceInterface
     ) {
         if (mContext.isInternetAvailable()) {
             val mSearchSuggestionResponse =
-                mAWSLocationHelper.searchPlaceSuggestion(lat, lng, searchText, isGrabMapSelected)
+                mPlacesProvider.searchPlaceSuggestion(lat, lng, searchText, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
             if (validateLatLng(searchText) != null) {
                 val mLatLng = validateLatLng(searchText)
                 if (mSearchSuggestionResponse.text == (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())) {
@@ -69,21 +73,26 @@ class RemoteDataSourceImpl(
         lat: Double?,
         lng: Double?,
         searchText: String?,
+        queryId: String?,
         searchPlace: SearchPlaceInterface,
     ) {
         if (mContext.isInternetAvailable()) {
-            if (!searchText.isNullOrEmpty()) {
+            if (!searchText.isNullOrEmpty() || !queryId.isNullOrEmpty()) {
                 val response =
-                    mAWSLocationHelper.searchPlaceIndexForText(
+                    mPlacesProvider.searchPlaceIndexForText(
                         lat = lat,
                         lng = lng,
-                        text = searchText,
+                        mText = searchText, queryId, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient()
                     )
-                if (response.text == searchText) {
-                    searchPlace.success(response)
+                if (response?.text == searchText || !queryId.isNullOrEmpty()) {
+                    if (response != null) {
+                        searchPlace.success(response)
+                    }
                 } else {
-                    if (!response.error.isNullOrEmpty()) {
-                        searchPlace.error(response)
+                    if (!response?.error.isNullOrEmpty()) {
+                        if (response != null) {
+                            searchPlace.error(response)
+                        }
                     }
                 }
             }
@@ -99,28 +108,30 @@ class RemoteDataSourceImpl(
         lngDestination: Double?,
         isAvoidFerries: Boolean?,
         isAvoidTolls: Boolean?,
-        distanceType: String?,
+        travelMode: String?,
         distanceInterface: DistanceInterface,
     ) {
-        val mSearchSuggestionResponse = mAWSLocationHelper.calculateRoute(
+        val calculateRoutesResponse = mRoutesProvider.calculateRoute(
             latDeparture,
             lngDeparture,
             latDestination,
             lngDestination,
             isAvoidFerries,
             isAvoidTolls,
-            distanceType
+            travelMode,
+            mLocationProvider.getBaseActivity(),
+            mLocationProvider.getGeoRoutesClient()
         )
 
         if (mContext.isInternetAvailable()) {
-            if (mSearchSuggestionResponse != null) {
-                mSearchSuggestionResponse.let {
-                    if (it.summary != null) {
+            if (calculateRoutesResponse != null) {
+                calculateRoutesResponse.let {
+                    if (it.routes.isNotEmpty()) {
                         distanceInterface.distanceSuccess(it)
                     } else {
                         distanceInterface.distanceFailed(
                             DataSourceException.Error(
-                                distanceType!!
+                                travelMode!!
                             )
                         )
                     }
@@ -128,7 +139,7 @@ class RemoteDataSourceImpl(
             } else {
                 distanceInterface.distanceFailed(
                     DataSourceException.Error(
-                        distanceType!!
+                        travelMode!!
                     )
                 )
             }
@@ -141,72 +152,13 @@ class RemoteDataSourceImpl(
         }
     }
 
-    override suspend fun searchNavigationPlaceIndexForPosition(
-        lat: Double?,
-        lng: Double?,
-        step: Step,
-        searchPlace: NavigationDataInterface,
-    ) {
-        if (mContext.isInternetAvailable()) {
-            val indexResponse = mAWSLocationHelper.searchNavigationPlaceIndexForPosition(lat, lng)
-            val navigationData = NavigationData()
-            navigationData.duration = step.durationSeconds
-            navigationData.distance = step.distance
-            navigationData.startLat = step.startPosition[1]
-            navigationData.startLng = step.startPosition[0]
-            navigationData.endLat = step.endPosition[1]
-            navigationData.endLng = step.endPosition[0]
-            if (!indexResponse?.results.isNullOrEmpty()) {
-                navigationData.destinationAddress =
-                    indexResponse
-                        ?.results
-                        ?.get(0)
-                        ?.place
-                        ?.label
-                navigationData.region =
-                    indexResponse
-                        ?.results
-                        ?.get(0)
-                        ?.place
-                        ?.region
-                navigationData.subRegion =
-                    indexResponse
-                        ?.results
-                        ?.get(0)
-                        ?.place
-                        ?.subRegion
-                navigationData.country =
-                    indexResponse
-                        ?.results
-                        ?.get(0)
-                        ?.place
-                        ?.country
-                navigationData.isDataSuccess = true
-            } else {
-                navigationData.destinationAddress = "$lat, $lng"
-                navigationData.isDataSuccess = false
-            }
-            searchPlace.getNavigationList(navigationData)
-        } else {
-            searchPlace.internetConnectionError(
-                if (isRunningRemoteDataSourceImplTest) {
-                    ""
-                } else {
-                    mContext.resources.getString(
-                        R.string.check_your_internet_connection_and_try_again,
-                    )
-                },
-            )
-        }
-    }
-
     override suspend fun searPlaceIndexForPosition(
         lat: Double?,
         lng: Double?,
         searchPlace: SearchDataInterface,
     ) {
         if (mContext.isInternetAvailable()) {
-            val indexResponse = mAWSLocationHelper.searchNavigationPlaceIndexForPosition(lat, lng)
+            val indexResponse = mPlacesProvider.searchNavigationPlaceIndexForPosition(lat, lng, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
             if (indexResponse != null) {
                 searchPlace.getAddressData(indexResponse)
             } else {
@@ -229,7 +181,7 @@ class RemoteDataSourceImpl(
         collectionName: String,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSLocationHelper.getGeofenceList(collectionName)
+        val response = mGeofenceProvider.getGeofenceList(collectionName, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.getGeofenceList(response)
     }
 
@@ -240,7 +192,7 @@ class RemoteDataSourceImpl(
         latLng: LatLng?,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSLocationHelper.addGeofence(geofenceId, collectionName, radius, latLng)
+        val response = mGeofenceProvider.addGeofence(geofenceId, collectionName, radius, latLng, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.addGeofence(response)
     }
 
@@ -249,7 +201,7 @@ class RemoteDataSourceImpl(
         data: ListGeofenceResponseEntry,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSLocationHelper.deleteGeofence(position, data)
+        val response = mGeofenceProvider.deleteGeofence(position, data, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.deleteGeofence(response)
     }
 
@@ -260,7 +212,7 @@ class RemoteDataSourceImpl(
         mTrackingInterface: BatchLocationUpdateInterface,
     ) {
         val response =
-            mAWSLocationHelper.batchUpdateDevicePosition(trackerName, position, deviceId)
+            mTrackingProvider.batchUpdateDevicePosition(trackerName, position, deviceId, mLocationProvider.getIdentityId(), mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mTrackingInterface.success(response)
     }
 
@@ -272,7 +224,7 @@ class RemoteDataSourceImpl(
         mTrackingInterface: BatchLocationUpdateInterface,
     ) {
         val response =
-            mAWSLocationHelper.evaluateGeofence(trackerName, position1, deviceId, identityId)
+            mGeofenceProvider.evaluateGeofence(trackerName, position1, deviceId, identityId, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mTrackingInterface.success(response)
     }
 
@@ -284,7 +236,7 @@ class RemoteDataSourceImpl(
         historyInterface: LocationHistoryInterface,
     ) {
         val response =
-            mAWSLocationHelper.getDevicePositionHistory(trackerName, deviceId, dateStart, dateEnd)
+            mTrackingProvider.getDevicePositionHistory(trackerName, deviceId, dateStart, dateEnd, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         historyInterface.success(response)
     }
 
@@ -294,12 +246,12 @@ class RemoteDataSourceImpl(
         historyInterface: LocationDeleteHistoryInterface,
     ) {
         val response =
-            mAWSLocationHelper.deleteDevicePositionHistory(trackerName, deviceId)
+            mTrackingProvider.deleteDevicePositionHistory(trackerName, deviceId, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         historyInterface.success(response)
     }
 
     override suspend fun fetchTokensWithOkHttp(authorizationCode: String, signInInterface: SignInInterface) {
-        val response = mAWSLocationHelper.fetchTokensWithOkHttp(authorizationCode)
+        val response = mLocationProvider.fetchTokensWithOkHttp(authorizationCode)
         if (response != null) {
             signInInterface.fetchTokensWithOkHttpSuccess("success", response)
         } else {
@@ -308,7 +260,7 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun refreshTokensWithOkHttp(signInInterface: SignInInterface) {
-        val response = mAWSLocationHelper.refreshTokensWithOkHttp()
+        val response = mLocationProvider.refreshTokensWithOkHttp()
         if (response != null) {
             signInInterface.refreshTokensWithOkHttpSuccess("success", response)
         } else {

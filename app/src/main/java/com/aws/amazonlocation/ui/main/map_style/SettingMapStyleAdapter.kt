@@ -24,12 +24,6 @@ class SettingMapStyleAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MapStyleData) {
             binding.apply {
-                tvStyleName.text = data.styleNameDisplay
-                if (adapterPosition == mMapStyleData.size - 1) {
-                    viewDivider.hide()
-                } else {
-                    viewDivider.show()
-                }
                 data.mapInnerData?.let {
                     rvMapName.apply {
                         this.layoutManager = GridLayoutManager(this.context, columnCount)

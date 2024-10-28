@@ -29,12 +29,7 @@ const val LAT_LNG_VALID_STRING = "$VALID_LAT, $VALID_LNG"
 const val INVALID_LNG_STRING = "$VALID_LAT, $INVALID_LNG"
 const val INVALID_LAT_STRING = "$INVALID_LAT, $VALID_LNG"
 
-const val ESRI = "Esri"
-const val HERE = "HERE"
-const val GRAB = "GrabMaps"
-
-const val LIGHT = "Light"
-const val VECTOR = "Vector"
+const val STANDARD = "Standard"
 
 const val SIGN_IN_SUCCESS = "Sign in Successfully"
 
@@ -60,10 +55,8 @@ const val TEST_FAILED_DUE_TO_INCORRECT_ERROR_MESSAGE = "Test failed due to incor
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR = "Test failed due to incorrect no internet error"
 
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED = "Test failed due to incorrect no of providers loaded"
-const val TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_ESRI = "Test failed due to incorrect style name for Esri"
-const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_ESRI = "Test failed due to incorrect no of styles loaded for Esri"
-const val TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_HERE = "Test failed due to incorrect style name for HERE"
-const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_HERE = "Test failed due to incorrect no of styles loaded for HERE"
+const val TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_STANDARD = "Test failed due to incorrect style name for Standard"
+const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD = "Test failed due to incorrect no of styles loaded for Standard"
 
 const val TEST_FAILED_NAVIGATION_DATA = "Navigation data not match"
 const val TEST_FAILED_LOGIN_DATA = "Login data not match"
@@ -76,8 +69,6 @@ const val TEST_FAILED_CALCULATE_DISTANCE_DATA = "Calculate distance data not mat
 const val TEST_FAILED_TRACKING_HISTORY_DATA = "Tracking history data not match"
 const val TEST_FAILED_MAP_STYLE_INNER_DATA = "Map style inner data not match"
 const val TEST_FAILED_MAP_STYLE_DATA = "Map style data not match"
-const val TEST_FAILED_GRAB_MAP_NOT_ENABLE = "Grab map not enable"
-const val TEST_FAILED_GRAB_MAP_NOT_SELECTED = "Grab map not selected"
 
 const val NO_DATA_FOUND = "No data found"
 const val TEST_DATA = "Mumbai"
@@ -132,9 +123,9 @@ const val UNIT_KM_TO_M_OUTPUT = 1000.0
 const val UNIT_MI_TO_FT_INPUT = 1.0
 const val UNIT_MI_TO_FT_OUTPUT = 5280.0
 
-const val UNIT_TIME_SEC_1 = 50.0
-const val UNIT_TIME_SEC_2 = 120.0
-const val UNIT_TIME_SEC_3 = 3600.0
+const val UNIT_TIME_SEC_1 = 50L
+const val UNIT_TIME_SEC_2 = 120L
+const val UNIT_TIME_SEC_3 = 3600L
 
 const val UNIT_TIME_1_OUTPUT = "50 sec"
 const val UNIT_TIME_2_OUTPUT = "2 min"

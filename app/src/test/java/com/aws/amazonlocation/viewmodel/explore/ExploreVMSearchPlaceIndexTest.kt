@@ -47,8 +47,8 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.success(Responses.RESPONSE_PLACE_INDEX_RIO_TINTO)
         }
 
@@ -66,11 +66,11 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.error(Responses.RESPONSE_PLACE_INDEX_RIO_TINTO_ERROR)
         }.thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.error(SearchSuggestionResponse())
         }
 
@@ -91,8 +91,8 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextInternetError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
-            val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
+        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+            val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.internetConnectionError(NO_INTERNET_ERROR)
         }
 

@@ -21,7 +21,7 @@ import com.aws.amazonlocation.GO
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_INVALID_ORIGIN_OR_DESTINATION_TEXT
-import com.aws.amazonlocation.TEST_WORD_4
+import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -69,7 +69,7 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
                     isDisplayed(),
                 ),
             )
-            destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_4))
+            destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
             Thread.sleep(DELAY_2000)
 

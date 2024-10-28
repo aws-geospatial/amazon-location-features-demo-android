@@ -7,13 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.MapStyleInnerData
 import com.aws.amazonlocation.databinding.ItemMapNameBinding
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_ESRI
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_GRAB
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_HERE
-import com.aws.amazonlocation.utils.DESCRIPTION_TAG_OPEN
-import com.aws.amazonlocation.utils.GRAB
-import com.aws.amazonlocation.utils.HERE
-import com.aws.amazonlocation.utils.OPEN
+import com.aws.amazonlocation.utils.MAP
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -31,13 +25,13 @@ class MapStyleInnerAdapter(
                 tvStyleName.text = data.mapName
                 ivChecked.setImageResource(data.image)
                 if (data.isSelected) {
-                    cardMapImage.strokeWidth = 2
+                    cardMapImage.strokeWidth = 4
                     tvStyleName.setTextColor(ContextCompat.getColor(tvStyleName.context, R.color.color_primary_green))
                 } else {
                     cardMapImage.strokeWidth = 0
                     tvStyleName.setTextColor(ContextCompat.getColor(tvStyleName.context, R.color.color_medium_black))
                 }
-                cardMapImage.contentDescription = getDescription(data, adapterPosition)
+                cardMapImage.contentDescription = getDescription(adapterPosition)
                 cardMapImage.setOnClickListener {
                     mapInterface.mapClick(position = adapterPosition)
                 }
@@ -58,16 +52,8 @@ class MapStyleInnerAdapter(
         holder.bind(mMapStyleData[position])
     }
 
-    private fun getDescription(innerStyle: MapStyleInnerData, position: Int): String {
-        return if (innerStyle.mMapStyleName?.contains(HERE) == true) {
-            DESCRIPTION_TAG_HERE + position
-        } else if (innerStyle.mMapStyleName?.contains(OPEN) == true) {
-            DESCRIPTION_TAG_OPEN + position
-        }  else if (innerStyle.mMapStyleName?.contains(GRAB) == true) {
-            DESCRIPTION_TAG_GRAB + position
-        } else {
-            DESCRIPTION_TAG_ESRI + position
-        }
+    private fun getDescription(position: Int): String {
+        return MAP + position
     }
 
     override fun getItemCount() = mMapStyleData.size

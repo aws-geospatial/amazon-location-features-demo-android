@@ -17,9 +17,7 @@
     <string name="privacy_policy">By continuing, you agree to Amazon\'s Conditions of Use and Privacy Notice.</string>
     <string name="condition_of_use">Conditions of Use</string>
     <string name="privacy_notice">Privacy Notice</string>
-    <string name="login_success">Sign in Successfully</string>
     <string name="sign_out_successfully">Sign out successfully</string>
-    <string name="sign_out_failed">Sign out failed, please try again…</string>
     <string name="sign_in_to_access_tracking">Sign in to access Tracking and Geofence features or proceed to Explore the map</string>
     <string name="sign_in_required">Sign in required</string>
     <string name="maybe_later">Maybe later</string>
@@ -88,8 +86,7 @@
     <string name="label_walk">Walk</string>
     <string name="label_drive">Drive</string>
     <string name="label_truck">Truck</string>
-    <string name="label_bicycle">Bicycle</string>
-    <string name="label_motorcycle">Motorcycle</string>
+    <string name="label_scooter">Scooter</string>
     <string name="label_search_starting_point">Search starting point</string>
     <string name="exit">Exit</string>
 
@@ -112,24 +109,10 @@
     <string name="edit_geofence">Edit Geofence</string>
     <string name="label_map_style">Map Style</string>
     <string name="label_map_style_description"><![CDATA[Changing data provider also affects Places & Routes API]]></string>
-    <string name="map_light" translatable="false">Light</string>
-    <string name="map_streets" translatable="false">Streets</string>
-    <string name="map_navigation" translatable="false">Navigation</string>
-    <string name="map_dark_gray" translatable="false">Dark Gray</string>
-    <string name="map_light_gray" translatable="false">Light Gray</string>
-    <string name="map_imagery" translatable="false">Imagery</string>
-    <string name="map_esri" translatable="false">Esri</string>
-    <string name="map_contrast" translatable="false">Contrast</string>
-    <string name="map_explore" translatable="false">Explore</string>
-    <string name="map_explore_truck" translatable="false">Explore Truck</string>
+    <string name="map_standard" translatable="false">Standard</string>
+    <string name="map_monochrome" translatable="false">Monochrome</string>
     <string name="map_hybrid" translatable="false">Hybrid</string>
-    <string name="map_raster" translatable="false">Imagery</string>
-    <string name="map_grab_light" translatable="false">Light</string>
-    <string name="map_grab_dark" translatable="false">Dark</string>
-    <string name="map_standard_light" translatable="false">Standard Light</string>
-    <string name="map_standard_dark" translatable="false">Standard Dark</string>
-    <string name="map_visualization_light" translatable="false">Visualization Light</string>
-    <string name="map_visualization_dark" translatable="false">Visualization Dark</string>
+    <string name="map_satellite" translatable="false">Satellite</string>
     <string name="label_enter_identity_pool_id">Please enter proper identity pool id</string>
     <string name="label_enter_domain">Entered user domain is wrong</string>
     <string name="label_enter_user_pool_client_id">Entered user pool client id is wrong</string>
@@ -138,10 +121,6 @@
     <string name="data_provider">Data provider</string>
     <string name="map_style">Map style</string>
     <string name="aws_cloudformation">Connect your AWS Account</string>
-    <string name="esri" translatable="false">Esri</string>
-    <string name="here" translatable="false">HERE</string>
-    <string name="grab" translatable="false">GrabMaps</string>
-    <string name="open_data" translatable="false">OpenData</string>
     <string name="label_connected">You are connected</string>
     <string name="label_connected_description">Connect your AWS account to enable Geofences and Trackers. This will ensure your tracking and geofencing data is only stored in your account. After you log in, all features of the Demo App will run using resources you deploy in your AWS account. Log out if you wish to continue running the Demo App using resources in AWS’s demo app account.</string>
     <string name="label_how_to_remove">How to remove:</string>
@@ -152,10 +131,6 @@
     <string name="label_tracking_history">Tracking History</string>
     <string name="label_tracking_your_activity">Tracking your device location</string>
     <string name="label_enable_tracking">Enable Live Trackers</string>
-    <string name="label_enable_tracker">Enable Tracker</string>
-    <string name="label_enable_tracker_description">You can use any data provider except Esri for your asset management or tracking use cases. If you want to use Esri for your asset management or tracking use case, please read terms and conditions</string>
-    <string name="label_enable_tracker_view_terms">View Terms and Conditions</string>
-    <string name="label_enable_tracker_continue_to_tracker">Continue</string>
     <string name="label_enable_tracking_detail">Enabling the feature will allow you to track your device and get notified when the device enters or exits any of your geofences.</string>
     <string name="label_check_your_internet_connection_and_try_again">Check your internet connection and try again</string>
     <string name="label_not_tracking_your_activity">Not tracking your device location</string>
@@ -181,10 +156,6 @@
     <string name="reconnect_with_aws_account">Stack is corrupted, switching back to default stack</string>
     <string name="error_route">Route not found.</string>
     <string name="no_route_found">No route found</string>
-    <string name="error_switch_to_here">Distance is greater than 400 km, can\'t calculate via Esri, kindly switch to HERE provider</string>
-    <string name="error_switch_to_here_miles" formatted="false">Distance is greater than %s mi, can\'t calculate via Esri, kindly switch to HERE provider</string>
-    <string name="error_distance_400">In DataSource Esri, waypoints for car and truck must be within 400km, and waypoints for walk must be within 40km.</string>
-    <string name="error_distance_248_miles" formatted="false">In DataSource Esri, waypoints for car and truck must be within %smi, and waypoints for walk must be within %smi.</string>
     <string name="connect_to_aws_account">Connect AWS Account</string>
     <string name="label_preview">Preview</string>
     <string name="label_location_permission_denied">Location permission denied</string>
@@ -205,10 +176,6 @@
     <string name="label_legal_and_privacy">Legal and Privacy</string>
     <string name="label_version">Version</string>
     <string name="label_sign_out">Sign out</string>
-    <string name="distance_is_greater_than_400_km">Distance is greater than 400 km</string>
-    <string name="distance_is_greater_than_248_mi">Distance is greater than %s mi</string>
-    <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Can\'t calculate via Esri, kindly switch to \nHERE provider.</string>
-    <string name="label_here_attribution_text">© 2022 HERE</string>
     <string name="label_partner_attribution">Partner Attribution</string>
     <string name="label_software_attribution">Software Attribution</string>
     <string name="label_click_learn_more_for_software_attribution">Click learn more for software attribution</string>
@@ -221,13 +188,6 @@
     <string name="imperial">Imperial</string>
     <string name="subtitle_imperial">Miles, pounds</string>
     <string name="automatic">Automatic</string>
-    <string name="label_restart_app_title">Enable Grab</string>
-    <string name="label_restart_app_description">Grab provides Maps, Routes and Place search in Malaysia, Philippines, Thailand, Singapore, Vietnam, Indonesia, Myanmar, and Cambodia.\n\nWhile car and motorcycle routes are available across the above countries, the bicycle and walking routes are supported in only key cities such as Singapore, Jakarta, Manila, Klang Valley, Bangkok, Ho Chi Minh City, and Hanoi. </string>
-    <string name="enable_grab">Enable Grab</string>
-    <string name="dont_ask_again">Don\'t ask again</string>
-    <string name="your_location_not_supported_by_grab">Your current location is outside countries supported by Grab. Currently, Grab supports Malaysia, Philippines, Thailand, Singapore, Vietnam, Indonesia, Myanmar, Cambodia.</string>
-    <string name="label_current_location_disabled">Current location disabled</string>
-    <string name="label_grab_limitation">Distance can\'t be calculated, since your current location has been disabled due to grab limitation</string>
     <string name="label_automatic_sub_title_mile">Based on your browser settings (Miles, pounds)</string>
     <string name="label_automatic_sub_title_km">Based on your browser settings (Kilometers, kilograms)</string>
     <string name="label_sec">sec</string>
@@ -240,11 +200,10 @@
     <string name="label_provider">Provider</string>
     <string name="label_attribute">Attribute</string>
     <string name="label_type">Type</string>
-    <string name="label_apply_filters">Apply filters</string>
+    <string name="label_apply_filters">Apply view</string>
     <string name="label_clear_selection">Clear selection</string>
     <string name="label_style_search_error_title">No matching styles found</string>
     <string name="label_style_search_error_des">Make sure your search is spelled correctly and try again, make sure you have applied the appropriate filter or remove the filter and try again</string>
-    <string name="label_geofence_disable_error">Selected geofence is not available in the Grab map provider. Please switch to another map provider to view and manage selected geofence.</string>
     <string name="label_clear_filters">Clear filters</string>
     <string name="label_try_trackers_amp_geofences_simulation"><![CDATA[Try Trackers & Geofences simulation]]></string>
     <string name="label_requires_connection_to_aws_cloudformation">Requires connection to AWS CloudFormation</string>
@@ -292,10 +251,53 @@
     <string name="label_arabic" translatable="false">العربية</string>
     <string name="label_hebrew" translatable="false">עברית</string>
     <string name="label_hindi" translatable="false">हिन्दी</string>
-    <string name="label_change_data_provider">Change Data Provider</string>
-    <string name="label_change_data_provider_des">GrabMaps doesn\'t support simulation, please change data provider to Esri or HERE to use Geofence or Tracker features.</string>
-    <string name="label_switch_to_esri">Switch to Esri</string>
     <string name="region">Region</string>
-    <string name="label_enable_open_data">Enable OpenData</string>
-    <string name="label_enable_open_data_des">OpenData uses Esri for Routes and Places search functionality to enhance your experience.</string>
+    <string name="mode_light">Light</string>
+    <string name="mode_dark">Dark</string>
+    <string name="label_political_view">Political view</string>
+    <string name="label_map_representation_for_different_countries">Map representation for different countries</string>
+    <string name="description_arg">Argentina\'s view on the Southern Patagonian Ice Field and Tierra Del Fuego, including the Falkland Islands, South Georgia, and South Sandwich Islands</string>
+    <string name="description_egy">Egypt\'s view on Bir Tawil</string>
+    <string name="description_ind">India\'s view on Gilgit-Baltistan</string>
+    <string name="description_ken">Kenya\'s view on the Ilemi Triangle</string>
+    <string name="description_mar">Morocco\'s view on Western Sahara</string>
+    <string name="description_rus">Russia\'s view on Crimea</string>
+    <string name="description_sdn">Sudan\'s view on the Halaib Triangle</string>
+    <string name="description_srb">Serbia\'s view on Kosovo, Vukovar, and Sarengrad Islands</string>
+    <string name="description_sur">Suriname\'s view on the Courantyne Headwaters and Lawa Headwaters</string>
+    <string name="description_syr">Syria\'s view on the Golan Heights</string>
+    <string name="description_tur">Turkey\'s view on Cyprus and Northern Cyprus</string>
+    <string name="description_tza">Tanzania\'s view on Lake Malawi</string>
+    <string name="description_ury">Uruguay\'s view on Rincon de Artigas</string>
+    <string name="description_vnm">Vietnam\'s view on the Paracel Islands and Spratly Islands</string>
+
+    <string name="flag_arg" translatable="false">🇦🇷</string>
+    <string name="flag_egy" translatable="false">🇪🇬</string>
+    <string name="flag_ind" translatable="false">🇮🇳</string>
+    <string name="flag_ken" translatable="false">🇰🇪</string>
+    <string name="flag_mar" translatable="false">🇲🇦</string>
+    <string name="flag_rus" translatable="false">🇷🇺</string>
+    <string name="flag_sdn" translatable="false">🇸🇩</string>
+    <string name="flag_srb" translatable="false">🇷🇸</string>
+    <string name="flag_sur" translatable="false">🇸🇷</string>
+    <string name="flag_syr" translatable="false">🇸🇾</string>
+    <string name="flag_tur" translatable="false">🇹🇷</string>
+    <string name="flag_tza" translatable="false">🇹🇿</string>
+    <string name="flag_ury" translatable="false">🇺🇾</string>
+    <string name="flag_vnm" translatable="false">🇻🇳</string>
+
+    <string name="label_arg" translatable="false">ARG</string>
+    <string name="label_egy" translatable="false">EGY</string>
+    <string name="label_ind" translatable="false">IND</string>
+    <string name="label_ken" translatable="false">KEN</string>
+    <string name="label_mar" translatable="false">MAR</string>
+    <string name="label_rus" translatable="false">RUS</string>
+    <string name="label_sdn" translatable="false">SDN</string>
+    <string name="label_srb" translatable="false">SRB</string>
+    <string name="label_sur" translatable="false">SUR</string>
+    <string name="label_syr" translatable="false">SYR</string>
+    <string name="label_tur" translatable="false">TUR</string>
+    <string name="label_tza" translatable="false">TZA</string>
+    <string name="label_ury" translatable="false">URY</string>
+    <string name="label_vnm" translatable="false">VNM</string>
 </resources>

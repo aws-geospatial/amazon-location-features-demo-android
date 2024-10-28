@@ -29,6 +29,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.CheckResult
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -41,12 +42,10 @@ import aws.sdk.kotlin.services.cognitoidentity.model.GetIdRequest
 import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
-import com.google.android.material.textfield.TextInputEditText
 import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -227,11 +226,6 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-@ExcludeFromJacocoGeneratedReport
-fun Activity.hideSoftKeyboard(input: TextInputEditText) {
-    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(input.windowToken, 0)
-}
 fun checkLatLngValid(latitude: Double?, longitude: Double?): Boolean {
     return latitude?.toInt() in -90 until 90 && longitude?.toInt() in -180 until 180
 }
@@ -360,10 +354,12 @@ fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
             )
         while (termsAndCondition.find()) {
             spannableString.setSpan(
-                FontSpan(
-                    "",
-                    ResourcesCompat.getFont(context, R.font.amazon_ember_bold)!!
-                ),
+                ResourcesCompat.getFont(context, R.font.amazon_ember_bold)?.let {
+                    FontSpan(
+                        "",
+                        it
+                    )
+                },
                 termsAndCondition.start(),
                 termsAndCondition.end(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -595,35 +591,6 @@ fun validateUserPoolClientId(mUserPoolClientId: String?): Boolean {
     return matcher.matches()
 }
 
-fun isGrabMapEnable(mPreferenceManager: PreferenceManager): Boolean {
-    var isGrabMapEnable = false
-    val region = mPreferenceManager.getValue(KEY_USER_REGION, "")
-    val mAuthStatus = mPreferenceManager.getValue(
-        KEY_CLOUD_FORMATION_STATUS,
-        AuthEnum.DEFAULT.name
-    )
-    when (mAuthStatus) {
-        AuthEnum.AWS_CONNECTED.name, AuthEnum.SIGNED_IN.name -> {
-            if (SE_REGION_LIST.contains(region)) {
-                isGrabMapEnable = true
-            }
-        }
-        else -> {
-            isGrabMapEnable = true
-        }
-    }
-    return isGrabMapEnable
-}
-
-fun isGrabMapSelected(mPreferenceManager: PreferenceManager, context: Context): Boolean {
-    var isGrabMapEnable = false
-    val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, "")
-    if (mapName == context.getString(R.string.grab)) {
-        isGrabMapEnable = true
-    }
-    return isGrabMapEnable
-}
-
 fun setLocale(languageCode: String, context: Context) {
     val locale = Locale(languageCode)
     Locale.setDefault(locale)
@@ -640,21 +607,8 @@ fun getLanguageCode(): String? {
     return languageCode
 }
 
-fun checkGeofenceInsideGrab(
-    mLatLng: LatLng,
-    mPreferenceManager: PreferenceManager?,
-    context: Context?
-): Boolean {
-    context?.let {
-        mPreferenceManager?.let { preferenceManager ->
-            if (isGrabMapSelected(preferenceManager, it)) {
-                mLatLng.let {
-                    return (it.latitude in latSouth..latNorth && it.longitude in lonWest..lonEast)
-                }
-            } else {
-                return true
-            }
-        }
-    }
-    return true
+fun hideKeyboard(activity: Activity, appCompatEditText: AppCompatEditText) {
+    val imm: InputMethodManager =
+        activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(appCompatEditText.windowToken, 0)
 }

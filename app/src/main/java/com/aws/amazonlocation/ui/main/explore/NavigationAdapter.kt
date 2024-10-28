@@ -8,7 +8,6 @@ import com.aws.amazonlocation.data.response.NavigationData
 import com.aws.amazonlocation.databinding.ItemNavigationRouteListBinding
 import com.aws.amazonlocation.utils.KEY_UNIT_SYSTEM
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.aws.amazonlocation.utils.Units.convertToLowerUnit
 import com.aws.amazonlocation.utils.Units.getMetricsNew
 import com.aws.amazonlocation.utils.Units.isMetric
 import com.aws.amazonlocation.utils.hide
@@ -34,8 +33,9 @@ class NavigationAdapter(
                         val isMetric = isMetric(unitSystem)
                         getMetricsNew(
                             tvNavigationAddress.context,
-                            convertToLowerUnit(distance, isMetric),
-                            isMetric
+                            distance,
+                            isMetric,
+                            true
                         )
                     }
                 }

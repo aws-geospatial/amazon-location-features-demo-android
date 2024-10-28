@@ -8,12 +8,9 @@ import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.RegionResponse
 import com.aws.amazonlocation.databinding.FragmentRegionBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
-import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
@@ -74,25 +71,8 @@ class RegionFragment : BaseFragment() {
                                 it
                             )
                         }
-                        if (mRegionList[position].name != regionDisplayName[2]) {
-                            val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                            if (mapName == getString(R.string.grab)) {
-                                getString(R.string.map_light).let { it1 ->
-                                    mPreferenceManager.setValue(
-                                        KEY_MAP_STYLE_NAME,
-                                        it1
-                                    )
-                                }
-                                getString(R.string.esri).let { it1 ->
-                                    mPreferenceManager.setValue(
-                                        KEY_MAP_NAME,
-                                        it1
-                                    )
-                                }
-                            }
-                        }
                         adapter.notifyItemRangeChanged(0, mRegionList.size)
-                        mAWSLocationHelper.locationCredentialsProvider?.clear()
+                        mLocationProvider.locationCredentialsProvider?.clear()
                         lifecycleScope.launch {
                             if (!isRunningTest) {
                                 delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting

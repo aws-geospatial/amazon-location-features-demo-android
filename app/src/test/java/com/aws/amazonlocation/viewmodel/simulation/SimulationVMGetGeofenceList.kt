@@ -47,7 +47,6 @@ class SimulationVMGetGeofenceList : BaseTest() {
         simulationViewModel = SimulationViewModel(geofenceUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getSimulationListSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(any(), any())).thenAnswer {
@@ -65,7 +64,6 @@ class SimulationVMGetGeofenceList : BaseTest() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getSimulationListError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.getGeofenceList(any(), any()))

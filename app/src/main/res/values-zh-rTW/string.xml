@@ -15,9 +15,7 @@
   <string name="privacy_policy">通過 繼續， 您 同意 至 Amazon\'s 條件 的 使用 和 隐私 通知。</string>
   <string name="condition_of_use">條件 的 使用</string>
   <string name="privacy_notice">隐私 通知</string>
-  <string name="login_success">簽署 在 成功</string>
   <string name="sign_out_successfully">簽署 出 成功</string>
-  <string name="sign_out_failed">簽署 出 失敗， 請 嘗試 再次...</string>
   <string name="sign_in_to_access_tracking">簽署 在 至 存取 追蹤 和 地理圍欄 功能 或者 繼續 至 探索 該 地圖</string>
   <string name="sign_in_required">簽署 在 必需的</string>
   <string name="maybe_later">也許 以後</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">步行</string>
   <string name="label_drive">開車</string>
   <string name="label_truck">卡車</string>
-  <string name="label_bicycle">自行車</string>
-  <string name="label_motorcycle">摩托車</string>
+  <string name="label_scooter">小型摩托車</string>
   <string name="label_search_starting_point">搜索 開始 點</string>
   <string name="exit">退出</string>
   <string name="log_out">日誌 出</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">編輯 地理圍欄</string>
   <string name="label_map_style">地圖 風格</string>
   <string name="label_map_style_description">改變 資料 供應商 也 影響 地方 &amp; 路線 應用程式編程介面</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">求你了 輸入 正確的 身份 池 身份證</string>
   <string name="label_enter_domain">已輸入 用戶 域 是 錯了</string>
   <string name="label_enter_user_pool_client_id">已輸入 用戶 池 客戶 身份證 是 錯了</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">數據 供應商</string>
   <string name="map_style">地圖 風格</string>
   <string name="aws_cloudformation">連接 你的 亞馬遜網路服務公司 帳號</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">你 是 連線</string>
   <string name="label_connected_description">連接 你的 亞馬遜網路服務公司 帳戶 至 啟用 地理圍欄 和 追蹤器。 這 將 確保 你的 追蹤 和 地理圍欄 資料 是 只要 儲存 在 你的 帳戶。 之後 您 日誌 在中， 所有 功能 的 該 演示 應用 將 跑 運用 資源 您 部署 在 你的 亞馬遜網路服務公司 帳戶。 日誌 出 如果 您 希望 至 繼續 正在運行 該 演示 應用 運用 資源 在 AWS 的 演示 應用程式 帳戶。</string>
   <string name="label_how_to_remove">如何 至 刪除：</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">追蹤 歷史</string>
   <string name="label_tracking_your_activity">追蹤 你的 裝置 地點</string>
   <string name="label_enable_tracking">啟用 直播 追蹤器</string>
-  <string name="label_enable_tracker">啟用 追蹤器</string>
-  <string name="label_enable_tracker_description">你 可以 使用 任何 資料 供應商 除外 埃斯里 為了 你的 資產 管理 或者 追蹤 使用 案件。 如果 您 想 至 使用 埃斯里 為了 你的 資產 管理 或者 追蹤 使用 案件， 請 閱讀 條款 和 條件</string>
-  <string name="label_enable_tracker_view_terms">檢視 條款 和 條件</string>
-  <string name="label_enable_tracker_continue_to_tracker">繼續</string>
   <string name="label_enable_tracking_detail">啟用 該 特徵 將 允許 您 至 跟踪 你的 裝置 和 得到 通知 何時 該 裝置 進入 或者 出口 任何 的 你的 地理圍欄。</string>
   <string name="label_check_your_internet_connection_and_try_again">檢查 你的 互聯網 連接 和 嘗試 再次</string>
   <string name="label_not_tracking_your_activity">不 追蹤 你的 裝置 地點</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">堆疊 是 損壞， 切換 背部 至 預設值 堆</string>
   <string name="error_route">路線 不 找到。</string>
   <string name="no_route_found">沒有 路線 發現</string>
-  <string name="error_switch_to_here">距離 是 更大 比 400 公里, 不能\ 計算 通過 埃斯里, 好心 切換器 至 這裡 供應商</string>
-  <string name="error_switch_to_here_miles" formatted="false">距離 是 更大 比 %s 英哩, 不能\ 計算 通過 埃斯里, 好心 切換器 至 這裡 供應商</string>
-  <string name="error_distance_400">在 資料來源 埃斯里， 航點 為了 汽車 和 卡車 必須 是 內 400 公里， 和 航點 為了 走路 必須 是 內 40 公里。</string>
-  <string name="error_distance_248_miles" formatted="false">在 資料來源 埃斯里， 航點 為了 汽車 和 卡車 必須 是 內 %sMI， 和 航點 為了 走路 必須 是 內 %sMI。</string>
   <string name="connect_to_aws_account">連接 亞馬遜網路服務公司 帳號</string>
   <string name="label_preview">預覽</string>
   <string name="label_location_permission_denied">位置 允許 否認</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">法律 和 隐私</string>
   <string name="label_version">版本</string>
   <string name="label_sign_out">簽署 出</string>
-  <string name="distance_is_greater_than_400_km">距離 是 更大 比 400 公里</string>
-  <string name="distance_is_greater_than_248_mi">距離 是 更大 比 %s 英哩</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">不能\ 計算 通過 埃斯里, 好心 切換器 至 \n 在這裡 供應商。</string>
-  <string name="label_here_attribution_text">© 2022 這裡</string>
   <string name="label_partner_attribution">夥伴 歸因</string>
   <string name="label_software_attribution">軟體 歸因</string>
   <string name="label_click_learn_more_for_software_attribution">按一下 學習 更多 為了 軟體 歸因</string>
@@ -204,13 +172,6 @@
   <string name="imperial">帝國</string>
   <string name="subtitle_imperial">英里， 英鎊</string>
   <string name="automatic">自動</string>
-  <string name="label_restart_app_title">啟用 Grab</string>
-  <string name="label_restart_app_description">Grab 提供 地圖, 路線 和 地方 搜尋 在 馬來西亞, 菲律賓, 泰國, 新加坡, 越南, 印尼, 緬甸, 和 柬埔寨.\n\n 同時 汽車 和 摩托車 路線 是 可用 橫過 該 上面 國家， 該 自行車 和 走路 路線 是 支援 在 只要 鍵 城市 這樣 如 新加坡, 雅加達, 馬尼拉, 巴生 山谷 曼谷, 何 志 胡志明 城市， 和 河內 </string>
-  <string name="enable_grab">啟用 Grab</string>
-  <string name="dont_ask_again">唐\ \'t 問 再次</string>
-  <string name="your_location_not_supported_by_grab">您的 電流 地點 是 外面 國家 支援 由 Grab. 目前， Grab 支援 馬來西亞, 菲律賓, 泰國, 新加坡, 越南, 印尼, 緬甸, 柬埔寨.</string>
-  <string name="label_current_location_disabled">目前 地點 殘疾人</string>
-  <string name="label_grab_limitation">距離 不能\ 是 計算， 以來 你的 電流 地點 具有 一直 殘疾人 應有 至 grab 限制</string>
   <string name="label_automatic_sub_title_mile">基於 上 你的 瀏覽器 設置 （英里， 英鎊)</string>
   <string name="label_automatic_sub_title_km">基於 上 你的 瀏覽器 設置 (公里, 公斤)</string>
   <string name="label_sec">秒</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">清除 選擇</string>
   <string name="label_style_search_error_title">沒有 匹配 款式 發現</string>
   <string name="label_style_search_error_des">製作 當然 你的 搜尋 是 拼寫 正確地 和 嘗試 再次， 做 當然 您 有 應用的 該 適當的 過濾器 或者 去掉 該 過濾器 和 嘗試 再次</string>
-  <string name="label_geofence_disable_error">已選 地理圍欄 是 不 可用 在 該 Grab 地圖 供應商。 求你了 切換器 至 另一個 地圖 供應商 至 檢視 和 管理 選 地理圍欄。</string>
   <string name="label_clear_filters">清除 過濾器</string>
   <string name="label_try_trackers_amp_geofences_simulation">嘗試 追蹤器 &amp; 地理圍欄 模擬</string>
   <string name="label_requires_connection_to_aws_cloudformation">需要 連接 至 亞馬遜網路服務公司 雲形成</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">對於 順利 模擬 經驗 請 允許 通知 允許 從 設置。</string>
-  <string name="label_change_data_provider">變更 數據 供應商</string>
-  <string name="label_change_data_provider_des">GrabMaps 不\ 支持 模擬, 請 變化 資料 供應商 至 埃斯里 或者 這裡 至 使用 地理圍欄 或者 追蹤器 功能。</string>
-  <string name="label_switch_to_esri">交換器 至 埃斯里</string>
   <string name="region">地區</string>
-  <string name="label_enable_open_data">啟用 开放数据</string>
-  <string name="label_enable_open_data_des">开放数据 使用 埃斯里 為了 路線 和 地方 搜尋 功能 至 提高 你的 經驗。</string>
+  <string name="mode_light">光</string>
+  <string name="mode_dark">黑暗</string>
+  <string name="label_political_view">政治 檢視</string>
+  <string name="label_map_representation_for_different_countries">地圖 表示 為了 不同 國家</string>
+  <string name="description_arg">阿根廷\ 的 檢視 上 該 南部 巴塔哥尼亞的 冰 田野 和 蒂埃拉 德爾 火焰, 包含 該 福克兰 島嶼， 南方 格魯吉亞, 和 南方 三明治 島嶼</string>
+  <string name="description_egy">埃及\ 的 檢視 上 比爾 塔維爾</string>
+  <string name="description_ind">印度\ 的 檢視 上 吉尔吉特-巴尔蒂斯坦</string>
+  <string name="description_ken">肯尼亞\ 的 檢視 上 該 伊莱米 三角形</string>
+  <string name="description_mar">摩洛哥\ 的 檢視 上 西方的 撒哈拉</string>
+  <string name="description_rus">俄羅斯\ 的 檢視 上 克里米亞</string>
+  <string name="description_sdn">蘇丹\ 的 檢視 上 該 哈拉伊布 三角形</string>
+  <string name="description_srb">塞爾維亞\ 的 檢視 上 科索沃, 武科瓦爾, 和 萨伦格拉德 島嶼</string>
+  <string name="description_sur">蘇里南\ 的 檢視 上 該 庫蘭蒂恩 源頭 和 拉瓦 源頭</string>
+  <string name="description_syr">敘利亞 檢視 上 該 戈蘭高地 高度</string>
+  <string name="description_tur">土耳其\ 的 檢視 上 塞浦路斯 和 北方 塞浦路斯</string>
+  <string name="description_tza">坦桑尼亞\ 的 檢視 上 湖 馬拉威</string>
+  <string name="description_ury">烏拉圭\ 的 檢視 上 林康 下 阿蒂加斯</string>
+  <string name="description_vnm">越南\ 的 檢視 上 該 帕拉塞爾 島嶼 和 普拉特利 島嶼</string>
 </resources>

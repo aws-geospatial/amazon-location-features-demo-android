@@ -15,9 +15,7 @@
   <string name="privacy_policy">על ידי ממשיך, אתה מסכים כדי Amazon\'s תנאים של השתמש ו פרטיות שימו לב.</string>
   <string name="condition_of_use">תנאים של השתמש</string>
   <string name="privacy_notice">פרטיות שימו לב</string>
-  <string name="login_success">לחתום בתוך בהצלחה</string>
   <string name="sign_out_successfully">לחתום החוצה בהצלחה</string>
-  <string name="sign_out_failed">לחתום החוצה נכשל, בבקשה השתדל שוב...</string>
   <string name="sign_in_to_access_tracking">לחתום בתוך כדי גישה מעקב ו גיאופנס מאפיינים או להמשיך כדי חקור ה מפה</string>
   <string name="sign_in_required">לחתום בתוך נדרש</string>
   <string name="maybe_later">אולי יותר מאוחר</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">ללכת</string>
   <string name="label_drive">כונן</string>
   <string name="label_truck">משאית</string>
-  <string name="label_bicycle">אופניים</string>
-  <string name="label_motorcycle">אופנוע</string>
+  <string name="label_scooter">קַטנוֹעַ</string>
   <string name="label_search_starting_point">חיפוש מתחיל נקודה</string>
   <string name="exit">יציאה</string>
   <string name="log_out">יומן החוצה</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">עריכה גיאופנס</string>
   <string name="label_map_style">מפה סגנון</string>
   <string name="label_map_style_description">משתנה פרטים ספק וכן משפיע מקומות &amp; מסלולים ממשק תכנות יישומים</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">נא הכנס ראוי זהות בריכה מזהה</string>
   <string name="label_enter_domain">נכנס משתמש תחום הווה שגוי</string>
   <string name="label_enter_user_pool_client_id">נכנס משתמש בריכה לקוח מזהה הווה שגוי</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">נתונים ספק</string>
   <string name="map_style">מפה סגנון</string>
   <string name="aws_cloudformation">התחבר שלך AWS חשבון</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">אתה מהווים מחובר</string>
   <string name="label_connected_description">התחבר שלך AWS חשבון כדי להפעיל גיאופנס ו עוקבים. זה צוואה להבטיח שלך מעקב ו גידור גיאוגרפי פרטים הווה רק מאוחסן בתוך שלך חשבון. אחרי אתה יומן ב, כל מאפיינים של ה הדגמה אפליקציה צוואה לרוץ לנצל משאבים אתה לפרוס בתוך שלך AWS חשבון. יומן החוצה אם אתה הייתי רוצה ש- כדי המשך רץ ה הדגמה אפליקציה לנצל משאבים בתוך AWS דמו יישום חשבון.</string>
   <string name="label_how_to_remove">איך כדי להסיר:</string>
@@ -134,11 +114,7 @@
   <string name="label_connected_title_4">נא הכנס ה הבא נדרש שדות לתוך ה מיקום.</string>
   <string name="label_tracking_history">מעקב היסטוריה</string>
   <string name="label_tracking_your_activity">מעקב שלך מכשיר מקום</string>
-  <string name="label_enable_tracking">הפעל בשידור חי עוקבים</string>
-  <string name="label_enable_tracker">הפעל גשש</string>
-  <string name="label_enable_tracker_description">אתה מסוגל שימוש כלשהו פרטים ספק מלבד Esri בשביל שלך נכס ניהול או מעקב שימוש מקרים. אם אתה לרצות כדי שימוש Esri בשביל שלך נכס ניהול או מעקב שימוש מקרה, בבקשה קרא מונחים ו תנאים</string>
-  <string name="label_enable_tracker_view_terms">צפה תנאים ו תנאים</string>
-  <string name="label_enable_tracker_continue_to_tracker">המשך</string>
+   <string name="label_enable_tracking">הפעל בשידור חי עוקבים</string>
   <string name="label_enable_tracking_detail">מאפשר ה מאפיין צוואה להתיר אתה כדי מסלול שלך מכשיר ו לקבל הודיע כאשר ה מכשיר נכנס או יוצא כלשהו של שלך גיאופנס.</string>
   <string name="label_check_your_internet_connection_and_try_again">בדוק שלך מרשתת חיבור ו השתדל שוב</string>
   <string name="label_not_tracking_your_activity">לא מעקב שלך מכשיר מקום</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">מחסנית הווה מושחת, מיתוג גב כדי ברירת מחדל ערימה</string>
   <string name="error_route">מסלול לא מצא.</string>
   <string name="no_route_found">לא מסלול נמצא</string>
-  <string name="error_switch_to_here">מרחק הווה רבתי מ 400 ק"מ, יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי כאן ספק</string>
-  <string name="error_switch_to_here_miles" formatted="false">מרחק הווה רבתי מ %s מי, יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי כאן ספק</string>
-  <string name="error_distance_400">ב מקור נתונים אסרי, נקודות דרך בשביל מכונית ו משאית צריך להיות בפנים 400 ק"מ, ו נקודות דרך בשביל ללכת צריך להיות בפנים 40 ק"מ.</string>
-  <string name="error_distance_248_miles" formatted="false">ב מקור נתונים אסרי, נקודות דרך בשביל מכונית ו משאית צריך להיות בפנים %smi, ו נקודות דרך בשביל ללכת צריך להיות בפנים %smi.</string>
   <string name="connect_to_aws_account">התחבר AWS חשבון</string>
   <string name="label_preview">תצוגה מקדימה</string>
   <string name="label_location_permission_denied">מיקום רשות נדחה</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">משפטי ו פרטיות</string>
   <string name="label_version">גרסה</string>
   <string name="label_sign_out">לחתום החוצה</string>
-  <string name="distance_is_greater_than_400_km">מרחק הווה רבתי מ 400 "ק""מ"</string>
-  <string name="distance_is_greater_than_248_mi">מרחק הווה רבתי מ %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">לא יכול\ לא לחשב דרך אסרי, באדיבות מתג כדי \nכאן ספק.</string>
-  <string name="label_here_attribution_text">© 2022 כאן</string>
   <string name="label_partner_attribution">פרטנר ייחוס</string>
   <string name="label_software_attribution">תוכנה ייחוס</string>
   <string name="label_click_learn_more_for_software_attribution">לחץ ללמוד עוד בשביל תוכנה תכונה</string>
@@ -204,13 +172,6 @@
   <string name="imperial">קיסרי</string>
   <string name="subtitle_imperial">מיילס, פאונד</string>
   <string name="automatic">אוטומטי</string>
-  <string name="label_restart_app_title">הפעל Grab</string>
-  <string name="label_restart_app_description">Grab מעניק מפות, מסלולים ו מקום חפש בתוך מלזיה, פיליפינים, תאילנד, סינגפור, וייטנאם, אינדונזיה, מיאנמר, ו קמבודיה. \n\n בזמן מכונית ו אופנוע מסלולים מהווים זמינה מעבר ה לעיל מדינות, ה אופניים ו הליכה מסלולים מהווים תמך בתוך רק מפתח ערים כזה בתור סינגפור, ג\'קרטה, מנילה, קלאנג עמק, בנגקוק, הו צ\'י מין עיר, ו האנוי. </string>
-  <string name="enable_grab">הפעל Grab</string>
-  <string name="dont_ask_again">אל\ לא שאל שוב</string>
-  <string name="your_location_not_supported_by_grab">שלך נוכחי מקום הווה החוצה ארצות תמך על ידי Grab. נכון לעכשיו, Grab תומך מלזיה, פיליפינים, תאילנד, סינגפור, וייטנאם, אינדונזיה, מיאנמר, קמבודיה.</string>
-  <string name="label_current_location_disabled">נוכחי מקום מושבת</string>
-  <string name="label_grab_limitation">מרחק יכול\ לא להיות מחושב, מאחר ש שלך נוכחי מקום יש ל היה מושבת נאות כדי grab מגבלה</string>
   <string name="label_automatic_sub_title_mile">מבוסס על שלך דפדפן הגדרות (מיילס, פאונד)</string>
   <string name="label_automatic_sub_title_km">מבוסס על שלך דפדפן הגדרות (קילומטרים, קילוגרמים)</string>
   <string name="label_sec">שניות</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">ברור בחירה</string>
   <string name="label_style_search_error_title">לא זיווג סגנונות נמצא</string>
   <string name="label_style_search_error_des">לעשות בטח שלך חפש הווה מאוית נכון ו השתדל שוב, עשה בטח אתה יש הגיש בקשה ה ראוי מסנן או הסר ה מסנן ו השתדל שוב</string>
-  <string name="label_geofence_disable_error">נבחר גיאופנס הווה לא זמינה בתוך ה Grab מפה ספק. נא מתג כדי נוסף מפה ספק כדי מבט ו לנהל נבחר גיאופנס.</string>
   <string name="label_clear_filters">ברור מסננים</string>
   <string name="label_try_trackers_amp_geofences_simulation">נסה עוקבים &amp; גיאופנס הדמייה</string>
   <string name="label_requires_connection_to_aws_cloudformation">דורש חיבור כדי AWS תצורת ענן</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">עבור חלק הדמייה חוויה בבקשה להתיר הודעה רשות מ הגדרות.</string>
-  <string name="label_change_data_provider">שינוי נתונים ספק</string>
-  <string name="label_change_data_provider_des">GrabMaps לא\ לא תמיכה סימולציה, בבקשה עודף פרטים ספק כדי Esri או כאן כדי שימוש גיאופנס או גשש תכונות.</string>
-  <string name="label_switch_to_esri">מתג כדי Esri</string>
   <string name="region">אזור</string>
-  <string name="label_enable_open_data">הפעל OpenData</string>
-  <string name="label_enable_open_data_des">OpenData משתמש Esri בשביל מסלולים ו מקומות חפש פונקציונליות כדי לשפר שלך ניסיון.</string>
+  <string name="mode_light">אור</string>
+  <string name="mode_dark">כהה</string>
+  <string name="label_political_view">פוליטי מבט</string>
+  <string name="label_map_representation_for_different_countries">מפה ייצוג בשביל נבדל ארצות</string>
+  <string name="description_arg">ארגנטינה\ של מבט על ה דרומי פטגוני קרח שדה ו טיירה דל אש, כולל ה פוקלנד איים, דרום ג\'ורג\'יה, ו דרום כריך איים</string>
+  <string name="description_egy">מצרים\ מבט על ביר טוויל</string>
+  <string name="description_ind">הודו\ של מבט על גילגיט-בלטיסטן</string>
+  <string name="description_ken">קניה\ של מבט על ה אילמי משולש</string>
+  <string name="description_mar">מרוקו\ של מבט על מערבי סהרה</string>
+  <string name="description_rus">רוסיה\ של מבט על קרים</string>
+  <string name="description_sdn">סודאן\ של מבט על ה חלאיב משולש</string>
+  <string name="description_srb">סרביה\ של מבט על קוסובו, ווקובר, ו סרנגראד איים</string>
+  <string name="description_sur">סורינאם מבט על ה קורנטיין שפכים ו לאווה שפכים</string>
+  <string name="description_syr">סוריה\ מבט על ה גולן גבהים</string>
+  <string name="description_tur">טורקיה\ של מבט על קפריסין ו צפוני קפריסין</string>
+  <string name="description_tza">טנזניה מבט על אגם מלאווי</string>
+  <string name="description_ury">אורוגוואי\ של מבט על רינקון דה ארטיגאס</string>
+  <string name="description_vnm">וייטנאם\ מבט על ה פאראסל איים ו ספראטלי איים</string>
 </resources>

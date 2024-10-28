@@ -42,10 +42,9 @@ class GeofenceUseCase @Inject constructor(private val mGeofenceRepository: Geofe
         lat: Double?,
         lng: Double?,
         searchText: String,
-        isGrabMapSelected: Boolean,
         searchPlace: SearchPlaceInterface
     ) =
-        mGeofenceRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
+        mGeofenceRepository.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
 
     suspend fun searchPlaceIndexForText(
         lat: Double?,

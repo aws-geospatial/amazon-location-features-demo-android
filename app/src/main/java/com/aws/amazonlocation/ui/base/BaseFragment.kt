@@ -4,9 +4,9 @@ import android.content.Context
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.utils.AWSLocationHelper
+import com.aws.amazonlocation.utils.providers.LocationProvider
+import com.aws.amazonlocation.utils.providers.PlacesProvider
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.PreferenceManager
@@ -29,7 +29,10 @@ abstract class BaseFragment : Fragment() {
     lateinit var mBottomSheetHelper: BottomSheetHelper
 
     @Inject
-    lateinit var mAWSLocationHelper: AWSLocationHelper
+    lateinit var mPlacesProvider: PlacesProvider
+
+    @Inject
+    lateinit var mLocationProvider: LocationProvider
 
     @Inject
     lateinit var mPreferenceManager: PreferenceManager

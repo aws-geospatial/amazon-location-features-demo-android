@@ -20,7 +20,6 @@ android {
         testInstrumentationRunner "com.aws.amazonlocation.AmazonLocationRunner"
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_HERE_URL',"\"https://legal.here.com/en-gb/terms/general-content-supplier-terms-and-notices\""
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_ESRI_URL',"\"https://www.esri.com/en-us/legal/terms/data-attributions\""
-        buildConfigField 'String', 'GRAB_LEARN_MORE',"\"https://docs.aws.amazon.com/location/latest/developerguide/grab.html\""
         buildConfigField 'String', 'BASE_DOMAIN',"\"https://location.aws.com\""
         buildConfigField 'String', 'AWS_TERMS_URL',"\"/demo/terms\""
         buildConfigField 'String', 'CLOUD_FORMATION_READ_MORE_URL',"\"/demo/help\""
@@ -30,6 +29,8 @@ android {
         buildConfigField 'String', 'AWS_PRIVACY_NOTICE',"\"https://aws.amazon.com/privacy/\""
         buildConfigField 'String', 'AWS_NEAREST_REGION_CHECK_URL',"\"https://dynamodb.%s.amazonaws.com/\""
 
+        buildConfigField 'String', 'API_KEY_EU_CENTRAL',"\"${customConfig.getProperty("API_KEY_EU_CENTRAL")}\""
+        buildConfigField 'String', 'API_KEY_US_EAST',"\"${customConfig.getProperty("API_KEY_US_EAST")}\""
         buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID")}\""
         buildConfigField 'String', 'DEFAULT_REGION',"\"${customConfig.getProperty("DEFAULT_REGION")}\""
         buildConfigField 'String', 'IDENTITY_POOL_ID',"\"${customConfig.getProperty("IDENTITY_POOL_ID")}\""
@@ -39,13 +40,11 @@ android {
         buildConfigField 'String', 'WEB_SOCKET_URL',"\"${customConfig.getProperty("WEB_SOCKET_URL")}\""
         buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL")}\""
         buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL_EU',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL_EU")}\""
-        buildConfigField 'String', 'SIMULATION_WEB_SOCKET_URL_AP',"\"${customConfig.getProperty("SIMULATION_WEB_SOCKET_URL_AP")}\""
         buildConfigField 'String', 'USER_LOGIN_NAME',"\"${customConfig.getProperty("USER_LOGIN_NAME")}\""
         buildConfigField 'String', 'USER_LOGIN_PASSWORD',"\"${customConfig.getProperty("USER_LOGIN_PASSWORD")}\""
         buildConfigField 'String', 'ANALYTICS_IDENTITY_POOL_ID',"\"${customConfig.getProperty("ANALYTICS_IDENTITY_POOL_ID")}\""
         buildConfigField 'String', 'ANALYTICS_APP_ID',"\"${customConfig.getProperty("ANALYTICS_APP_ID")}\""
         buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID_EU',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID_EU")}\""
-        buildConfigField 'String', 'DEFAULT_IDENTITY_POOL_ID_AP',"\"${customConfig.getProperty("DEFAULT_IDENTITY_POOL_ID_AP")}\""
     }
     signingConfigs {
         release {
@@ -153,11 +152,13 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
     implementation "androidx.fragment:fragment-ktx:1.8.2"
 
-    implementation("aws.sdk.kotlin:iot:1.3.29")
+    implementation("aws.sdk.kotlin:iot:1.3.62")
     implementation("com.amazonaws:aws-iot-device-sdk-java:1.3.9")
     implementation("aws.sdk.kotlin:location:1.3.29")
     implementation("aws.sdk.kotlin:cognitoidentity:1.3.29")
     implementation("aws.sdk.kotlin:pinpoint:1.3.29")
+    implementation("aws.sdk.kotlin:geoplaces:1.3.39-preview")
+    implementation("aws.sdk.kotlin:georoutes:1.3.23-preview")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // Support for Java 8 features
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'

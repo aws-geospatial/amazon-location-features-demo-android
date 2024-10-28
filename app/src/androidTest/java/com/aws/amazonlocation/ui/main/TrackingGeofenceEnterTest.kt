@@ -55,13 +55,6 @@ class TrackingGeofenceEnterTest : BaseTestMainActivity() {
 
         val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
         tracking.click()
-        uiDevice.wait(
-            Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker))),
-            DELAY_1000
-        )
-        val labelContinue =
-            uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker)))
-        labelContinue?.click()
         Thread.sleep(DELAY_5000)
         uiDevice.wait(
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_start_tracking))),

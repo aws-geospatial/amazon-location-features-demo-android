@@ -15,9 +15,7 @@
   <string name="privacy_policy">Di continuando, voi concordare a Amazon\'s Condizioni di Usa e Privacy Avviso.</string>
   <string name="condition_of_use">Condizioni di Usa</string>
   <string name="privacy_notice">Privacy Avviso</string>
-  <string name="login_success">Segno nel Con successo</string>
   <string name="sign_out_successfully">Segno fuori con successo</string>
-  <string name="sign_out_failed">Segno fuori fallito, per favore provare ancora...</string>
   <string name="sign_in_to_access_tracking">Segno nel a accesso Monitoraggio e Geofence caratteristiche o procedere a Esplora lo mappa</string>
   <string name="sign_in_required">Segno nel necessario</string>
   <string name="maybe_later">Forse dopo</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">Camminare</string>
   <string name="label_drive">Guidare</string>
   <string name="label_truck">Camion</string>
-  <string name="label_bicycle">bicicletta</string>
-  <string name="label_motorcycle">motocicletta</string>
+  <string name="label_scooter">Scooter</string>
   <string name="label_search_starting_point">Cerca di partenza punto</string>
   <string name="exit">Esci</string>
   <string name="log_out">Registro fuori</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">Modifica Geofence</string>
   <string name="label_map_style">Mappa Stile</string>
   <string name="label_map_style_description">Cambiando dato fornitore anche colpisce Luoghi &amp; Percorsi API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">Per favore inserire corretto identità piscina id</string>
   <string name="label_enter_domain">Entrato utente dominio è sbagliato</string>
   <string name="label_enter_user_pool_client_id">Entrato utente piscina cliente id è sbagliato</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">Dati fornitore</string>
   <string name="map_style">Mappa stile</string>
   <string name="aws_cloudformation">Connetti tuo AWS Account</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">Tu siamo connesso</string>
   <string name="label_connected_description">Connetti tuo AWS conto a abilitare Geofence e Localizzatori. Questo volontà garantire tuo tracciamento e geofencing dato è solo immagazzinato nel tuo conto. Dopo voi tronco nel, tutti caratteristiche di lo Dimostrazione App volontà correre utilizzando risorse voi dispiegare nel tuo AWS conto. Registro fuori se voi desiderio a continua correre lo Dimostrazione App utilizzando risorse nel di AWS manifestazione app conto.</string>
   <string name="label_how_to_remove">Come a rimuovere:</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">Monitoraggio Storia</string>
   <string name="label_tracking_your_activity">Monitoraggio tuo dispositivo posizione</string>
   <string name="label_enable_tracking">Abilita Dal vivo Localizzatori</string>
-  <string name="label_enable_tracker">Abilita Localizzatore</string>
-  <string name="label_enable_tracker_description">Tu lattina uso qualsiasi dato fornitore eccetto Esri per tuo bene gestione o tracciamento uso casi. Se voi volere a uso Esri per tuo bene gestione o tracciamento uso custodia, per favore leggere termini e condizioni</string>
-  <string name="label_enable_tracker_view_terms">Visualizza Termini e Condizioni</string>
-  <string name="label_enable_tracker_continue_to_tracker">Continua</string>
   <string name="label_enable_tracking_detail">Abilitare lo caratteristica volontà permettere voi a brano tuo dispositivo e ottenere notificate quando lo dispositivo entrare o uscite qualsiasi di tuo geofence.</string>
   <string name="label_check_your_internet_connection_and_try_again">Controlla tuo internet connessione e provare nuovamente</string>
   <string name="label_not_tracking_your_activity">Non tracciamento tuo dispositivo posizione</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">Pila è corrotto, commutazione indietro a predefinito pila</string>
   <string name="error_route">Percorso non trovato.</string>
   <string name="no_route_found">No itinerario trovato</string>
-  <string name="error_switch_to_here">Distanza è maggiore che 400 km, non posso calcolare tramite Esri, cortesemente interruttore a QUI fornitore</string>
-  <string name="error_switch_to_here_miles" formatted="false">Distanza è maggiore che %s mi, non posso calcolare tramite Esri, cortesemente interruttore a QUI fornitore</string>
-  <string name="error_distance_400">Nel Fonte dati Esri, waypoint per auto e autocarro dovere essere entro 400 km, e waypoint per camminare dovere essere entro 40 km.</string>
-  <string name="error_distance_248_miles" formatted="false">Nel Fonte dati Esri, waypoint per auto e autocarro dovere essere entro %smi, e waypoint per camminare dovere essere entro %smi.</string>
   <string name="connect_to_aws_account">Connetti AWS Account</string>
   <string name="label_preview">Anteprima</string>
   <string name="label_location_permission_denied">Posizione autorizzazione negato</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">Legale e Privacy</string>
   <string name="label_version">Versione</string>
   <string name="label_sign_out">Segno fuori</string>
-  <string name="distance_is_greater_than_400_km">Distanza è maggiore che 400 km</string>
-  <string name="distance_is_greater_than_248_mi">Distanza è maggiore che %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Non posso calcolare tramite Esri, cortesemente interruttore a \nEcco fornitore.</string>
-  <string name="label_here_attribution_text">© 2022 QUI</string>
   <string name="label_partner_attribution">Partner Attribuzione</string>
   <string name="label_software_attribution">Software Attribuzione</string>
   <string name="label_click_learn_more_for_software_attribution">Fare clic imparare di più per software attribuzione</string>
@@ -204,13 +172,6 @@
   <string name="imperial">Imperiale</string>
   <string name="subtitle_imperial">Miglia, sterline</string>
   <string name="automatic">Automatico</string>
-  <string name="label_restart_app_title">Abilita Grab</string>
-  <string name="label_restart_app_description">Grab fornisce Mappe, Percorsi e Luogo ricerca nel Malesia, Filippine, Thailandia, Singapore, Vietnam, Indonesia, Myanmar, e Cambogia. \n\nMentre auto e moto itinerari siamo disponibile attraverso lo sopra paesi, lo bicicletta e camminando itinerari siamo supportato nel solo chiave città tale come Singapore, Giacarta, Manila, Klang Valle, Bangkok, Ho Chi Minh Città, e Hanoi. </string>
-  <string name="enable_grab">Abilita Grab</string>
-  <string name="dont_ask_again">Non chiedere nuovamente</string>
-  <string name="your_location_not_supported_by_grab">Il tuo attuale posizione è fuori paesi supportato da Grab. Attualmente, Grab supporti Malesia, Filippine, Thailandia, Singapore, Vietnam, Indonesia, Myanmar, Cambogia.</string>
-  <string name="label_current_location_disabled">Corrente posizione disabili</string>
-  <string name="label_grab_limitation">Distanza non posso essere calcolato, da tuo attuale posizione ha stato disabili dovuto a grab limitazione</string>
   <string name="label_automatic_sub_title_mile">Basato sul tuo browser impostazioni (Miglia, sterline)</string>
   <string name="label_automatic_sub_title_km">Basato sul tuo browser impostazioni (Chilometri, chilogrammi)</string>
   <string name="label_sec">secondo</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">Trasparente selezione</string>
   <string name="label_style_search_error_title">No accoppiamento stili trovato</string>
   <string name="label_style_search_error_des">Marca sicuro tuo ricerca è scritto correttamente e provare ancora, fare sicuro voi avere applicata lo apposito filtro o rimuovere lo filtro e provare nuovamente</string>
-  <string name="label_geofence_disable_error">Selezionato geofence è non disponibile nel lo Grab mappa fornitore. Per favore interruttore a un altro mappa fornitore a vista e gestire selezionato geofence.</string>
   <string name="label_clear_filters">Trasparente filtri</string>
   <string name="label_try_trackers_amp_geofences_simulation">Prova Localizzatori &amp; Geofence simulazione</string>
   <string name="label_requires_connection_to_aws_cloudformation">Richiede connessione a AWS Formazione sul cloud</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Per liscia simulazione esperienza per favore permettere notifica autorizzazione da impostazioni.</string>
-  <string name="label_change_data_provider">Cambia Dati Fornitore</string>
-  <string name="label_change_data_provider_des">GrabMaps non fa supportare simulazione, per favore cambiare dato fornitore a Esri o QUI a uso Geofence o Localizzatore caratteristiche.</string>
-  <string name="label_switch_to_esri">Interruttore a Esri</string>
   <string name="region">Regione</string>
-  <string name="label_enable_open_data">Abilita Dati aperti</string>
-  <string name="label_enable_open_data_des">Dati aperti utilizza Esri per Percorsi e Luoghi ricerca funzionalità a accrescere tuo esperienza.</string>
+  <string name="mode_light">Leggero</string>
+  <string name="mode_dark">Scuro</string>
+  <string name="label_political_view">Politico vista</string>
+  <string name="label_map_representation_for_different_countries">Mappa rappresentanza per differente paesi</string>
+  <string name="description_arg">Argentina\'s vista sul lo Meridionale patagonico Ghiaccio Campo e Tierra Del Fuoco, compresi lo Falkland Isole, Sud Georgia, e Sud Sandwich Isole</string>
+  <string name="description_egy">Egitto\'s vista sul Bird Tawil</string>
+  <string name="description_ind">India\'s vista sul Gilgit-Baltistan</string>
+  <string name="description_ken">Kenya\'s vista sul lo Ilemi Triangolo</string>
+  <string name="description_mar">Marocco\'s vista sul Occidentale Sahara</string>
+  <string name="description_rus">Russia\ vista sul Crimea</string>
+  <string name="description_sdn">Sudan\'s vista sul lo Halaib Triangolo</string>
+  <string name="description_srb">Serbia\ vista sul Kosovo, Vukovar, e Sarengrad Isole</string>
+  <string name="description_sur">Suriname\'s vista sul lo Courantyne Sorgenti e Lawa Sorgenti</string>
+  <string name="description_syr">Siria\'s vista sul lo Golan Altezze</string>
+  <string name="description_tur">Turchia\'s vista sul Cipro e Settentrionale Cipro</string>
+  <string name="description_tza">della Tanzania vista sul Lago Malawi</string>
+  <string name="description_ury">Uruguay\'s vista sul Rincon de Artigas</string>
+  <string name="description_vnm">Vietnam\'s vista sul lo Paracel Isole e Spratly Isole</string>
 </resources>

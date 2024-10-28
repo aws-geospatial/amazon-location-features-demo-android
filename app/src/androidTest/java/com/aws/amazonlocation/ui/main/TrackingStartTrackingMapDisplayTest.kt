@@ -3,7 +3,6 @@ package com.aws.amazonlocation.ui.main
 import android.location.Location
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -55,13 +54,7 @@ class TrackingStartTrackingMapDisplayTest : BaseTestMainActivity() {
             }
             val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
             tracking.click()
-            uiDevice.wait(
-                Until.hasObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker))),
-                DELAY_1000
-            )
-            val labelContinue =
-                uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.label_enable_tracker_continue_to_tracker)))
-            labelContinue?.click()
+
             Thread.sleep(DELAY_5000)
             val rvTracking =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_tracking)

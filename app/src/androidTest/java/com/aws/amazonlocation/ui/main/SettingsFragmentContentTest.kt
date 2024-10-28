@@ -61,12 +61,11 @@ class SettingsFragmentContentTest : BaseTestMainActivity() {
                 Assert.fail(TEST_FAILED_NAVIGATION_TAB_SETTINGS_NOT_SELECTED)
             }
 
-            val dataProvider = mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_data_provider)
             val mapStyle = mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_map_style)
             val defaultRoute = mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_route_option)
             val connectToAws = mActivityRule.activity.findViewById<ConstraintLayout>(R.id.cl_aws_cloudformation)
 
-            if (!dataProvider.isVisible || !mapStyle.isVisible || !defaultRoute.isVisible || !connectToAws.isVisible) {
+            if (!mapStyle.isVisible || !defaultRoute.isVisible || !connectToAws.isVisible) {
                 Assert.fail(TEST_FAILED_SETTINGS_ALL_OPTIONS_NOT_VISIBLE)
             }
         } catch (e: Exception) {

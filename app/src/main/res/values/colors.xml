@@ -31,7 +31,6 @@
     <color name="color_32ADE6">#32ADE6</color>
     <color name="color_f8f8f7">#f8f8f7</color>
     <color name="switch_color_primary_green">#61008296</color>
-    <color name="color_close_bg">#e9e9eb</color>
     <color name="color_cross_button">#993C3C43</color>
     <color name="color_selected_spinner_bg">#ebf5f7</color>
 </resources>
