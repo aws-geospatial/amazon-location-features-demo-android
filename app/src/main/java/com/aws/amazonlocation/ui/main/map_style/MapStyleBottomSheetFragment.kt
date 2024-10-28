@@ -235,6 +235,7 @@ class MapStyleBottomSheetFragment(
                         text = "${it.countryName}. ${it.description}"
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.color_primary_green))
                     }
+
                 }
             }
             rvPoliticalView.layoutManager = LinearLayoutManager(requireContext())
@@ -273,6 +274,11 @@ class MapStyleBottomSheetFragment(
                     it.isSelected = true
                     it.mapInnerData?.forEach { mapStyleInnerData ->
                         if (mapStyleInnerData.mapName.equals(mapStyleName)) {
+                            if (mapStyleInnerData.mapName == getString(R.string.map_satellite) || mapStyleInnerData.mapName == getString(R.string.map_hybrid)) {
+                                disableToggle()
+                            } else {
+                                enableToggle()
+                            }
                             mapStyleInnerData.isSelected = true
                         }
                     }
@@ -492,6 +498,24 @@ class MapStyleBottomSheetFragment(
     @SuppressLint("NotifyDataSetChanged")
     fun notifyAdapter() {
         mMapStyleAdapter?.notifyDataSetChanged()
+        val mapStyleName =
+            mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_standard))
+                ?: getString(R.string.map_standard)
+        if (mapStyleName == getString(R.string.map_satellite) || mapStyleName == getString(R.string.map_hybrid)) {
+            disableToggle()
+        } else {
+            enableToggle()
+        }
+    }
+
+    private fun enableToggle() {
+        mBinding.toggleMode.isEnabled = true
+        mBinding.toggleMode.alpha = 1.0f
+    }
+
+    private fun disableToggle() {
+        mBinding.toggleMode.isEnabled = false
+        mBinding.toggleMode.alpha = 0.5f
     }
 
     interface MapInterface {

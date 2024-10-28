@@ -92,6 +92,11 @@ class MapStyleFragment : BaseFragment() {
                 it.isSelected = true
                 it.mapInnerData?.forEach { mapStyleInnerData ->
                     if (mapStyleInnerData.mapName.equals(mapStyleName)) {
+                        if (mapStyleInnerData.mapName == getString(R.string.map_satellite) || mapStyleInnerData.mapName == getString(R.string.map_hybrid)) {
+                            disableToggle()
+                        } else {
+                            enableToggle()
+                        }
                         mapStyleInnerData.isSelected = true
                     }
                 }
@@ -199,6 +204,11 @@ class MapStyleFragment : BaseFragment() {
                     }
                 }
             }
+        }
+        if (mapStyleName == getString(R.string.map_satellite) || mapStyleName == getString(R.string.map_hybrid)) {
+            disableToggle()
+        } else {
+            enableToggle()
         }
         mMapStyleAdapter?.notifyDataSetChanged()
     }
@@ -353,5 +363,15 @@ class MapStyleFragment : BaseFragment() {
     }
     fun hideKeyBoard() {
         mBinding.etSearchCountry.clearFocus()
+    }
+
+    private fun enableToggle() {
+        mBinding.toggleMode.isEnabled = true
+        mBinding.toggleMode.alpha = 1.0f
+    }
+
+    private fun disableToggle() {
+        mBinding.toggleMode.isEnabled = false
+        mBinding.toggleMode.alpha = 0.5f
     }
 }

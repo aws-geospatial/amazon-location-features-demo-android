@@ -1521,27 +1521,8 @@ class MapHelper(
         fun mapLoadedSuccess()
     }
 
-    private fun setStyleLanguage(style: Style) {
-
-        val languageCode = getLanguageCode()
-        val expression: Expression? = Expression.coalesce(
-                Expression.coalesce(
-                    Expression.get("_name_$languageCode"),
-                    Expression.get("_name_global"),
-                ),
-                Expression.get("_name"),
-            )
-        for (layer in style.layers) {
-            if (layer is SymbolLayer) {
-                val textField = textField(expression)
-                layer.setProperties(textField)
-            }
-        }
-    }
-
     fun updateZoomRange(style: Style) {
         mMapLibreMap?.getStyle {
-            setStyleLanguage(style)
             val cameraPosition = mMapLibreMap?.cameraPosition
             val zoom = cameraPosition?.zoom
             val minZoom = minZoomLevel()
