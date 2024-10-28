@@ -29,10 +29,10 @@ abstract class BaseFragment : Fragment() {
     lateinit var mBottomSheetHelper: BottomSheetHelper
 
     @Inject
-    lateinit var mAWSPlacesProvider: PlacesProvider
+    lateinit var mPlacesProvider: PlacesProvider
 
     @Inject
-    lateinit var mAWSLocationHelper: LocationProvider
+    lateinit var mLocationProvider: LocationProvider
 
     @Inject
     lateinit var mPreferenceManager: PreferenceManager

@@ -188,7 +188,6 @@
   <string name="label_clear_selection">투명 선택</string>
   <string name="label_style_search_error_title">아니요 어울리는 스타일 녹이다</string>
   <string name="label_style_search_error_des">만들기 확실한 당신의 수색 입니다 철자 바르게 과 시도해 보십시오 다시 말하지만, 만들 확실한 당신 있다 적용된 그 적절한 필터 또는 제거 그 필터 과 시도해 보십시오 다시</string>
-  <string name="label_geofence_disable_error">선택됨 지오펜스 입니다 아니 유효한 에서 그 Grab 지도 제공자. 부디 변경하다 에 다른 지도 공급자 에 전망 과 꾸리다 이 선택되어 있습니다 지오펜스.</string>
   <string name="label_clear_filters">투명 필터</string>
   <string name="label_try_trackers_amp_geofences_simulation">시도해 보세요 트래커 &amp; 지오펜스 시뮬레이션</string>
   <string name="label_requires_connection_to_aws_cloudformation">필요 연결 에 AWS 클라우드 포메이션</string>

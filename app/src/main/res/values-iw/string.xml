@@ -188,7 +188,6 @@
   <string name="label_clear_selection">ברור בחירה</string>
   <string name="label_style_search_error_title">לא זיווג סגנונות נמצא</string>
   <string name="label_style_search_error_des">לעשות בטח שלך חפש הווה מאוית נכון ו השתדל שוב, עשה בטח אתה יש הגיש בקשה ה ראוי מסנן או הסר ה מסנן ו השתדל שוב</string>
-  <string name="label_geofence_disable_error">נבחר גיאופנס הווה לא זמינה בתוך ה Grab מפה ספק. נא מתג כדי נוסף מפה ספק כדי מבט ו לנהל נבחר גיאופנס.</string>
   <string name="label_clear_filters">ברור מסננים</string>
   <string name="label_try_trackers_amp_geofences_simulation">נסה עוקבים &amp; גיאופנס הדמייה</string>
   <string name="label_requires_connection_to_aws_cloudformation">דורש חיבור כדי AWS תצורת ענן</string>

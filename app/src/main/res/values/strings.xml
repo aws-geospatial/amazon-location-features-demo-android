@@ -204,7 +204,6 @@
     <string name="label_clear_selection">Clear selection</string>
     <string name="label_style_search_error_title">No matching styles found</string>
     <string name="label_style_search_error_des">Make sure your search is spelled correctly and try again, make sure you have applied the appropriate filter or remove the filter and try again</string>
-    <string name="label_geofence_disable_error">Selected geofence is not available in the Grab map provider. Please switch to another map provider to view and manage selected geofence.</string>
     <string name="label_clear_filters">Clear filters</string>
     <string name="label_try_trackers_amp_geofences_simulation"><![CDATA[Try Trackers & Geofences simulation]]></string>
     <string name="label_requires_connection_to_aws_cloudformation">Requires connection to AWS CloudFormation</string>

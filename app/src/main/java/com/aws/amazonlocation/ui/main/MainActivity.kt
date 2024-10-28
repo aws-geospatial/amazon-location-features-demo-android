@@ -152,10 +152,10 @@ class MainActivity :
     }
 
     private fun checkSession() {
-        if (!mAWSLocationHelper.checkClientInitialize()) {
+        if (!mLocationProvider.checkClientInitialize()) {
             val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
             if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
-                if (mAWSLocationHelper.isAuthTokenExpired()) {
+                if (mLocationProvider.isAuthTokenExpired()) {
                     refreshToken()
                 } else {
                     CoroutineScope(Dispatchers.IO).launch {
@@ -169,7 +169,7 @@ class MainActivity :
                 }
             }
         } else {
-            mAWSLocationHelper.checkSessionValid(this)
+            mLocationProvider.checkSessionValid(this)
         }
     }
 
@@ -266,7 +266,7 @@ class MainActivity :
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         CoroutineScope(Dispatchers.IO).launch {
-            analyticsUtils = AnalyticsUtils(mAWSLocationHelper, mPreferenceManager)
+            analyticsUtils = AnalyticsUtils(mLocationProvider, mPreferenceManager)
             async { analyticsUtils?.initAnalytics() }.await()
             analyticsUtils?.startSession()
             setSelectedScreen(AnalyticsAttributeValue.EXPLORER)
@@ -425,14 +425,14 @@ class MainActivity :
                                 "",
                             ) != AuthEnum.SIGNED_IN.name
                         ) {
-                            mAWSLocationHelper.locationCredentialsProvider?.clear()
+                            mLocationProvider.locationCredentialsProvider?.clear()
                         }
                         mPreferenceManager.setValue(
                             KEY_CLOUD_FORMATION_STATUS,
                             AuthEnum.SIGNED_IN.name,
                         )
                         mBottomSheetDialog?.dismiss()
-                        async { mAWSLocationHelper.generateNewAuthCredentials(authHelper) }.await()
+                        async { mLocationProvider.generateNewAuthCredentials(authHelper) }.await()
                         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment is ExploreFragment) {
                             val mapStyleNameDisplay =
@@ -562,7 +562,7 @@ class MainActivity :
             ?.onEach {
                 when (it) {
                     ConnectivityObserveInterface.ConnectionStatus.Available -> {
-                        if (!mAWSLocationHelper.checkClientInitialize()) {
+                        if (!mLocationProvider.checkClientInitialize()) {
                             initMobileClient()
                         }
                     }
@@ -661,7 +661,7 @@ class MainActivity :
     fun getTokenAndAttachPolicy() {
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val identityId: String? = mAWSLocationHelper.getIdentityId()
+                val identityId: String? = mLocationProvider.getIdentityId()
                 val attachPolicyRequest =
                     AttachPolicyRequest {
                         policyName = IOT_POLICY
@@ -677,7 +677,7 @@ class MainActivity :
                         region = mRegion
                         credentialsProvider =
                             createCredentialsProviderForPolicy(
-                                mAWSLocationHelper.getCredentials(),
+                                mLocationProvider.getCredentials(),
                             )
                     }
 
@@ -730,7 +730,7 @@ class MainActivity :
                     region = identityId?.split(":")?.get(0)
                     credentialsProvider =
                         createCredentialsProviderForPolicy(
-                            mAWSLocationHelper.getCredentials(),
+                            mLocationProvider.getCredentials(),
                         )
                 }
 
@@ -995,7 +995,7 @@ class MainActivity :
     fun showSimulationSheet() {
         if (mSimulationUtils == null) {
             mSimulationUtils =
-                SimulationUtils(mPreferenceManager, this@MainActivity, mAWSLocationHelper)
+                SimulationUtils(mPreferenceManager, this@MainActivity, mLocationProvider)
             if (mNavHostFragment.childFragmentManager.fragments.isNotEmpty()) {
                 val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                 if (fragment is ExploreFragment) {
@@ -1263,7 +1263,7 @@ class MainActivity :
     fun initClient(isAfterSignOut:Boolean = false){
         if (!isAfterSignOut) {
             try {
-                mAWSLocationHelper.locationCredentialsProvider?.clear()
+                mLocationProvider.locationCredentialsProvider?.clear()
             } catch (_: Exception) { }
         }
         CoroutineScope(Dispatchers.IO).launch {

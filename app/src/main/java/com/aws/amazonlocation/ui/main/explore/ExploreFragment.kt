@@ -373,10 +373,10 @@ class ExploreFragment :
                 mTrackingInterface,
             )
             if (Units.checkInternetConnection(requireContext())) {
-                if (!mAWSLocationHelper.checkClientInitialize()) {
+                if (!mLocationProvider.checkClientInitialize()) {
                     val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
                     if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
-                        if (mAWSLocationHelper.isAuthTokenExpired()) {
+                        if (mLocationProvider.isAuthTokenExpired()) {
                             (activity as MainActivity).refreshToken()
                         } else {
                             async { (activity as MainActivity).initMobileClient() }.await()
@@ -2996,7 +2996,7 @@ class ExploreFragment :
                     val distance =
                         destinationLatLng?.latitude?.let { it1 ->
                             destinationLatLng?.longitude?.let { it2 ->
-                                mAWSPlacesProvider.getDistance(
+                                mPlacesProvider.getDistance(
                                     it,
                                     it1,
                                     it2,

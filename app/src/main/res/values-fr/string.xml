@@ -188,7 +188,6 @@
   <string name="label_clear_selection">Transparent sélection</string>
   <string name="label_style_search_error_title">Non appariement styles trouvé</string>
   <string name="label_style_search_error_des">Fabriquer sûr votre chercher est orthographié correctement et essayer encore une fois, faire sûr vous avoir appliqué le approprié filtre ou supprimer le filtre et essayer encore</string>
-  <string name="label_geofence_disable_error">Sélectionné géofence est pas disponible dans le Grab carte fournisseur. Veuillez interrupteur pour un autre carte fournisseur pour voir et gérer sélectionné géofence.</string>
   <string name="label_clear_filters">Transparent filtres</string>
   <string name="label_try_trackers_amp_geofences_simulation">Essayer Traceurs et Géofences simulation</string>
   <string name="label_requires_connection_to_aws_cloudformation">Nécessite connexion pour AWS Formation dans le cloud</string>

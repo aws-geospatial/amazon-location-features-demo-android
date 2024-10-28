@@ -188,7 +188,6 @@
   <string name="label_clear_selection">Claro seleção</string>
   <string name="label_style_search_error_title">Não combinando estilos encontrado</string>
   <string name="label_style_search_error_des">Faça com certeza seu procurar é soletrado corretamente e tentar novamente, fazer com certeza você ter aplicado a apropriado filtrar ou remover a filtrar e tentar de novo</string>
-  <string name="label_geofence_disable_error">Selecionado cerca geográfica é não disponível em a Grab mapa provedor. Por favor interruptor para outro mapa fornecedor para olhar e gerir selecionado cerca geográfica.</string>
   <string name="label_clear_filters">Claro filtra</string>
   <string name="label_try_trackers_amp_geofences_simulation">Experimente Rastreadores &amp; Geofences simulação</string>
   <string name="label_requires_connection_to_aws_cloudformation">Requer conexão para AWS Formação de nuvem</string>

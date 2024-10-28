@@ -37,7 +37,7 @@ object AppModuleTest {
 
     @Provides
     @Singleton
-    fun getAWSLocationProvider(mPreferenceManager: PreferenceManager) =
+    fun getLocationProvider(mPreferenceManager: PreferenceManager) =
         LocationProvider(mPreferenceManager)
 
     @Provides
@@ -52,55 +52,55 @@ object AppModuleTest {
 
     @Provides
     @Singleton
-    fun getAWSPlacesProvider(mMapHelper: MapHelper,mPreferenceManager: PreferenceManager) =
+    fun getPlacesProvider(mMapHelper: MapHelper,mPreferenceManager: PreferenceManager) =
         PlacesProvider(mMapHelper, mPreferenceManager)
 
     @Provides
     @Singleton
-    fun getAWSRoutesProvider(mPreferenceManager: PreferenceManager) =
+    fun getRoutesProvider(mPreferenceManager: PreferenceManager) =
         RoutesProvider(mPreferenceManager)
 
     @Provides
     @Singleton
-    fun getAWSGeofenceProvider() = GeofenceProvider()
+    fun getGeofenceProvider() = GeofenceProvider()
 
     @Provides
     @Singleton
-    fun getAWSTrackingProvider() = TrackingProvider()
+    fun getTrackingProvider() = TrackingProvider()
 
     @Provides
     @Singleton
     fun providesCommonRepositoryImp(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: LocationProvider,
-        mAWSPlacesProvider: PlacesProvider,
-        mAWSRoutesProvider: RoutesProvider,
-        mAWSGeofenceProvider: GeofenceProvider,
-        mAWSTrackingProvider: TrackingProvider,
+        mLocationHelper: LocationProvider,
+        mPlacesProvider: PlacesProvider,
+        mRoutesProvider: RoutesProvider,
+        mGeofenceProvider: GeofenceProvider,
+        mTrackingProvider: TrackingProvider,
     ): AuthRepository =
-        AuthImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
+        AuthImp(RemoteDataSourceImpl(appContext, mLocationHelper, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
 
     @Provides
     @Singleton
     fun providesLocationSearchRepository(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: LocationProvider,
-        mAWSPlacesProvider: PlacesProvider,
-        mAWSRoutesProvider: RoutesProvider,
-        mAWSGeofenceProvider: GeofenceProvider,
-        mAWSTrackingProvider: TrackingProvider,
+        mLocationProvider: LocationProvider,
+        mPlacesProvider: PlacesProvider,
+        mRoutesProvider: RoutesProvider,
+        mGeofenceProvider: GeofenceProvider,
+        mTrackingProvider: TrackingProvider,
     ): LocationSearchRepository =
-        LocationSearchImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
+        LocationSearchImp(RemoteDataSourceImpl(appContext, mLocationProvider, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
 
     @Provides
     @Singleton
     fun providesGeofenceRepository(
         @ApplicationContext appContext: Context,
-        mAWSLocationHelper: LocationProvider,
-        mAWSPlacesProvider: PlacesProvider,
-        mAWSRoutesProvider: RoutesProvider,
-        mAWSGeofenceProvider: GeofenceProvider,
-        mAWSTrackingProvider: TrackingProvider,
+        mLocationProvider: LocationProvider,
+        mPlacesProvider: PlacesProvider,
+        mRoutesProvider: RoutesProvider,
+        mGeofenceProvider: GeofenceProvider,
+        mTrackingProvider: TrackingProvider,
     ): GeofenceRepository =
-        GeofenceImp(RemoteDataSourceImpl(appContext, mAWSLocationHelper, mAWSPlacesProvider, mAWSRoutesProvider, mAWSGeofenceProvider, mAWSTrackingProvider))
+        GeofenceImp(RemoteDataSourceImpl(appContext, mLocationProvider, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
 }

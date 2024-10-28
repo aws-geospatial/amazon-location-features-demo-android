@@ -188,7 +188,6 @@
   <string name="label_clear_selection">清除 选择</string>
   <string name="label_style_search_error_title">没有 匹配 风格 找到</string>
   <string name="label_style_search_error_des">制作 当然 您的 搜索 是 拼出的 正确地 和 尝试 再说一遍， 使 当然 你 有 应用的 这 适当 过滤 要么 去除 这 过滤 和 尝试 再次</string>
-  <string name="label_geofence_disable_error">已选中 geofence 是 不 可用 在 这 Grab 地图 提供者。 请 开关 到 另一 地图 提供者 到 观点 和 管理 已选中 地理围栏。</string>
   <string name="label_clear_filters">清除 过滤器</string>
   <string name="label_try_trackers_amp_geofences_simulation">试试 追踪器 &amp; 地理围栏 模拟</string>
   <string name="label_requires_connection_to_aws_cloudformation">需要 连接 到 AWS 云形成</string>

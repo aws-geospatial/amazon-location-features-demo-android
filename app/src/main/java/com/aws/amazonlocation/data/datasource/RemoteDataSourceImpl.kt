@@ -30,11 +30,11 @@ import org.maplibre.android.geometry.LatLng
 // SPDX-License-Identifier: MIT-0
 class RemoteDataSourceImpl(
     var mContext: Context,
-    var mAWSLocationProvider: LocationProvider,
-    var mAWSPlacesProvider: PlacesProvider,
-    var mAWSRoutesProvider: RoutesProvider,
-    var mAWSGeofenceProvider: GeofenceProvider,
-    var mAWSTrackingProvider: TrackingProvider,
+    var mLocationProvider: LocationProvider,
+    var mPlacesProvider: PlacesProvider,
+    var mRoutesProvider: RoutesProvider,
+    var mGeofenceProvider: GeofenceProvider,
+    var mTrackingProvider: TrackingProvider,
 ) : RemoteDataSource {
     @Inject
     lateinit var mPreferenceManager: PreferenceManager
@@ -47,7 +47,7 @@ class RemoteDataSourceImpl(
     ) {
         if (mContext.isInternetAvailable()) {
             val mSearchSuggestionResponse =
-                mAWSPlacesProvider.searchPlaceSuggestion(lat, lng, searchText, mAWSLocationProvider.getBaseActivity(), mAWSLocationProvider.getGeoPlacesClient())
+                mPlacesProvider.searchPlaceSuggestion(lat, lng, searchText, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
             if (validateLatLng(searchText) != null) {
                 val mLatLng = validateLatLng(searchText)
                 if (mSearchSuggestionResponse.text == (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())) {
@@ -79,10 +79,10 @@ class RemoteDataSourceImpl(
         if (mContext.isInternetAvailable()) {
             if (!searchText.isNullOrEmpty() || !queryId.isNullOrEmpty()) {
                 val response =
-                    mAWSPlacesProvider.searchPlaceIndexForText(
+                    mPlacesProvider.searchPlaceIndexForText(
                         lat = lat,
                         lng = lng,
-                        mText = searchText, queryId, mAWSLocationProvider.getBaseActivity(), mAWSLocationProvider.getGeoPlacesClient()
+                        mText = searchText, queryId, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient()
                     )
                 if (response?.text == searchText || !queryId.isNullOrEmpty()) {
                     if (response != null) {
@@ -111,7 +111,7 @@ class RemoteDataSourceImpl(
         travelMode: String?,
         distanceInterface: DistanceInterface,
     ) {
-        val calculateRoutesResponse = mAWSRoutesProvider.calculateRoute(
+        val calculateRoutesResponse = mRoutesProvider.calculateRoute(
             latDeparture,
             lngDeparture,
             latDestination,
@@ -119,8 +119,8 @@ class RemoteDataSourceImpl(
             isAvoidFerries,
             isAvoidTolls,
             travelMode,
-            mAWSLocationProvider.getBaseActivity(),
-            mAWSLocationProvider.getGeoRoutesClient()
+            mLocationProvider.getBaseActivity(),
+            mLocationProvider.getGeoRoutesClient()
         )
 
         if (mContext.isInternetAvailable()) {
@@ -158,7 +158,7 @@ class RemoteDataSourceImpl(
         searchPlace: SearchDataInterface,
     ) {
         if (mContext.isInternetAvailable()) {
-            val indexResponse = mAWSPlacesProvider.searchNavigationPlaceIndexForPosition(lat, lng, mAWSLocationProvider.getBaseActivity(), mAWSLocationProvider.getGeoPlacesClient())
+            val indexResponse = mPlacesProvider.searchNavigationPlaceIndexForPosition(lat, lng, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
             if (indexResponse != null) {
                 searchPlace.getAddressData(indexResponse)
             } else {
@@ -181,7 +181,7 @@ class RemoteDataSourceImpl(
         collectionName: String,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSGeofenceProvider.getGeofenceList(collectionName, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+        val response = mGeofenceProvider.getGeofenceList(collectionName, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.getGeofenceList(response)
     }
 
@@ -192,7 +192,7 @@ class RemoteDataSourceImpl(
         latLng: LatLng?,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSGeofenceProvider.addGeofence(geofenceId, collectionName, radius, latLng, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+        val response = mGeofenceProvider.addGeofence(geofenceId, collectionName, radius, latLng, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.addGeofence(response)
     }
 
@@ -201,7 +201,7 @@ class RemoteDataSourceImpl(
         data: ListGeofenceResponseEntry,
         mGeofenceAPIInterface: GeofenceAPIInterface,
     ) {
-        val response = mAWSGeofenceProvider.deleteGeofence(position, data, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+        val response = mGeofenceProvider.deleteGeofence(position, data, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mGeofenceAPIInterface.deleteGeofence(response)
     }
 
@@ -212,7 +212,7 @@ class RemoteDataSourceImpl(
         mTrackingInterface: BatchLocationUpdateInterface,
     ) {
         val response =
-            mAWSTrackingProvider.batchUpdateDevicePosition(trackerName, position, deviceId, mAWSLocationProvider.getIdentityId(), mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+            mTrackingProvider.batchUpdateDevicePosition(trackerName, position, deviceId, mLocationProvider.getIdentityId(), mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mTrackingInterface.success(response)
     }
 
@@ -224,7 +224,7 @@ class RemoteDataSourceImpl(
         mTrackingInterface: BatchLocationUpdateInterface,
     ) {
         val response =
-            mAWSGeofenceProvider.evaluateGeofence(trackerName, position1, deviceId, identityId, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+            mGeofenceProvider.evaluateGeofence(trackerName, position1, deviceId, identityId, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         mTrackingInterface.success(response)
     }
 
@@ -236,7 +236,7 @@ class RemoteDataSourceImpl(
         historyInterface: LocationHistoryInterface,
     ) {
         val response =
-            mAWSTrackingProvider.getDevicePositionHistory(trackerName, deviceId, dateStart, dateEnd, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+            mTrackingProvider.getDevicePositionHistory(trackerName, deviceId, dateStart, dateEnd, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         historyInterface.success(response)
     }
 
@@ -246,12 +246,12 @@ class RemoteDataSourceImpl(
         historyInterface: LocationDeleteHistoryInterface,
     ) {
         val response =
-            mAWSTrackingProvider.deleteDevicePositionHistory(trackerName, deviceId, mAWSLocationProvider.getLocationClient(), mAWSLocationProvider.getBaseActivity())
+            mTrackingProvider.deleteDevicePositionHistory(trackerName, deviceId, mLocationProvider.getLocationClient(), mLocationProvider.getBaseActivity())
         historyInterface.success(response)
     }
 
     override suspend fun fetchTokensWithOkHttp(authorizationCode: String, signInInterface: SignInInterface) {
-        val response = mAWSLocationProvider.fetchTokensWithOkHttp(authorizationCode)
+        val response = mLocationProvider.fetchTokensWithOkHttp(authorizationCode)
         if (response != null) {
             signInInterface.fetchTokensWithOkHttpSuccess("success", response)
         } else {
@@ -260,7 +260,7 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun refreshTokensWithOkHttp(signInInterface: SignInInterface) {
-        val response = mAWSLocationProvider.refreshTokensWithOkHttp()
+        val response = mLocationProvider.refreshTokensWithOkHttp()
         if (response != null) {
             signInInterface.refreshTokensWithOkHttpSuccess("success", response)
         } else {

@@ -77,6 +77,5 @@ class GeofenceListAdapter(
     interface GeofenceDeleteInterface {
         fun deleteGeofence(position: Int, data: ListGeofenceResponseEntry)
         fun editGeofence(position: Int, data: ListGeofenceResponseEntry)
-        fun disableGeofenceClick()
     }
 }

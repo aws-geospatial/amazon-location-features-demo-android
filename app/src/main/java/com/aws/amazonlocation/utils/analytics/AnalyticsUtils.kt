@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class AnalyticsUtils(
-    private val mAWSLocationHelper: LocationProvider,
+    private val mLocationProvider: LocationProvider,
     private val mPreferenceManager: PreferenceManager,
 ) {
     private var credentialProvider: CredentialsProvider?= null
@@ -44,7 +44,7 @@ class AnalyticsUtils(
     private var session: SessionData = SessionData()
 
     suspend fun initAnalytics() {
-        credentialProvider = mAWSLocationHelper.getAnalyticsCredentialProvider()
+        credentialProvider = mLocationProvider.getAnalyticsCredentialProvider()
         credentialProvider?.let {
             val region = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
             pinpointClient =
@@ -90,7 +90,7 @@ class AnalyticsUtils(
         properties: List<Pair<String, String>> = emptyList(),
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (!mAWSLocationHelper.isAnalyticsCredentialsValid()) {
+            if (!mLocationProvider.isAnalyticsCredentialsValid()) {
                 runBlocking { initAnalytics() }
             }
             val events: List<EventInput> =
@@ -119,7 +119,7 @@ class AnalyticsUtils(
             var authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
             when (mAuthStatus) {
                 AuthEnum.SIGNED_IN.name -> {
-                    mUserId = mAWSLocationHelper.getIdentityId()
+                    mUserId = mLocationProvider.getIdentityId()
                     connectedStatus =
                         AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
                     authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_AUTHENTICATED

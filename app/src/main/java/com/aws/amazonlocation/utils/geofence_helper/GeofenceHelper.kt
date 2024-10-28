@@ -77,7 +77,6 @@ class GeofenceHelper(
 ) {
 
     var mDefaultLatLng = LatLng(49.281174, -123.116823)
-    val mDefaultLatLngGrab = LatLng(1.2840123, 103.8487542)
     private var mDefaultLocationPoint =
         fromLngLat(mDefaultLatLng.longitude, mDefaultLatLng.latitude)
     private val mCircleUnit: String = UNIT_METRES

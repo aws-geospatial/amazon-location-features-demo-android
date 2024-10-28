@@ -188,7 +188,6 @@
   <string name="label_clear_selection">واضح اختيار</string>
   <string name="label_style_search_error_title">لا مطابقة الأنماط وجد</string>
   <string name="label_style_search_error_des">يصنع بالتأكيد ك بحث هو توضيح بشكل صحيح و محاولة مرة أخرى، ماركة بالتأكيد أنت يملك طبق ال مناسب فلتر أو إزالة ال فلتر و محاولة مرة أخرى</string>
-  <string name="label_geofence_disable_error">تم اختيارها السياج الجغرافي هو لا متاح في ال Grab خريطة مزود. رجاء مفتاح كهربائي إلى آخر خريطة مزود إلى منظر و يدير تم اختياره السياج الجغرافي.</string>
   <string name="label_clear_filters">واضح مرشحات</string>
   <string name="label_try_trackers_amp_geofences_simulation">جرب أجهزة التتبع &amp; الأسوار الجغرافية محاكاة</string>
   <string name="label_requires_connection_to_aws_cloudformation">يتطلب صلة إلى الخدمات اللاسلكية المتقدمة تشكيل السحابة</string>

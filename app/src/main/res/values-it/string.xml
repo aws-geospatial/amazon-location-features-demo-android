@@ -188,7 +188,6 @@
   <string name="label_clear_selection">Trasparente selezione</string>
   <string name="label_style_search_error_title">No accoppiamento stili trovato</string>
   <string name="label_style_search_error_des">Marca sicuro tuo ricerca è scritto correttamente e provare ancora, fare sicuro voi avere applicata lo apposito filtro o rimuovere lo filtro e provare nuovamente</string>
-  <string name="label_geofence_disable_error">Selezionato geofence è non disponibile nel lo Grab mappa fornitore. Per favore interruttore a un altro mappa fornitore a vista e gestire selezionato geofence.</string>
   <string name="label_clear_filters">Trasparente filtri</string>
   <string name="label_try_trackers_amp_geofences_simulation">Prova Localizzatori &amp; Geofence simulazione</string>
   <string name="label_requires_connection_to_aws_cloudformation">Richiede connessione a AWS Formazione sul cloud</string>

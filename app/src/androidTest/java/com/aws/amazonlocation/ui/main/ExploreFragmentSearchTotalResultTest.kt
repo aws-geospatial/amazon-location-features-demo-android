@@ -19,7 +19,7 @@ import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
-import com.aws.amazonlocation.TEST_FAILED_COUNT_NOT_EQUAL_TO_FIVE
+import com.aws.amazonlocation.TEST_FAILED_COUNT_NOT_GREATER_THEN_TWO
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
 import com.aws.amazonlocation.TEST_WORD_RIO_TINTO
 import com.aws.amazonlocation.di.AppModule
@@ -54,7 +54,7 @@ class ExploreFragmentSearchTotalResultTest : BaseTestMainActivity() {
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_search_places_suggestion)
             if (rvSearchPlaceSuggestion.adapter?.itemCount != null) {
                 rvSearchPlaceSuggestion.adapter?.itemCount?.let {
-                    Assert.assertTrue(TEST_FAILED_COUNT_NOT_EQUAL_TO_FIVE, it > 2)
+                    Assert.assertTrue(TEST_FAILED_COUNT_NOT_GREATER_THEN_TWO, it > 2)
                 }
             } else {
                 Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

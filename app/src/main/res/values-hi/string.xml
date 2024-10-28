@@ -188,7 +188,6 @@
   <string name="label_clear_selection">साफ़ करें चुनना</string>
   <string name="label_style_search_error_title">नहीं मिलान शैलियों पाया</string>
   <string name="label_style_search_error_des">बनाओ ज़रूर तुम्हारा तलाश है वर्तनी सही ढंग से और कोशिश करो फिर से, बनाना ज़रूर आप है लागू किया यह उचित फ़िल्टर करें या हटाना यह फ़िल्टर करें और कोशिश करो फिर से</string>
-  <string name="label_geofence_disable_error">चुने गए जियोफेंस है ना मौजूद में यह Grab नक्शा प्रदाता। कृपया स्विच को एक और नक्शा प्रदाता को राय और प्रबंधन चयनित जियोफेंस।</string>
   <string name="label_clear_filters">साफ़ करें फिल्टर</string>
   <string name="label_try_trackers_amp_geofences_simulation">ट्राई करें ट्रैकर्स &amp; जियोफेंस अनुकरण</string>
   <string name="label_requires_connection_to_aws_cloudformation">आवश्यक है संयोग को एडब्ल्यूएस क्लाउड फ़ॉर्मेशन</string>

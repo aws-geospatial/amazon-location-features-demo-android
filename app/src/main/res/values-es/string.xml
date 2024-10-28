@@ -188,7 +188,6 @@
   <string name="label_clear_selection">Borrar selección</string>
   <string name="label_style_search_error_title">No a juego estilos encontrado</string>
   <string name="label_style_search_error_des">Hacer Sí, claro vuestro búsqueda es deletreado correctamente y intentar otra vez, hacer Sí, claro tú tener aplicado la apropiado filtrar o retirar la filtrar y intentar nuevamente</string>
-  <string name="label_geofence_disable_error">Seleccionado geofence es no disponible en la Grab mapa proveedor. Por favor cambiar a otro mapa proveedora a vista y conseguir seleccionado geofence.</string>
   <string name="label_clear_filters">Borrar filtra</string>
   <string name="label_try_trackers_amp_geofences_simulation">Prueba Rastreadores y Geofences simulación</string>
   <string name="label_requires_connection_to_aws_cloudformation">Requiere conexión a AWS Formación en la nube</string>

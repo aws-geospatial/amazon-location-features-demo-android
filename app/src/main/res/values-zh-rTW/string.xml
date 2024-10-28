@@ -188,7 +188,6 @@
   <string name="label_clear_selection">清除 選擇</string>
   <string name="label_style_search_error_title">沒有 匹配 款式 發現</string>
   <string name="label_style_search_error_des">製作 當然 你的 搜尋 是 拼寫 正確地 和 嘗試 再次， 做 當然 您 有 應用的 該 適當的 過濾器 或者 去掉 該 過濾器 和 嘗試 再次</string>
-  <string name="label_geofence_disable_error">已選 地理圍欄 是 不 可用 在 該 Grab 地圖 供應商。 求你了 切換器 至 另一個 地圖 供應商 至 檢視 和 管理 選 地理圍欄。</string>
   <string name="label_clear_filters">清除 過濾器</string>
   <string name="label_try_trackers_amp_geofences_simulation">嘗試 追蹤器 &amp; 地理圍欄 模擬</string>
   <string name="label_requires_connection_to_aws_cloudformation">需要 連接 至 亞馬遜網路服務公司 雲形成</string>

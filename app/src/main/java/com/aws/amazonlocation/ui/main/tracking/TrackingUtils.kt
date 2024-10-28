@@ -88,7 +88,7 @@ import org.maplibre.geojson.Polygon
 class TrackingUtils(
     val mPreferenceManager: PreferenceManager? = null,
     val activity: Activity?,
-    val mAWSLocationHelper: LocationProvider
+    val mLocationProvider: LocationProvider
 ) {
     var isChangeDataProviderClicked: Boolean = false
     private var imageId: Int = 0
@@ -341,7 +341,7 @@ class TrackingUtils(
         mIsLocationUpdateEnable = false
         if (mqttClient != null) {
             try {
-                mqttClient?.unsubscribe("${mAWSLocationHelper.getIdentityId()}/tracker")
+                mqttClient?.unsubscribe("${mLocationProvider.getIdentityId()}/tracker")
             } catch (_: Exception) {
             }
 
@@ -363,12 +363,12 @@ class TrackingUtils(
     private fun startMqttManager() {
         mIsLocationUpdateEnable = true
         if (mqttClient != null) stopMqttManager()
-        val identityId: String? = mAWSLocationHelper.getIdentityId()
+        val identityId: String? = mLocationProvider.getIdentityId()
         val regionData = mPreferenceManager?.getValue(
             KEY_USER_REGION,
             ""
         )
-        val credentials = createCredentialsProvider(mAWSLocationHelper.getCredentials())
+        val credentials = createCredentialsProvider(mLocationProvider.getCredentials())
         mqttClient = AWSIotMqttClient(mPreferenceManager?.getValue(WEB_SOCKET_URL, ""), identityId, credentials, regionData)
 
         try {
@@ -643,7 +643,7 @@ class TrackingUtils(
         headerId = 0
         sourceIdsToRemove.clear()
         headerIdsToRemove.clear()
-        if (!data.devicePositions.isNullOrEmpty()) {
+        if (data.devicePositions.isNotEmpty()) {
             mBindingTracking?.tvDeleteTrackingData?.show()
             mBindingTracking?.clSearchLoaderSheetTracking?.root?.hide()
             mBindingTracking?.cardList?.show()
@@ -820,7 +820,7 @@ class TrackingUtils(
 
     @SuppressLint("NotifyDataSetChanged")
     fun locationHistoryTodayListUI(data: GetDevicePositionHistoryResponse) {
-        if (!data.devicePositions.isNullOrEmpty()) {
+        if (data.devicePositions.isNotEmpty()) {
             imageId = 0
             val date: Date = Calendar.getInstance().time
             val dateString = checkAndSetDate(date.time)

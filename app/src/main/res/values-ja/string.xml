@@ -188,7 +188,6 @@
   <string name="label_clear_selection">クリア 選択</string>
   <string name="label_style_search_error_title">いいえ マッチング スタイル 見つけた</string>
   <string name="label_style_search_error_des">作る 承知しました きみの 検索 です 綴られた 正しく そして 試してみる もう一度、 作る 承知しました あなた 持っている 適用された その 適切な フィルタ または 削除する その フィルタ そして 試してみる 再び</string>
-  <string name="label_geofence_disable_error">選択済み ジオフェンス です じゃない 使用可能です に その Grab 地図 プロバイダー。 お願いします スイッチ に もう一つ 地図 プロバイダー に 見る そして 管理する 選択された ジオフェンス。</string>
   <string name="label_clear_filters">クリア フィルター</string>
   <string name="label_try_trackers_amp_geofences_simulation">やってみる トラッカー &amp; ジオフェンス シミュレーション</string>
   <string name="label_requires_connection_to_aws_cloudformation">必要 接続 に AWS クラウド形成</string>

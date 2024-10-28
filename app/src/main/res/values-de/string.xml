@@ -188,7 +188,6 @@
   <string name="label_clear_selection">Klar Auswahl</string>
   <string name="label_style_search_error_title">Nein übereinstimmende Arten gefunden</string>
   <string name="label_style_search_error_des">Machen sicher dein Suche ist buchstabiert richtig und versuchen wieder machen sicher Sie haben angewandt die aneignen Filter oder entfernen die Filter und versuchen nochmal</string>
-  <string name="label_geofence_disable_error">Ausgewählt Geofence ist nicht verfügbar in die Grab Karte Anbieter. Bitte Schalter zu andere Karte Anbieter zu anzeigen und gelingen ausgewählt Geofence.</string>
   <string name="label_clear_filters">Klar Filter</string>
   <string name="label_try_trackers_amp_geofences_simulation">Versuche Tracker &amp; Geofences Simulation</string>
   <string name="label_requires_connection_to_aws_cloudformation">Erfordert Verbindung zu AWS Wolkenbildung</string>

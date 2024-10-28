@@ -70,7 +70,7 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var mBottomSheetHelper: BottomSheetHelper
 
     @Inject
-    lateinit var mAWSLocationHelper: LocationProvider
+    lateinit var mLocationProvider: LocationProvider
 
     private var subTitle = ""
     lateinit var authHelper: AuthHelper
@@ -107,8 +107,8 @@ open class BaseActivity : AppCompatActivity() {
 
             authHelper = AuthHelper(applicationContext)
             val preference = PreferenceManager(applicationContext)
-            mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mAWSLocationHelper)
-            mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mAWSLocationHelper)
+            mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mLocationProvider)
+            mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mLocationProvider)
             locationPermissionDialog()
         }
     }
@@ -127,8 +127,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     suspend fun initMobileClient() {
-        mAWSLocationHelper.initializeLocationCredentialsProvider(authHelper, this)
-        mAWSLocationHelper.initPlaceRoutesClients()
+        mLocationProvider.initializeLocationCredentialsProvider(authHelper, this)
+        mLocationProvider.initPlaceRoutesClients()
     }
 
     private fun locationPermissionDialog() {
@@ -227,7 +227,7 @@ open class BaseActivity : AppCompatActivity() {
                     }
                 }
             } else if (subTitle.contains("expired") || subTitle.contains("invalid")) {
-                mAWSLocationHelper.checkSessionValid(this)
+                mLocationProvider.checkSessionValid(this)
             } else {
                 showErrorDialog(subTitle)
             }
@@ -253,7 +253,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun restartAppWithClearData() {
         lifecycleScope.launch {
-            mAWSLocationHelper.locationCredentialsProvider?.clear()
+            mLocationProvider.locationCredentialsProvider?.clear()
             mPreferenceManager.setDefaultConfig()
             delay(RESTART_DELAY)
             restartApplication()

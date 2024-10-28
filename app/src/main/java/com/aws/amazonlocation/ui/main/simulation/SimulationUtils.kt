@@ -102,7 +102,7 @@ import software.amazon.location.auth.EncryptedSharedPreferences
 class SimulationUtils(
     val mPreferenceManager: PreferenceManager? = null,
     val activity: Activity?,
-    val mAWSLocationHelper: LocationProvider
+    val mLocationProvider: LocationProvider
 ) {
     private var routeData: ArrayList<RouteSimulationDataItem>? = null
     private var isCoroutineStarted: Boolean = false
@@ -839,7 +839,7 @@ class SimulationUtils(
             mPreferenceManager?.getValue(KEY_NEAREST_REGION, "")
         )
 
-        val credentials = createCredentialsProvider(mAWSLocationHelper.getCredentials())
+        val credentials = createCredentialsProvider(mLocationProvider.getCredentials())
         mqttClient = AWSIotMqttClient(getSimulationWebSocketUrl(defaultIdentityPoolId), identityId, credentials, defaultIdentityPoolId.split(":")[0])
 
         try {

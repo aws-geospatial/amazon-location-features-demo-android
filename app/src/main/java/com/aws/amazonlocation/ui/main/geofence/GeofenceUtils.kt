@@ -451,13 +451,6 @@ class GeofenceUtils {
                             editGeofenceBottomSheet(position, data)
                         }
                     }
-
-                    override fun disableGeofenceClick() {
-                        showErrorMessage(
-                            mActivity?.resources?.getString(R.string.label_geofence_disable_error)
-                                .toString()
-                        )
-                    }
                 }
             )
             it.rvGeofence.layoutManager = LinearLayoutManager(it.rvGeofence.context)

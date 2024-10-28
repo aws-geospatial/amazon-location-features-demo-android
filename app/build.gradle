@@ -20,7 +20,6 @@ android {
         testInstrumentationRunner "com.aws.amazonlocation.AmazonLocationRunner"
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_HERE_URL',"\"https://legal.here.com/en-gb/terms/general-content-supplier-terms-and-notices\""
         buildConfigField 'String', 'ATTRIBUTION_LEARN_MORE_ESRI_URL',"\"https://www.esri.com/en-us/legal/terms/data-attributions\""
-        buildConfigField 'String', 'GRAB_LEARN_MORE',"\"https://docs.aws.amazon.com/location/latest/developerguide/grab.html\""
         buildConfigField 'String', 'BASE_DOMAIN',"\"https://location.aws.com\""
         buildConfigField 'String', 'AWS_TERMS_URL',"\"/demo/terms\""
         buildConfigField 'String', 'CLOUD_FORMATION_READ_MORE_URL',"\"/demo/help\""
