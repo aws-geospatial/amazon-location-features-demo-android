@@ -166,15 +166,25 @@ object Units {
         )
 
     fun getRegion(mPreferenceManager: PreferenceManager?): String {
-        var mRegion = mPreferenceManager?.getValue(KEY_SELECTED_REGION, regionDisplayName[0]) ?: regionDisplayName[0]
-        if (mRegion == regionDisplayName[0]) {
-            mRegion = mPreferenceManager?.getValue(KEY_NEAREST_REGION, regionList[0]) ?: regionList[0]
+        val selectedRegion = mPreferenceManager?.getValue(KEY_SELECTED_REGION, regionDisplayName[0]) ?: regionDisplayName[0]
+        val mRegion = when (selectedRegion) {
+            regionDisplayName[0] -> {
+                mPreferenceManager?.getValue(KEY_NEAREST_REGION, regionList[0]) ?: regionList[0]
+            }
+            regionDisplayName[1] -> {
+                regionList[1]
+            }
+            regionDisplayName[2] -> {
+                regionList[0]
+            }
+            else -> {
+                regionList[0]
+            }
         }
-        mRegion = "us-east-1" //TODO remove this line once all region and api key are updated
         return mRegion
     }
 
-    fun getAPIKey(
+    private fun getAPIKey(
         selectedRegion: String?,
         nearestRegion: String?
     ) = when (selectedRegion) {

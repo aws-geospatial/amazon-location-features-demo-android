@@ -1,9 +1,18 @@
 package com.aws.amazonlocation.utils.analytics
 
 import android.os.Build
-import android.util.Log
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
-import aws.sdk.kotlin.services.pinpoint.model.*
+import aws.sdk.kotlin.services.pinpoint.model.EndpointDemographic
+import aws.sdk.kotlin.services.pinpoint.model.EndpointLocation
+import aws.sdk.kotlin.services.pinpoint.model.EndpointRequest
+import aws.sdk.kotlin.services.pinpoint.model.EndpointUser
+import aws.sdk.kotlin.services.pinpoint.model.Event
+import aws.sdk.kotlin.services.pinpoint.model.EventsBatch
+import aws.sdk.kotlin.services.pinpoint.model.EventsRequest
+import aws.sdk.kotlin.services.pinpoint.model.PublicEndpoint
+import aws.sdk.kotlin.services.pinpoint.model.PutEventsRequest
+import aws.sdk.kotlin.services.pinpoint.model.Session
+import aws.sdk.kotlin.services.pinpoint.model.UpdateEndpointRequest
 import aws.smithy.kotlin.runtime.auth.awscredentials.CredentialsProvider
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.TimestampFormat
@@ -16,11 +25,11 @@ import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_END_POINT
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.providers.LocationProvider
+import java.util.Locale
+import java.util.UUID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
-import java.util.UUID
 import kotlinx.coroutines.runBlocking
 
 class AnalyticsUtils(
@@ -179,9 +188,7 @@ class AnalyticsUtils(
                         }
                 }
             try {
-                Log.e("TAG", "recordEvent: $putEventsRequest")
-                val result = pinpointClient?.putEvents(putEventsRequest)
-                Log.e("TAG", "recordEvent: $result")
+                pinpointClient?.putEvents(putEventsRequest)
                 if (sessionStopEvent != null){
                     session = SessionData()
                 }
