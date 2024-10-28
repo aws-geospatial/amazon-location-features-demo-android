@@ -46,6 +46,7 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
 import com.aws.amazonlocation.utils.LAYER
 import com.aws.amazonlocation.utils.LAYER_SIMULATION_ICON
+import com.aws.amazonlocation.utils.MQTT_CONNECT_TIME_OUT
 import com.aws.amazonlocation.utils.MapCameraZoom.SIMULATION_CAMERA_ZOOM_1
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.NotificationHelper
@@ -79,6 +80,7 @@ import com.google.gson.Gson
 import java.util.Date
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -806,7 +808,9 @@ class SimulationUtils(
             }
 
             try {
-                mqttClient?.disconnect()
+                CoroutineScope(Dispatchers.Main).launch {
+                    async { mqttClient?.disconnect(MQTT_CONNECT_TIME_OUT, false) }.await()
+                }
             } catch (_: Exception) {
             }
             mqttClient = null
@@ -843,10 +847,12 @@ class SimulationUtils(
         mqttClient = AWSIotMqttClient(getSimulationWebSocketUrl(defaultIdentityPoolId), identityId, credentials, defaultIdentityPoolId.split(":")[0])
 
         try {
-            mqttClient?.connect()
-            mIsLocationUpdateEnable = true
-            startTracking()
-            identityId?.let { subscribeTopic(it) }
+            CoroutineScope(Dispatchers.Main).launch {
+                async { mqttClient?.connect(MQTT_CONNECT_TIME_OUT, false) }.await()
+                mIsLocationUpdateEnable = true
+                startTracking()
+                identityId?.let { subscribeTopic(it) }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             simulationBinding?.apply {

@@ -6,6 +6,7 @@ import aws.sdk.kotlin.services.geoplaces.model.Address
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeRequest
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
 import aws.sdk.kotlin.services.geoplaces.model.SearchTextRequest
+import aws.sdk.kotlin.services.geoplaces.model.SuggestAdditionalFeature
 import aws.sdk.kotlin.services.geoplaces.model.SuggestRequest
 import aws.sdk.kotlin.services.geoplaces.model.SuggestResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
@@ -46,6 +47,7 @@ class PlacesProvider(
                     this.language = getLanguageCode()
                     this.maxResults = SEARCH_MAX_SUGGESTION_RESULT
                     this.biasPosition = listOf(lng ?: 0.0, lat ?: 0.0)
+                    this.additionalFeatures = listOf(SuggestAdditionalFeature.fromValue("Core"))
                 }
 
             withContext(Dispatchers.IO) {
@@ -214,7 +216,7 @@ class PlacesProvider(
                     if (queryId != null) this.queryId = queryId
                     if (mText != null) this.language = getLanguageCode()
                     if (mText != null) this.maxResults = SEARCH_MAX_RESULT
-                    this.biasPosition = listOfNotNull(lng, lat)
+                    if (queryId.isNullOrEmpty()) this.biasPosition = listOfNotNull(lng, lat)
                 }
 
             val response =

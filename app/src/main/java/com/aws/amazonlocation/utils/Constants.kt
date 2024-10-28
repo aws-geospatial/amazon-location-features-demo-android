@@ -62,6 +62,7 @@ const val DELAY_SIMULATION_2000 = 2000L
 const val DELAY_LANGUAGE_3000 = 3000L
 const val CLICK_TIME_DIFFERENCE = 1500
 const val TIME_OUT = 20000L
+const val MQTT_CONNECT_TIME_OUT = 10000L
 const val KEY_AVOID_TOLLS = "Avoid Tolls"
 const val KEY_AVOID_FERRIES = "Avoid Ferries"
 const val AWS_CLOUD_INFORMATION_FRAGMENT = "AwsCloudInformationFragment"
