@@ -80,7 +80,6 @@ import com.google.gson.Gson
 import java.util.Date
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -803,14 +802,12 @@ class SimulationUtils(
         mIsLocationUpdateEnable = false
         if (mqttClient != null) {
             try {
-                mqttClient?.unsubscribe("${identityId}/${TRACKER}")
+                mqttClient?.unsubscribe("${identityId}/${TRACKER}", MQTT_CONNECT_TIME_OUT)
             } catch (_: Exception) {
             }
 
             try {
-                CoroutineScope(Dispatchers.Main).launch {
-                    async { mqttClient?.disconnect(MQTT_CONNECT_TIME_OUT, false) }.await()
-                }
+                mqttClient?.disconnect(MQTT_CONNECT_TIME_OUT, false)
             } catch (_: Exception) {
             }
             mqttClient = null
@@ -847,12 +844,10 @@ class SimulationUtils(
         mqttClient = AWSIotMqttClient(getSimulationWebSocketUrl(defaultIdentityPoolId), identityId, credentials, defaultIdentityPoolId.split(":")[0])
 
         try {
-            CoroutineScope(Dispatchers.Main).launch {
-                async { mqttClient?.connect(MQTT_CONNECT_TIME_OUT, false) }.await()
-                mIsLocationUpdateEnable = true
-                startTracking()
-                identityId?.let { subscribeTopic(it) }
-            }
+            mqttClient?.connect(MQTT_CONNECT_TIME_OUT, false)
+            mIsLocationUpdateEnable = true
+            startTracking()
+            identityId?.let { subscribeTopic(it) }
         } catch (e: Exception) {
             e.printStackTrace()
             simulationBinding?.apply {
@@ -982,7 +977,7 @@ class SimulationUtils(
                     }
                 }
             }
-            mqttClient?.subscribe(topic, com.aws.amazonlocation.utils.TIME_OUT)
+            mqttClient?.subscribe(topic, com.aws.amazonlocation.utils.TIME_OUT, false)
         } catch (e: Exception) {
             e.printStackTrace()
         }
