@@ -912,19 +912,19 @@ class ExploreFragment :
                                     mBottomSheetHelper.expandNavigationCompleteSheet()
                                     mBinding.bottomSheetNavigationComplete.tvNavigationCompleteAddress.text =
                                         mViewModel.mSearchDirectionDestinationData
-                                            ?.amazonLocationPlace
+                                            ?.amazonLocationAddress
                                             ?.label
                                             ?.split(
                                                 ",",
                                             )?.toTypedArray()
                                             ?.get(0)
-                                            ?: mViewModel.mSearchDirectionDestinationData?.amazonLocationPlace?.label
+                                            ?: mViewModel.mSearchDirectionDestinationData?.amazonLocationAddress?.label
 
                                     mBinding.bottomSheetNavigationComplete.sheetNavigationCompleteTvDirectionStreet.text =
                                         getRegion(
-                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationPlace?.region?.name,
-                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationPlace?.subRegion?.name,
-                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationPlace?.country?.name,
+                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationAddress?.region?.name,
+                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationAddress?.subRegion?.name,
+                                            mViewModel.mSearchDirectionDestinationData?.amazonLocationAddress?.country?.name,
                                         )
 
                                     mBinding.cardNavigationTimeDialog.hide()
@@ -1792,7 +1792,7 @@ class ExploreFragment :
                                         searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
                                     searchSuggestionData.isPlaceIndexForPosition = false
                                     searchSuggestionData.position = listOf(it.longitude!!, it.latitude!!)
-                                    searchSuggestionData.amazonLocationPlace =
+                                    searchSuggestionData.amazonLocationAddress =
                                         searchPlaceIndexForPositionResult.resultItems?.get(0)?.address
                                 }
                             } else {
@@ -1811,7 +1811,7 @@ class ExploreFragment :
                                     street = String.format(STRING_FORMAT, it.latitude, it.longitude)
                                     postalCode = String.format(STRING_FORMAT, it.latitude, it.longitude)
                                 }
-                                searchSuggestionData.amazonLocationPlace = place
+                                searchSuggestionData.amazonLocationAddress = place
                             }
                             setDirectionData(searchSuggestionData, true)
                             return@onSuccess
@@ -2064,7 +2064,7 @@ class ExploreFragment :
         object : MarkerClickInterface {
             override fun markerClick(placeData: String) {
                 mPlaceList.forEach {
-                    if (placeData == it.amazonLocationPlace?.label) {
+                    if (placeData == it.amazonLocationAddress?.label) {
                         setDirectionData(it, false)
                         return
                     }
@@ -4365,11 +4365,11 @@ class ExploreFragment :
                     isWalkingAndTruckCall = false,
                 )
                 recordEventForAllMode(isWalkingAndTruckCall = false)
-                if (data.amazonLocationPlace?.label?.let { validateLatLng(it) } != null) {
-                    tvDirectionAddress.text = data.amazonLocationPlace?.label
+                if (data.amazonLocationAddress?.label?.let { validateLatLng(it) } != null) {
+                    tvDirectionAddress.text = data.amazonLocationAddress?.label
                     sheetDirectionTvDirectionStreet.hide()
                 } else {
-                    val label = data.amazonLocationPlace?.label
+                    val label = data.amazonLocationAddress?.label
                     if (label != null) {
                         if (label.contains(",")) {
                             val index = label.indexOf(",")

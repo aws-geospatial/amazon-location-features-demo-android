@@ -426,7 +426,7 @@ class ExploreViewModel
                             )
                     }
                     mNavigationResponse?.destinationAddress =
-                        mSearchSuggestionData?.amazonLocationPlace?.label
+                        mSearchSuggestionData?.amazonLocationAddress?.label
                     mNavigationResponse?.navigationList = mNavigationListModel
                     mNavigationResponse?.let {
                         _navigationData.trySend(HandleResult.Success(it))

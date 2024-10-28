@@ -1,7 +1,6 @@
 package com.aws.amazonlocation.data.response
 
 import aws.sdk.kotlin.services.geoplaces.model.Address
-import aws.sdk.kotlin.services.location.model.Place
 
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -22,7 +21,7 @@ data class SearchSuggestionData(
     var distance: Double? = null,
     var isDestination: Boolean? = false,
     var isPlaceIndexForPosition: Boolean = false,
-    var amazonLocationPlace: Address? = null,
+    var amazonLocationAddress: Address? = null,
     var position: List<Double> ? = null,
     var queryId: String ? = null
 )

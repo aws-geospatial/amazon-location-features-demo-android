@@ -4,16 +4,13 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import aws.sdk.kotlin.services.geoplaces.model.Address
-import aws.sdk.kotlin.services.location.model.Place
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.data.response.SearchSuggestionData
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
 import com.aws.amazonlocation.mock.Responses
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
@@ -24,9 +21,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 
@@ -120,7 +114,7 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
                 searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
             searchSuggestionData.position = listOf(it.longitude!!, it.latitude!!)
             searchSuggestionData.isPlaceIndexForPosition = false
-            val amazonLocationPlace = Address {
+            val address = Address {
                 label = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.label
                 addressNumber = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.addressNumber
                 street = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.street
@@ -129,7 +123,7 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
                 subRegion = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.subRegion
                 postalCode = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.postalCode
             }
-            searchSuggestionData.amazonLocationPlace = amazonLocationPlace
+            searchSuggestionData.amazonLocationAddress = address
         }
         return searchSuggestionData
     }

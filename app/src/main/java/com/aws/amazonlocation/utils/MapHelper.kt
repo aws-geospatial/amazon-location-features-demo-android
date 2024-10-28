@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import aws.sdk.kotlin.services.geoplaces.model.Address
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.enum.MarkerEnum
@@ -331,9 +330,9 @@ class MapHelper(
     ) {
         mMapLibreMap?.getStyle { style ->
             val list = ArrayList<LatLng>()
-            currentPlace.amazonLocationPlace?.let { amazonLocationPlace ->
+            currentPlace.amazonLocationAddress?.let { address ->
                 setMarkerData(
-                    amazonLocationPlace,
+                    address,
                     currentPlace.position,
                     style,
                     activity,
@@ -420,9 +419,9 @@ class MapHelper(
     ) {
         mMapLibreMap?.getStyle { style ->
             val list = ArrayList<LatLng>()
-            currentPlace?.amazonLocationPlace?.let { amazonLocationPlace ->
+            currentPlace?.amazonLocationAddress?.let { address ->
                 setMarkerData(
-                    amazonLocationPlace,
+                    address,
                     currentPlace.position,
                     style,
                     activity,
@@ -437,7 +436,7 @@ class MapHelper(
     }
 
     private fun setMarkerData(
-        amazonLocationPlace: Address,
+        address: Address,
         position: List<Double>?,
         style: Style,
         activity: Activity,
@@ -454,7 +453,7 @@ class MapHelper(
                 )
             }
         style.addImage(
-            amazonLocationPlace.label.toString(),
+            address.label.toString(),
             convertLayoutToBitmap(
                 activity,
                 markerType,
@@ -469,7 +468,7 @@ class MapHelper(
             SymbolOptions()
                 .withLatLng(latLng)
                 .withIconImage(
-                    amazonLocationPlace.label.toString(),
+                    address.label.toString(),
                 ).withIconAnchor(Property.ICON_ANCHOR_LEFT)
 
         if (markerType == MarkerEnum.ORIGIN_ICON) {
@@ -888,7 +887,7 @@ class MapHelper(
         val list = ArrayList<LatLng>()
         placeList.forEach { searchPlace ->
             if (!searchPlace.isPlaceIndexForPosition) {
-                searchPlace.amazonLocationPlace?.let {
+                searchPlace.amazonLocationAddress?.let {
                     addMarkerWithClick(
                         activity,
                         markerType,
@@ -916,7 +915,7 @@ class MapHelper(
         mMarkerClickInterface: MarkerClickInterface,
     ) {
         mMapLibreMap?.getStyle { style ->
-            currentPlace.amazonLocationPlace?.let { amazonLocationPlace ->
+            currentPlace.amazonLocationAddress?.let { address ->
                 currentPlace.position?.let {
                     val latLng =
                         LatLng(
@@ -924,7 +923,7 @@ class MapHelper(
                             it[0],
                         )
                     style.addImage(
-                        amazonLocationPlace.label.toString(),
+                        address.label.toString(),
                         convertLayoutToBitmap(activity, markerType, currentPlace),
                     )
                     mSymbolManagerWithClick?.textAllowOverlap = true
@@ -934,7 +933,7 @@ class MapHelper(
                         SymbolOptions()
                             .withLatLng(latLng)
                             .withIconImage(
-                                amazonLocationPlace.label.toString(),
+                                address.label.toString(),
                             ).withIconAnchor(Property.ICON_ANCHOR_LEFT)
                     mSymbolManagerWithClick?.create(symbolOptions)
                     mSymbolManagerWithClick?.addClickListener {

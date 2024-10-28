@@ -834,7 +834,7 @@ class GeofenceUtils {
         val coordinates = mPlaceList[position].position
         val latLng = coordinates?.get(1)?.let { LatLng(it, coordinates[0]) }
         mBindingAddGeofence?.let { view ->
-            view.edtAddGeofenceSearch.setText(mPlaceList[position].amazonLocationPlace?.label)
+            view.edtAddGeofenceSearch.setText(mPlaceList[position].amazonLocationAddress?.label)
             view.edtAddGeofenceSearch.clearFocus()
             view.groupRadius.show()
             view.groupAddGeofenceName.show()

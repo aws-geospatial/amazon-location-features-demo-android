@@ -35,22 +35,15 @@ import aws.sdk.kotlin.services.georoutes.model.RouteVehicleLegDetails
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNotice
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNoticeCode
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNoticeDetail
-import aws.sdk.kotlin.services.georoutes.model.RouteVehicleSpan
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleSummary
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleTravelStep
 import aws.sdk.kotlin.services.georoutes.model.RoutesVehicleTravelStepType
 import aws.sdk.kotlin.services.location.model.BatchDeleteDevicePositionHistoryResponse
-import aws.sdk.kotlin.services.location.model.CalculateRouteResponse
-import aws.sdk.kotlin.services.location.model.CalculateRouteSummary
 import aws.sdk.kotlin.services.location.model.Circle
 import aws.sdk.kotlin.services.location.model.DevicePosition
-import aws.sdk.kotlin.services.location.model.DistanceUnit
 import aws.sdk.kotlin.services.location.model.GeofenceGeometry
 import aws.sdk.kotlin.services.location.model.GetDevicePositionHistoryResponse
-import aws.sdk.kotlin.services.location.model.Leg
-import aws.sdk.kotlin.services.location.model.LegGeometry
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import aws.sdk.kotlin.services.location.model.Step
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
 import com.aws.amazonlocation.BuildConfig
@@ -129,7 +122,7 @@ object Responses {
                         isDestination = false,
                         isPlaceIndexForPosition = false,
                         position = listOf(72.83468000000005, 18.921880000000044),
-                        amazonLocationPlace =
+                        amazonLocationAddress =
                             Address {
                                 country = Country { name = TEST_DATA_2 }
                                 label = TEST_DATA_3
@@ -145,7 +138,7 @@ object Responses {
                         isDestination = false,
                         isPlaceIndexForPosition = false,
                         position = listOf(72.83468000000005, 18.921880000000044),
-                        amazonLocationPlace =
+                        amazonLocationAddress =
                             Address {
                                 country = Country { name = TEST_DATA_2 }
                                 label = TEST_DATA_3

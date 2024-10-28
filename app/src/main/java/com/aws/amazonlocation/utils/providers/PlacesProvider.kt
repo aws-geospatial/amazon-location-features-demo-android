@@ -108,7 +108,7 @@ class PlacesProvider(
                         SearchSuggestionData(
                             placeId = it.placeId,
                             text = getSearchResult?.address?.label,
-                            amazonLocationPlace = getSearchResult?.address,
+                            amazonLocationAddress = getSearchResult?.address,
                             distance =
                                 getDistance(
                                     liveLocation,
@@ -135,7 +135,7 @@ class PlacesProvider(
                             placeId = it.place!!.placeId,
                             searchText = searchText,
                             text = getSearchResult?.address?.label,
-                            amazonLocationPlace = getSearchResult?.address,
+                            amazonLocationAddress = getSearchResult?.address,
                             distance =
                                 getDistance(
                                     liveLocation,
@@ -180,7 +180,7 @@ class PlacesProvider(
                     placeId = mResponse.text,
                     text = mResponse.text,
                     isPlaceIndexForPosition = true,
-                    amazonLocationPlace = place,
+                    amazonLocationAddress = place,
                     position = listOf(mLatLng.longitude, mLatLng.latitude),
                 )
             mList.add(response)
@@ -233,7 +233,7 @@ class PlacesProvider(
                     val placeData =
                         SearchSuggestionData(
                             searchText = text,
-                            amazonLocationPlace = result.address,
+                            amazonLocationAddress = result.address,
                             text = result.title,
                             position =
                                 listOf(
