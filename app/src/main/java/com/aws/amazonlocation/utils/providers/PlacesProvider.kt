@@ -105,21 +105,26 @@ class PlacesProvider(
                 val mSearchSuggestionData: SearchSuggestionData =
                     if (it.placeId.isNotEmpty()) {
                         val getSearchResult = getPlace(it.placeId, mBaseActivity, getPlaceClient)
+                        val position = getSearchResult?.position
                         SearchSuggestionData(
                             placeId = it.placeId,
                             text = getSearchResult?.address?.label,
                             amazonLocationAddress = getSearchResult?.address,
                             distance =
+                            position?.let { doubles ->
                                 getDistance(
                                     liveLocation,
-                                    getSearchResult?.position?.get(1)!!,
-                                    getSearchResult.position?.get(0)!!,
-                                ),
+                                    doubles[1],
+                                    doubles[0],
+                                )
+                            },
                             position =
+                            position?.let { doubles ->
                                 listOf(
-                                    getSearchResult.position?.get(0)!!,
-                                    getSearchResult.position?.get(1)!!,
-                                ),
+                                    doubles[0],
+                                    doubles[1],
+                                )
+                            },
                         )
                     } else {
                         SearchSuggestionData(text = it.address?.label)
@@ -131,22 +136,27 @@ class PlacesProvider(
                     if (!it.place?.placeId.isNullOrEmpty()) {
                         val getSearchResult =
                             getPlace(it.place?.placeId!!, mBaseActivity, getPlaceClient)
+                        val position = getSearchResult?.position
                         SearchSuggestionData(
                             placeId = it.place!!.placeId,
                             searchText = searchText,
                             text = getSearchResult?.address?.label,
                             amazonLocationAddress = getSearchResult?.address,
                             distance =
+                            position?.let { doubles ->
                                 getDistance(
                                     liveLocation,
-                                    getSearchResult?.position?.get(1)!!,
-                                    getSearchResult.position?.get(0)!!,
-                                ),
+                                    doubles[1],
+                                    doubles[0],
+                                )
+                            },
                             position =
+                            position?.let { doubles ->
                                 listOf(
-                                    getSearchResult.position?.get(0)!!,
-                                    getSearchResult.position?.get(1)!!,
-                                ),
+                                    doubles[0],
+                                    doubles[1],
+                                )
+                            },
                         )
                     } else {
                         SearchSuggestionData(text = it.title, queryId = it.query?.queryId)

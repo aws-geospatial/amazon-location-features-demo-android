@@ -46,7 +46,6 @@ import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
-import com.google.android.material.textfield.TextInputEditText
 import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -227,11 +226,6 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-@ExcludeFromJacocoGeneratedReport
-fun Activity.hideSoftKeyboard(input: TextInputEditText) {
-    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(input.windowToken, 0)
-}
 fun checkLatLngValid(latitude: Double?, longitude: Double?): Boolean {
     return latitude?.toInt() in -90 until 90 && longitude?.toInt() in -180 until 180
 }
@@ -360,10 +354,12 @@ fun changeTermsAndConditionColor(conditionPrivacy: AppCompatTextView) {
             )
         while (termsAndCondition.find()) {
             spannableString.setSpan(
-                FontSpan(
-                    "",
-                    ResourcesCompat.getFont(context, R.font.amazon_ember_bold)!!
-                ),
+                ResourcesCompat.getFont(context, R.font.amazon_ember_bold)?.let {
+                    FontSpan(
+                        "",
+                        it
+                    )
+                },
                 termsAndCondition.start(),
                 termsAndCondition.end(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

@@ -1,10 +1,7 @@
 package com.aws.amazonlocation.data.repository
 
-import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
-import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
