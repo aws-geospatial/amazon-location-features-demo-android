@@ -1791,7 +1791,11 @@ class ExploreFragment :
                                     searchSuggestionData.placeId =
                                         searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
                                     searchSuggestionData.isPlaceIndexForPosition = false
-                                    searchSuggestionData.position = listOf(it.longitude!!, it.latitude!!)
+                                    it.latitude?.let { lat->
+                                        it.longitude?.let { lng->
+                                            searchSuggestionData.position = listOf(lng, lat)
+                                        }
+                                    }
                                     searchSuggestionData.amazonLocationAddress =
                                         searchPlaceIndexForPositionResult.resultItems?.get(0)?.address
                                 }
@@ -1804,7 +1808,11 @@ class ExploreFragment :
                                 searchSuggestionData.isDestination = true
                                 searchSuggestionData.placeId = "11"
                                 searchSuggestionData.isPlaceIndexForPosition = false
-                                searchSuggestionData.position = listOf(it.longitude!!, it.latitude!!)
+                                it.latitude?.let { lat->
+                                    it.longitude?.let { lng->
+                                        searchSuggestionData.position = listOf(lng, lat)
+                                    }
+                                }
                                 val place = Address {
                                     label = String.format(STRING_FORMAT, it.latitude, it.longitude)
                                     addressNumber = String.format(STRING_FORMAT, it.latitude, it.longitude)

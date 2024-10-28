@@ -578,7 +578,7 @@ object Responses {
                             GeofenceGeometry {
                                 circle =
                                     Circle {
-                                        center = listOf(TEST_DATA_LAT_1, TEST_DATA_LNG_1)
+                                        center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
                                         radius = 100.00
                                     }
                             }
@@ -592,7 +592,7 @@ object Responses {
                             GeofenceGeometry {
                                 circle =
                                     Circle {
-                                        center = listOf(TEST_DATA_LAT_1, TEST_DATA_LNG_1)
+                                        center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
                                         radius = 100.00
                                     }
                             }
@@ -618,7 +618,7 @@ object Responses {
                                 title = "testTitle"
                                 placeType = PlaceType.Block
                                 distance = 0L
-                                position = listOf(TEST_DATA_LAT, TEST_DATA_LNG)
+                                position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
                                 address =
                                     Address {
                                         country = Country { name = TEST_DATA_2 }
@@ -629,8 +629,8 @@ object Responses {
                             },
                         )
                 },
-            latitude = TEST_DATA_LNG,
-            longitude = TEST_DATA_LAT,
+            latitude = TEST_DATA_LAT,
+            longitude = TEST_DATA_LNG,
         )
 
     val RESPONSE_ADDRESS_LINE_FROM_LAT_LNG =
@@ -656,8 +656,8 @@ object Responses {
                             },
                         )
                 },
-            latitude = TEST_DATA_LNG,
-            longitude = TEST_DATA_LAT,
+            latitude = TEST_DATA_LAT,
+            longitude = TEST_DATA_LNG,
         )
 
     val RESPONSE_LOCATION_HISTORY =

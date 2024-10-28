@@ -301,11 +301,14 @@ class CloudFormationBottomSheetFragment(
                 awsConnectionFailed()
             } else if (!validateUserPoolClientId(mUserPoolClientId)) {
                 showError(getString(R.string.label_enter_user_pool_client_id))
-            awsConnectionFailed()} else if (!validateUserPoolId(mUserPoolId)) {
+                awsConnectionFailed()
+            } else if (!validateUserPoolId(mUserPoolId)) {
                 showError(getString(R.string.label_enter_user_pool_id))
-            awsConnectionFailed()} else if (mWebSocketUrl.isNullOrEmpty()) {
+                awsConnectionFailed()
+            } else if (mWebSocketUrl.isNullOrEmpty()) {
                 showError(getString(R.string.label_enter_web_socket_url))
-            awsConnectionFailed()} else {
+                awsConnectionFailed()
+            } else {
                 storeDataAndRestartApp()
             }
         }

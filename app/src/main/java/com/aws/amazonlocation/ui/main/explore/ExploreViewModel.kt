@@ -509,7 +509,7 @@ class ExploreViewModel
                 arrayListOf(
                     MapStyleData(
                         styleNameDisplay = "",
-                        isSelected = false, // Set isSelected as per your requirement
+                        isSelected = false,
                         mapInnerData = items,
                     ),
                 )

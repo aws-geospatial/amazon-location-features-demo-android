@@ -72,7 +72,7 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
                         updateTime = Instant.now()
                         geometry = GeofenceGeometry {
                             circle = Circle {
-                                center = listOf(TEST_DATA_LAT_1, TEST_DATA_LNG_1)
+                                center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
                                 radius = 100.0
                             }
                         }
@@ -91,7 +91,7 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
                     updateTime = Instant.now()
                     geometry = GeofenceGeometry {
                         circle = Circle {
-                            center = listOf(TEST_DATA_LAT_1, TEST_DATA_LNG_1)
+                            center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
                             radius = 100.0
                         }
                     }
@@ -129,7 +129,7 @@ class GeofenceVMGeofenceDeleteTest : BaseTest() {
                     updateTime = Instant.now()
                     geometry = GeofenceGeometry {
                         circle = Circle {
-                            center = listOf(TEST_DATA_LAT_1, TEST_DATA_LNG_1)
+                            center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
                             radius = 100.00
                         }
                     }

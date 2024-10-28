@@ -112,7 +112,11 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
             searchSuggestionData.isDestination = true
             searchSuggestionData.placeId =
                 searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
-            searchSuggestionData.position = listOf(it.longitude!!, it.latitude!!)
+            it.latitude?.let { lat->
+                it.longitude?.let { lng->
+                    searchSuggestionData.position = listOf(lng, lat)
+                }
+            }
             searchSuggestionData.isPlaceIndexForPosition = false
             val address = Address {
                 label = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.label

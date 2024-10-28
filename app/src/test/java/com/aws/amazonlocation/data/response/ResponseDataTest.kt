@@ -92,7 +92,7 @@ class ResponseDataTest {
                     title = "testTitle"
                     placeType = PlaceType.Block
                     distance = 0L
-                    position = listOf(TEST_DATA_LAT, TEST_DATA_LNG)
+                    position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
                     address = Address {
                         country = Country {name = TEST_DATA_2}
                         label = TEST_DATA_3
