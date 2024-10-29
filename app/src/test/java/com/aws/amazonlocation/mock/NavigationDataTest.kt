@@ -14,10 +14,6 @@ class NavigationDataTest {
         navigationResponse = NavigationResponse(
             duration = hour_1,
             distance = 10.0,
-            startLat = 0.0,
-            startLng = 0.0,
-            endLat = 1.0,
-            endLng = 1.0,
             destinationAddress = DESTINATION,
             navigationList = ArrayList()
         )
@@ -31,26 +27,6 @@ class NavigationDataTest {
     @Test
     fun testDistance() {
         navigationResponse.distance?.let { assertEquals(10.0, it, 0.0) }
-    }
-
-    @Test
-    fun testStartLat() {
-        navigationResponse.startLat?.let { assertEquals(0.0, it, 0.0) }
-    }
-
-    @Test
-    fun testStartLng() {
-        navigationResponse.startLng?.let { assertEquals(0.0, it, 0.0) }
-    }
-
-    @Test
-    fun testEndLat() {
-        navigationResponse.endLat?.let { assertEquals(1.0, it, 0.0) }
-    }
-
-    @Test
-    fun testEndLng() {
-        navigationResponse.endLng?.let { assertEquals(1.0, it, 0.0) }
     }
 
     @Test

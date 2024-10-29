@@ -409,7 +409,7 @@ class GeofenceHelper(
         val seekbarText: String = if (isMetric) {
             Units.getMetricsNew(mAppContext, radius.toDouble(),
                 isMetric = true,
-                isMeterToFleetNeeded = false
+                isMeterToFeetNeeded = false
             )
         } else {
             Units.getMetrics(mAppContext, Units.meterToFeet(radius.toDouble()), false)

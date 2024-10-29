@@ -7,7 +7,7 @@ To use this code, you'll need an [AWS account](https://aws.amazon.com/) and reso
 
 Once configured, you can build and run the app locally or execute automated tests. The project includes unit and end-to-end UI tests.
 
-The app supports multiple map styles like Standard, Monochrome, Hybrid and Satellite.
+The app supports the following map styles: `Standard`, `Monochrome`, `Hybrid` and `Satellite`
 
 Overall, this repo will help you get started with location-based features on Android using Amazon Location Services.
 
@@ -51,11 +51,11 @@ Create *`custom.properties`* file inside the project root folder and add the det
 |--------------------------------------|--------------------------------------------------------|
 | DEFAULT_IDENTITY_POOL_ID             | IdentityPoolId                                         |
 | DEFAULT_REGION                       | Take region from IdentityPoolId (Character before ':') |
-| DEFAULT_IDENTITY_POOL_ID_EU          | IdentityPoolId form eu-west-1 region                   |
-| API_KEY_EU_CENTRAL                   | API key form eu-west-1 region                          |
-| API_KEY_US_EAST                      | API key form eu-west-1 region                          |
+| DEFAULT_IDENTITY_POOL_ID_EU          | IdentityPoolId from eu-west-1 region                   |
+| API_KEY_EU_CENTRAL                   | API key from eu-west-1 region                          |
+| API_KEY_US_EAST                      | API key from us-east-1 region                          |
 | SIMULATION_WEB_SOCKET_URL            | Simulation WebSocketUrl                                |
-| SIMULATION_WEB_SOCKET_URL_EU         | Simulation WebSocketUrl form eu-west-1 region          |
+| SIMULATION_WEB_SOCKET_URL_EU         | Simulation WebSocketUrl from eu-west-1 region          |
 | ANALYTICS_APP_ID                     | AnalyticsAppId                                         |
 | IDENTITY_POOL_ID                     | IdentityPoolId                                         |
 | USER_DOMAIN                          | UserDomain                                             |

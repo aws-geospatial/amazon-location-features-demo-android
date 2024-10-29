@@ -1629,12 +1629,37 @@ class ExploreFragment :
                                     isWalk,
                                     isLocationIcon = mBottomSheetHelper.isNavigationSheetVisible(),
                                 )
-                                legs[0].vehicleLegDetails?.travelSteps?.get(0)?.duration?.let { duration ->
-                                    legs[0].vehicleLegDetails?.travelSteps?.get(0)?.instruction?.let { instruction ->
-                                        setNavigationTimeDialog(
-                                            duration.toDouble(),
-                                            instruction
-                                        )
+                                legs.first().let { leg ->
+                                    when {
+                                        leg.vehicleLegDetails != null -> {
+                                            leg.vehicleLegDetails!!.travelSteps[0].let { step ->
+                                                step.instruction?.let { instruction ->
+                                                    setNavigationTimeDialog(step.duration.toDouble(),
+                                                        instruction
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        leg.ferryLegDetails != null -> {
+                                            leg.ferryLegDetails!!.travelSteps[0].let { step ->
+                                                step.instruction?.let { instruction ->
+                                                    setNavigationTimeDialog(step.duration.toDouble(),
+                                                        instruction
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        leg.pedestrianLegDetails != null -> {
+                                            leg.pedestrianLegDetails!!.travelSteps[0].let { step ->
+                                                step.instruction?.let { instruction ->
+                                                    setNavigationTimeDialog(step.duration.toDouble(),
+                                                        instruction
+                                                    )
+                                                }
+                                            }
+                                        }
+
+                                        else -> {} //do nothing
                                     }
                                 }
                             }
@@ -3521,9 +3546,11 @@ class ExploreFragment :
                 }
             }
         }
-        legs[0].geometry?.lineString?.let {
-            for (data in it) {
-                lineString.add(fromLngLat(data[0], data[1]))
+        for (leg in legs) {
+            leg.geometry?.lineString?.let {
+                for (data in it) {
+                    lineString.add(fromLngLat(data[0], data[1]))
+                }
             }
         }
         if (isLineUpdate) {
@@ -3600,11 +3627,13 @@ class ExploreFragment :
                     }
             }
         }
-        legs[0].geometry?.lineString?.let {
-            if (isDestination) {
+        if (isDestination) {
+            legs.last().geometry?.lineString?.let {
                 val lastLeg = it[it.size - 1]
                 dotStartPoint.add(fromLngLat(lastLeg[0], lastLeg[1]))
-            } else {
+            }
+        } else {
+            legs.first().geometry?.lineString?.let {
                 dotStartPoint.add(
                     fromLngLat(
                         it[0][0],
@@ -3613,7 +3642,6 @@ class ExploreFragment :
                 )
             }
         }
-
         if (destinationLatLng != null) {
             dotDestinationPoint.add(
                 fromLngLat(
@@ -3654,15 +3682,17 @@ class ExploreFragment :
                     }
             }
         }
-        legs[0].geometry?.lineString?.let {
-            if (isDestination) {
+        if (isDestination) {
+            legs.first().geometry?.lineString?.let {
                 dotDestinationPoint.add(
                     fromLngLat(
                         it[0][0],
                         it[0][1],
                     ),
                 )
-            } else {
+            }
+        } else {
+            legs.last().geometry?.lineString?.let {
                 val lastLeg = it[it.size - 1]
                 dotDestinationPoint.add(fromLngLat(lastLeg[0], lastLeg[1]))
             }
@@ -3690,8 +3720,10 @@ class ExploreFragment :
             dotDestinationPoint,
             false,
         )
-        for (data in legs[0].geometry?.lineString!!) {
-            lineString.add(fromLngLat(data[0], data[1]))
+        for (leg in legs) {
+            for (data in leg.geometry?.lineString!!) {
+                lineString.add(fromLngLat(data[0], data[1]))
+            }
         }
         if (isLineUpdate) {
             mMapHelper.updateLine(lineString)

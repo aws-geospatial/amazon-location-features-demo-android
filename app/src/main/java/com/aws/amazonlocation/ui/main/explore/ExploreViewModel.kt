@@ -369,61 +369,41 @@ class ExploreViewModel
                             .summary
                             ?.distance
                             ?.toDouble()
-
-                    if (legs[0].vehicleLegDetails != null) {
-                        legs[0].vehicleLegDetails?.travelSteps?.forEach {
-                            mNavigationListModel.add(
-                                NavigationData(
-                                    isDataSuccess = true,
-                                    destinationAddress = it.instruction,
-                                    distance = it.distance.toDouble(),
-                                    duration = it.duration.toDouble(),
-                                ),
-                            )
+                    for (leg in legs) {
+                        if (leg.vehicleLegDetails != null) {
+                            leg.vehicleLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
+                            }
+                        } else if (leg.pedestrianLegDetails != null) {
+                            leg.pedestrianLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
+                            }
+                        }else if (leg.ferryLegDetails != null) {
+                            leg.ferryLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
+                            }
                         }
-                        mNavigationResponse?.startLat =
-                            data.routes[0].legs[0].vehicleLegDetails?.departure?.place?.originalPosition?.get(
-                                1,
-                            )
-                        mNavigationResponse?.startLng =
-                            data.routes[0].legs[0].vehicleLegDetails?.departure?.place?.originalPosition?.get(
-                                0,
-                            )
-                        mNavigationResponse?.endLat =
-                            data.routes[0].legs[0].vehicleLegDetails?.arrival?.place?.originalPosition?.get(
-                                1,
-                            )
-                        mNavigationResponse?.endLng =
-                            data.routes[0].legs[0].vehicleLegDetails?.arrival?.place?.originalPosition?.get(
-                                0,
-                            )
-                    } else if (legs[0].pedestrianLegDetails != null) {
-                        legs[0].pedestrianLegDetails?.travelSteps?.forEach {
-                            mNavigationListModel.add(
-                                NavigationData(
-                                    isDataSuccess = true,
-                                    destinationAddress = it.instruction,
-                                    distance = it.distance.toDouble(),
-                                    duration = it.duration.toDouble(),
-                                ),
-                            )
-                        }
-                        mNavigationResponse?.startLat =
-                            data.routes[0].legs[0].pedestrianLegDetails?.departure?.place?.originalPosition?.get(
-                                1,
-                            )
-                        mNavigationResponse?.startLng =
-                            data.routes[0].legs[0].pedestrianLegDetails?.departure?.place?.originalPosition?.get(
-                                0,
-                            )
-                        mNavigationResponse?.endLat =
-                            data.routes[0].legs[0].pedestrianLegDetails?.arrival?.place?.originalPosition?.get(
-                                1,
-                            )
-                        mNavigationResponse?.endLng =
-                            data.routes[0].legs[0].pedestrianLegDetails?.arrival?.place?.originalPosition?.get(
-                                0,
-                            )
                     }
                     mNavigationResponse?.destinationAddress =
                         mSearchSuggestionData?.amazonLocationAddress?.label
