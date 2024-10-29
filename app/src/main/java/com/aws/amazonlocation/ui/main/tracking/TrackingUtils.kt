@@ -459,8 +459,8 @@ class TrackingUtils(
                                 (activity as MainActivity).analyticsUtils?.recordEvent(EventType.GEO_EVENT_TRIGGERED, propertiesAws)
                                 "${mFragmentActivity?.getString(R.string.label_tracker_exited)} $geofenceName"
                             }
-                            activity.runOnUiThread {
-                                activity.messageDialog(
+                            activity?.runOnUiThread {
+                                activity?.messageDialog(
                                     title = geofenceName,
                                     subTitle = subTitle,
                                     false,
