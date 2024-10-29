@@ -63,12 +63,10 @@ import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
 import org.maplibre.android.plugins.annotation.SymbolOptions
-import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
-import org.maplibre.android.style.layers.PropertyFactory.textField
 import org.maplibre.android.style.layers.SymbolLayer
 import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.android.utils.BitmapUtils
@@ -116,7 +114,7 @@ class MapHelper(
         mapView: MapView,
         mapLibreMap: MapLibreMap?,
         mapStyle: String,
-        colorSchemes: String,
+        colorScheme: String,
         isMapLoadedInterface: IsMapLoadedInterface,
         mapStyleChangedListener: MapStyleChangeListener,
         activity: FragmentActivity?,
@@ -133,7 +131,7 @@ class MapHelper(
                 Style
                     .Builder()
                     .fromUri(
-                        getMapUri(mapStyle, colorSchemes, Units.getApiKey(mPreferenceManager)),
+                        getMapUri(mapStyle, colorScheme, Units.getApiKey(mPreferenceManager)),
                     ),
             ) { style ->
                 updateZoomRange(style)
@@ -183,14 +181,14 @@ class MapHelper(
 
     fun updateStyle(
         mapStyle: String,
-        colorSchemes: String,
+        colorScheme: String,
     ) {
         setRegion()
         mMapLibreMap?.setStyle(
             Style
                 .Builder()
                 .fromUri(
-                    getMapUri(mapStyle, colorSchemes, Units.getApiKey(mPreferenceManager)),
+                    getMapUri(mapStyle, colorScheme, Units.getApiKey(mPreferenceManager)),
                 ),
         ) {
             mapStyleChangeListener?.onMapStyleChanged(mapStyle)
@@ -199,14 +197,14 @@ class MapHelper(
         }
     }
 
-    private fun getMapUri(mapStyle: String, colorSchemes: String, apiKey: String): String {
+    private fun getMapUri(mapStyle: String, colorScheme: String, apiKey: String): String {
         val countryName = mPreferenceManager?.getValue(KEY_POLITICAL_VIEW, "") ?: ""
         val region = Units.getRegion(mPreferenceManager)
 
         val baseUrl = "https://maps.geo.$region.amazonaws.com/v2/styles/$mapStyle/descriptor?key=$apiKey"
         val politicalView = if (countryName.isNotEmpty()) "&political-view=$countryName" else ""
 
-        return if (mapStyle == "Hybrid" || mapStyle == "Satellite") baseUrl+politicalView else "$baseUrl&color-scheme=$colorSchemes$politicalView"
+        return if (mapStyle == "Hybrid" || mapStyle == "Satellite") baseUrl+politicalView else "$baseUrl&color-scheme=$colorScheme$politicalView"
     }
 
     @SuppressLint("MissingPermission")
