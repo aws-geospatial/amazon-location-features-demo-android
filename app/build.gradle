@@ -157,7 +157,9 @@ dependencies {
     implementation("aws.sdk.kotlin:location:1.3.29")
     implementation("aws.sdk.kotlin:cognitoidentity:1.3.29")
     implementation("aws.sdk.kotlin:pinpoint:1.3.29")
+    //TODO update this once place sdk it's live
     implementation("aws.sdk.kotlin:geoplaces:1.3.39-preview")
+    //TODO update this once routes sdk it's live
     implementation("aws.sdk.kotlin:georoutes:1.3.23-preview")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // Support for Java 8 features
