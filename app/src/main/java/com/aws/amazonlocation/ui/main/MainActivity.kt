@@ -434,17 +434,6 @@ class MainActivity :
                         mBottomSheetDialog?.dismiss()
                         async { mLocationProvider.generateNewAuthCredentials(authHelper) }.await()
                         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-                        if (fragment is ExploreFragment) {
-                            val mapStyleNameDisplay =
-                                mPreferenceManager.getValue(
-                                    KEY_MAP_STYLE_NAME,
-                                    getString(R.string.map_standard),
-                                ) ?: getString(R.string.map_standard)
-                            isMapStyleChangeCalled = true
-                            async {
-                                changeMapStyle(mapStyleNameDisplay)
-                            }.await()
-                        }
                         getTokenAndAttachPolicy()
                         val propertiesAws =
                             listOf(
