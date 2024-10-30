@@ -21,7 +21,6 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
@@ -33,7 +32,7 @@ import com.aws.amazonlocation.TEST_FAILED_DIRECTION_CARD
 import com.aws.amazonlocation.TEST_FAILED_NOT_EQUAL
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
 import com.aws.amazonlocation.TEST_FAILED_SEARCH_SHEET
-import com.aws.amazonlocation.TEST_WORD_1
+import com.aws.amazonlocation.TEST_WORD_RIO_TINTO
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -63,8 +62,11 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_1))
-            Thread.sleep(DELAY_10000)
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_RIO_TINTO))
+            uiDevice.wait(
+                Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
+                DELAY_20000
+            )
             val rvSearchPlaceSuggestion =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_search_places_suggestion)
             if (rvSearchPlaceSuggestion.adapter?.itemCount != null) {
@@ -131,7 +133,7 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                                 edtSearchDirection.perform(click())
                                 onView(withId(R.id.edt_search_direction)).perform(
                                     replaceText(
-                                        TEST_WORD_1,
+                                        TEST_WORD_RIO_TINTO,
                                     ),
                                 )
 

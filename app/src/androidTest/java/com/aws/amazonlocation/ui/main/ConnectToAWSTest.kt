@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiObjectNotFoundException
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.*
@@ -23,8 +22,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.core.AllOf.allOf
 import org.junit.*
-import org.maplibre.android.maps.MapLibreMap
-import org.maplibre.android.maps.MapView
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
@@ -56,8 +53,8 @@ class ConnectToAWSTest : BaseTestMainActivity() {
                 Thread.sleep(DELAY_2000)
             }
             uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_1))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_2))?.click()
+            uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
+            uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
             uiDevice.findObject(By.text(ALLOW))?.click()
             Thread.sleep(DELAY_2000)
             enableGPS(ApplicationProvider.getApplicationContext())

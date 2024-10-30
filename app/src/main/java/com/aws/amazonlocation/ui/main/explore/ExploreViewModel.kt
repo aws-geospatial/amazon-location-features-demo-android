@@ -3,10 +3,9 @@ package com.aws.amazonlocation.ui.main.explore
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import aws.sdk.kotlin.services.location.model.CalculateRouteResponse
-import aws.sdk.kotlin.services.location.model.SearchPlaceIndexForPositionResponse
-import aws.sdk.kotlin.services.location.model.Step
-import aws.sdk.kotlin.services.location.model.TravelMode
+import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
+import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
+import aws.sdk.kotlin.services.georoutes.model.RouteTravelMode
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.data.common.HandleResult
@@ -15,27 +14,17 @@ import com.aws.amazonlocation.data.response.MapStyleData
 import com.aws.amazonlocation.data.response.MapStyleInnerData
 import com.aws.amazonlocation.data.response.NavigationData
 import com.aws.amazonlocation.data.response.NavigationResponse
+import com.aws.amazonlocation.data.response.PoliticalData
 import com.aws.amazonlocation.data.response.SearchResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.utils.ATTRIBUTE_3D
-import com.aws.amazonlocation.utils.ATTRIBUTE_DARK
-import com.aws.amazonlocation.utils.ATTRIBUTE_LIGHT
-import com.aws.amazonlocation.utils.ATTRIBUTE_SATELLITE
-import com.aws.amazonlocation.utils.ATTRIBUTE_TRUCK
-import com.aws.amazonlocation.utils.MapNames
-import com.aws.amazonlocation.utils.MapStyles
-import com.aws.amazonlocation.utils.TRAVEL_MODE_BICYCLE
-import com.aws.amazonlocation.utils.TRAVEL_MODE_MOTORCYCLE
-import com.aws.amazonlocation.utils.TYPE_RASTER
-import com.aws.amazonlocation.utils.TYPE_VECTOR
 import com.aws.amazonlocation.utils.Units
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
@@ -43,7 +32,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.maplibre.android.geometry.LatLng
-import javax.inject.Inject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -61,18 +49,15 @@ class ExploreViewModel
         var mSearchSuggestionData: SearchSuggestionData? = null
         var mSearchDirectionOriginData: SearchSuggestionData? = null
         var mSearchDirectionDestinationData: SearchSuggestionData? = null
-        var mCarData: CalculateRouteResponse? = null
-        var mWalkingData: CalculateRouteResponse? = null
-        var mTruckData: CalculateRouteResponse? = null
-        var mBicycleData: CalculateRouteResponse? = null
-        var mMotorcycleData: CalculateRouteResponse? = null
+        var mCarData: CalculateRoutesResponse? = null
+        var mWalkingData: CalculateRoutesResponse? = null
+        var mTruckData: CalculateRoutesResponse? = null
+        var mScooterData: CalculateRoutesResponse? = null
         var mNavigationResponse: NavigationResponse? = null
         private val mNavigationListModel = ArrayList<NavigationData>()
         var mStyleList = ArrayList<MapStyleData>()
-        var mStyleListForFilter = ArrayList<MapStyleData>()
-        var providerOptions = ArrayList<FilterOption>()
-        var attributeOptions = ArrayList<FilterOption>()
-        var typeOptions = ArrayList<FilterOption>()
+        var mPoliticalData = ArrayList<PoliticalData>()
+        var mPoliticalSearchData = ArrayList<PoliticalData>()
 
         private val _searchForSuggestionsResultList =
             Channel<HandleResult<SearchSuggestionResponse>>(Channel.BUFFERED)
@@ -104,11 +89,6 @@ class ExploreViewModel
         val mNavigationData: Flow<HandleResult<NavigationResponse>> =
             _navigationData.receiveAsFlow()
 
-        private val _navigationTimeDialogData =
-            Channel<HandleResult<NavigationData>>(Channel.BUFFERED)
-        val mNavigationTimeDialogData: Flow<HandleResult<NavigationData>> =
-            _navigationTimeDialogData.receiveAsFlow()
-
         private val _addressLineData =
             Channel<HandleResult<SearchResponse>>(Channel.BUFFERED)
         val addressLineData: Flow<HandleResult<SearchResponse>> =
@@ -116,7 +96,6 @@ class ExploreViewModel
 
         fun searchPlaceSuggestion(
             searchText: String,
-            isGrabMapSelected: Boolean,
         ) {
             _searchForSuggestionsResultList.trySend(
                 HandleResult.Loading,
@@ -126,7 +105,6 @@ class ExploreViewModel
                     mLatLng?.latitude,
                     mLatLng?.longitude,
                     searchText,
-                    isGrabMapSelected,
                     object : SearchPlaceInterface {
                         override fun getSearchPlaceSuggestionResponse(suggestionResponse: SearchSuggestionResponse?) {
                             _searchForSuggestionsResultList.trySend(
@@ -148,13 +126,17 @@ class ExploreViewModel
             }
         }
 
-        fun searchPlaceIndexForText(searchText: String?) {
+        fun searchPlaceIndexForText(
+            searchText: String? = null,
+            queryId: String? = null,
+        ) {
             _searchLocationList.trySend(HandleResult.Loading)
             viewModelScope.launch(Dispatchers.IO) {
                 getLocationSearchUseCase.searchPlaceIndexForText(
                     mLatLng?.latitude,
                     mLatLng?.longitude,
                     searchText,
+                    queryId,
                     object : SearchPlaceInterface {
                         override fun success(searchResponse: SearchSuggestionResponse) {
                             _searchLocationList.trySend(HandleResult.Success(searchResponse))
@@ -207,7 +189,7 @@ class ExploreViewModel
                                 lngDestination,
                                 isAvoidFerries,
                                 isAvoidTolls,
-                                TravelMode.Walking.value,
+                                RouteTravelMode.Pedestrian.value,
                             )
                         }
                     two.await()
@@ -220,10 +202,23 @@ class ExploreViewModel
                                 lngDestination,
                                 isAvoidFerries,
                                 isAvoidTolls,
-                                TravelMode.Truck.value,
+                                RouteTravelMode.Truck.value,
                             )
                         }
                     three.await()
+                    val four =
+                        async {
+                            calculateDistanceFromMode(
+                                latitude,
+                                longitude,
+                                latDestination,
+                                lngDestination,
+                                isAvoidFerries,
+                                isAvoidTolls,
+                                RouteTravelMode.Scooter.value,
+                            )
+                        }
+                    four.await()
                 } else {
                     val one =
                         async {
@@ -234,62 +229,11 @@ class ExploreViewModel
                                 lngDestination,
                                 isAvoidFerries,
                                 isAvoidTolls,
-                                TravelMode.Car.value,
+                                RouteTravelMode.Car.value,
                             )
                         }
                     one.await()
                 }
-            }
-        }
-
-        fun calculateGrabDistance(
-            latitude: Double?,
-            longitude: Double?,
-            latDestination: Double?,
-            lngDestination: Double?,
-            isAvoidFerries: Boolean?,
-            isAvoidTolls: Boolean?,
-        ) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val two =
-                    async {
-                        calculateDistanceFromMode(
-                            latitude,
-                            longitude,
-                            latDestination,
-                            lngDestination,
-                            isAvoidFerries,
-                            isAvoidTolls,
-                            TravelMode.Walking.value,
-                        )
-                    }
-                two.await()
-                val three =
-                    async {
-                        calculateDistanceFromMode(
-                            latitude,
-                            longitude,
-                            latDestination,
-                            lngDestination,
-                            isAvoidFerries,
-                            isAvoidTolls,
-                            TRAVEL_MODE_BICYCLE,
-                        )
-                    }
-                three.await()
-                val one =
-                    async {
-                        calculateDistanceFromMode(
-                            latitude,
-                            longitude,
-                            latDestination,
-                            lngDestination,
-                            isAvoidFerries,
-                            isAvoidTolls,
-                            TRAVEL_MODE_MOTORCYCLE,
-                        )
-                    }
-                one.await()
             }
         }
 
@@ -314,7 +258,7 @@ class ExploreViewModel
                 isAvoidTolls,
                 travelMode,
                 object : DistanceInterface {
-                    override fun distanceSuccess(success: CalculateRouteResponse) {
+                    override fun distanceSuccess(success: CalculateRoutesResponse) {
                         _calculateDistance.trySend(
                             HandleResult.Success(
                                 CalculateDistanceResponse(
@@ -377,7 +321,7 @@ class ExploreViewModel
                     isAvoidTolls,
                     travelMode,
                     object : DistanceInterface {
-                        override fun distanceSuccess(success: CalculateRouteResponse) {
+                        override fun distanceSuccess(success: CalculateRoutesResponse) {
                             _updateCalculateDistance.trySend(
                                 HandleResult.Success(
                                     CalculateDistanceResponse(
@@ -408,32 +352,61 @@ class ExploreViewModel
 
         fun calculateNavigationLine(
             context: Context,
-            data: CalculateRouteResponse,
+            data: CalculateRoutesResponse,
         ) {
             _navigationData.trySend(HandleResult.Loading)
-            data.legs[0].let { legs ->
+            data.routes[0].legs.let { legs ->
                 mNavigationListModel.clear()
                 viewModelScope.launch(Dispatchers.IO) {
-                    val address =
-                        async {
-                            legs.steps.let { steps ->
-                                steps.forEach { step ->
-                                    getAddressFromLatLng(step.startPosition[1], step.startPosition[0], step)
-                                }
+                    mNavigationResponse = NavigationResponse()
+                    mNavigationResponse?.duration =
+                        data.routes[0]
+                            .summary
+                            ?.duration
+                            ?.let { Units.getTime(context, it) }
+                    mNavigationResponse?.distance =
+                        data.routes[0]
+                            .summary
+                            ?.distance
+                            ?.toDouble()
+                    for (leg in legs) {
+                        if (leg.vehicleLegDetails != null) {
+                            leg.vehicleLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
+                            }
+                        } else if (leg.pedestrianLegDetails != null) {
+                            leg.pedestrianLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
+                            }
+                        }else if (leg.ferryLegDetails != null) {
+                            leg.ferryLegDetails?.travelSteps?.forEach {
+                                mNavigationListModel.add(
+                                    NavigationData(
+                                        isDataSuccess = true,
+                                        destinationAddress = it.instruction,
+                                        distance = it.distance.toDouble(),
+                                        duration = it.duration.toDouble(),
+                                    ),
+                                )
                             }
                         }
-                    address.await()
-                    mNavigationResponse = NavigationResponse()
-                    legs.let { leg ->
-                        mNavigationResponse?.duration = Units.getTime(context, leg.durationSeconds)
-                        mNavigationResponse?.distance = leg.distance
-                        mNavigationResponse?.startLat = leg.startPosition[1]
-                        mNavigationResponse?.startLng = leg.startPosition[0]
-                        mNavigationResponse?.endLat = leg.endPosition[1]
-                        mNavigationResponse?.endLng = leg.endPosition[0]
                     }
                     mNavigationResponse?.destinationAddress =
-                        mSearchSuggestionData?.amazonLocationPlace?.label
+                        mSearchSuggestionData?.amazonLocationAddress?.label
                     mNavigationResponse?.navigationList = mNavigationListModel
                     mNavigationResponse?.let {
                         _navigationData.trySend(HandleResult.Success(it))
@@ -442,58 +415,21 @@ class ExploreViewModel
             }
         }
 
-        suspend fun getAddressFromLatLng(
-            latitude: Double?,
-            longitude: Double?,
-            step: Step,
-            isTimeDialog: Boolean = false,
-        ) {
-            _navigationTimeDialogData.trySend(HandleResult.Loading)
-            getLocationSearchUseCase.searchNavigationPlaceIndexForPosition(
-                latitude,
-                longitude,
-                step,
-                object : NavigationDataInterface {
-                    override fun getNavigationList(navigationData: NavigationData) {
-                        if (isTimeDialog) {
-                            _navigationTimeDialogData.trySend(
-                                HandleResult.Success(
-                                    navigationData,
-                                ),
-                            )
-                        } else {
-                            mNavigationListModel.add(navigationData)
-                        }
-                    }
-
-                    override fun internetConnectionError(error: String) {
-                        _navigationTimeDialogData.trySend(
-                            HandleResult.Error(
-                                DataSourceException.Error(
-                                    error,
-                                ),
-                            ),
-                        )
-                    }
-                },
-            )
-        }
-
         fun getAddressLineFromLatLng(
             longitude: Double?,
             latitude: Double?,
         ) {
-            _navigationTimeDialogData.trySend(HandleResult.Loading)
+            _addressLineData.trySend(HandleResult.Loading)
             viewModelScope.launch(Dispatchers.IO) {
                 getLocationSearchUseCase.searPlaceIndexForPosition(
                     latitude,
                     longitude,
                     object : SearchDataInterface {
-                        override fun getAddressData(searchPlaceIndexForPositionResult: SearchPlaceIndexForPositionResponse) {
+                        override fun getAddressData(reverseGeocodeResponse: ReverseGeocodeResponse) {
                             _addressLineData.trySend(
                                 HandleResult.Success(
                                     SearchResponse(
-                                        searchPlaceIndexForPositionResult,
+                                        reverseGeocodeResponse,
                                         latitude,
                                         longitude,
                                     ),
@@ -523,285 +459,123 @@ class ExploreViewModel
             }
         }
 
-        fun setMapListData(
-            context: Context,
-            isGrabMapEnable: Boolean = false,
-        ) {
+        fun setMapListData(context: Context) {
             val items =
                 arrayListOf(
                     MapStyleInnerData(
-                        context.getString(R.string.map_light),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
+                        context.getString(R.string.map_standard),
                         false,
-                        R.drawable.light,
+                        R.drawable.standard_light,
                     ),
                     MapStyleInnerData(
-                        context.getString(R.string.map_streets),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
+                        context.getString(R.string.map_monochrome),
                         false,
-                        R.drawable.streets,
+                        R.drawable.monochrome,
                     ),
                     MapStyleInnerData(
-                        context.getString(R.string.map_navigation),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
+                        context.getString(R.string.map_hybrid),
                         false,
-                        R.drawable.navigation,
+                        R.drawable.hybrid,
                     ),
                     MapStyleInnerData(
-                        context.getString(R.string.map_dark_gray),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_DARK),
-                        listOf(TYPE_VECTOR),
+                        context.getString(R.string.map_satellite),
                         false,
-                        R.drawable.dark_gray,
-                    ),
-                    MapStyleInnerData(
-                        context.getString(R.string.map_light_gray),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
-                        false,
-                        R.drawable.light_gray,
-                    ),
-                    MapStyleInnerData(
-                        context.getString(R.string.map_imagery),
-                        context.getString(R.string.map_esri),
-                        listOf(ATTRIBUTE_SATELLITE),
-                        listOf(TYPE_RASTER),
-                        false,
-                        R.drawable.imagery,
-                    ),
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_explore),
-                        context.resources.getString(R.string.here),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
-                        image = R.mipmap.ic_here_explore,
-                        isSelected = false,
-                        mMapName = MapNames.HERE_EXPLORE,
-                        mMapStyleName = MapStyles.VECTOR_HERE_EXPLORE,
-                    ),
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_contrast),
-                        context.resources.getString(R.string.here),
-                        listOf(ATTRIBUTE_DARK, ATTRIBUTE_3D),
-                        listOf(TYPE_VECTOR),
-                        image = R.mipmap.ic_here_contrast,
-                        isSelected = false,
-                        mMapName = MapNames.HERE_CONTRAST,
-                        mMapStyleName = MapStyles.VECTOR_HERE_CONTRAST,
-                    ),
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_explore_truck),
-                        context.resources.getString(R.string.here),
-                        listOf(ATTRIBUTE_LIGHT, ATTRIBUTE_TRUCK),
-                        listOf(TYPE_VECTOR),
-                        image = R.mipmap.ic_here_explore_truck,
-                        isSelected = false,
-                        mMapName = MapNames.HERE_EXPLORE_TRUCK,
-                        mMapStyleName = MapStyles.VECTOR_HERE_EXPLORE_TRUCK,
-                    ),
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_hybrid),
-                        context.resources.getString(R.string.here),
-                        listOf(ATTRIBUTE_SATELLITE),
-                        listOf(TYPE_VECTOR, TYPE_RASTER),
-                        image = R.mipmap.ic_here_hybrid,
-                        isSelected = false,
-                        mMapName = MapNames.HERE_HYBRID,
-                        mMapStyleName = MapStyles.HYBRID_HERE_EXPLORE_SATELLITE,
-                    ),
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_raster),
-                        context.resources.getString(R.string.here),
-                        listOf(ATTRIBUTE_SATELLITE),
-                        listOf(TYPE_RASTER),
-                        image = R.mipmap.ic_here_imagery,
-                        isSelected = false,
-                        mMapName = MapNames.HERE_IMAGERY,
-                        mMapStyleName = MapStyles.RASTER_HERE_EXPLORE_SATELLITE,
+                        R.drawable.satellite,
                     ),
                 )
-            if (isGrabMapEnable) {
-                items.add(
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_grab_light),
-                        context.resources.getString(R.string.grab),
-                        listOf(ATTRIBUTE_LIGHT),
-                        listOf(TYPE_VECTOR),
-                        image = R.drawable.grab_light,
-                        isSelected = false,
-                        mMapName = MapNames.GRAB_LIGHT,
-                        mMapStyleName = MapStyles.GRAB_LIGHT,
-                    ),
-                )
-                items.add(
-                    MapStyleInnerData(
-                        context.resources.getString(R.string.map_grab_dark),
-                        context.resources.getString(R.string.grab),
-                        listOf(ATTRIBUTE_DARK),
-                        listOf(TYPE_VECTOR),
-                        image = R.drawable.grab_dark,
-                        isSelected = false,
-                        mMapName = MapNames.GRAB_DARK,
-                        mMapStyleName = MapStyles.GRAB_DARK,
-                    ),
-                )
-            }
-            items.add(
-                MapStyleInnerData(
-                    context.resources.getString(R.string.map_standard_light),
-                    context.resources.getString(R.string.open_data),
-                    listOf(ATTRIBUTE_LIGHT),
-                    listOf(TYPE_VECTOR),
-                    image = R.drawable.standard_light,
-                    isSelected = false,
-                    mMapName = MapNames.OPEN_DATA_STANDARD_LIGHT,
-                    mMapStyleName = MapStyles.VECTOR_OPEN_DATA_STANDARD_LIGHT,
-                ),
-            )
-            items.add(
-                MapStyleInnerData(
-                    context.resources.getString(R.string.map_standard_dark),
-                    context.resources.getString(R.string.open_data),
-                    listOf(ATTRIBUTE_DARK),
-                    listOf(TYPE_VECTOR),
-                    image = R.drawable.standard_dark,
-                    isSelected = false,
-                    mMapName = MapNames.OPEN_DATA_STANDARD_DARK,
-                    mMapStyleName = MapStyles.VECTOR_OPEN_DATA_STANDARD_DARK,
-                ),
-            )
-            items.add(
-                MapStyleInnerData(
-                    context.resources.getString(R.string.map_visualization_light),
-                    context.resources.getString(R.string.open_data),
-                    listOf(ATTRIBUTE_LIGHT),
-                    listOf(TYPE_VECTOR),
-                    image = R.drawable.visualization_light,
-                    isSelected = false,
-                    mMapName = MapNames.OPEN_DATA_VISUALIZATION_LIGHT,
-                    mMapStyleName = MapStyles.VECTOR_OPEN_DATA_VISUALIZATION_LIGHT,
-                ),
-            )
-            items.add(
-                MapStyleInnerData(
-                    context.resources.getString(R.string.map_visualization_dark),
-                    context.resources.getString(R.string.open_data),
-                    listOf(ATTRIBUTE_DARK),
-                    listOf(TYPE_VECTOR),
-                    image = R.drawable.visualization_dark,
-                    isSelected = false,
-                    mMapName = MapNames.OPEN_DATA_VISUALIZATION_DARK,
-                    mMapStyleName = MapStyles.VECTOR_OPEN_DATA_VISUALIZATION_DARK,
-                ),
-            )
             mStyleList.clear()
 
             mStyleList =
-                items
-                    .groupBy { it.provider }
-                    .map { (providerName, providerItems) ->
-                        MapStyleData(
-                            styleNameDisplay = providerName,
-                            isSelected = false, // Set isSelected as per your requirement
-                            mapInnerData = providerItems,
-                        )
-                    } as ArrayList<MapStyleData>
-
-            mStyleListForFilter.clear()
-            mStyleListForFilter.addAll(mStyleList)
-            providerOptions =
-                items
-                    .map { it.provider }
-                    .distinct()
-                    .map { FilterOption(it) } as ArrayList<FilterOption>
-
-            attributeOptions =
-                items
-                    .flatMap { it.attributes }
-                    .distinct()
-                    .map { FilterOption(it) } as ArrayList<FilterOption>
-
-            typeOptions =
-                items
-                    .flatMap { it.types }
-                    .distinct()
-                    .map { FilterOption(it) } as ArrayList<FilterOption>
-        }
-
-        fun filterAndSortItems(
-            context: Context,
-            searchQuery: String? = null,
-            providerNames: List<String>? = null,
-            attributes: List<String>? = null,
-            types: List<String>? = null,
-        ): List<MapStyleData> {
-            val providerOrder =
-                listOf(
-                    context.resources.getString(R.string.map_esri),
-                    context.resources.getString(R.string.here),
-                    context.resources.getString(R.string.grab),
-                    context.resources.getString(R.string.open_data),
+                arrayListOf(
+                    MapStyleData(
+                        styleNameDisplay = "",
+                        isSelected = false,
+                        mapInnerData = items,
+                    ),
                 )
-
-            // Convert the providers to a sequence for more efficient processing
-            return mStyleListForFilter
-                .asSequence()
-                .filter { providerNames?.contains(it.styleNameDisplay) ?: true }
-                .mapNotNull { provider ->
-                    val filteredItems =
-                        provider.mapInnerData
-                            ?.asSequence()
-                            ?.filter { item ->
-                                val matchesSearchQuery =
-                                    searchQuery?.let { sq ->
-                                        var attributeDataContains = false
-                                        var typeDataContains = false
-                                        item.attributes.forEach {
-                                            if (!attributeDataContains) {
-                                                attributeDataContains = it.contains(sq, ignoreCase = true)
-                                            }
-                                        }
-                                        item.types.forEach {
-                                            if (!typeDataContains) {
-                                                typeDataContains = it.contains(sq, ignoreCase = true)
-                                            }
-                                        }
-                                        item.mapName?.contains(sq, ignoreCase = true) == true ||
-                                            item.provider.contains(
-                                                sq,
-                                                ignoreCase = true,
-                                            ) ||
-                                            attributeDataContains ||
-                                            typeDataContains
-                                    } ?: true
-
-                                val hasRequiredAttributes =
-                                    attributes?.let { attrs ->
-                                        item.attributes.intersect(attrs).isNotEmpty()
-                                    } ?: true
-
-                                val hasRequiredTypes =
-                                    types?.let { ts ->
-                                        item.types.intersect(ts).isNotEmpty()
-                                    } ?: true
-
-                                matchesSearchQuery && hasRequiredAttributes && hasRequiredTypes
-                            }?.toList()
-
-                    if (filteredItems?.isEmpty() == true) {
-                        null
-                    } else {
-                        provider.copy(mapInnerData = filteredItems)
-                    }
-                }.sortedBy { providerOrder.indexOf(it.styleNameDisplay) }
-                .toList() // Convert the result back to a list
         }
+
+    fun setPoliticalListData(context: Context) {
+        val item = arrayListOf(
+            PoliticalData(
+                countryName = context.getString(R.string.label_arg),
+                description = context.getString(R.string.description_arg),
+                    countryCode = context.getString(R.string.flag_arg),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_egy),
+                    description = context.getString(R.string.description_egy),
+                    countryCode = context.getString(R.string.flag_egy),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_ind),
+                    description = context.getString(R.string.description_ind),
+                    countryCode = context.getString(R.string.flag_ind),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_ken),
+                    description = context.getString(R.string.description_ken),
+                    countryCode = context.getString(R.string.flag_ken),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_mar),
+                    description = context.getString(R.string.description_mar),
+                    countryCode = context.getString(R.string.flag_mar),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_rus),
+                    description = context.getString(R.string.description_rus),
+                    countryCode = context.getString(R.string.flag_rus),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_sdn),
+                    description = context.getString(R.string.description_sdn),
+                    countryCode = context.getString(R.string.flag_sdn),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_srb),
+                    description = context.getString(R.string.description_srb),
+                    countryCode = context.getString(R.string.flag_srb),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_sur),
+                    description = context.getString(R.string.description_sur),
+                    countryCode = context.getString(R.string.flag_sur),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_syr),
+                    description = context.getString(R.string.description_syr),
+                    countryCode = context.getString(R.string.flag_syr),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_tur),
+                    description = context.getString(R.string.description_tur),
+                    countryCode = context.getString(R.string.flag_tur),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_tza),
+                    description = context.getString(R.string.description_tza),
+                    countryCode = context.getString(R.string.flag_tza),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_ury),
+                    description = context.getString(R.string.description_ury),
+                    countryCode = context.getString(R.string.flag_ury),
+            ),
+            PoliticalData(
+                countryName = context.getString(R.string.label_vnm),
+                    description = context.getString(R.string.description_vnm),
+                    countryCode = context.getString(R.string.flag_vnm),
+            )
+        )
+        mPoliticalData.addAll(item)
+
+        mPoliticalSearchData.addAll(item)
     }
+
+    fun searchPoliticalData(query: String): ArrayList<PoliticalData> {
+        return ArrayList(mPoliticalSearchData.filter {
+            it.countryName.contains(query, ignoreCase = true)
+        })
+    }
+}

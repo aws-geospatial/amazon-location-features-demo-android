@@ -10,6 +10,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        //TODO remove this once place and routes sdk is live
+        maven {
+            url = file("${rootDir}/aws-sdk-kotlin-preview/m2").toURI()
+        }
     }
 }
 rootProject.name = "Amazon Location"

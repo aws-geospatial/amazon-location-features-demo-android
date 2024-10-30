@@ -26,7 +26,7 @@ import com.aws.amazonlocation.TEST_FAILED_DIRECTION_CARD
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
 import com.aws.amazonlocation.TEST_FAILED_SEARCH_FIELD_NOT_VISIBLE
 import com.aws.amazonlocation.TEST_FAILED_SEARCH_SHEET
-import com.aws.amazonlocation.TEST_WORD_1
+import com.aws.amazonlocation.TEST_WORD_RIO_TINTO
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -54,8 +54,8 @@ class AfterSearchDirectionButtonWorkingTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_1))
-            BuildConfig.APPLICATION_ID
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_RIO_TINTO))
+
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
                 DELAY_20000,

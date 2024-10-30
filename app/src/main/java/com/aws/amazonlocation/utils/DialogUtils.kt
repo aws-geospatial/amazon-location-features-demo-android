@@ -1,10 +1,8 @@
 package com.aws.amazonlocation.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
-import android.widget.Switch
 import androidx.appcompat.widget.AppCompatButton
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
@@ -42,28 +40,6 @@ fun Context.cloudFormationInfo() {
     btnOK.setOnClickListener {
         dialog.dismiss()
     }
-}
-
-fun Context.enableTracker(clickListener: EnableTrackerInterface) {
-    val mDialog = MaterialAlertDialogBuilder(this, R.style.EnableTrackerAlertStyle)
-    mDialog.setTitle(this.resources.getString(R.string.label_enable_tracker))
-    mDialog.setMessage(this.resources.getString(R.string.label_enable_tracker_description))
-    mDialog.setCancelable(true)
-    mDialog.setPositiveButton(
-        this.resources.getString(R.string.label_enable_tracker_view_terms)
-    ) { dialog, _ ->
-        dialog.dismiss()
-        clickListener.viewTermsAndCondition(dialog)
-    }
-    mDialog.setNegativeButton(
-        this.resources.getString(R.string.label_enable_tracker_continue_to_tracker)
-    ) { dialog, _ ->
-        clickListener.continueToTracker(dialog)
-    }
-    mDialog.setOnCancelListener {
-        clickListener.cancel()
-    }
-    mDialog.show()
 }
 
 fun Context.geofenceDeleteDialog(
@@ -173,66 +149,6 @@ fun Context.userSignOutDialog() {
     mDialog.show()
 }
 
-fun Context.restartAppMapStyleDialog(
-    restartInterface: MapStyleRestartInterface
-) {
-    val layoutInflater = LayoutInflater.from(applicationContext)
-    val customView = layoutInflater.inflate(R.layout.dialog_custom_layout, null)
-
-    val switchToggle: Switch = customView.findViewById(R.id.switchToggle)
-
-    val mDialog = MaterialAlertDialogBuilder(this, R.style.MyGrabDialogTheme)
-
-    mDialog.setTitle(if (isRunningTest) resources.getString(R.string.grab) else resources.getString(R.string.label_restart_app_title))
-    mDialog.setMessage(R.string.label_restart_app_description)
-    mDialog.setView(customView)
-    mDialog.setPositiveButton(
-        this.resources.getString(R.string.enable_grab)
-    ) { dialog, _ ->
-        restartInterface.onOkClick(dialog, switchToggle.isChecked)
-        dialog.dismiss()
-    }
-    mDialog.setNeutralButton(
-        this.resources.getString(R.string.cancel)
-    ) { dialog, _ ->
-        dialog.dismiss()
-    }
-    mDialog.setNegativeButton(
-        this.resources.getString(R.string.learn_more)
-    ) { dialog, _ ->
-        // dialog.dismiss()
-        restartInterface.onLearnMoreClick(dialog)
-    }
-    mDialog.show()
-}
-
-@SuppressLint("UseSwitchCompatOrMaterialCode")
-fun Context.enableOpenData(
-    restartInterface: MapStyleRestartInterface
-) {
-    val layoutInflater = LayoutInflater.from(applicationContext)
-    val customView = layoutInflater.inflate(R.layout.dialog_custom_layout, null)
-
-    val switchToggle: Switch = customView.findViewById(R.id.switchToggle)
-
-    val mDialog = MaterialAlertDialogBuilder(this, R.style.MyGrabDialogTheme)
-
-    mDialog.setTitle(resources.getString(R.string.label_enable_open_data))
-    mDialog.setMessage(R.string.label_enable_open_data_des)
-    mDialog.setView(customView)
-    mDialog.setPositiveButton(
-        this.resources.getString(R.string.label_enable_open_data)
-    ) { dialog, _ ->
-        restartInterface.onOkClick(dialog, switchToggle.isChecked)
-        dialog.dismiss()
-    }
-    mDialog.setNeutralButton(
-        this.resources.getString(R.string.cancel)
-    ) { dialog, _ ->
-        dialog.dismiss()
-    }
-    mDialog.show()
-}
 
 fun Context.simulationExit(simulationInterface: SimulationDialogInterface) {
     val mDialog = MaterialAlertDialogBuilder(this, R.style.LogOutStyle)
@@ -264,26 +180,6 @@ fun Context.notificationPermission(notificationDialogInterface: NotificationDial
         this.resources.getString(R.string.cancel)
     ) { dialog, _ ->
         notificationDialogInterface.onCancelClick(dialog)
-        dialog.dismiss()
-    }
-    mDialog.show()
-}
-
-fun Context.changeDataProviderDialog(
-    changeDataProviderInterface: ChangeDataProviderInterface
-) {
-    val mDialog = MaterialAlertDialogBuilder(this, R.style.LogOutStyle)
-    mDialog.setTitle(resources.getString(R.string.label_change_data_provider))
-    mDialog.setMessage(resources.getString(R.string.label_change_data_provider_des))
-    mDialog.setPositiveButton(
-        this.resources.getString(R.string.label_switch_to_esri)
-    ) { dialog, _ ->
-        changeDataProviderInterface.changeDataProvider(dialog)
-        dialog.dismiss()
-    }
-    mDialog.setNegativeButton(
-        this.resources.getString(R.string.cancel)
-    ) { dialog, _ ->
         dialog.dismiss()
     }
     mDialog.show()

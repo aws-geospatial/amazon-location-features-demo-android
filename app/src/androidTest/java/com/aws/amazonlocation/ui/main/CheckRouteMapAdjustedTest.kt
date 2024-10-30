@@ -27,8 +27,8 @@ import com.aws.amazonlocation.TEST_FAILED_DIRECTION_CARD
 import com.aws.amazonlocation.TEST_FAILED_SEARCH_DIRECTION
 import com.aws.amazonlocation.TEST_FAILED_ZOOM_LEVEL
 import com.aws.amazonlocation.TEST_FAILED_ZOOM_LEVEL_NOT_CHANGED
-import com.aws.amazonlocation.TEST_WORD_5
-import com.aws.amazonlocation.TEST_WORD_6
+import com.aws.amazonlocation.TEST_WORD_AUBURN_SYDNEY
+import com.aws.amazonlocation.TEST_WORD_MANLY_BEACH_SYDNEY
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -77,7 +77,7 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                 if (edtSearchDirection.visibility == View.VISIBLE) {
                     onView(withId(R.id.edt_search_direction)).perform(
                         ViewActions.replaceText(
-                            TEST_WORD_5,
+                            TEST_WORD_AUBURN_SYDNEY,
                         ),
                     )
                     Thread.sleep(DELAY_2000)
@@ -98,7 +98,7 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                             )
                         }
                     }
-                    onView(withId(R.id.edt_search_dest)).perform(ViewActions.typeText(TEST_WORD_6))
+                    onView(withId(R.id.edt_search_dest)).perform(ViewActions.typeText(TEST_WORD_MANLY_BEACH_SYDNEY))
                     Thread.sleep(DELAY_3000)
                     uiDevice.wait(
                         Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion_direction")),

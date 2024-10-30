@@ -1,9 +1,7 @@
 package com.aws.amazonlocation.data.repository
 
-import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
@@ -19,18 +17,18 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         lng: Double?,
         searchText: String,
         searchPlace: SearchPlaceInterface,
-        isGrabMapSelected: Boolean
     ) {
-        mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace, isGrabMapSelected)
+        mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
     }
 
     override suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
+        queryId: String?,
         searchPlace: SearchPlaceInterface
     ) {
-        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, searchPlace)
+        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, queryId, searchPlace)
     }
 
     override suspend fun calculateDistance(
@@ -52,20 +50,6 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
             isAvoidTolls,
             travelMode,
             distanceInterface
-        )
-    }
-
-    override suspend fun searchNavigationPlaceIndexForPosition(
-        lat: Double?,
-        lng: Double?,
-        step: Step,
-        searchPlace: NavigationDataInterface
-    ) {
-        mRemoteDataSource.searchNavigationPlaceIndexForPosition(
-            lat,
-            lng,
-            step,
-            searchPlace
         )
     }
 

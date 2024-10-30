@@ -18,8 +18,8 @@ import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
-import com.aws.amazonlocation.TEST_WORD_5
-import com.aws.amazonlocation.TEST_WORD_6
+import com.aws.amazonlocation.TEST_WORD_AUBURN_SYDNEY
+import com.aws.amazonlocation.TEST_WORD_MANLY_BEACH_SYDNEY
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -50,7 +50,7 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
             Thread.sleep(DELAY_2000)
 
             val sourceEdt = waitForView(CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed()))
-            sourceEdt?.perform(replaceText(TEST_WORD_5))
+            sourceEdt?.perform(replaceText(TEST_WORD_AUBURN_SYDNEY))
 
             Thread.sleep(DELAY_2000)
 
@@ -77,7 +77,7 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
             )
             destinationEdt?.perform(
                 click(),
-                replaceText(TEST_WORD_6)
+                replaceText(TEST_WORD_MANLY_BEACH_SYDNEY)
             )
 
             Thread.sleep(DELAY_2000)

@@ -15,9 +15,7 @@
   <string name="privacy_policy">بواسطة استمرار، أنت يوافق إلى Amazon\'s الشروط من استخدم و الخصوصية ملاحظة.</string>
   <string name="condition_of_use">الشروط من استخدم</string>
   <string name="privacy_notice">الخصوصية تنويه</string>
-  <string name="login_success">علامة في تم بنجاح</string>
   <string name="sign_out_successfully">علامة خارج بنجاح</string>
-  <string name="sign_out_failed">علامة خارج فشل، من فضلك محاولة مرة أخرى...</string>
   <string name="sign_in_to_access_tracking">علامة في إلى ولوج التتبع و السياج الجغرافي المميزات أو تقدم إلى اكتشف ال خريطة</string>
   <string name="sign_in_required">علامة في مطلوب</string>
   <string name="maybe_later">ربما في وقت لاحق</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">المشي</string>
   <string name="label_drive">قم بالقيادة</string>
   <string name="label_truck">شاحنة</string>
-  <string name="label_bicycle">دراجة</string>
-  <string name="label_motorcycle">دراجة نارية</string>
+  <string name="label_scooter">سكوتر</string>
   <string name="label_search_starting_point">ابحث بدء نقطة</string>
   <string name="exit">الخروج</string>
   <string name="log_out">سجل خارج</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">تحرير السياج الجغرافي</string>
   <string name="label_map_style">خريطة أسلوب</string>
   <string name="label_map_style_description">تغيير البيانات مزود أيضا يؤثر الأماكن &amp; المسارات API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">رجاء يدخل لائق هوية حوض السباحة هوية شخصية</string>
   <string name="label_enter_domain">تم إدخالها مستخدم نطاق هو خطأ</string>
   <string name="label_enter_user_pool_client_id">تم إدخالها مستخدم حوض السباحة عميل هوية شخصية هو خطأ</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">البيانات مزود</string>
   <string name="map_style">خريطة طراز</string>
   <string name="aws_cloudformation">قم بالاتصال ك الخدمات اللاسلكية المتقدمة الحساب</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">أنت يكونوا متصل</string>
   <string name="label_connected_description">قم بالاتصال ك الخدمات اللاسلكية المتقدمة اعتبار إلى تمكين الأسوار الجغرافية و أجهزة التتبع. هذه سوف ضمان ك تتبع و السياج الجغرافي البيانات هو فقط المخزنة في ك الحساب. بعد أنت خشبة في، جميع المميزات من ال نسخة تجريبية التطبيق سوف يركض باستخدام الموارد أنت نشر في ك الخدمات اللاسلكية المتقدمة الحساب. سجل خارج لو أنت يرغب إلى يستمر تشغيل ال نسخة تجريبية التطبيق باستخدام الموارد في خدمات أمازون ويب تجريبي التطبيق الحساب.</string>
   <string name="label_how_to_remove">كيف إلى إزالة:</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">التتبع التاريخ</string>
   <string name="label_tracking_your_activity">التتبع ك آلة موقع</string>
   <string name="label_enable_tracking">تمكين مباشر أجهزة التتبع</string>
-  <string name="label_enable_tracker">تمكين متعقب</string>
-  <string name="label_enable_tracker_description">أنت يستطيعون استخدام أي البيانات مزود باستثناء إسري من أجل ك الموجودات إدارة أو تتبع استخدام الحالات. إذا أنت تريد إلى استخدام إسري من أجل ك الموجودات إدارة أو تتبع استخدام القضية، من فضلك اقرأ المصطلحات و الشروط</string>
-  <string name="label_enable_tracker_view_terms">عرض الشروط و الشروط</string>
-  <string name="label_enable_tracker_continue_to_tracker">استمر</string>
   <string name="label_enable_tracking_detail">التمكين ال ميزة سوف سمح أنت إلى يتابع ك آلة و أصبح أخطر متى ال آلة يدخل أو مخارج أي من ك الأسوار الجغرافية.</string>
   <string name="label_check_your_internet_connection_and_try_again">تحقق ك إنترنت صلة و محاولة مرة أخرى</string>
   <string name="label_not_tracking_your_activity">لا تتبع ك آلة موقع</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">كومة هو تالف، التبديل تراجع إلى تقصير كومة</string>
   <string name="error_route">المسار لا وجدت.</string>
   <string name="no_route_found">لا طريق وجد</string>
-  <string name="error_switch_to_here">مسافة هو أعظم من 400 كم، لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى هنا مزود</string>
-  <string name="error_switch_to_here_miles" formatted="false">مسافة هو أعظم من %s مي، لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى هنا مزود</string>
-  <string name="error_distance_400">في مصدر البيانات إسري، نقاط الطريق من أجل سيارة و شاحنة ضرورة هو داخل 400 كم، و نقاط الطريق من أجل مشي ضرورة هو داخل 40 كم.</string>
-  <string name="error_distance_248_miles" formatted="false">في مصدر البيانات إسري، نقاط الطريق من أجل سيارة و شاحنة ضرورة هو داخل %sim، و نقاط الطريق من أجل مشي ضرورة هو داخل %sim.</string>
   <string name="connect_to_aws_account">قم بالاتصال الخدمات اللاسلكية المتقدمة الحساب</string>
   <string name="label_preview">استطلاع</string>
   <string name="label_location_permission_denied">الموقع تصريح تم رفضه</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">قانوني و الخصوصية</string>
   <string name="label_version">الإصدار</string>
   <string name="label_sign_out">علامة خارج</string>
-  <string name="distance_is_greater_than_400_km">مسافة هو أعظم من 400 كم</string>
-  <string name="distance_is_greater_than_248_mi">مسافة هو أعظم من %s ميل</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">لا أستطيع حساب بواسطة إسري، يرجى مفتاح كهربائي إلى \nهنا مزود.</string>
-  <string name="label_here_attribution_text">© 2022 هنا</string>
   <string name="label_partner_attribution">شريك الإسناد</string>
   <string name="label_software_attribution">برامج الإسناد</string>
   <string name="label_click_learn_more_for_software_attribution">انقر يتعلم أكثر من أجل برمجيات الإحالة</string>
@@ -204,13 +172,6 @@
   <string name="imperial">إمبراطوري</string>
   <string name="subtitle_imperial">مايلز، جنيه</string>
   <string name="automatic">تلقائي</string>
-  <string name="label_restart_app_title">تمكين Grab</string>
-  <string name="label_restart_app_description">Grab ينص خرائط، المسارات و مكان بحث في ماليزيا، الفلبين، تايلاند، سنغافورة، فيتنام، إندونيسيا، ميانمار، و كمبوديا. \n\nأثناء سيارة و دراجة نارية طرق يكونوا متاح عبر ال فوق البلدان، ال دراجة و مشي طرق يكونوا مدعوم في فقط مفتاح مدن هذه كما سنغافورة، جاكرتا، مانيلا، كلانج الوادي، بانكوك، حار تشي مينه المدينة، و هانوي. </string>
-  <string name="enable_grab">تمكين Grab</string>
-  <string name="dont_ask_again">لا تفعل يطلب مرة أخرى</string>
-  <string name="your_location_not_supported_by_grab">الخاص بك تيار موقع هو في الخارج بلدان مدعوم بواسطة Grab. في الوقت الحالي، Grab يدعم ماليزيا، الفلبين، تايلاند، سنغافورة، فيتنام، إندونيسيا، ميانمار، كمبوديا.</string>
-  <string name="label_current_location_disabled">تيار موقع معاق</string>
-  <string name="label_grab_limitation">مسافة لا أستطيع هو محسوبة، لأن ك تيار موقع لديه تم معاق مستحق إلى grab تحديد</string>
   <string name="label_automatic_sub_title_mile">على أساس في ك المتصفح الإعدادات (مايلز، جنيه)</string>
   <string name="label_automatic_sub_title_km">على أساس في ك المتصفح الإعدادات (الكيلومترات، كيلوغرام)</string>
   <string name="label_sec">ثانية</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">واضح اختيار</string>
   <string name="label_style_search_error_title">لا مطابقة الأنماط وجد</string>
   <string name="label_style_search_error_des">يصنع بالتأكيد ك بحث هو توضيح بشكل صحيح و محاولة مرة أخرى، ماركة بالتأكيد أنت يملك طبق ال مناسب فلتر أو إزالة ال فلتر و محاولة مرة أخرى</string>
-  <string name="label_geofence_disable_error">تم اختيارها السياج الجغرافي هو لا متاح في ال Grab خريطة مزود. رجاء مفتاح كهربائي إلى آخر خريطة مزود إلى منظر و يدير تم اختياره السياج الجغرافي.</string>
   <string name="label_clear_filters">واضح مرشحات</string>
   <string name="label_try_trackers_amp_geofences_simulation">جرب أجهزة التتبع &amp; الأسوار الجغرافية محاكاة</string>
   <string name="label_requires_connection_to_aws_cloudformation">يتطلب صلة إلى الخدمات اللاسلكية المتقدمة تشكيل السحابة</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">من أجل ناعم محاكاة تجربة من فضلك سمح إعلام تصريح من عند إعدادات.</string>
-  <string name="label_change_data_provider">تغيير البيانات الموفر</string>
-  <string name="label_change_data_provider_des">GrabMaps لا دعم محاكاة، من فضلك تغيير البيانات مزود إلى إسري أو هنا إلى استخدام السياج الجغرافي أو متعقب الميزات.</string>
-  <string name="label_switch_to_esri">سويتش إلى إسري</string>
   <string name="region">المنطقة</string>
-  <string name="label_enable_open_data">تمكين البيانات المفتوحة</string>
-  <string name="label_enable_open_data_des">البيانات المفتوحة يستخدم إسري من أجل المسارات و الأماكن بحث وظائف إلى تعزيز ك تجربة.</string>
+  <string name="mode_light">ضوء</string>
+  <string name="mode_dark">داكن</string>
+  <string name="label_political_view">سياسية منظر</string>
+  <string name="label_map_representation_for_different_countries">خريطة تعهد من أجل مختلف بلدان</string>
+  <string name="description_arg">الأرجنتين منظر في ال جنوبي باتاغوني الثلج الحقل و تييرا ديل فويغو، مشتملاً ال فوكلاند الجزر، جنوب جورجيا، و جنوب ساندويتش الجزر</string>
+  <string name="description_egy">جمهورية مصر العربية منظر في بير طويل</string>
+  <string name="description_ind">الهند منظر في جيلجيت-بالتستان</string>
+  <string name="description_ken">كينيا منظر في ال إيليمي مثلث</string>
+  <string name="description_mar">المغرب منظر في غربي الصحراء</string>
+  <string name="description_rus">روسيا منظر في القرم</string>
+  <string name="description_sdn">السودان منظر في ال حلايب مثلث</string>
+  <string name="description_srb">جمهورية صربيا منظر في كوسوفو، فوكوفار، و سارينجراد الجزر</string>
+  <string name="description_sur">سورينام منظر في ال كورانتين منابع و لاوا منابع</string>
+  <string name="description_syr">سوريا منظر في ال الجولان مرتفعات</string>
+  <string name="description_tur">تركيا منظر في قبرص و شمالي قبرص</string>
+  <string name="description_tza">تنزانيا منظر في بحيرة مالاوي</string>
+  <string name="description_ury">الأوروغواي منظر في رينكون دي أرتيجاس</string>
+  <string name="description_vnm">فيتنام منظر في ال باراسيل الجزر و سبراتلي الجزر</string>
 </resources>

@@ -15,9 +15,7 @@
   <string name="privacy_policy">द्वारा जारी है, आप सहमत हैं को Amazon\'s शर्तेँ का उपयोग करें और प्राइवेसी सूचना।</string>
   <string name="condition_of_use">शर्तेँ का उपयोग करें</string>
   <string name="privacy_notice">प्राइवेसी नोटिस</string>
-  <string name="login_success">साइन इन करें में सफलतापूर्वक</string>
   <string name="sign_out_successfully">साइन इन करें बाहर सफलतापूर्वक</string>
-  <string name="sign_out_failed">साइन इन करें बाहर असफल, कृपया कोशिश करो फिर से...</string>
   <string name="sign_in_to_access_tracking">साइन इन करें में को पहुँच ट्रैकिंग और जियोफेंस विशेषताएं या आगे बढ़ें को एक्सप्लोर यह नक्शा</string>
   <string name="sign_in_required">साइन इन करें में आवश्यक है</string>
   <string name="maybe_later">हो सकता है बाद में</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">वॉक</string>
   <string name="label_drive">ड्राइव</string>
   <string name="label_truck">ट्रक</string>
-  <string name="label_bicycle">साइकल</string>
-  <string name="label_motorcycle">मोटरसाइकल</string>
+  <string name="label_scooter">स्कूटर</string>
   <string name="label_search_starting_point">खोजें शुरुआत में बिंदु</string>
   <string name="exit">बाहर निकलें</string>
   <string name="log_out">लॉग इन करें बाहर</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">संपादित करें जियोफेंस</string>
   <string name="label_map_style">नक्शा स्टाइल</string>
   <string name="label_map_style_description">बदल रहा है डेटा प्रदाता भी प्रभावित करता है प्लेसेस &amp; रूट्स एपीआई</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">कृपया दर्ज करें उचित पहचान पूल आईडी</string>
   <string name="label_enter_domain">दर्ज किया गया उपभोक्ता डोमेन है गलत</string>
   <string name="label_enter_user_pool_client_id">दर्ज किया गया उपभोक्ता पूल ग्राहक आईडी है गलत</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">डेटा प्रदाता</string>
   <string name="map_style">नक्शा अंदाज</string>
   <string name="aws_cloudformation">कनेक्ट करें तुम्हारा एडब्ल्यूएस अकाउंट</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">आप हैं जुड़े हुए</string>
   <string name="label_connected_description">कनेक्ट करें तुम्हारा एडब्ल्यूएस लेखा को सक्षम जियोफेंस और ट्रैकर्स। यह होगा सुनिश्चित तुम्हारा नज़र रखना और जियोफेंसिंग डेटा है मात्र संग्रहित में तुम्हारा खाता। के बाद आप लॉग इन करें में, सभी विशेषताएं का यह डेमो ऐप होगा दौड़ना इस्तेमाल करते हुए साधनों आप तैनात में तुम्हारा एडब्ल्यूएस खाता। लॉग इन करें बाहर अगर आप इच्छा को जारी रखें दौड़ना यह डेमो ऐप इस्तेमाल करते हुए साधनों में एडब्ल्यूएस प्रदर्शन ऐप खाता।</string>
   <string name="label_how_to_remove">कैसे को निकालें:</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">ट्रैकिंग इतिहास</string>
   <string name="label_tracking_your_activity">ट्रैकिंग तुम्हारा डिवाइस स्थान</string>
   <string name="label_enable_tracking">सक्षम करें लाइव ट्रैकर्स</string>
-  <string name="label_enable_tracker">सक्षम करें ट्रैकर</string>
-  <string name="label_enable_tracker_description">आप कर सकते हैं उपयोग करें किसी भी डेटा प्रदाता के सिवाय Esri के लिए तुम्हारा गुण प्रबंधन या नज़र रखना उपयोग करें मामले। अगर आप चाहना को उपयोग करें Esri के लिए तुम्हारा गुण प्रबंधन या नज़र रखना उपयोग करें मामला, कृपया पढ़ें मामले और शर्तों</string>
-  <string name="label_enable_tracker_view_terms">देखें शर्तें और शर्तेँ</string>
-  <string name="label_enable_tracker_continue_to_tracker">जारी रखें</string>
   <string name="label_enable_tracking_detail">सक्षम करना यह विशेषता होगा अनुमति देना आप को ट्रैक तुम्हारा डिवाइस और मिलता है अधिसूचित किया तब यह डिवाइस प्रवेश करती है या बाहर निकलता है किसी भी का तुम्हारा geofences।</string>
   <string name="label_check_your_internet_connection_and_try_again">चेक करें तुम्हारा इंटरनेट संयोग और कोशिश करो फिर से</string>
   <string name="label_not_tracking_your_activity">नहीं नज़र रखना तुम्हारा डिवाइस स्थान</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">स्टैक है भ्रष्ट, स्विच करना पीछे को चूक ढेर</string>
   <string name="error_route">रूट ना पाया।</string>
   <string name="no_route_found">नहीं रास्ता पाया</string>
-  <string name="error_switch_to_here">दूरी है बृहत्तर की तुलना में 400 किमी, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
-  <string name="error_switch_to_here_miles">दूरी है बृहत्तर की तुलना में %s मील, कर सकते हैं\ नहीं गणना के जरिए एस्री, कृपया स्विच को यहां प्रदाता</string>
-  <string name="error_distance_400">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर 400 किमी, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर 40 किमी।</string>
-  <string name="error_distance_248_miles" formatted="false">में डेटा सोर्स एस्री, मार्ग बिंदु के लिए कार और ट्रक ज़रूरी होना अंदर %smi, और मार्ग बिंदु के लिए चलना ज़रूरी होना अंदर %smi।</string>
   <string name="connect_to_aws_account">कनेक्ट करें एडब्ल्यूएस अकाउंट</string>
   <string name="label_preview">पूर्वावलोकन</string>
   <string name="label_location_permission_denied">लोकेशन अनुमति इनकार किया</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">लीगल और प्राइवेसी</string>
   <string name="label_version">वर्ज़न</string>
   <string name="label_sign_out">साइन इन करें बाहर</string>
-  <string name="distance_is_greater_than_400_km">दूरी है बृहत्तर की तुलना में 400 किमी</string>
-  <string name="distance_is_greater_than_248_mi">दूरी है बृहत्तर की तुलना में %s मील</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">नहीं कर सकते गणना के जरिए एस्री, कृपया स्विच को \nयहां प्रदाता।</string>
-  <string name="label_here_attribution_text">© 2022 यहां</string>
   <string name="label_partner_attribution">पार्टनर एट्रिब्यूशन</string>
   <string name="label_software_attribution">सॉफ़्टवेयर एट्रिब्यूशन</string>
   <string name="label_click_learn_more_for_software_attribution">क्लिक करें जानने के लिए ज़्यादा के लिए सॉफ्टवेयर आरोपण</string>
@@ -204,13 +172,6 @@
   <string name="imperial">राजसी</string>
   <string name="subtitle_imperial">माइल्स, पाउंड</string>
   <string name="automatic">ऑटोमेटिक</string>
-  <string name="label_restart_app_title">सक्षम करें Grab</string>
-  <string name="label_restart_app_description">Grab प्रदान करता है मैप्स, रूट्स और प्लेस तलाश में मलेशिया, फ़िलीपीन्स, थाईलैंड, सिंगापुर, वियतनाम, इंडोनेशिया, म्यांमार, और कंबोडिया। \n\nजबकि कार और मोटरसाइकिल मार्गों हैं मौजूद भर में यह ऊपर देश, यह साइकिल और घूमना मार्गों हैं समर्थित में मात्र कुंजी शहरों जैसे जैसा सिंगापुर, जकार्ता, मनीला, क्लैंग घाटी, बैंकॉक, हो ची मिन्ह सिटी, और हनोई। </string>
-  <string name="enable_grab">सक्षम करें Grab</string>
-  <string name="dont_ask_again">क्या\ \'नहीं पूछना फिर से</string>
-  <string name="your_location_not_supported_by_grab">आपका वर्तमान स्थान है बाहर कई देश समर्थित द्वारा Grab. वर्तमान में, Grab समर्थन करता है मलेशिया, फ़िलीपीन्स, थाईलैंड, सिंगापुर, वियतनाम, इंडोनेशिया, म्यांमार, कंबोडिया।</string>
-  <string name="label_current_location_disabled">मौज़ूदा स्थान दिव्यांग</string>
-  <string name="label_grab_limitation">दूरी कर सकते हैं\ नहीं होना परिकलित, के बाद से तुम्हारा वर्तमान स्थान पास है गया दिव्यांग कारण को grab सीमा</string>
   <string name="label_automatic_sub_title_mile">आधारित के ऊपर तुम्हारा ब्राउज़र सेटिंग्स (माइल्स, पाउंड)</string>
   <string name="label_automatic_sub_title_km">आधारित के ऊपर तुम्हारा ब्राउज़र सेटिंग्स (किलोमीटर, किलोग्राम)</string>
   <string name="label_sec">सेकंड</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">साफ़ करें चुनना</string>
   <string name="label_style_search_error_title">नहीं मिलान शैलियों पाया</string>
   <string name="label_style_search_error_des">बनाओ ज़रूर तुम्हारा तलाश है वर्तनी सही ढंग से और कोशिश करो फिर से, बनाना ज़रूर आप है लागू किया यह उचित फ़िल्टर करें या हटाना यह फ़िल्टर करें और कोशिश करो फिर से</string>
-  <string name="label_geofence_disable_error">चुने गए जियोफेंस है ना मौजूद में यह Grab नक्शा प्रदाता। कृपया स्विच को एक और नक्शा प्रदाता को राय और प्रबंधन चयनित जियोफेंस।</string>
   <string name="label_clear_filters">साफ़ करें फिल्टर</string>
   <string name="label_try_trackers_amp_geofences_simulation">ट्राई करें ट्रैकर्स &amp; जियोफेंस अनुकरण</string>
   <string name="label_requires_connection_to_aws_cloudformation">आवश्यक है संयोग को एडब्ल्यूएस क्लाउड फ़ॉर्मेशन</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">के लिए चिकनी अनुकरण अनुभव कृपया अनुमति देना अधिसूचना अनुमति से सेटिंग्स।</string>
-  <string name="label_change_data_provider">बदलें डेटा प्रोवाइडर</string>
-  <string name="label_change_data_provider_des">GrabMaps नहीं करता है समर्थन करते हैं सिमुलेशन, कृपया परिवर्तन डेटा प्रदाता को Esri या यहां को उपयोग करें जियोफेंस या ट्रैकर विशेषताएं।</string>
-  <string name="label_switch_to_esri">स्विच को Esri</string>
   <string name="region">क्षेत्र</string>
-  <string name="label_enable_open_data">चालू करें ओपनडेटा</string>
-  <string name="label_enable_open_data_des">ओपनडेटा का उपयोग करता है एसरी के लिए रूट्स और जगहें तलाश कार्यक्षमता को बढ़ाने के लिए तुम्हारा अनुभव।</string>
+  <string name="mode_light">लाइट</string>
+  <string name="mode_dark">डार्क</string>
+  <string name="label_political_view">राजनैतिक राय</string>
+  <string name="label_map_representation_for_different_countries">नक्शा प्रतिनिधित्व के लिए विभिन्न कई देश</string>
+  <string name="description_arg">अर्जेन्टीना राय के ऊपर यह दक्षिणी पेंटागोनिया आइस फ़ील्ड और टिएरा डेल फ़्यूगो, सहित यह फ़ॉकलैंड द्वीप समूह, दक्षिण जॉर्जिया, और दक्षिण सैंडविच द्वीप समूह</string>
+  <string name="description_egy">इजिप्ट राय के ऊपर बीर तवील</string>
+  <string name="description_ind">भारत का राय के ऊपर गिलगित-बाल्टिस्तान</string>
+  <string name="description_ken">केन्या का राय के ऊपर यह इलेमी त्रिभुज</string>
+  <string name="description_mar">मोरोक्को\'स राय के ऊपर पश्चिमी सहारा</string>
+  <string name="description_rus">रूस का राय के ऊपर क्रीमिया</string>
+  <string name="description_sdn">सूडान राय के ऊपर यह हलाइब त्रिभुज</string>
+  <string name="description_srb">सर्बिया का राय के ऊपर कोसोवो, वुकोवर, और सारेन्ग्रैड द्वीप समूह</string>
+  <string name="description_sur">सूरीनाम राय के ऊपर यह कुरंटाइन हेडवाटर्स और लावा हेडवाटर्स</string>
+  <string name="description_syr">सीरिया का राय के ऊपर यह गोलान हाइट्स</string>
+  <string name="description_tur">तुर्की का राय के ऊपर साइप्रस और उत्तरी साइप्रस</string>
+  <string name="description_tza">तंज़ानिया\'s राय के ऊपर झील मलावी</string>
+  <string name="description_ury">उरुग्वे\'s राय के ऊपर रिनकोन डी अर्टिगास</string>
+  <string name="description_vnm">वियतनाम का राय के ऊपर यह पैरासेल द्वीप समूह और स्प्रैटली द्वीप समूह</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.data.response
 
+import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.CalculateRouteResponse
 import org.maplibre.android.geometry.LatLng
 
@@ -8,7 +9,7 @@ import org.maplibre.android.geometry.LatLng
 // SPDX-License-Identifier: MIT-0
 data class CalculateDistanceResponse(
     var name: String? = null,
-    var calculateRouteResult: CalculateRouteResponse? = null,
+    var calculateRouteResult: CalculateRoutesResponse? = null,
     var sourceLatLng: LatLng? = null,
     var destinationLatLng: LatLng? = null
 )

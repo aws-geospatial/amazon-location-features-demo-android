@@ -19,8 +19,8 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_LOCATION_COMPONENT_NOT_ACTIVATED_OR_ENABLED
 import com.aws.amazonlocation.WHILE_USING_THE_APP
-import com.aws.amazonlocation.WHILE_USING_THE_APP_1
-import com.aws.amazonlocation.WHILE_USING_THE_APP_2
+import com.aws.amazonlocation.WHILE_USING_THE_APP_CAPS
+import com.aws.amazonlocation.WHILE_USING_THE_APP_ALLOW
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -49,8 +49,8 @@ class ExploreFragmentEnableLocation : BaseTestMainActivity() {
                 try {
                     Thread.sleep(DELAY_2000)
                     uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
-                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_1))?.click()
-                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_2))?.click()
+                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
+                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
                     uiDevice.findObject(By.text(ALLOW))?.click()
                     Thread.sleep(DELAY_2000)
                     enableGPS(ApplicationProvider.getApplicationContext())
@@ -73,8 +73,8 @@ class ExploreFragmentEnableLocation : BaseTestMainActivity() {
                 try {
                     Thread.sleep(DELAY_2000)
                     uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
-                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_1))?.click()
-                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_2))?.click()
+                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
+                    uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
                     uiDevice.findObject(By.text(ALLOW))?.click()
                     Thread.sleep(DELAY_2000)
                     enableGPS(ApplicationProvider.getApplicationContext())

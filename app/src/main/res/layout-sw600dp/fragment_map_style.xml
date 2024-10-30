@@ -40,488 +40,311 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <HorizontalScrollView
-            android:id="@+id/scroll_map_style"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_40"
-            android:paddingHorizontal="@dimen/dp_16"
-            android:layout_marginVertical="@dimen/dp_16"
-            android:fillViewport="false"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_search_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_search_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_39"
-                    android:layout_marginVertical="@dimen/dp_16"
-                    app:cardCornerRadius="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/color_view"
-                    app:strokeWidth="@dimen/dp_1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/iv_search"
-                            android:layout_width="@dimen/dp_20"
-                            android:layout_height="@dimen/dp_20"
-                            android:layout_marginVertical="@dimen/dp_10"
-                            android:layout_marginStart="@dimen/sp_10"
-                            android:layout_marginEnd="@dimen/dp_8"
-                            android:src="@drawable/icon_search"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/til_search"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_search"
-                            style="@style/TextInputLayoutStyle"
-                            android:layout_width="@dimen/dp_0"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            app:endIconContentDescription="open map icon"
-                            app:endIconDrawable="@drawable/ic_close_search"
-                            app:endIconMode="custom"
-                            app:hintEnabled="false"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_search"
-                            app:layout_constraintEnd_toStartOf="@+id/view_line"
-                            app:layout_constraintStart_toEndOf="@+id/iv_search"
-                            app:layout_constraintTop_toTopOf="@+id/iv_search">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/et_search_map"
-                                style="@style/SearchTextMedium"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/search"
-                                android:lines="1"
-                                android:maxLines="1"
-                                android:inputType="text"
-                                android:imeOptions="actionDone"
-                                android:paddingVertical="@dimen/dp_0"
-                                android:paddingStart="@dimen/dp_4"
-                                android:paddingEnd="@dimen/dp_4"
-                                android:textAlignment="viewStart"
-                                android:textColor="@color/color_hint_text"
-                                tools:text="3 streenasdasdasd" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <View
-                            android:id="@+id/view_line"
-                            android:layout_width="@dimen/dp_1"
-                            android:layout_height="@dimen/dp_0"
-                            android:layout_marginEnd="@dimen/dp_5"
-                            android:background="@color/color_view"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_search"
-                            app:layout_constraintEnd_toStartOf="@+id/img_filter"
-                            app:layout_constraintStart_toEndOf="@+id/til_search"
-                            app:layout_constraintTop_toTopOf="@+id/iv_search" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img_filter"
-                            android:layout_width="@dimen/dp_30"
-                            android:layout_height="@dimen/dp_30"
-                            android:layout_marginEnd="@dimen/dp_5"
-                            android:padding="@dimen/dp_5"
-                            android:src="@drawable/ic_filter_map_style"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_search"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/iv_search" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img_filter_selected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp_5"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:src="@drawable/selected_sorting"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="@+id/img_filter"
-                            app:layout_constraintTop_toTopOf="@+id/img_filter" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_esri"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_39"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    android:layout_marginStart="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/card_search_filter"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/color_primary_green"
-                    app:strokeWidth="@dimen/dp_1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/SP16RegularWhiteTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="@dimen/dp_24"
-                        android:layout_marginBottom="@dimen/dp_1"
-                        android:gravity="center"
-                        android:text="@string/esri"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_medium_black"
-                        app:backgroundTint="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_here"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_39"
-                    android:layout_marginHorizontal="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_1"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/card_esri"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/color_view"
-                    app:strokeWidth="@dimen/dp_1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/SP16RegularWhiteTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="@dimen/dp_24"
-                        android:layout_marginBottom="@dimen/dp_1"
-                        android:gravity="center"
-                        android:text="@string/here"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_medium_black"
-                        app:backgroundTint="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_grab_map"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_39"
-                    android:layout_marginBottom="@dimen/dp_1"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    android:layout_marginHorizontal="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/card_here"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/color_view"
-                    app:strokeWidth="@dimen/dp_1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/SP16RegularWhiteTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="@dimen/dp_24"
-                        android:layout_marginBottom="@dimen/dp_1"
-                        android:gravity="center"
-                        android:text="@string/grab"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_medium_black"
-                        app:backgroundTint="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_open_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_39"
-                    android:layout_marginBottom="@dimen/dp_1"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    android:layout_marginHorizontal="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/card_grab_map"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/color_view"
-                    app:strokeWidth="@dimen/dp_1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/SP16RegularWhiteTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="@dimen/dp_24"
-                        android:layout_marginBottom="@dimen/dp_1"
-                        android:gravity="center"
-                        android:text="@string/open_data"
-                        android:textAllCaps="false"
-                        android:textColor="@color/color_medium_black"
-                        app:backgroundTint="@color/white" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_filter_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="card_esri,card_here,card_grab_map,card_open_data" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </HorizontalScrollView>
-
-        <include
-            android:id="@+id/layout_no_data_found"
-            layout="@layout/layout_no_data_found"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0"
-            android:visibility="gone"
-            android:gravity="start"
-            android:textDirection="locale"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scroll_map_style" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_clear_filter"
-            style="@style/SP16BoldMediumBlackTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_24"
-            android:text="@string/label_clear_filters"
-            android:textAlignment="center"
-            android:visibility="gone"
-            android:textColor="@color/color_primary_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_no_data_found" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_map_style"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
             android:clipToPadding="false"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/view_divider"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_map_style" />
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv_filter"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_color_scheme"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0"
-            android:layout_marginTop="@dimen/dp_10"
-            android:clipToPadding="false"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            app:cardCornerRadius="@dimen/dp_6"
+            app:cardElevation="@dimen/dp_0"
+            app:layout_constraintTop_toBottomOf="@+id/rv_map_style">
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle_mode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@color/color_view"
+                android:padding="@dimen/dp_4"
+                app:materialButtonStyle="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_light"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/color_toggle_background"
+                    android:fontFamily="@font/amazon_ember_medium"
+                    android:insetTop="@dimen/dp_0"
+                    android:insetBottom="@dimen/dp_0"
+                    android:letterSpacing="0.05"
+                    android:text="@string/mode_light"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_toggle_text"
+                    app:cornerRadius="@dimen/dp_6"
+                    app:icon="@drawable/mode_light"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/color_toggle_text"
+                    app:rippleColor="@null"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_dark"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/color_toggle_background"
+                    android:fontFamily="@font/amazon_ember_medium"
+                    android:insetTop="@dimen/dp_0"
+                    android:insetBottom="@dimen/dp_0"
+                    android:letterSpacing="0.05"
+                    android:text="@string/mode_dark"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_toggle_text"
+                    app:cornerRadius="@dimen/dp_6"
+                    app:icon="@drawable/mode_dark"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/color_toggle_text"
+                    app:rippleColor="@null"
+                    app:strokeWidth="0dp" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_political_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            app:layout_constraintTop_toBottomOf="@+id/card_color_scheme">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_search_location"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_16"
+                android:src="@drawable/icon_political_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_political_title"
+                style="@style/SP16HintRegularTextStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:fontFamily="@font/amazon_ember_medium"
+                android:gravity="start"
+                android:text="@string/label_political_view"
+                android:textDirection="locale"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_search_location"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_political_description"
+                style="@style/SP13HintRegularTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:textDirection="locale"
+                android:lines="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/label_map_representation_for_different_countries"
+                app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                app:layout_constraintStart_toEndOf="@id/iv_search_location"
+                app:layout_constraintTop_toBottomOf="@id/tv_political_title" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:rotation="180"
+                android:src="@drawable/ic_back"
+                android:tint="@color/color_hint_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_search_political"
+            android:layout_width="match_parent"
             android:visibility="gone"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/view_divider"
-            app:layout_constraintTop_toBottomOf="@+id/scroll_map_style">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/cl_political_view">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_search_country"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_39"
+                android:layout_margin="@dimen/dp_16"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_search"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginVertical="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/sp_16"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/icon_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/til_search"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_search"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:endIconContentDescription="open map icon"
+                        app:endIconDrawable="@drawable/ic_close_search"
+                        app:endIconMode="custom"
+                        app:hintEnabled="false"
+                        android:paddingEnd="@dimen/dp_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_search"
+                        app:layout_constraintStart_toEndOf="@+id/iv_search"
+                        app:layout_constraintTop_toTopOf="@+id/iv_search">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_search_country"
+                            style="@style/SearchTextMedium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/search"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:imeOptions="actionDone"
+                            android:paddingVertical="@dimen/dp_0"
+                            android:paddingStart="@dimen/dp_4"
+                            android:paddingEnd="@dimen/dp_4"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/color_hint_text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_country"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:paddingBottom="@dimen/dp_16"
+                android:clipToPadding="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cl_apply"
+                app:layout_constraintTop_toBottomOf="@+id/card_search_country">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_provider"
+                    android:id="@+id/card_country"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_1"
-                    android:layout_marginBottom="@dimen/dp_16"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginBottom="@dimen/dp_1"
                     app:cardCornerRadius="@dimen/dp_8"
+                    android:elevation="@dimen/dp_0"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_16">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_provider"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="@dimen/dp_0"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_16"
-                            android:text="@string/label_provider"
-                            android:textDirection="locale"
-                            android:gravity="start"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/view_divider_provider"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_1"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:background="@color/color_view"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@id/tv_provider" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_provider"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@+id/view_divider_provider" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_attribute"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_8"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/dp_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_provider">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_16">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_attribute"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="@dimen/dp_0"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_16"
-                            android:text="@string/label_attribute"
-                            android:textDirection="locale"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/view_divider_attribute"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_1"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:background="@color/color_view"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@id/tv_attribute" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_attribute"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@+id/view_divider_attribute" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_16"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/dp_8"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_attribute">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_16">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_type"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="@dimen/dp_0"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_16"
-                            android:text="@string/label_type"
-                            android:textDirection="locale"
-                            android:gravity="start"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/view_divider_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_1"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:background="@color/color_view"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@id/tv_type" />
+                        android:layout_height="match_parent">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_type"
+                            android:id="@+id/rv_political_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@+id/view_divider_type" />
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
 
-        <View
-            android:id="@+id/view_divider"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginBottom="@dimen/dp_14"
-            android:background="@color/color_view"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/btn_apply_filter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="@color/color_f8f8f7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <View
+                    android:id="@+id/view_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginBottom="@dimen/dp_14"
+                    android:background="@color/color_view"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_apply_filter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_clear_selection"
-            style="@style/SP13BoldMediumBlackTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:text="@string/label_clear_selection"
-            android:textDirection="locale"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/btn_apply_filter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_apply_filter" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_clear_selection"
+                    style="@style/SP13BoldMediumBlackTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:text="@string/label_clear_selection"
+                    android:textDirection="locale"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_apply_filter"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btn_apply_filter" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_apply_filter"
+                    style="@style/SigInHintTxt"
+                    android:layout_width="@dimen/dp_140"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_56"
+                    android:layout_marginBottom="@dimen/dp_24"
+                    android:background="@drawable/sign_in_bg_1"
+                    android:text="@string/label_apply_filters"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_apply_filter"
-            style="@style/SigInHintTxt"
-            android:layout_width="@dimen/dp_140"
-            android:layout_height="@dimen/dp_48"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_56"
-            android:layout_marginBottom="@dimen/dp_24"
-            android:background="@drawable/sign_in_bg_1"
-            android:text="@string/label_apply_filters"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+            <include
+                android:id="@+id/layout_no_data_found_political"
+                layout="@layout/layout_no_data_found_political"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_search_country" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

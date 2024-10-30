@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.domain.repository
 
+import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
@@ -16,13 +17,13 @@ interface LocationSearchRepository {
         lng: Double?,
         searchText: String,
         searchPlace: SearchPlaceInterface,
-        isGrabMapSelected: Boolean
     )
 
     suspend fun searchPlaceIndexForText(
         lat: Double?,
         lng: Double?,
         searchText: String?,
+        queryId: String?,
         searchPlace: SearchPlaceInterface
     )
 
@@ -35,13 +36,6 @@ interface LocationSearchRepository {
         isAvoidTolls: Boolean?,
         travelMode: String?,
         distanceInterface: DistanceInterface
-    )
-
-    suspend fun searchNavigationPlaceIndexForPosition(
-        lat: Double?,
-        lng: Double?,
-        step: Step,
-        searchPlace: NavigationDataInterface
     )
 
     suspend fun searPlaceIndexForPosition(

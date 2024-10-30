@@ -564,78 +564,89 @@
                         android:layout_height="@dimen/dp_16"
                         android:src="@drawable/ic_direction_card"
                         android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_drive_distance"
+                        app:layout_constraintBottom_toBottomOf="@id/cl_car"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_drive" />
+                        app:layout_constraintTop_toTopOf="@id/cl_car" />
 
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_drive"
-                        style="@style/SP13BoldMediumBlackTextStyle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_car"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_drive"
                         app:layout_constraintStart_toEndOf="@id/iv_car"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_drive_distance"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_car"
-                        app:layout_constraintTop_toBottomOf="@id/tv_drive"
-                        tools:text="650 m" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_drive"
+                            style="@style/SP13BoldMediumBlackTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:textDirection="locale"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:text="@string/label_drive"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_drive_selected"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        app:layout_constraintStart_toEndOf="@id/tv_drive"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_drive_distance"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:textDirection="locale"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_drive"
+                            tools:text="650 m" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_drive_selected"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:textDirection="locale"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:text="@string/label_selected"
+                            app:layout_constraintStart_toEndOf="@id/tv_drive"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_drive_minute"
                         style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_22"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
-                        android:gravity="end"
-                        android:textSize="@dimen/sp_14"
                         android:textDirection="locale"
+                        android:gravity="end"
                         android:maxLength="200"
                         android:singleLine="true"
+                        android:textSize="@dimen/sp_14"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="@dimen/sp_12"
+                        app:autoSizeMaxTextSize="@dimen/sp_16"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/card_drive_go"
                         app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@id/cl_car"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="2 min" />
 
@@ -780,79 +791,89 @@
                         android:layout_height="@dimen/dp_16"
                         android:src="@drawable/icon_person_walking"
                         android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_walk_distance"
+                        app:layout_constraintBottom_toBottomOf="@id/cl_walk_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_walk" />
+                        app:layout_constraintTop_toTopOf="@id/cl_walk_inside" />
 
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_walk"
-                        style="@style/SP13BoldMediumBlackTextStyle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_walk_inside"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_walk"
                         app:layout_constraintStart_toEndOf="@id/iv_walk"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_walk_distance"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_walk"
-                        app:layout_constraintTop_toBottomOf="@id/tv_walk"
-                        tools:text="500 m" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_walk"
+                            style="@style/SP13BoldMediumBlackTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:textDirection="locale"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:text="@string/label_walk"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_walk_selected"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_walk"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_walk_distance"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:textDirection="locale"
+                            android:singleLine="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_walk"
+                            tools:text="500 m" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_walk_selected"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:textDirection="locale"
+                            android:text="@string/label_selected"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toEndOf="@id/tv_walk"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_walk_minute"
                         style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_22"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
-                        android:gravity="end"
-                        android:textSize="@dimen/sp_14"
                         android:textDirection="locale"
+                        android:gravity="end"
                         android:maxLength="200"
                         android:singleLine="true"
+                        android:textSize="@dimen/sp_14"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="@dimen/sp_12"
+                        app:autoSizeMaxTextSize="@dimen/sp_16"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/card_walk_go"
                         app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@id/cl_walk_inside"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="7 min" />
 
@@ -990,80 +1011,91 @@
                         android:layout_height="@dimen/dp_16"
                         android:src="@drawable/icon_truck"
                         android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_truck_distance"
+                        app:layout_constraintBottom_toBottomOf="@id/cl_truck_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_truck"
+                        app:layout_constraintTop_toTopOf="@id/cl_truck_inside"
                         tools:ignore="TooManyViews" />
 
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_truck"
-                        style="@style/SP13BoldMediumBlackTextStyle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_truck_inside"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_truck"
                         app:layout_constraintStart_toEndOf="@id/iv_truck"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_truck_distance"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_truck"
-                        app:layout_constraintTop_toBottomOf="@id/tv_truck"
-                        tools:text="500 m" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_truck"
+                            style="@style/SP13BoldMediumBlackTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:textDirection="locale"
+                            android:text="@string/label_truck"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_truck_selected"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_truck"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_truck_distance"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:textDirection="locale"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_truck"
+                            tools:text="500 m" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_truck_selected"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:text="@string/label_selected"
+                            android:visibility="gone"
+                            android:textDirection="locale"
+                            app:layout_constraintStart_toEndOf="@id/tv_truck"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_truck_minute"
                         style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_22"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
-                        android:textSize="@dimen/sp_14"
-                        android:gravity="end"
                         android:textDirection="locale"
+                        android:gravity="end"
                         android:maxLength="200"
                         android:singleLine="true"
+                        android:textSize="@dimen/sp_14"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="@dimen/sp_12"
+                        app:autoSizeMaxTextSize="@dimen/sp_16"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/card_truck_go"
                         app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@id/cl_truck_inside"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="7 min" />
 
@@ -1105,34 +1137,31 @@
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <View
-                    android:id="@+id/view_divider_option_bicycle"
+                    android:id="@+id/view_divider_option_scooter"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginVertical="@dimen/dp_15"
                     android:background="@color/color_view"
-                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/cl_scooter"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_truck"
-                    app:layout_constraintBottom_toTopOf="@id/cl_bicycle"/>
+                    app:layout_constraintTop_toBottomOf="@id/cl_truck" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_bicycle_loader"
+                    android:id="@+id/cl_scooter_loader"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_18"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_bicycle">
+                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
 
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_bicycle_loader"
+                        android:id="@+id/tv_scooter_loader"
                         android:layout_width="@dimen/dp_140"
                         android:layout_height="8dp"
                         android:layout_gravity="center"
@@ -1143,7 +1172,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_bicycle_distance_loader"
+                        android:id="@+id/tv_scooter_distance_loader"
                         android:layout_width="@dimen/dp_100"
                         android:layout_height="8dp"
                         android:layout_gravity="center"
@@ -1151,11 +1180,11 @@
                         android:backgroundTint="@color/loader_color"
                         app:cardCornerRadius="@dimen/dp_5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_bicycle_loader" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_scooter_loader" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bicycle_selected_loader"
+                        android:id="@+id/tv_scooter_selected_loader"
                         style="@style/SP13HintRegularTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1163,16 +1192,16 @@
                         android:layout_marginStart="@dimen/dp_4"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
-                        android:textDirection="locale"
                         android:maxLength="200"
+                        android:textDirection="locale"
                         android:singleLine="true"
                         android:text="@string/label_selected"
                         android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_bicycle_loader"
+                        app:layout_constraintStart_toEndOf="@id/tv_scooter_loader"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_bicycle_go_loader"
+                        android:id="@+id/card_scooter_go_loader"
                         style="@style/SP11MediumBlackRegularTextStyle"
                         android:layout_width="@dimen/dp_77"
                         android:layout_height="@dimen/dp_35"
@@ -1187,317 +1216,113 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_bicycle"
+                    android:id="@+id/cl_scooter"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_18"
                     android:layout_marginTop="@dimen/dp_15"
                     android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_bicycle">
+                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_bicycle"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:src="@drawable/icon_bicycle"
-                        android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_bicycle_distance"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_bicycle"
-                        tools:ignore="TooManyViews" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bicycle"
-                        style="@style/SP13BoldMediumBlackTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_bicycle"
-                        app:layout_constraintStart_toEndOf="@id/iv_bicycle"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bicycle_distance"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_bicycle"
-                        app:layout_constraintTop_toBottomOf="@id/tv_bicycle"
-                        tools:text="500 m" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bicycle_selected"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_bicycle"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bicycle_minute"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/sp_14"
-                        android:gravity="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_bicycle_go"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="7 min" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_bicycle_go"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_40"
-                        app:cardBackgroundColor="@color/color_dark_yellow"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_bicycle_go"
-                                style="@style/SP13BoldMediumBlackTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:ellipsize="end"
-                                android:textDirection="locale"
-                                android:maxLength="200"
-                                android:singleLine="true"
-                                android:text="@string/btn_go"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                <View
-                    android:id="@+id/view_divider_option_motorcycle"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/dp_15"
-                    android:background="@color/color_view"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_bicycle"
-                    app:layout_constraintBottom_toTopOf="@id/cl_motorcycle"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_motorcycle_loader"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_motorcycle">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_motorcycle_loader"
-                        android:layout_width="@dimen/dp_140"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_motorcycle_distance_loader"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_motorcycle_loader" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_motorcycle_selected_loader"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_motorcycle_loader"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_motorcycle_go_loader"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_35"
-                        app:cardBackgroundColor="@color/color_img_tint"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_motorcycle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_motorcycle">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_motorcycle"
+                        android:id="@+id/iv_scooter"
                         android:layout_width="@dimen/dp_16"
                         android:layout_height="@dimen/dp_16"
                         android:src="@drawable/icon_motorcycle"
                         android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_motorcycle_distance"
+                        app:layout_constraintBottom_toBottomOf="@id/cl_scooter_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_motorcycle"
+                        app:layout_constraintTop_toTopOf="@id/cl_scooter_inside"
                         tools:ignore="TooManyViews" />
 
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_motorcycle"
-                        style="@style/SP13BoldMediumBlackTextStyle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_scooter_inside"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_motorcycle"
-                        app:layout_constraintStart_toEndOf="@id/iv_motorcycle"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@id/iv_scooter"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_scooter"
+                            style="@style/SP13BoldMediumBlackTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:textDirection="locale"
+                            android:text="@string/label_scooter"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_scooter_distance"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:textDirection="locale"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_scooter"
+                            tools:text="500 m" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_scooter_selected"
+                            style="@style/SP13HintRegularTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:maxLength="200"
+                            android:singleLine="true"
+                            android:text="@string/label_selected"
+                            android:visibility="gone"
+                            android:textDirection="locale"
+                            app:layout_constraintStart_toEndOf="@id/tv_scooter"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_motorcycle_distance"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/iv_motorcycle"
-                        app:layout_constraintTop_toBottomOf="@id/tv_motorcycle"
-                        tools:text="500 m" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_motorcycle_selected"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_motorcycle"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_motorcycle_minute"
+                        android:id="@+id/tv_scooter_minute"
                         style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_22"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
-                        android:textSize="@dimen/sp_14"
-                        android:gravity="end"
                         android:textDirection="locale"
+                        android:gravity="end"
                         android:maxLength="200"
                         android:singleLine="true"
+                        android:textSize="@dimen/sp_14"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="@dimen/sp_12"
+                        app:autoSizeMaxTextSize="@dimen/sp_16"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_motorcycle_go"
+                        app:layout_constraintEnd_toStartOf="@id/card_scooter_go"
                         app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@id/cl_scooter_inside"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="7 min" />
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_motorcycle_go"
+                        android:id="@+id/card_scooter_go"
                         style="@style/SP11MediumBlackRegularTextStyle"
                         android:layout_width="@dimen/dp_60"
                         android:layout_height="@dimen/dp_40"
@@ -1514,17 +1339,17 @@
                             android:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_motorcycle_go"
+                                android:id="@+id/tv_scooter_go"
                                 style="@style/SP13BoldMediumBlackTextStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:ellipsize="end"
-                                android:textDirection="locale"
                                 android:maxLength="200"
                                 android:singleLine="true"
                                 android:text="@string/btn_go"
+                                android:textDirection="locale"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sp_14"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -1533,7 +1358,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

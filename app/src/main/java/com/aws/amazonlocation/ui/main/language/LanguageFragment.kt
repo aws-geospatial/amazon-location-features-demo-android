@@ -31,14 +31,12 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_JAPANESE
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_KOREAN
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_SPANISH
 import com.aws.amazonlocation.utils.getLanguageCode
-import com.aws.amazonlocation.utils.isGrabMapEnable
 import com.aws.amazonlocation.utils.isRunningTest
 import com.aws.amazonlocation.utils.restartApplication
 
 class LanguageFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentLanguageBinding
-    private var isGrabMapEnable = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +48,6 @@ class LanguageFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        isGrabMapEnable = isGrabMapEnable(mPreferenceManager)
         backPress()
         init()
     }

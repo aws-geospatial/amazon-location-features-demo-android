@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 // SPDX-License-Identifier: MIT-0
 object Units {
 
-    fun getMetricsNew(context: Context, distance: Double, isMetric: Boolean): String {
+    fun getMetricsNew(context: Context, distance: Double, isMetric: Boolean, isMeterToFeetNeeded: Boolean): String {
         val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
             maximumFractionDigits = 2
         }
@@ -28,7 +28,7 @@ object Units {
         return if (isMetric) {
             "${formatter.format(distance / 1000)} ${context.getString(R.string.label_km)}"
         } else {
-            "${formatter.format(distance / 5280)} ${context.getString(R.string.label_mi)}"
+            "${formatter.format((if (isMeterToFeetNeeded) meterToFeet(distance) else distance) / 5280)} ${context.getString(R.string.label_mi)}"
         }
     }
 
@@ -51,35 +51,18 @@ object Units {
         }
     }
 
-    fun convertToLowerUnit(distance: Double, isMetric: Boolean): Double {
-        return if (isMetric) {
-            kiloMeterToMeter(distance)
-        } else {
-            milesToFeet(distance)
-        }
-    }
-
-    fun kiloMeterToMeter(kiloMeter: Double): Double {
-        return kiloMeter * 1000
-    }
-
-    fun milesToFeet(miles: Double): Double {
-        return miles * 5280
-    }
-
     fun meterToFeet(meter: Double): Double {
         return meter * 3.2808399
     }
 
-    fun getTime(context: Context, second: Double): String {
-        val mSeconds = second.toInt().toLong()
-        TimeUnit.SECONDS.toDays(mSeconds).toInt()
+    fun getTime(context: Context, second: Long): String {
+        TimeUnit.SECONDS.toDays(second).toInt()
         val mHours: Long =
-            TimeUnit.SECONDS.toHours(mSeconds)
+            TimeUnit.SECONDS.toHours(second)
         val mMinute: Long =
-            TimeUnit.SECONDS.toMinutes(mSeconds) - TimeUnit.SECONDS.toHours(mSeconds) * 60
+            TimeUnit.SECONDS.toMinutes(second) - TimeUnit.SECONDS.toHours(second) * 60
         val mSecondNew: Long =
-            TimeUnit.SECONDS.toSeconds(mSeconds) - TimeUnit.SECONDS.toMinutes(mSeconds) * 60
+            TimeUnit.SECONDS.toSeconds(second) - TimeUnit.SECONDS.toMinutes(second) * 60
 
         var mTime = if (mMinute == 0L && mHours == 0L) {
             buildString {
@@ -128,16 +111,6 @@ object Units {
         }
     }
 
-    fun getDistanceUnit(distanceUnit: String?): String {
-        return when (distanceUnit) {
-            "Metric", "metric" -> KILOMETERS
-            "Imperial", "imperial" -> MILES
-            else -> {
-                if (isMetricUsingCountry()) KILOMETERS else MILES
-            }
-        }
-    }
-
     fun isMetric(distanceUnit: String?): Boolean {
         return when (distanceUnit) {
             "Metric", "metric" -> true
@@ -168,9 +141,6 @@ object Units {
                 regionList[1] -> {
                     BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU
                 }
-                regionList[2] -> {
-                    BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP
-                }
                 else -> {
                     BuildConfig.DEFAULT_IDENTITY_POOL_ID
                 }
@@ -180,13 +150,65 @@ object Units {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU
         }
         regionDisplayName[2] -> {
-            BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP
-        }
-        regionDisplayName[3] -> {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID
         }
         else -> {
             BuildConfig.DEFAULT_IDENTITY_POOL_ID
+        }
+    }
+    fun getApiKey(mPreferenceManager: PreferenceManager?): String =
+        getAPIKey(
+            mPreferenceManager?.getValue(
+                KEY_SELECTED_REGION,
+                regionDisplayName[0],
+            ) ?: regionDisplayName[0],
+            mPreferenceManager?.getValue(KEY_NEAREST_REGION, "") ?: "",
+        )
+
+    fun getRegion(mPreferenceManager: PreferenceManager?): String {
+        val selectedRegion = mPreferenceManager?.getValue(KEY_SELECTED_REGION, regionDisplayName[0]) ?: regionDisplayName[0]
+        val mRegion = when (selectedRegion) {
+            regionDisplayName[0] -> {
+                mPreferenceManager?.getValue(KEY_NEAREST_REGION, regionList[0]) ?: regionList[0]
+            }
+            regionDisplayName[1] -> {
+                regionList[1]
+            }
+            regionDisplayName[2] -> {
+                regionList[0]
+            }
+            else -> {
+                regionList[0]
+            }
+        }
+        return mRegion
+    }
+
+    private fun getAPIKey(
+        selectedRegion: String?,
+        nearestRegion: String?
+    ) = when (selectedRegion) {
+        regionDisplayName[0] -> {
+            when (nearestRegion) {
+                regionList[0] -> {
+                    BuildConfig.API_KEY_US_EAST
+                }
+                regionList[1] -> {
+                    BuildConfig.API_KEY_EU_CENTRAL
+                }
+                else -> {
+                    BuildConfig.API_KEY_US_EAST
+                }
+            }
+        }
+        regionDisplayName[1] -> {
+            BuildConfig.API_KEY_EU_CENTRAL
+        }
+        regionDisplayName[2] -> {
+            BuildConfig.API_KEY_US_EAST
+        }
+        else -> {
+            BuildConfig.API_KEY_US_EAST
         }
     }
 
@@ -198,9 +220,6 @@ object Units {
         }
         BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU -> {
             BuildConfig.SIMULATION_WEB_SOCKET_URL_EU
-        }
-        BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP -> {
-            BuildConfig.SIMULATION_WEB_SOCKET_URL_AP
         }
         else -> {
             BuildConfig.SIMULATION_WEB_SOCKET_URL

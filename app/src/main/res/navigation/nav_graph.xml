@@ -38,12 +38,6 @@
         tools:layout="@layout/fragment_route_option" />
 
     <fragment
-        android:id="@+id/data_provider_fragment"
-        android:name="com.aws.amazonlocation.ui.main.data_provider.DataProviderFragment"
-        android:label="DataProviderFragment"
-        tools:layout="@layout/fragment_data_provider" />
-
-    <fragment
         android:id="@+id/aws_cloud_information_fragment"
         android:name="com.aws.amazonlocation.ui.main.setting.AWSCloudInformationFragment"
         android:label="AwsCloudInformationFragment"

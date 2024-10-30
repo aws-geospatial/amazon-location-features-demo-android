@@ -15,9 +15,7 @@
   <string name="privacy_policy">Von fortlaufend, Sie zustimmen zu Amazon\'s Bedingungen von Benutzen und Datenschutz Hinweis.</string>
   <string name="condition_of_use">Bedingungen von Benutzen</string>
   <string name="privacy_notice">Datenschutz Hinweis</string>
-  <string name="login_success">Schild in Erfolgreich</string>
   <string name="sign_out_successfully">Schild aus erfolgreich</string>
-  <string name="sign_out_failed">Schild aus gescheitert, bitte versuchen schon wieder...</string>
   <string name="sign_in_to_access_tracking">Schild in zu Zugriff Nachverfolgung und Geofence Eigenschaften oder fortfahren zu Erkunden die Karte</string>
   <string name="sign_in_required">Schild in erforderlich</string>
   <string name="maybe_later">Vielleicht später</string>
@@ -78,8 +76,7 @@
   <string name="label_walk">Gehen</string>
   <string name="label_drive">Fahren</string>
   <string name="label_truck">Lastwagen</string>
-  <string name="label_bicycle">Fahrrad</string>
-  <string name="label_motorcycle">Motorrad</string>
+  <string name="label_scooter">Roller</string>
   <string name="label_search_starting_point">Suche beginnend Punkt</string>
   <string name="exit">Ausfahrt</string>
   <string name="log_out">Loggen aus</string>
@@ -100,20 +97,6 @@
   <string name="edit_geofence">Bearbeiten Geofence</string>
   <string name="label_map_style">Karte Stil</string>
   <string name="label_map_style_description">Ändern Daten Anbieter ebenfalls wirkt Orte &amp; Routen API</string>
-  <string name="map_light" translatable="false">Light</string>
-  <string name="map_streets" translatable="false">Streets</string>
-  <string name="map_navigation" translatable="false">Navigation</string>
-  <string name="map_dark_gray" translatable="false">Dark Gray</string>
-  <string name="map_light_gray" translatable="false">Light Gray</string>
-  <string name="map_imagery" translatable="false">Imagery</string>
-  <string name="map_esri" translatable="false">Esri</string>
-  <string name="map_contrast" translatable="false">Contrast</string>
-  <string name="map_explore" translatable="false">Explore</string>
-  <string name="map_explore_truck" translatable="false">Explore Truck</string>
-  <string name="map_hybrid" translatable="false">Hybrid</string>
-  <string name="map_raster" translatable="false">Imagery</string>
-  <string name="map_grab_light" translatable="false">Light</string>
-  <string name="map_grab_dark" translatable="false">Dark</string>
   <string name="label_enter_identity_pool_id">Bitte eintragen richtig Identität bündeln id</string>
   <string name="label_enter_domain">Eingetragen Benutzer Domäne ist falsch</string>
   <string name="label_enter_user_pool_client_id">Eingetragen Benutzer bündeln Auftraggeber id ist falsch</string>
@@ -122,9 +105,6 @@
   <string name="data_provider">Daten Anbieter</string>
   <string name="map_style">Karte Stil</string>
   <string name="aws_cloudformation">Verbinden dein AWS Konto</string>
-  <string name="esri" translatable="false">Esri</string>
-  <string name="here" translatable="false">HERE</string>
-  <string name="grab" translatable="false">GrabMaps</string>
   <string name="label_connected">Du sind verbunden</string>
   <string name="label_connected_description">Verbinden dein AWS Konto zu ermöglichen Geofences und Tracker. Das Testament sicherstellen dein Verfolgung und Geofencing Daten ist nur gelagert in dein Konto. Nach Sie Log in, alles Eigenschaften von die Demoversion App Testament Lauf unter Verwendung von Ressourcen Sie bereitstellen in dein AWS Konto. Loggen aus wenn Sie wünschen zu fortsetzen laufend die Demoversion App unter Verwendung von Ressourcen in AWSs Demo App Konto.</string>
   <string name="label_how_to_remove">Wie zu entfernen:</string>
@@ -135,10 +115,6 @@
   <string name="label_tracking_history">Nachverfolgung Geschichte</string>
   <string name="label_tracking_your_activity">Nachverfolgung dein Gerät Standort</string>
   <string name="label_enable_tracking">Aktiviere Lebe Tracker</string>
-  <string name="label_enable_tracker">Aktiviere Tracker</string>
-  <string name="label_enable_tracker_description">Du Dose benutzen irgendein Daten Anbieter außer Esri zum dein Vermögenswert Verwaltung oder Verfolgung benutzen Fälle. Wenn Sie wollen zu benutzen Esri zum dein Vermögenswert Verwaltung oder Verfolgung benutzen Fall, bitte lesen Begriffe und Bedingungen</string>
-  <string name="label_enable_tracker_view_terms">Ansicht Bedingungen und Bedingungen</string>
-  <string name="label_enable_tracker_continue_to_tracker">Weiter</string>
   <string name="label_enable_tracking_detail">Aktivieren die Merkmal Testament ermöglichen Sie zu Spur dein Gerät und erhalten benachrichtigt wenn die Gerät Eingaben oder Ausgänge irgendein von dein Geofences.</string>
   <string name="label_check_your_internet_connection_and_try_again">überprüfen dein Internet Verbindung und versuchen nochmal</string>
   <string name="label_not_tracking_your_activity">Nicht Verfolgung dein Gerät Standort</string>
@@ -164,10 +140,6 @@
   <string name="reconnect_with_aws_account">Stapel ist beschädigt, umschalten zurück zu Standard stapeln</string>
   <string name="error_route">Route nicht gefunden.</string>
   <string name="no_route_found">Nein Route gefunden</string>
-  <string name="error_switch_to_here">Entfernung ist größer als 400 km, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
-  <string name="error_switch_to_here_miles" formatted="false">Entfernung ist größer als %s mi, kann\nicht berechnen über Esri, freundlich Schalter zu HIER Anbieter</string>
-  <string name="error_distance_400">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb 400 km, und Wegpunkte zum gehen Muss Sein innerhalb 40 km.</string>
-  <string name="error_distance_248_miles" formatted="false">In Datenquelle Esri, Wegpunkte zum Auto und lkw Muss Sein innerhalb %smi, und Wegpunkte zum gehen Muss Sein innerhalb %smi.</string>
   <string name="connect_to_aws_account">Verbinden AWS Konto</string>
   <string name="label_preview">Vorschau</string>
   <string name="label_location_permission_denied">Standort Genehmigung verweigert</string>
@@ -188,10 +160,6 @@
   <string name="label_legal_and_privacy">Rechtlich und Datenschutz</string>
   <string name="label_version">Version</string>
   <string name="label_sign_out">Schild aus</string>
-  <string name="distance_is_greater_than_400_km">Entfernung ist größer als 400 km</string>
-  <string name="distance_is_greater_than_248_mi">Entfernung ist größer als %s mi</string>
-  <string name="can_t_calculate_via_esri_kindly_switch_to_here_provider">Kann nicht berechnen über Esri, freundlich Schalter zu \nHier Anbieter.</string>
-  <string name="label_here_attribution_text">© 2022 HIER</string>
   <string name="label_partner_attribution">Partnerin Namensnennung</string>
   <string name="label_software_attribution">Software Namensnennung</string>
   <string name="label_click_learn_more_for_software_attribution">Klick lernen mehr zum Software Zuordnung</string>
@@ -204,13 +172,6 @@
   <string name="imperial">Kaiserlich</string>
   <string name="subtitle_imperial">Meilen, Pfund</string>
   <string name="automatic">Automatisch</string>
-  <string name="label_restart_app_title">Aktiviere Grab</string>
-  <string name="label_restart_app_description">Grab bietet Landkarten, Routen und Ort Suche in Malaysien, Philippinen, Thailand, Singapur, Vietnam, Indonesien, Birma, und Kambodscha. \n\nWährend Auto und Motorrad Routen sind verfügbar quer die über Länder, die Fahrrad und Gehen Routen sind unterstützt in nur Schlüssel Städte solche als Singapur, Jakarta, Manila, Klang Tal, Bangkok, Ho Chi Minh Stadt, und Hanoi. </string>
-  <string name="enable_grab">Aktiviere Grab</string>
-  <string name="dont_ask_again">Nicht fragen nochmal</string>
-  <string name="your_location_not_supported_by_grab">Dein aktuelle Standort ist außen Länder unterstützt von Grab. Gegenwärtig Grab unterstützt Malaysien, Philippinen, Thailand, Singapur, Vietnam, Indonesien, Birma, Kambodscha.</string>
-  <string name="label_current_location_disabled">Aktuell Standort Behinderte</string>
-  <string name="label_grab_limitation">Entfernung kann\nicht Sein berechnet, seit dein aktuelle Standort hat gewesen Behinderte fällig zu grab Beschränkung</string>
   <string name="label_automatic_sub_title_mile">Basiert auf dein Browser Einstellungen (Meilen, Pfund)</string>
   <string name="label_automatic_sub_title_km">Basiert auf dein Browser Einstellungen (Kilometer, Kilogramm)</string>
   <string name="label_sec">Sekunde</string>
@@ -227,7 +188,6 @@
   <string name="label_clear_selection">Klar Auswahl</string>
   <string name="label_style_search_error_title">Nein übereinstimmende Arten gefunden</string>
   <string name="label_style_search_error_des">Machen sicher dein Suche ist buchstabiert richtig und versuchen wieder machen sicher Sie haben angewandt die aneignen Filter oder entfernen die Filter und versuchen nochmal</string>
-  <string name="label_geofence_disable_error">Ausgewählt Geofence ist nicht verfügbar in die Grab Karte Anbieter. Bitte Schalter zu andere Karte Anbieter zu anzeigen und gelingen ausgewählt Geofence.</string>
   <string name="label_clear_filters">Klar Filter</string>
   <string name="label_try_trackers_amp_geofences_simulation">Versuche Tracker &amp; Geofences Simulation</string>
   <string name="label_requires_connection_to_aws_cloudformation">Erfordert Verbindung zu AWS Wolkenbildung</string>
@@ -275,10 +235,23 @@
   <string name="label_hebrew" translatable="false">עברית</string>
   <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Für glatt Simulation Erfahrung bitte ermöglichen Benachrichtigung Genehmigung von Einstellungen.</string>
-  <string name="label_change_data_provider">Veränderung Daten Anbieter</string>
-  <string name="label_change_data_provider_des">GrabMaps tut nicht Unterstützung Simulation, bitte Veränderung Daten Anbieter zu Esri oder HIER zu benutzen Geofence oder Tracker Funktionen.</string>
-  <string name="label_switch_to_esri">Schalter zu Esri</string>
   <string name="region">Region</string>
-  <string name="label_enable_open_data">Aktivieren Daten öffnen</string>
-  <string name="label_enable_open_data_des">Daten öffnen Verwendungszwecke Esri zum Strecken und Orte Suche Funktionalität zu verbessern dein erleben.</string>
+  <string name="mode_light">Licht</string>
+  <string name="mode_dark">Dunkel</string>
+  <string name="label_political_view">Politisch anzeigen</string>
+  <string name="label_map_representation_for_different_countries">Landkarte Darstellung zum anders Länder</string>
+  <string name="description_arg">Argentiniens anzeigen auf die Südlich Patagonisch Eis Feld und Tierra Del Feuer, inkl. die Falkland Inseln, Süden Georgien, und Süden Sandwich Inseln</string>
+  <string name="description_egy">Ägyptens anzeigen auf Bir Tawil</string>
+  <string name="description_ind">Indiens anzeigen auf Gilgit-Baltistan</string>
+  <string name="description_ken">Kenias anzeigen auf die Ilemi Dreieck</string>
+  <string name="description_mar">Marokkos anzeigen auf Westlich Sahara</string>
+  <string name="description_rus">Russlands anzeigen auf Krim</string>
+  <string name="description_sdn">Sudan\'s anzeigen auf die Halaib Dreieck</string>
+  <string name="description_srb">Serbiens anzeigen auf Kosovo, Vukovar, und Sarengrad Inseln</string>
+  <string name="description_sur">Surinam\'s anzeigen auf die Courantyne Quellgebiete und Lawa Quellgebiete</string>
+  <string name="description_syr">Syriens anzeigen auf die Golanhöhen Höhen</string>
+  <string name="description_tur">Türkei\'s anzeigen auf Zypern und Nördlich Zypern</string>
+  <string name="description_tza">Tansania\'s anzeigen auf See Malawi</string>
+  <string name="description_ury">Uruguays anzeigen auf Rincon de Artigas</string>
+  <string name="description_vnm">Vietnams anzeigen auf die Paracel Inseln und Spratli Inseln</string>
 </resources>

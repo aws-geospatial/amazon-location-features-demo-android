@@ -45,31 +45,30 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
         mExploreVM = ExploreViewModel(locationSearchUseCase)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getAddressLineFromLatLngSuccess() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
             .thenAnswer {
                 val callback: SearchDataInterface = it.arguments[2] as SearchDataInterface
-                callback.getAddressData(Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG)
+                Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG.reverseGeocodeResponse?.let { it1 ->
+                    callback.getAddressData(
+                        it1
+                    )
+                }
             }
 
         mExploreVM.addressLineData.test {
-            mExploreVM.mNavigationTimeDialogData.test {
-                mExploreVM.getAddressLineFromLatLng(GATE_WAY_OF_INDIA_LAT_LNG.longitude, GATE_WAY_OF_INDIA_LAT_LNG.latitude)
-                Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
-                cancelAndIgnoreRemainingEvents()
-            }
+            mExploreVM.getAddressLineFromLatLng(GATE_WAY_OF_INDIA_LAT_LNG.longitude, GATE_WAY_OF_INDIA_LAT_LNG.latitude)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, data.searchPlaceIndexForPositionResult == Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, data.reverseGeocodeResponse == Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG.reverseGeocodeResponse)
             cancelAndIgnoreRemainingEvents()
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getAddressLineFromLatLngError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
@@ -79,21 +78,16 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
             }
 
         mExploreVM.addressLineData.test {
-            mExploreVM.mNavigationTimeDialogData.test {
-                mExploreVM.getAddressLineFromLatLng(null, null)
-                Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
-                cancelAndIgnoreRemainingEvents()
-            }
-
+            mExploreVM.getAddressLineFromLatLng(null, null)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
-            Assert.assertTrue(TEST_FAILED_DUE_TO_DATA_NOT_EMPTY, data.searchPlaceIndexForPositionResult == null)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_DATA_NOT_EMPTY, data.reverseGeocodeResponse == null)
             cancelAndIgnoreRemainingEvents()
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getAddressLineFromLatLngInternetError() = runTest {
         Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
@@ -103,11 +97,8 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
             }
 
         mExploreVM.addressLineData.test {
-            mExploreVM.mNavigationTimeDialogData.test {
-                mExploreVM.getAddressLineFromLatLng(null, null)
-                Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
-                cancelAndIgnoreRemainingEvents()
-            }
+            mExploreVM.getAddressLineFromLatLng(null, null)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_ERROR, result is HandleResult.Error)

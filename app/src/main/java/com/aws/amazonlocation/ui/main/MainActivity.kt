@@ -2,12 +2,9 @@ package com.aws.amazonlocation.ui.main
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -28,7 +25,6 @@ import androidx.navigation.ui.setupWithNavController
 import aws.sdk.kotlin.services.cognitoidentity.model.Credentials
 import aws.sdk.kotlin.services.iot.IotClient
 import aws.sdk.kotlin.services.iot.model.AttachPolicyRequest
-import com.aws.amazonlocation.AmazonLocationApp
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.onError
@@ -52,12 +48,9 @@ import com.aws.amazonlocation.utils.ABOUT_FRAGMENT
 import com.aws.amazonlocation.utils.AWS_CLOUD_INFORMATION_FRAGMENT
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
-import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
-import com.aws.amazonlocation.utils.AwsSignerInterceptor
 import com.aws.amazonlocation.utils.ConnectivityObserveInterface
 import com.aws.amazonlocation.utils.DELAY_LANGUAGE_3000
 import com.aws.amazonlocation.utils.Durations.DELAY_FOR_FRAGMENT_LOAD
-import com.aws.amazonlocation.utils.EnableTrackerInterface
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IOT_POLICY
 import com.aws.amazonlocation.utils.IOT_POLICY_UN_AUTH
@@ -73,13 +66,10 @@ import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_CODE
 import com.aws.amazonlocation.utils.KEY_EXPIRATION
 import com.aws.amazonlocation.utils.KEY_ID_TOKEN
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
-import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
 import com.aws.amazonlocation.utils.KEY_RE_START_APP
 import com.aws.amazonlocation.utils.KEY_SECRET_KEY
-import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
 import com.aws.amazonlocation.utils.KEY_SESSION_TOKEN
 import com.aws.amazonlocation.utils.KEY_USER_DOMAIN
 import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
@@ -94,17 +84,14 @@ import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.SETTING_FRAGMENT
 import com.aws.amazonlocation.utils.SIGN_IN
 import com.aws.amazonlocation.utils.SIGN_OUT
-import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.VERSION_FRAGMENT
-import com.aws.amazonlocation.utils.enableTracker
+import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.invisible
-import com.aws.amazonlocation.utils.isRunningTest
 import com.aws.amazonlocation.utils.makeTransparentStatusBar
-import com.aws.amazonlocation.utils.regionDisplayName
 import com.aws.amazonlocation.utils.setLocale
 import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.showViews
@@ -115,16 +102,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import org.maplibre.android.module.http.HttpRequestUtil
 import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
 class MainActivity :
-    BaseActivity(),
-    CrashListener {
+    BaseActivity(), CrashListener {
     private var isSessionStarted: Boolean = false
     private var isMapStyleChangeCalled: Boolean = false
     private var isAppNotFirstOpened: Boolean = false
@@ -168,10 +152,10 @@ class MainActivity :
     }
 
     private fun checkSession() {
-        if (!mAWSLocationHelper.checkClientInitialize()) {
+        if (!mLocationProvider.checkClientInitialize()) {
             val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
             if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
-                if (mAWSLocationHelper.isAuthTokenExpired()) {
+                if (mLocationProvider.isAuthTokenExpired()) {
                     refreshToken()
                 } else {
                     CoroutineScope(Dispatchers.IO).launch {
@@ -185,7 +169,7 @@ class MainActivity :
                 }
             }
         } else {
-            mAWSLocationHelper.checkSessionValid(this)
+            mLocationProvider.checkSessionValid(this)
         }
     }
 
@@ -222,18 +206,10 @@ class MainActivity :
                         val mapStyleNameDisplay =
                             mPreferenceManager.getValue(
                                 KEY_MAP_STYLE_NAME,
-                                getString(R.string.map_light),
+                                getString(R.string.map_standard),
                             )
-                                ?: getString(R.string.map_light)
-                        val mapNameSelected =
-                            getString(R.string.map_esri).let {
-                                mPreferenceManager.getValue(
-                                    KEY_MAP_NAME,
-                                    it,
-                                )
-                            }
-                                ?: getString(R.string.map_esri)
-                        changeMapStyle(mapNameSelected, mapStyleNameDisplay)
+                                ?: getString(R.string.map_standard)
+                        changeMapStyle(mapStyleNameDisplay)
                     }
 
                     is AWSCloudInformationFragment -> {
@@ -283,9 +259,6 @@ class MainActivity :
         window.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN,
         )
-        if (!isRunningTest) {
-            (application as AmazonLocationApp).setCrashListener(this)
-        }
         isTablet = resources.getBoolean(R.bool.is_tablet)
         if (!isTablet) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -293,7 +266,7 @@ class MainActivity :
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         CoroutineScope(Dispatchers.IO).launch {
-            analyticsUtils = AnalyticsUtils(mAWSLocationHelper, mPreferenceManager)
+            analyticsUtils = AnalyticsUtils(mLocationProvider, mPreferenceManager)
             async { analyticsUtils?.initAnalytics() }.await()
             analyticsUtils?.startSession()
             setSelectedScreen(AnalyticsAttributeValue.EXPLORER)
@@ -388,6 +361,7 @@ class MainActivity :
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                     if (mBinding.signInWebView.visibility == View.VISIBLE) {
                         hideViews(mBinding.signInWebView, mBinding.ivBackMain, mBinding.viewBottom, mBinding.appCompatTextView)
                         showViews(mBinding.bottomNavigationMain, mBinding.navHostFragment, mBinding.imgAmazonLogo, mBinding.ivAmazonInfo)
@@ -397,13 +371,11 @@ class MainActivity :
                     } else if (mNavController.currentDestination?.label == VERSION_FRAGMENT) {
                         mNavController.popBackStack()
                     } else if (mNavController.currentDestination?.label == ABOUT_FRAGMENT) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment !is ExploreFragment) {
                             mNavController.navigate(R.id.explore_fragment)
                         }
                         moveToExploreScreen()
                     } else if (mNavController.currentDestination?.label == SETTING_FRAGMENT) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment !is ExploreFragment) {
                             mNavController.navigate(R.id.explore_fragment)
                         }
@@ -412,10 +384,9 @@ class MainActivity :
                         mBottomSheetHelper.hideAttributeSheet()
                     } else if (mBottomSheetHelper.isSearchBottomSheetExpandedOrHalfExpand()) {
                         mBottomSheetHelper.collapseSearchBottomSheet()
-                    } else if (mBottomSheetHelper.isMapStyleExpandedOrHalfExpand()) {
-                        mBottomSheetHelper.hideMapStyleSheet()
+                    } else if (fragment is ExploreFragment && fragment.isMapStyleExpandedOrHalfExpand()) {
+                        fragment.hideMapStyleSheet()
                     } else if (mBottomSheetHelper.isNavigationBottomSheetHalfExpand()) {
-                        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         if (fragment is ExploreFragment) {
                             fragment.navigationExit()
                         }
@@ -454,33 +425,15 @@ class MainActivity :
                                 "",
                             ) != AuthEnum.SIGNED_IN.name
                         ) {
-                            mAWSLocationHelper.locationCredentialsProvider?.clear()
+                            mLocationProvider.locationCredentialsProvider?.clear()
                         }
                         mPreferenceManager.setValue(
                             KEY_CLOUD_FORMATION_STATUS,
                             AuthEnum.SIGNED_IN.name,
                         )
                         mBottomSheetDialog?.dismiss()
-                        async { mAWSLocationHelper.generateNewAuthCredentials(authHelper) }.await()
+                        async { mLocationProvider.generateNewAuthCredentials(authHelper) }.await()
                         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-                        if (fragment is ExploreFragment) {
-                            val mapStyleNameDisplay =
-                                mPreferenceManager.getValue(
-                                    KEY_MAP_STYLE_NAME,
-                                    getString(R.string.map_light),
-                                ) ?: getString(R.string.map_light)
-                            val mapNameSelected =
-                                getString(R.string.map_esri).let {
-                                    mPreferenceManager.getValue(
-                                        KEY_MAP_NAME,
-                                        it,
-                                    )
-                                } ?: getString(R.string.map_esri)
-                            isMapStyleChangeCalled = true
-                            async {
-                                changeMapStyle(mapNameSelected, mapStyleNameDisplay)
-                            }.await()
-                        }
                         getTokenAndAttachPolicy()
                         val propertiesAws =
                             listOf(
@@ -511,14 +464,11 @@ class MainActivity :
     }
 
     fun changeMapStyle(
-        mapNameSelected: String,
         mapStyleNameDisplay: String,
     ) {
         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
         if (fragment is ExploreFragment) {
             fragment.mapStyleChange(
-                false,
-                mapNameSelected,
                 mapStyleNameDisplay,
             )
         }
@@ -601,7 +551,7 @@ class MainActivity :
             ?.onEach {
                 when (it) {
                     ConnectivityObserveInterface.ConnectionStatus.Available -> {
-                        if (!mAWSLocationHelper.checkClientInitialize()) {
+                        if (!mLocationProvider.checkClientInitialize()) {
                             initMobileClient()
                         }
                     }
@@ -700,7 +650,7 @@ class MainActivity :
     fun getTokenAndAttachPolicy() {
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val identityId: String? = mAWSLocationHelper.getIdentityId()
+                val identityId: String? = mLocationProvider.getIdentityId()
                 val attachPolicyRequest =
                     AttachPolicyRequest {
                         policyName = IOT_POLICY
@@ -716,7 +666,7 @@ class MainActivity :
                         region = mRegion
                         credentialsProvider =
                             createCredentialsProviderForPolicy(
-                                mAWSLocationHelper.getCredentials(),
+                                mLocationProvider.getCredentials(),
                             )
                     }
 
@@ -769,7 +719,7 @@ class MainActivity :
                     region = identityId?.split(":")?.get(0)
                     credentialsProvider =
                         createCredentialsProviderForPolicy(
-                            mAWSLocationHelper.getCredentials(),
+                            mLocationProvider.getCredentials(),
                         )
                 }
 
@@ -1009,8 +959,8 @@ class MainActivity :
             fragment.showDirectionAndCurrentLocationIcon()
         }
         mBottomSheetHelper.hideSearchBottomSheet(false)
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+        if (!isTablet && fragment is ExploreFragment) {
+            fragment.hideMapStyleSheet()
         }
         mGeofenceUtils?.hideAllGeofenceBottomSheet()
         mTrackingUtils?.hideTrackingBottomSheet()
@@ -1034,7 +984,7 @@ class MainActivity :
     fun showSimulationSheet() {
         if (mSimulationUtils == null) {
             mSimulationUtils =
-                SimulationUtils(mPreferenceManager, this@MainActivity, mAWSLocationHelper)
+                SimulationUtils(mPreferenceManager, this@MainActivity, mLocationProvider)
             if (mNavHostFragment.childFragmentManager.fragments.isNotEmpty()) {
                 val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                 if (fragment is ExploreFragment) {
@@ -1049,8 +999,9 @@ class MainActivity :
         } else {
             mBinding.bottomNavigationMain.hide()
         }
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
+        if (!isTablet && fragment is ExploreFragment) {
+            fragment.hideMapStyleSheet()
         }
         showSimulationTop()
         if (checkInternetConnection(applicationContext)) {
@@ -1139,9 +1090,9 @@ class MainActivity :
             mNavHostFragment.childFragmentManager.fragments[0]
         if (fragment is ExploreFragment) {
             fragment.showDirectionAndCurrentLocationIcon()
-        }
-        if (!isTablet) {
-            mBottomSheetHelper.hideMapStyleSheet()
+            if (!isTablet) {
+                fragment.hideMapStyleSheet()
+            }
         }
         lifecycleScope.launch {
             if (fragment !is ExploreFragment) {
@@ -1155,12 +1106,11 @@ class MainActivity :
     }
 
     private fun checkMap(): Boolean {
-        val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-        if (mapName == getString(R.string.map_esri)) {
-            enableTrackingDialog()
-            return false
-        }
-        return true
+        showTracking()
+        mBinding.bottomNavigationMain.menu
+            .findItem(R.id.menu_tracking)
+            .isChecked = true
+        return false
     }
 
     private fun showTrackingBottomSheet() {
@@ -1233,33 +1183,6 @@ class MainActivity :
         }
     }
 
-    fun addInterceptor() {
-        HttpRequestUtil.setOkHttpClient(null)
-        val defaultIdentityPoolId: String =
-            Units.getDefaultIdentityPoolId(
-                mPreferenceManager.getValue(
-                    KEY_SELECTED_REGION,
-                    regionDisplayName[0],
-                ),
-                mPreferenceManager.getValue(KEY_NEAREST_REGION, ""),
-            )
-        val region = defaultIdentityPoolId.split(":")[0]
-        HttpRequestUtil.setOkHttpClient(
-            OkHttpClient
-                .Builder()
-                .addInterceptor(
-                    AwsSignerInterceptor(
-                        mServiceName,
-                        mAWSLocationHelper.getRegion() ?: region,
-                        mAWSLocationHelper.locationCredentialsProvider,
-                        mPreferenceManager,
-                        mAWSLocationHelper,
-                        this
-                    ),
-                ).build(),
-        )
-    }
-
     private val mCloudFormationInterface =
         object : CloudFormationInterface {
             override fun dialogDismiss(dialog: Dialog?) {
@@ -1292,35 +1215,6 @@ class MainActivity :
         runOnUiThread {
             alertDialog?.hide()
         }
-    }
-
-    private fun enableTrackingDialog() {
-        enableTracker(
-            object : EnableTrackerInterface {
-                override fun continueToTracker(dialog: DialogInterface) {
-                    showTracking()
-                    mBinding.bottomNavigationMain.menu
-                        .findItem(R.id.menu_tracking)
-                        .isChecked = true
-                }
-
-                override fun cancel() {
-                    mBinding.bottomNavigationMain.menu
-                        .findItem(R.id.menu_explore)
-                        .isChecked = true
-                    setExplorer()
-                }
-
-                override fun viewTermsAndCondition(dialog: DialogInterface) {
-                    resultLauncher.launch(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(BuildConfig.BASE_DOMAIN + BuildConfig.AWS_TERMS_URL),
-                        ),
-                    )
-                }
-            },
-        )
     }
 
     fun setWelcomeToExplorer() {
@@ -1358,7 +1252,7 @@ class MainActivity :
     fun initClient(isAfterSignOut:Boolean = false){
         if (!isAfterSignOut) {
             try {
-                mAWSLocationHelper.locationCredentialsProvider?.clear()
+                mLocationProvider.locationCredentialsProvider?.clear()
             } catch (_: Exception) { }
         }
         CoroutineScope(Dispatchers.IO).launch {

@@ -5,7 +5,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
@@ -22,7 +21,6 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
@@ -30,8 +28,7 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_DIRECTION_TIME_NOT_VISIBLE
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
-import com.aws.amazonlocation.TEST_WORD_4
-import com.aws.amazonlocation.TEST_WORD_7
+import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -57,9 +54,11 @@ class SearchAddressExactMatchPOICardLocationTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_7))
-            closeSoftKeyboard()
-            Thread.sleep(DELAY_10000)
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
+            uiDevice.wait(
+                Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/rv_search_places_suggestion")),
+                DELAY_20000
+            )
             getInstrumentation().waitForIdleSync()
             val rvSearchPlaceSuggestion =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_search_places_suggestion)
@@ -68,10 +67,10 @@ class SearchAddressExactMatchPOICardLocationTest : BaseTestMainActivity() {
                     if (it >= 0) {
                         Thread.sleep(DELAY_2000)
                         onView(withId(R.id.rv_search_places_suggestion))
-                            .check(matches(hasDescendant(withText(TEST_WORD_7))))
+                            .check(matches(hasDescendant(withText(TEST_WORD_SHYAMAL_CROSS_ROAD))))
                         Thread.sleep(DELAY_2000)
                         onView(withId(R.id.rv_search_places_suggestion))
-                            .perform(RecyclerViewActions.actionOnItem<ViewHolder>(hasDescendant(withText(TEST_WORD_7)), click()))
+                            .perform(RecyclerViewActions.actionOnItem<ViewHolder>(hasDescendant(withText(TEST_WORD_SHYAMAL_CROSS_ROAD)), click()))
                         Thread.sleep(DELAY_2000)
                         val btnDirection =
                             mActivityRule.activity.findViewById<MaterialCardView>(R.id.btn_direction)

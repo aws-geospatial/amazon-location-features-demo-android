@@ -3,16 +3,14 @@ package com.aws.amazonlocation.viewmodel.explore
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
-import aws.sdk.kotlin.services.location.model.Place
+import aws.sdk.kotlin.services.geoplaces.model.Address
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.data.response.SearchSuggestionData
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
 import com.aws.amazonlocation.mock.Responses
-import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
@@ -23,9 +21,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 
@@ -56,15 +51,7 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
 
     @Test
     fun calculateNavigationLineSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchNavigationPlaceIndexForPosition(anyOrNull(), anyOrNull(), any(), any()))
-            .thenAnswer {
-                val callback: NavigationDataInterface = it.arguments[3] as NavigationDataInterface
-                callback.getNavigationList(Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_1)
-            }
-            .thenAnswer {
-                val callback: NavigationDataInterface = it.arguments[3] as NavigationDataInterface
-                callback.getNavigationList(Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_2)
-            }
+
 
         val param = Responses.RESPONSE_CALCULATE_DISTANCE_CAR
 
@@ -83,14 +70,31 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
             Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE, data.navigationList.size == 2)
-            Assert.assertTrue(
-                TEST_FAILED_DUE_TO_INCORRECT_DATA,
-                data.navigationList[0] == Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_1,
-            )
-            Assert.assertTrue(
-                TEST_FAILED_DUE_TO_INCORRECT_DATA,
-                data.navigationList[1] == Responses.RESPONSE_NAVIGATION_DATA_CAR_STEP_2,
-            )
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun calculateNavigationLineWalkSuccess() = runTest {
+
+
+        val param = Responses.RESPONSE_CALCULATE_DISTANCE_WALKING
+
+        val searchSuggestionData = getSearchSuggestionData()
+
+        mExploreVM.mSearchSuggestionData = searchSuggestionData
+        mExploreVM.mSearchDirectionOriginData = searchSuggestionData
+        mExploreVM.mSearchDirectionDestinationData = searchSuggestionData
+        mExploreVM.mSearchDirectionDestinationData?.isDestination = true
+
+        mExploreVM.mNavigationData.test {
+            mExploreVM.calculateNavigationLine(context, param)
+            var result = awaitItem()
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
+            result = awaitItem()
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
+            val data = (result as HandleResult.Success).response
+            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE, data.navigationList.size == 2)
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -98,32 +102,32 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
     private fun getSearchSuggestionData(): SearchSuggestionData {
         val it = Responses.SEARCH_RESPONSE_TAJ
         val searchSuggestionData = SearchSuggestionData()
-        it.searchPlaceIndexForPositionResult?.let { searchPlaceIndexForPositionResult ->
+        it.reverseGeocodeResponse?.let { searchPlaceIndexForPositionResult ->
             searchSuggestionData.text =
-                searchPlaceIndexForPositionResult.results[0].place?.label
+                searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.label
             searchSuggestionData.searchText =
-                searchPlaceIndexForPositionResult.results[0].place?.label
+                searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.label
             searchSuggestionData.distance =
-                searchPlaceIndexForPositionResult.results[0].distance
+                searchPlaceIndexForPositionResult.resultItems?.get(0)?.distance?.toDouble()
             searchSuggestionData.isDestination = true
             searchSuggestionData.placeId =
-                searchPlaceIndexForPositionResult.results[0].placeId
-            searchSuggestionData.isPlaceIndexForPosition = false
-            val amazonLocationPlace = Place {
-                label = searchPlaceIndexForPositionResult.results[0].place?.label
-                geometry = aws.sdk.kotlin.services.location.model.PlaceGeometry {
-                    point = listOf(it.longitude!!, it.latitude!!)
+                searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
+            it.latitude?.let { lat->
+                it.longitude?.let { lng->
+                    searchSuggestionData.position = listOf(lng, lat)
                 }
-                addressNumber = searchPlaceIndexForPositionResult.results[0].place?.addressNumber
-                street = searchPlaceIndexForPositionResult.results[0].place?.street
-                country = searchPlaceIndexForPositionResult.results[0].place?.country
-                region = searchPlaceIndexForPositionResult.results[0].place?.region
-                subRegion = searchPlaceIndexForPositionResult.results[0].place?.subRegion
-                municipality = searchPlaceIndexForPositionResult.results[0].place?.municipality
-                neighborhood = searchPlaceIndexForPositionResult.results[0].place?.neighborhood
-                postalCode = searchPlaceIndexForPositionResult.results[0].place?.postalCode
             }
-            searchSuggestionData.amazonLocationPlace = amazonLocationPlace
+            searchSuggestionData.isPlaceIndexForPosition = false
+            val address = Address {
+                label = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.label
+                addressNumber = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.addressNumber
+                street = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.street
+                country = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.country
+                region = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.region
+                subRegion = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.subRegion
+                postalCode = searchPlaceIndexForPositionResult.resultItems?.get(0)?.address?.postalCode
+            }
+            searchSuggestionData.amazonLocationAddress = address
         }
         return searchSuggestionData
     }

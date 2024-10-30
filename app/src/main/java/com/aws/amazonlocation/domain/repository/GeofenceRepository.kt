@@ -35,7 +35,6 @@ interface GeofenceRepository {
         lng: Double?,
         searchText: String,
         searchPlace: SearchPlaceInterface,
-        isGrabMapSelected: Boolean
     )
 
     suspend fun searchPlaceIndexForText(

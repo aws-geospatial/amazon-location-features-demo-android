@@ -26,8 +26,6 @@ import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.IS_LOCATION_TRACKING_ENABLE
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
-import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_POOL_ID
 import com.aws.amazonlocation.utils.KEY_TAB_ENUM
 import com.aws.amazonlocation.utils.KEY_URL
@@ -36,13 +34,11 @@ import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
 import com.aws.amazonlocation.utils.KEY_USER_POOL_ID
 import com.aws.amazonlocation.utils.KEY_USER_REGION
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.aws.amazonlocation.utils.SE_REGION_LIST
 import com.aws.amazonlocation.utils.Units.sanitizeUrl
 import com.aws.amazonlocation.utils.WEB_SOCKET_URL
 import com.aws.amazonlocation.utils.changeClickHereColor
 import com.aws.amazonlocation.utils.changeLearnMoreColor
 import com.aws.amazonlocation.utils.changeTermsAndConditionColor
-import com.aws.amazonlocation.utils.isGrabMapSelected
 import com.aws.amazonlocation.utils.regionMapList
 import com.aws.amazonlocation.utils.validateIdentityPoolId
 import com.aws.amazonlocation.utils.validateUserPoolClientId
@@ -215,11 +211,7 @@ class CloudFormationBottomSheetFragment(
                         // Do something when nothing is selected
                     }
                 }
-            if (isGrabMapSelected(mPreferenceManager, requireContext())) {
-                spinnerRegion.setSelection(3)
-            } else {
-                spinnerRegion.setSelection(2)
-            }
+            spinnerRegion.setSelection(2)
         }
     }
 
@@ -284,15 +276,6 @@ class CloudFormationBottomSheetFragment(
 
     private fun storeDataAndRestartApp() {
         lifecycleScope.launch {
-            if (isGrabMapSelected(mPreferenceManager, requireContext())) {
-                if (!SE_REGION_LIST.contains(regionData)) {
-                    mPreferenceManager.setValue(
-                        KEY_MAP_STYLE_NAME,
-                        resources.getString(R.string.map_light),
-                    )
-                    mPreferenceManager.setValue(KEY_MAP_NAME, resources.getString(R.string.esri))
-                }
-            }
             mPreferenceManager.setValue(
                 KEY_CLOUD_FORMATION_STATUS,
                 AuthEnum.AWS_CONNECTED.name,

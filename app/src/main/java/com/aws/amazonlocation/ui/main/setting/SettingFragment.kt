@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentSettingBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.ui.main.data_provider.DataProviderFragment
 import com.aws.amazonlocation.ui.main.language.LanguageFragment
 import com.aws.amazonlocation.ui.main.map_style.MapStyleFragment
 import com.aws.amazonlocation.ui.main.region.RegionFragment
@@ -26,9 +24,7 @@ import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.DisconnectAWSInterface
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
-import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
-import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
 import com.aws.amazonlocation.utils.KEY_UNIT_SYSTEM
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
@@ -46,7 +42,6 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_JAPANESE
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_KOREAN
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_SPANISH
 import com.aws.amazonlocation.utils.SignOutInterface
-import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.disconnectFromAWSDialog
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
@@ -88,7 +83,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
         }
         init()
         getUnitSystem()
-        getDataProvider()
         getMapStyle()
         getRegion()
         clickListener()
@@ -190,16 +184,10 @@ class SettingFragment : BaseFragment(), SignOutInterface {
         mBinding.tvUnitSystemName.text = unitSystem
     }
 
-    private fun getDataProvider() {
-        val dataProvider =
-            mPreferenceManager.getValue(KEY_MAP_NAME, resources.getString(R.string.esri))
-        mBinding.tvDataProviderName.text = dataProvider
-    }
-
     private fun getMapStyle() {
         val mapStyleNameDisplay =
-            mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_light))
-                ?: getString(R.string.map_light)
+            mPreferenceManager.getValue(KEY_MAP_STYLE_NAME, getString(R.string.map_standard))
+                ?: getString(R.string.map_standard)
         mBinding.tvMapStyleName.text = mapStyleNameDisplay
     }
     private fun getRegion() {
@@ -236,25 +224,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
                 }
                 (activity as MainActivity).exitScreen()
                 (activity as MainActivity).setSelectedScreen(AnalyticsAttributeValue.UNITS)
-            }
-            clDataProvider.setOnClickListener {
-                if (isTablet) {
-                    addReplaceFragment(
-                        R.id.frame_container,
-                        DataProviderFragment(),
-                        addFragment = false,
-                        addToBackStack = false
-                    )
-                    mBinding.apply {
-                        setDefaultSelection()
-                        clDataProvider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.color_view))
-                        ivDataProvider.setColorFilter(ContextCompat.getColor(requireContext(), R.color.color_primary_green))
-                    }
-                } else {
-                    findNavController().navigate(R.id.data_provider_fragment)
-                }
-                (activity as MainActivity).exitScreen()
-                (activity as MainActivity).setSelectedScreen(AnalyticsAttributeValue.DATA_PROVIDER)
             }
             clMapStyle.setOnClickListener {
                 if (isTablet) {
@@ -371,24 +340,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
                                         }
                                     }
                                 }
-                                val mapName = mPreferenceManager.getValue(KEY_MAP_NAME, getString(R.string.map_esri))
-                                val defaultIdentityPoolId: String =
-                                    Units.getDefaultIdentityPoolId(
-                                        mPreferenceManager.getValue(
-                                            KEY_SELECTED_REGION,
-                                            regionDisplayName[0],
-                                        ),
-                                        mPreferenceManager.getValue(KEY_NEAREST_REGION, ""),
-                                    )
-                                if (defaultIdentityPoolId != BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP) {
-                                    if (mapName == getString(R.string.grab)) {
-                                        mPreferenceManager.setValue(
-                                            KEY_MAP_STYLE_NAME,
-                                            resources.getString(R.string.map_light),
-                                        )
-                                        mPreferenceManager.setValue(KEY_MAP_NAME, resources.getString(R.string.esri))
-                                    }
-                                }
                                 (activity as MainActivity).initClient()
                                 init()
                                 dialog.dismiss()
@@ -482,13 +433,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
         ivLanguage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.color_img_tint))
         clRegion.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         ivRegion.setColorFilter(ContextCompat.getColor(requireContext(), R.color.color_img_tint))
-        clDataProvider.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-        ivDataProvider.setColorFilter(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.color_img_tint
-            )
-        )
     }
 
     override fun logout(dialog: DialogInterface, isDisconnectFromAWSRequired: Boolean) {

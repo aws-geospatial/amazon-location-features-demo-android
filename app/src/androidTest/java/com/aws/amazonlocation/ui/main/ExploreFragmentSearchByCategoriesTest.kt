@@ -19,7 +19,7 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_COUNT_NOT_GREATER_THAN_ZERO
 import com.aws.amazonlocation.TEST_FAILED_NO_SEARCH_RESULT
-import com.aws.amazonlocation.TEST_WORD_3
+import com.aws.amazonlocation.TEST_WORD_SCHOOL
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
 import com.aws.amazonlocation.failTest
@@ -44,7 +44,7 @@ class ExploreFragmentSearchByCategoriesTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_3))
+            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_SCHOOL))
             Thread.sleep(DELAY_15000)
             val rvSearchPlaceSuggestion =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_search_places_suggestion)

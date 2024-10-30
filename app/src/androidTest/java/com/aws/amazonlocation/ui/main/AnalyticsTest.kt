@@ -60,7 +60,7 @@ class AnalyticsTest : BaseTestMainActivity() {
 
     /**
      * This method check successful record of below mentioned events,
-     * PLACES_SEARCH, SCREEN_OPEN, MAP_PROVIDER_CHANGE, MAP_UNIT_CHANGE
+     * PLACES_SEARCH, SCREEN_OPEN, MAP_UNIT_CHANGE
      */
     @Test
     fun checkAnalyticsContent() {
@@ -99,22 +99,6 @@ class AnalyticsTest : BaseTestMainActivity() {
             snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.SCREEN_OPEN)), DELAY_10000)
             Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             // End - Screen change event test
-            goToDataProvider()
-            Thread.sleep(DELAY_2000)
-            // Start - Map provider change event test
-            onView(
-                allOf(withId(R.id.ll_here), isDisplayed())
-            ).perform(click())
-            snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.MAP_PROVIDER_CHANGE)), DELAY_10000)
-            Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
-            // End - Map provider change event test
-            onView(
-                allOf(
-                    withId(R.id.iv_route_data_provider),
-                    isDisplayed()
-                )
-            ).perform(click())
-
             // Start - Map unit change event test
             onView(
                 allOf(
@@ -139,15 +123,6 @@ class AnalyticsTest : BaseTestMainActivity() {
             failTest(95, e)
             Assert.fail(TEST_FAILED)
         }
-    }
-
-    private fun goToDataProvider() {
-        onView(
-            allOf(
-                withId(R.id.cl_data_provider),
-                isDisplayed()
-            )
-        ).perform(click())
     }
 
     override fun after() {

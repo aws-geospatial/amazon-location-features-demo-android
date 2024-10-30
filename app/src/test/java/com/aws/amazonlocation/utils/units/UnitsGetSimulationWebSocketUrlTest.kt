@@ -18,8 +18,6 @@ class UnitsGetSimulationWebSocketUrlTest : BaseTest() {
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == BuildConfig.SIMULATION_WEB_SOCKET_URL)
         result = Units.getSimulationWebSocketUrl(BuildConfig.DEFAULT_IDENTITY_POOL_ID_EU)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == BuildConfig.SIMULATION_WEB_SOCKET_URL_EU)
-        result = Units.getSimulationWebSocketUrl(BuildConfig.DEFAULT_IDENTITY_POOL_ID_AP)
-        Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == BuildConfig.SIMULATION_WEB_SOCKET_URL_AP)
         result = Units.getSimulationWebSocketUrl("")
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == BuildConfig.SIMULATION_WEB_SOCKET_URL)
     }

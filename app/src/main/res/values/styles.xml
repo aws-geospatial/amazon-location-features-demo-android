@@ -191,14 +191,6 @@
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
     </style>
 
-    <style name="MyGrabDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/white</item>
-        <item name="buttonBarPositiveButtonStyle">@style/LogoutBtnStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/LogoutBtnStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/LogoutCancelBtnStyle</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-
     <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/color_medium_black</item>
     </style>
@@ -250,11 +242,6 @@
     <style name="LogoutCancelBtnStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/logout_red</item>
         <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/color_primary_green</item>
-        <item name="android:colorForeground">@color/color_primary_green</item>
     </style>
 
     <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">

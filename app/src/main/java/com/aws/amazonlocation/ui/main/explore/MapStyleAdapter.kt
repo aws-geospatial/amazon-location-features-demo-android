@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aws.amazonlocation.data.response.MapStyleData
 import com.aws.amazonlocation.databinding.ItemMapStyleBinding
-import com.aws.amazonlocation.utils.hide
-import com.aws.amazonlocation.utils.show
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -22,12 +20,6 @@ class MapStyleAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MapStyleData) {
             binding.apply {
-                tvStyleName.text = data.styleNameDisplay
-                if (adapterPosition == mMapStyleData.size - 1) {
-                    viewDivider.hide()
-                } else {
-                    viewDivider.show()
-                }
                 if (data.isDisable) {
                     rvMapName.isClickable = false
                     rvMapName.alpha = 0.3f
@@ -37,7 +29,7 @@ class MapStyleAdapter(
                 }
                 data.mapInnerData?.let {
                     rvMapName.apply {
-                        this.layoutManager = GridLayoutManager(this.context, 3)
+                        this.layoutManager = GridLayoutManager(this.context, 2)
                         val mMapStyleAdapter = MapStyleInnerAdapter(
                             it,
                             object : MapStyleInnerAdapter.MapInterface {

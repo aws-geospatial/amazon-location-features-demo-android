@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import aws.sdk.kotlin.services.location.model.LocationException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.geofence.GeofenceBottomSheetHelper
@@ -26,15 +25,12 @@ import com.aws.amazonlocation.ui.main.geofence.GeofenceUtils
 import com.aws.amazonlocation.ui.main.signin.SignInViewModel
 import com.aws.amazonlocation.ui.main.simulation.SimulationUtils
 import com.aws.amazonlocation.ui.main.tracking.TrackingUtils
-import com.aws.amazonlocation.utils.AWSLocationHelper
+import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.BottomSheetHelper
-import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_LOCATION_PERMISSION
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
 import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
 import com.aws.amazonlocation.utils.KEY_USER_DETAILS
-import com.aws.amazonlocation.utils.KEY_USER_DOMAIN
-import com.aws.amazonlocation.utils.KEY_USER_POOL_CLIENT_ID
 import com.aws.amazonlocation.utils.LatencyChecker
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.RESTART_DELAY
@@ -74,7 +70,8 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var mBottomSheetHelper: BottomSheetHelper
 
     @Inject
-    lateinit var mAWSLocationHelper: AWSLocationHelper
+    lateinit var mLocationProvider: LocationProvider
+
     private var subTitle = ""
     lateinit var authHelper: AuthHelper
     val mSignInViewModel: SignInViewModel by viewModels()
@@ -110,8 +107,8 @@ open class BaseActivity : AppCompatActivity() {
 
             authHelper = AuthHelper(applicationContext)
             val preference = PreferenceManager(applicationContext)
-            mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mAWSLocationHelper)
-            mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mAWSLocationHelper)
+            mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mLocationProvider)
+            mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mLocationProvider)
             locationPermissionDialog()
         }
     }
@@ -130,7 +127,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     suspend fun initMobileClient() {
-        mAWSLocationHelper.initializeLocationCredentialsProvider(authHelper, this)
+        mLocationProvider.initializeLocationCredentialsProvider(authHelper, this)
+        mLocationProvider.initPlaceRoutesClients()
     }
 
     private fun locationPermissionDialog() {
@@ -229,7 +227,7 @@ open class BaseActivity : AppCompatActivity() {
                     }
                 }
             } else if (subTitle.contains("expired") || subTitle.contains("invalid")) {
-                mAWSLocationHelper.checkSessionValid(this)
+                mLocationProvider.checkSessionValid(this)
             } else {
                 showErrorDialog(subTitle)
             }
@@ -255,7 +253,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun restartAppWithClearData() {
         lifecycleScope.launch {
-            mAWSLocationHelper.locationCredentialsProvider?.clear()
+            mLocationProvider.locationCredentialsProvider?.clear()
             mPreferenceManager.setDefaultConfig()
             delay(RESTART_DELAY)
             restartApplication()

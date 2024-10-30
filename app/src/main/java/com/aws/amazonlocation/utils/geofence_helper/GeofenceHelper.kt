@@ -34,11 +34,6 @@ import com.aws.amazonlocation.utils.geofence_helper.turf.TurfConstants.UNIT_METR
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeasurement
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeta
 import com.aws.amazonlocation.utils.geofence_helper.turf.TurfTransformation
-import com.aws.amazonlocation.utils.isGrabMapSelected
-import com.aws.amazonlocation.utils.latNorth
-import com.aws.amazonlocation.utils.latSouth
-import com.aws.amazonlocation.utils.lonEast
-import com.aws.amazonlocation.utils.lonWest
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
@@ -76,13 +71,12 @@ class GeofenceHelper(
     private var mAppContext: Context,
     private var mTvSeekBar: AppCompatTextView?,
     private var mSeekBar: SeekBar?,
-    private var mMapboxMap: MapLibreMap?,
+    private var mMapLibreMap: MapLibreMap?,
     private var mGeofenceMapLatLngInterface: GeofenceMapLatLngInterface?,
     private var mPrefrenceManager: PreferenceManager?
 ) {
 
     var mDefaultLatLng = LatLng(49.281174, -123.116823)
-    val mDefaultLatLngGrab = LatLng(1.2840123, 103.8487542)
     private var mDefaultLocationPoint =
         fromLngLat(mDefaultLatLng.longitude, mDefaultLatLng.latitude)
     private val mCircleUnit: String = UNIT_METRES
@@ -124,35 +118,16 @@ class GeofenceHelper(
 
     private fun getLiveLocation(): LatLng? {
         var mLatLng: LatLng? = null
-        if (mMapboxMap?.locationComponent?.isLocationComponentActivated == true) {
-            mMapboxMap?.locationComponent?.lastKnownLocation?.apply {
+        if (mMapLibreMap?.locationComponent?.isLocationComponentActivated == true) {
+            mMapLibreMap?.locationComponent?.lastKnownLocation?.apply {
                 mLatLng = LatLng(
                     latitude,
                     longitude
                 )
             }
         }
-        mPrefrenceManager?.let { preferenceManager ->
-            if (isGrabMapSelected(preferenceManager, mAppContext)) {
-                if (mLatLng != null) {
-                    mLatLng?.let {
-                        if (!(it.latitude in latSouth..latNorth && it.longitude in lonWest..lonEast)) {
-                            return mDefaultLatLngGrab
-                        }
-                    }
-                } else {
-                    return mDefaultLatLngGrab
-                }
-            }
-        }
         return if (mLatLng == null) {
-            mPrefrenceManager?.let {
-                if (isGrabMapSelected(it, mAppContext)) {
-                    mDefaultLatLngGrab
-                } else {
-                    mDefaultLatLng
-                }
-            }
+            mDefaultLatLng
         } else {
             mLatLng
         }
@@ -169,7 +144,7 @@ class GeofenceHelper(
     fun setDefaultIconWithGeofence() {
         mDefaultLocationPoint = fromLngLat(mDefaultLatLng.longitude, mDefaultLatLng.latitude)
         mLastClickPoint = mDefaultLocationPoint
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             drawMarkerOnMap(style)
 
             if (style.getSource(TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID) == null) {
@@ -307,7 +282,7 @@ class GeofenceHelper(
     }
 
     private fun updateVisibleDraggableMarkerOnMap(radius: Int) {
-        mMapboxMap?.getStyle {
+        mMapLibreMap?.getStyle {
             drawVisibleDraggableMarkerOnMap(it, mLastClickPoint, radius)
         }
     }
@@ -321,7 +296,7 @@ class GeofenceHelper(
      * Add a [FillLayer] to display a [Polygon] in a the shape of a circle.
      */
     private fun initPolygonCircleFillLayer() {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             val fillLayer = FillLayer(
                 TURF_CALCULATION_FILL_LAYER_ID,
                 TURF_CALCULATION_FILL_LAYER_GEO_JSON_SOURCE_ID
@@ -361,7 +336,7 @@ class GeofenceHelper(
      * @param circleCenter the center coordinate to be used in the Turf calculation.
      */
     private fun drawPolygonCircle(circleCenter: Point) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             // Use Turf to calculate the Polygon's coordinates
             val polygonArea: Polygon = getTurfPolygon(circleCenter, mCircleRadius.toDouble())
             val pointList = TurfMeta.coordAll(polygonArea, false)
@@ -387,7 +362,7 @@ class GeofenceHelper(
             for (singlePoint in pointList) {
                 latLngList.add(LatLng(singlePoint.latitude(), singlePoint.longitude()))
             }
-            mMapboxMap?.easeCamera(
+            mMapLibreMap?.easeCamera(
                 CameraUpdateFactory.newLatLngBounds(
                     LatLngBounds.Builder()
                         .includes(latLngList)
@@ -432,7 +407,10 @@ class GeofenceHelper(
     private fun upDateSeekbarText(radius: Int) {
         val isMetric = Units.isMetric(mPrefrenceManager?.getValue(KEY_UNIT_SYSTEM, ""))
         val seekbarText: String = if (isMetric) {
-            Units.getMetricsNew(mAppContext, radius.toDouble(), true)
+            Units.getMetricsNew(mAppContext, radius.toDouble(),
+                isMetric = true,
+                isMeterToFeetNeeded = false
+            )
         } else {
             Units.getMetrics(mAppContext, Units.meterToFeet(radius.toDouble()), false)
         }
@@ -445,7 +423,7 @@ class GeofenceHelper(
         if (!mIsDefaultGeofence) {
             setDefaultIconWithGeofence()
         }
-        mMapboxMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
+        mMapLibreMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
         drawGeofence(fromLngLat(mapClickLatLng.longitude, mapClickLatLng.latitude))
         updateInvisibleDraggableMarker(mapClickLatLng)
     }
@@ -463,20 +441,20 @@ class GeofenceHelper(
         if (!mIsDefaultGeofence) {
             setDefaultIconWithGeofence()
         }
-        mMapboxMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
+        mMapLibreMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
         drawGeofence(fromLngLat(mapClickLatLng.longitude, mapClickLatLng.latitude))
     }
 
     fun setGeofence() {
         getLiveLocation()?.let { mapClickLatLng ->
             mDefaultLatLng = mapClickLatLng
-            mMapboxMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
+            mMapLibreMap?.easeCamera(CameraUpdateFactory.newLatLng(mapClickLatLng))
             drawGeofence(fromLngLat(mapClickLatLng.longitude, mapClickLatLng.latitude))
         }
     }
 
     fun editGeofence() {
-        mMapboxMap?.easeCamera(
+        mMapLibreMap?.easeCamera(
             CameraUpdateFactory.newCameraPosition(
                 CameraPosition.Builder().zoom(MapCameraZoom.DEFAULT_CAMERA_ZOOM)
                     .target(mDefaultLatLng)
@@ -499,30 +477,30 @@ class GeofenceHelper(
      * @param circleCenter where the red marker icon will be moved to.
      */
     private fun moveCircleCenterMarker(circleCenter: Point) {
-        mMapboxMap?.getStyle { style ->
+        mMapLibreMap?.getStyle { style ->
             val markerSource = style.getSourceAs<GeoJsonSource>(CIRCLE_CENTER_SOURCE_ID)
             markerSource?.setGeoJson(circleCenter)
         }
     }
 
     fun removeMapClickListener() {
-        mMapboxMap?.style?.removeSource(CIRCLE_CENTER_SOURCE_ID)
-        mMapboxMap?.style?.removeLayer(CIRCLE_CENTER_LAYER_ID)
-        mMapboxMap?.style?.removeSource(CIRCLE_DRAGGABLE_VISIBLE_SOURCE_ID)
-        mMapboxMap?.style?.removeLayer(CIRCLE_DRAGGABLE_VISIBLE_LAYER_ID)
-        mMapboxMap?.style?.removeLayer(TURF_CALCULATION_FILL_LAYER_ID)
-        mMapboxMap?.style?.removeLayer(TURF_CALCULATION_LINE_LAYER_ID)
+        mMapLibreMap?.style?.removeSource(CIRCLE_CENTER_SOURCE_ID)
+        mMapLibreMap?.style?.removeLayer(CIRCLE_CENTER_LAYER_ID)
+        mMapLibreMap?.style?.removeSource(CIRCLE_DRAGGABLE_VISIBLE_SOURCE_ID)
+        mMapLibreMap?.style?.removeLayer(CIRCLE_DRAGGABLE_VISIBLE_LAYER_ID)
+        mMapLibreMap?.style?.removeLayer(TURF_CALCULATION_FILL_LAYER_ID)
+        mMapLibreMap?.style?.removeLayer(TURF_CALCULATION_LINE_LAYER_ID)
         mGeofenceMapLatLngInterface?.deleteInvisibleDraggableMarker(invisibleMarkerDragListener)
     }
 
     fun clearGeofence() {
         mIsDefaultGeofence = false
-        mMapboxMap?.style?.removeSource(CIRCLE_CENTER_SOURCE_ID)
-        mMapboxMap?.style?.removeLayer(CIRCLE_CENTER_LAYER_ID)
-        mMapboxMap?.style?.removeSource(CIRCLE_DRAGGABLE_VISIBLE_SOURCE_ID)
-        mMapboxMap?.style?.removeLayer(CIRCLE_DRAGGABLE_VISIBLE_LAYER_ID)
-        mMapboxMap?.style?.removeLayer(TURF_CALCULATION_FILL_LAYER_ID)
-        mMapboxMap?.style?.removeLayer(TURF_CALCULATION_LINE_LAYER_ID)
+        mMapLibreMap?.style?.removeSource(CIRCLE_CENTER_SOURCE_ID)
+        mMapLibreMap?.style?.removeLayer(CIRCLE_CENTER_LAYER_ID)
+        mMapLibreMap?.style?.removeSource(CIRCLE_DRAGGABLE_VISIBLE_SOURCE_ID)
+        mMapLibreMap?.style?.removeLayer(CIRCLE_DRAGGABLE_VISIBLE_LAYER_ID)
+        mMapLibreMap?.style?.removeLayer(TURF_CALCULATION_FILL_LAYER_ID)
+        mMapLibreMap?.style?.removeLayer(TURF_CALCULATION_LINE_LAYER_ID)
         mGeofenceMapLatLngInterface?.deleteInvisibleDraggableMarker(invisibleMarkerDragListener)
     }
 

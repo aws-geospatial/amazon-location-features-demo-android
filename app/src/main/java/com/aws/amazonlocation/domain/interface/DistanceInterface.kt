@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.domain.`interface`
 
+import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.CalculateRouteResponse
 import com.aws.amazonlocation.data.common.DataSourceException
 
@@ -8,7 +9,7 @@ import com.aws.amazonlocation.data.common.DataSourceException
 // SPDX-License-Identifier: MIT-0
 interface DistanceInterface {
 
-    fun distanceSuccess(success: CalculateRouteResponse) {}
+    fun distanceSuccess(success: CalculateRoutesResponse) {}
 
     fun distanceFailed(exception: DataSourceException) {}
 

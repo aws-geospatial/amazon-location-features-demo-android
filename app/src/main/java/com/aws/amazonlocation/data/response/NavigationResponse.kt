@@ -7,10 +7,6 @@ class NavigationResponse(
 
     var duration: String? = null,
     var distance: Double? = null,
-    var startLat: Double? = null,
-    var startLng: Double? = null,
-    var endLat: Double? = null,
-    var endLng: Double? = null,
     var destinationAddress: String? = null,
     var navigationList: ArrayList<NavigationData> = ArrayList()
 )

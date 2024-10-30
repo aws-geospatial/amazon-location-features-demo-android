@@ -2,28 +2,38 @@ package com.aws.amazonlocation.utils.analytics
 
 import android.os.Build
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
-import aws.sdk.kotlin.services.pinpoint.model.*
+import aws.sdk.kotlin.services.pinpoint.model.EndpointDemographic
+import aws.sdk.kotlin.services.pinpoint.model.EndpointLocation
+import aws.sdk.kotlin.services.pinpoint.model.EndpointRequest
+import aws.sdk.kotlin.services.pinpoint.model.EndpointUser
+import aws.sdk.kotlin.services.pinpoint.model.Event
+import aws.sdk.kotlin.services.pinpoint.model.EventsBatch
+import aws.sdk.kotlin.services.pinpoint.model.EventsRequest
+import aws.sdk.kotlin.services.pinpoint.model.PublicEndpoint
+import aws.sdk.kotlin.services.pinpoint.model.PutEventsRequest
+import aws.sdk.kotlin.services.pinpoint.model.Session
+import aws.sdk.kotlin.services.pinpoint.model.UpdateEndpointRequest
 import aws.smithy.kotlin.runtime.auth.awscredentials.CredentialsProvider
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.TimestampFormat
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.data.enum.AuthEnum
-import com.aws.amazonlocation.utils.AWSLocationHelper
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.DEFAULT_COUNTRY
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_END_POINT
 import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.utils.providers.LocationProvider
+import java.util.Locale
+import java.util.UUID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
-import java.util.UUID
 import kotlinx.coroutines.runBlocking
 
 class AnalyticsUtils(
-    private val mAWSLocationHelper: AWSLocationHelper,
+    private val mLocationProvider: LocationProvider,
     private val mPreferenceManager: PreferenceManager,
 ) {
     private var credentialProvider: CredentialsProvider?= null
@@ -34,7 +44,7 @@ class AnalyticsUtils(
     private var session: SessionData = SessionData()
 
     suspend fun initAnalytics() {
-        credentialProvider = mAWSLocationHelper.getAnalyticsCredentialProvider()
+        credentialProvider = mLocationProvider.getAnalyticsCredentialProvider()
         credentialProvider?.let {
             val region = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
             pinpointClient =
@@ -80,7 +90,7 @@ class AnalyticsUtils(
         properties: List<Pair<String, String>> = emptyList(),
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (!mAWSLocationHelper.isAnalyticsCredentialsValid()) {
+            if (!mLocationProvider.isAnalyticsCredentialsValid()) {
                 runBlocking { initAnalytics() }
             }
             val events: List<EventInput> =
@@ -109,7 +119,7 @@ class AnalyticsUtils(
             var authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
             when (mAuthStatus) {
                 AuthEnum.SIGNED_IN.name -> {
-                    mUserId = mAWSLocationHelper.getIdentityId()
+                    mUserId = mLocationProvider.getIdentityId()
                     connectedStatus =
                         AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
                     authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_AUTHENTICATED
@@ -178,7 +188,7 @@ class AnalyticsUtils(
                         }
                 }
             try {
-               pinpointClient?.putEvents(putEventsRequest)
+                pinpointClient?.putEvents(putEventsRequest)
                 if (sessionStopEvent != null){
                     session = SessionData()
                 }

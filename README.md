@@ -7,7 +7,7 @@ To use this code, you'll need an [AWS account](https://aws.amazon.com/) and reso
 
 Once configured, you can build and run the app locally or execute automated tests. The project includes unit and end-to-end UI tests.
 
-The app supports multiple map styles and providers like [Esri](https://docs.aws.amazon.com/location/latest/developerguide/esri.html), [HERE Technologies](https://docs.aws.amazon.com/location/latest/developerguide/HERE.html), [GrabMaps](https://docs.aws.amazon.com/location/latest/developerguide/grab.html), and [Open Data](https://docs.aws.amazon.com/location/latest/developerguide/open-data.html).
+The app supports the following map styles: `Standard`, `Monochrome`, `Hybrid` and `Satellite`
 
 Overall, this repo will help you get started with location-based features on Android using Amazon Location Services.
 
@@ -29,14 +29,11 @@ Below are the requirements for development, running and testing.
     - `PinPointAppId` value will be added to `custom.properties` file against `ANALYTICS_APP_ID`.
     - `WebSocketUrl` value will be added to `custom.properties` file against `SIMULATION_WEB_SOCKET_URL`.
     - Take region from IdentityPoolId (Character before ':') that value will be added to `custom.properties` file against `DEFAULT_REGION`.
-3. Run the [AWS CloudFormation template](https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create?stackName=amazon-location-default-unauth-resources&templateURL=https://amazon-location-demo-resources.s3.us-west-2.amazonaws.com/default-unauth-resources-template.yaml) or use the template from `/extra/default-unauth-resources-template.yaml` to create a cloudformation stack on AWS in `ap-southeast-1` region and get `IdentityPoolId`, `WebSocketUrl` from stack output's tab.
-    - `IdentityPoolId` value will be added to `custom.properties` file against `DEFAULT_IDENTITY_POOL_ID_AP`.
-    - `WebSocketUrl` value will be added to `custom.properties` file against `SIMULATION_WEB_SOCKET_URL_AP`.
-4. Run the [AWS CloudFormation template](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create?stackName=amazon-location-default-unauth-resources&templateURL=https://amazon-location-demo-resources.s3.us-west-2.amazonaws.com/default-unauth-resources-template.yaml) or use the template from `/extra/default-unauth-resources-template.yaml` to create a cloudformation stack on AWS in `eu-west-1` region and get `IdentityPoolId`, `WebSocketUrl` from stack output's tab.
+3. Run the [AWS CloudFormation template](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create?stackName=amazon-location-default-unauth-resources&templateURL=https://amazon-location-demo-resources.s3.us-west-2.amazonaws.com/default-unauth-resources-template.yaml) or use the template from `/extra/default-unauth-resources-template.yaml` to create a cloudformation stack on AWS in `eu-west-1` region and get `IdentityPoolId`, `WebSocketUrl` from stack output's tab.
     - `IdentityPoolId` value will be added to `custom.properties` file against `DEFAULT_IDENTITY_POOL_ID_EU`.
     - `WebSocketUrl` value will be added to `custom.properties` file against `SIMULATION_WEB_SOCKET_URL_EU`.
-5. After adding all above details in `custom.properties` file in Android studio then open `Build -> Clean project` after this run project.
-6. Run the [AWS CloudFormation template](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-resources-setup.s3.amazonaws.com/dev/main-cf-template.yaml) or use the template from `/extra/main-cf-template.yaml` using your own AWS account and get below data.
+4. After adding all above details in `custom.properties` file in Android studio then open `Build -> Clean project` after this run project.
+5. Run the [AWS CloudFormation template](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create?stackName=amazon-location-resources-setup&templateURL=https://amazon-location-resources-setup.s3.amazonaws.com/dev/main-cf-template.yaml) or use the template from `/extra/main-cf-template.yaml` using your own AWS account and get below data.
     - `IdentityPoolId` value will be added to `custom.properties` file against `IDENTITY_POOL_ID`.
     - `UserDomain` value will be added to `custom.properties` file against `USER_DOMAIN`.
     - `UserPoolClientId` value will be added to `custom.properties` file against `USER_POOL_CLIENT_ID`.
@@ -54,11 +51,11 @@ Create *`custom.properties`* file inside the project root folder and add the det
 |--------------------------------------|--------------------------------------------------------|
 | DEFAULT_IDENTITY_POOL_ID             | IdentityPoolId                                         |
 | DEFAULT_REGION                       | Take region from IdentityPoolId (Character before ':') |
-| DEFAULT_IDENTITY_POOL_ID_EU          | IdentityPoolId form eu-west-1 region                   |
-| DEFAULT_IDENTITY_POOL_ID_AP          | IdentityPoolId form ap-southeast-1 region              |
+| DEFAULT_IDENTITY_POOL_ID_EU          | IdentityPoolId from eu-west-1 region                   |
+| API_KEY_EU_CENTRAL                   | API key from eu-west-1 region                          |
+| API_KEY_US_EAST                      | API key from us-east-1 region                          |
 | SIMULATION_WEB_SOCKET_URL            | Simulation WebSocketUrl                                |
-| SIMULATION_WEB_SOCKET_URL_EU         | Simulation WebSocketUrl form eu-west-1 region          |
-| SIMULATION_WEB_SOCKET_URL_AP         | Simulation WebSocketUrl form ap-southeast-1 region     |
+| SIMULATION_WEB_SOCKET_URL_EU         | Simulation WebSocketUrl from eu-west-1 region          |
 | ANALYTICS_APP_ID                     | AnalyticsAppId                                         |
 | IDENTITY_POOL_ID                     | IdentityPoolId                                         |
 | USER_DOMAIN                          | UserDomain                                             |
@@ -72,10 +69,10 @@ Create *`custom.properties`* file inside the project root folder and add the det
 DEFAULT_IDENTITY_POOL_ID=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
 DEFAULT_REGION=xx-xxxx-x
 DEFAULT_IDENTITY_POOL_ID_EU=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
-DEFAULT_IDENTITY_POOL_ID_AP=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
+API_KEY_US_EAST=xx.xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+API_KEY_EU_CENTRAL=xx.xxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 SIMULATION_WEB_SOCKET_URL=xxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxxxx.com
 SIMULATION_WEB_SOCKET_URL_EU=xxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxxxx.com
-SIMULATION_WEB_SOCKET_URL_AP=xxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxxxx.com
 ANALYTICS_APP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
@@ -127,50 +124,23 @@ E2E tests can be executed by the following gradle commands. Test suites are conf
 Note: 
     1. Start the emulator before executing the commands.
     2. If working on windows(Powershell/cmd) wrap the argument in double quotes.
-        eg: ./gradlew app:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite"
+        eg: ./gradlew app:connectedDebugAndroidTest "-Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.MapLoadAndPlaceSearchFlowSuite"
 ```
 
 
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.DefaultConnectionFlowSuite2
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSTrackingAndConnectionTestSuite
-    ./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSGeofenceAndConnectionTestSuite
+     ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.MapLoadAndPlaceSearchFlowSuite
+     ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.SearchDirectionFlowSuite
+     ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.MapStylesSettingAndExplorerFlowSuite
+     ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSTrackingAndConnectionTestSuite
+     ./gradlew app:connectedDebugAndroidTest -i -Pandroid.testInstrumentationRunnerArguments.class=com.aws.amazonlocation.ui.AWSGeofenceAndConnectionTestSuite
 
 ## Resources
-> Maps (Name - Style)
-- location.aws.com.demo.maps.Esri.DarkGrayCanvas - VectorEsriDarkGrayCanvas
-- location.aws.com.demo.maps.Esri.Imagery - RasterEsriImagery
-- location.aws.com.demo.maps.Esri.Light - VectorEsriTopographic
-- location.aws.com.demo.maps.Esri.LightGrayCanvas - VectorEsriLightGrayCanvas
-- location.aws.com.demo.maps.Esri.Navigation - VectorEsriNavigation
-- location.aws.com.demo.maps.Esri.Streets - VectorEsriStreets
-- location.aws.com.demo.maps.HERE.Explore - VectorHereExplore
-- location.aws.com.demo.maps.HERE.Contrast - VectorHereContrast
-- location.aws.com.demo.maps.HERE.ExploreTruck - VectorHereExploreTruck
-- location.aws.com.demo.maps.HERE.Hybrid - HybridHereExploreSatellite
-- location.aws.com.demo.maps.HERE.Imagery - RasterHereExploreSatellite
-- location.aws.com.demo.maps.Grab.StandardLight - VectorGrabStandardLight
-- location.aws.com.demo.maps.Grab.StandardDark - VectorGrabStandardDark
-- location.aws.com.demo.maps.OpenData.StandardLight - VectorOpenDataStandardLight
-- location.aws.com.demo.maps.OpenData.StandardDark - VectorOpenDataStandardDark
-- location.aws.com.demo.maps.OpenData.VisualizationLight - VectorOpenDataVisualizationLight
-- location.aws.com.demo.maps.OpenData.VisualizationDark - VectorOpenDataVisualizationDark
-
-> Place indexes (Name)
-- location.aws.com.demo.places.Esri.PlaceIndex
-- location.aws.com.demo.places.HERE.PlaceIndex
-- location.aws.com.demo.places.Grab.PlaceIndex
-
-> Route calculators (Name)
-- location.aws.com.demo.routes.Esri.RouteCalculator
-- location.aws.com.demo.routes.HERE.RouteCalculator
-- location.aws.com.demo.routes.Grab.RouteCalculator
-
 > Geofence collections (Name)
 - location.aws.com.demo.geofences.GeofenceCollection
 
 > Trackers (Name)
 - location.aws.com.demo.trackers.Tracker
+
 ## Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md) for more information.

@@ -1,7 +1,10 @@
 package com.aws.amazonlocation.ui.main.web_view
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.databinding.ActivityWebViewBinding
@@ -23,5 +26,14 @@ class WebViewActivity : BaseActivity() {
         val webSettings = mBinding.webView.settings
         webSettings.domStorageEnabled = true
         webSettings.javaScriptEnabled = true
+        mBinding.webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+            }
+        }
     }
 }

@@ -16,13 +16,13 @@ class UnitsGetMetricsTest : BaseTest() {
     private val context: Context = RuntimeEnvironment.getApplication().applicationContext
     @Test
     fun getMetricsSuccess() {
-        var result = Units.getMetricsNew(context, UNIT_METRICS_M_INPUT_1, true)
+        var result = Units.getMetricsNew(context, UNIT_METRICS_M_INPUT_1, true, isMeterToFeetNeeded = false)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == UNIT_METRICS_M_OUTPUT_2)
-        result = Units.getMetricsNew(context, UNIT_METRICS_M_INPUT_2, true)
+        result = Units.getMetricsNew(context, UNIT_METRICS_M_INPUT_2, true, isMeterToFeetNeeded = false)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == UNIT_METRICS_M_OUTPUT_2)
-        result = Units.getMetricsNew(context, UNIT_METRICS_I_INPUT_1, false)
+        result = Units.getMetricsNew(context, UNIT_METRICS_I_INPUT_1, false, isMeterToFeetNeeded = false)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == UNIT_METRICS_I_OUTPUT_2)
-        result = Units.getMetricsNew(context, UNIT_METRICS_I_INPUT_2, false)
+        result = Units.getMetricsNew(context, UNIT_METRICS_I_INPUT_2, false, isMeterToFeetNeeded = false)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, result == UNIT_METRICS_I_OUTPUT_2)
     }
 }
