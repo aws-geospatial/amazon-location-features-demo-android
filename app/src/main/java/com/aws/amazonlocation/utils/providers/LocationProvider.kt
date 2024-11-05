@@ -83,7 +83,6 @@ class LocationProvider(
             getRoutesClient =
                 GeoRoutesClient {
                     region = mRegion
-                    endpointUrl = Url.parse("https://geo.$mRegion.amazonaws.com/v2")
                     credentialsProvider = createEmptyCredentialsProvider()
                 }
         }
@@ -91,7 +90,6 @@ class LocationProvider(
             getPlaceClient =
                 GeoPlacesClient {
                     region = mRegion
-                    endpointUrl = Url.parse("https://geo.$mRegion.amazonaws.com/v2")
                     credentialsProvider = createEmptyCredentialsProvider()
                 }
         }
