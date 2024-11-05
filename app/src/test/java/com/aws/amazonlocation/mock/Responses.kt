@@ -18,8 +18,6 @@ import aws.sdk.kotlin.services.georoutes.model.RouteLegType
 import aws.sdk.kotlin.services.georoutes.model.RouteMajorRoadLabel
 import aws.sdk.kotlin.services.georoutes.model.RoutePassThroughPlace
 import aws.sdk.kotlin.services.georoutes.model.RoutePassThroughWaypoint
-import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianAfterTravelStep
-import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianAfterTravelStepType
 import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianLegDetails
 import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianNotice
 import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianNoticeCode
@@ -27,8 +25,6 @@ import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianSummary
 import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianTravelStep
 import aws.sdk.kotlin.services.georoutes.model.RoutePedestrianTravelStepType
 import aws.sdk.kotlin.services.georoutes.model.RouteSummary
-import aws.sdk.kotlin.services.georoutes.model.RouteVehicleAfterTravelStep
-import aws.sdk.kotlin.services.georoutes.model.RouteVehicleAfterTravelStepType
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleIncident
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleIncidentType
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleLegDetails
@@ -37,7 +33,7 @@ import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNoticeCode
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNoticeDetail
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleSummary
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleTravelStep
-import aws.sdk.kotlin.services.georoutes.model.RoutesVehicleTravelStepType
+import aws.sdk.kotlin.services.georoutes.model.RouteVehicleTravelStepType
 import aws.sdk.kotlin.services.location.model.BatchDeleteDevicePositionHistoryResponse
 import aws.sdk.kotlin.services.location.model.Circle
 import aws.sdk.kotlin.services.location.model.DevicePosition
@@ -180,27 +176,19 @@ object Responses {
                                         }
                                     vehicleLegDetails =
                                         RouteVehicleLegDetails {
-                                            afterTravelSteps =
-                                                listOf(
-                                                    RouteVehicleAfterTravelStep {
-                                                        duration = 2
-                                                        instruction = "test"
-                                                        type = RouteVehicleAfterTravelStepType.Wait
-                                                    },
-                                                )
                                             travelSteps =
                                                 listOf(
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 32
                                                         geometryOffset = 1
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 16
                                                         geometryOffset = 4
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                 )
                                             incidents =
@@ -279,27 +267,19 @@ object Responses {
                                         }
                                     vehicleLegDetails =
                                         RouteVehicleLegDetails {
-                                            afterTravelSteps =
-                                                listOf(
-                                                    RouteVehicleAfterTravelStep {
-                                                        duration = 2
-                                                        instruction = "test"
-                                                        type = RouteVehicleAfterTravelStepType.Wait
-                                                    },
-                                                )
                                             travelSteps =
                                                 listOf(
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 32
                                                         geometryOffset = 1
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 16
                                                         geometryOffset = 4
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                 )
                                             incidents =
@@ -378,14 +358,6 @@ object Responses {
                                         }
                                     pedestrianLegDetails =
                                         RoutePedestrianLegDetails {
-                                            afterTravelSteps =
-                                                listOf(
-                                                    RoutePedestrianAfterTravelStep {
-                                                        duration = 2
-                                                        instruction = "test"
-                                                        type = RoutePedestrianAfterTravelStepType.Wait
-                                                    },
-                                                )
                                             travelSteps =
                                                 listOf(
                                                     RoutePedestrianTravelStep {
@@ -463,27 +435,19 @@ object Responses {
                                         }
                                     vehicleLegDetails =
                                         RouteVehicleLegDetails {
-                                            afterTravelSteps =
-                                                listOf(
-                                                    RouteVehicleAfterTravelStep {
-                                                        duration = 2
-                                                        instruction = "test"
-                                                        type = RouteVehicleAfterTravelStepType.Wait
-                                                    },
-                                                )
                                             travelSteps =
                                                 listOf(
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 32
                                                         geometryOffset = 1
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                     RouteVehicleTravelStep {
                                                         distance = 10
                                                         duration = 16
                                                         geometryOffset = 4
-                                                        type = RoutesVehicleTravelStepType.Depart
+                                                        type = RouteVehicleTravelStepType.Depart
                                                     },
                                                 )
                                             incidents =
