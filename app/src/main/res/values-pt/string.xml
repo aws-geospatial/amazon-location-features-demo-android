@@ -254,4 +254,9 @@
   <string name="description_tza">Tanzânia\'s olhar em Lago Malawi</string>
   <string name="description_ury">Uruguai\'s olhar em Rincon de Artigas</string>
   <string name="description_vnm">Vietnã\'s olhar em a Paracel Ilhas e Spratly Ilhas</string>
+  <string name="label_required_fields_missing">Obrigatório configuração chaves está desaparecido, e a aplicativo não pode função sem eles. O segue chaves está ausente:\n</string>
+  <string name="label_some_fields_missing">Alguns configuração chaves está desaparecido. Mapa, Pesquisar, Lugares, e Rota está disponível, mas Simulação e Análise está deficiente até a segue chaves está adicionado:\n</string>
+  <string name="label_simulation_fields_missing">Alguns configuração chaves está desaparecido. Mapa, Pesquisar, Lugares, e Rota está disponível, mas Simulação é deficiente até a segue chaves está adicionado:\n</string>
+  <string name="label_analytics_fields_missing">Análise rastreamento é deficiente porque a segue configuração chaves está ausente:\n</string>
+  <string name="title_configuration_incomplete">Configuração Incompleto</string>
 </resources>

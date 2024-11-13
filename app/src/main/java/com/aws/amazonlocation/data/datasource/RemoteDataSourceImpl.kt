@@ -48,8 +48,8 @@ class RemoteDataSourceImpl(
         if (mContext.isInternetAvailable()) {
             val mSearchSuggestionResponse =
                 mPlacesProvider.searchPlaceSuggestion(lat, lng, searchText, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
-            if (validateLatLng(searchText) != null) {
-                val mLatLng = validateLatLng(searchText)
+            if (validateLatLng(searchText.trim()) != null) {
+                val mLatLng = validateLatLng(searchText.trim())
                 if (mSearchSuggestionResponse.text == (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())) {
                     searchPlace.getSearchPlaceSuggestionResponse(mSearchSuggestionResponse)
                 } else {

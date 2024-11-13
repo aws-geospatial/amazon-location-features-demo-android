@@ -254,4 +254,9 @@
   <string name="description_tza">تنزانيا منظر في بحيرة مالاوي</string>
   <string name="description_ury">الأوروغواي منظر في رينكون دي أرتيجاس</string>
   <string name="description_vnm">فيتنام منظر في ال باراسيل الجزر و سبراتلي الجزر</string>
+  <string name="label_required_fields_missing">مطلوب التكوين مفاتيح يكونوا في عداد المفقودين، و ال تطبيق غير قادر وظيفة بدون هم. ال التالي مفاتيح يكونوا مفقود:\n</string>
+  <string name="label_some_fields_missing">بعض التكوين مفاتيح يكونوا مفقود. خريطة، ابحث، الأماكن، و المسار يكونوا متاح، لكن محاكاة و تحليلات يكونوا معاق حتى ال التالي مفاتيح يكونوا وأضاف:\n</string>
+  <string name="label_simulation_fields_missing">بعض التكوين مفاتيح يكونوا مفقود. خريطة، ابحث، الأماكن، و المسار يكونوا متاح، لكن محاكاة هو معاق حتى ال التالي مفاتيح يكونوا وأضاف:\n</string>
+  <string name="label_analytics_fields_missing">تحليلات تتبع هو معاق بسبب ال التالي التكوين مفاتيح يكونوا مفقود:\n</string>
+  <string name="title_configuration_incomplete">التكوين غير مكتمل</string>
 </resources>

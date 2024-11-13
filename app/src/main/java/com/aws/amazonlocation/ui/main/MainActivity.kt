@@ -1,6 +1,7 @@
 package com.aws.amazonlocation.ui.main
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -14,7 +15,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -79,22 +79,23 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
 import com.aws.amazonlocation.utils.NetworkConnectivityObserveInterface
-import com.aws.amazonlocation.utils.PREFS_KEY_IDENTITY_ID
-import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.SETTING_FRAGMENT
 import com.aws.amazonlocation.utils.SIGN_IN
 import com.aws.amazonlocation.utils.SIGN_OUT
 import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.VERSION_FRAGMENT
 import com.aws.amazonlocation.utils.analytics.AnalyticsUtils
+import com.aws.amazonlocation.utils.analyticsFields
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
 import com.aws.amazonlocation.utils.invisible
 import com.aws.amazonlocation.utils.makeTransparentStatusBar
+import com.aws.amazonlocation.utils.requiredFields
 import com.aws.amazonlocation.utils.setLocale
 import com.aws.amazonlocation.utils.show
 import com.aws.amazonlocation.utils.showViews
+import com.aws.amazonlocation.utils.simulationFields
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -102,7 +103,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -122,14 +122,7 @@ class MainActivity :
     private var alertDialog: Dialog? = null
     private var currentPage: String? = null
     private var connectivityObserver: ConnectivityObserveInterface? = null
-    private var encryptedSharedPreferences: EncryptedSharedPreferences? = null
     var analyticsUtils: AnalyticsUtils? = null
-    private val mServiceName = "geo"
-
-    var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            checkMap()
-        }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -310,13 +303,6 @@ class MainActivity :
             }
         }
         initClick()
-        if (encryptedSharedPreferences == null) {
-            encryptedSharedPreferences =
-                EncryptedSharedPreferences(
-                    applicationContext,
-                    PREFS_NAME_AUTH,
-                ).apply { initEncryptedSharedPreferences() }
-        }
         KeyBoardUtils.attachKeyboardListeners(
             mBinding.root,
             object : KeyBoardUtils.KeyBoardInterface {
@@ -425,14 +411,14 @@ class MainActivity :
                                 "",
                             ) != AuthEnum.SIGNED_IN.name
                         ) {
-                            mLocationProvider.locationCredentialsProvider?.clear()
+                            mLocationProvider.clearCredentials()
                         }
                         mPreferenceManager.setValue(
                             KEY_CLOUD_FORMATION_STATUS,
                             AuthEnum.SIGNED_IN.name,
                         )
                         mBottomSheetDialog?.dismiss()
-                        async { mLocationProvider.generateNewAuthCredentials(authHelper) }.await()
+                        async { mLocationProvider.generateNewAuthCredentials() }.await()
                         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         getTokenAndAttachPolicy()
                         val propertiesAws =
@@ -659,6 +645,7 @@ class MainActivity :
                 var mRegion = mPreferenceManager.getValue(KEY_USER_REGION, "")
 
                 if (mRegion.isNullOrEmpty()) {
+                    if (BuildConfig.DEFAULT_REGION == "null") return@launch
                     mRegion = BuildConfig.DEFAULT_REGION
                 }
                 val iotClient =
@@ -706,7 +693,8 @@ class MainActivity :
     }
 
     private fun setSimulationIotPolicy() {
-        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
+        val identityId = mLocationProvider.getIdentityId()
+        if (identityId.isNullOrEmpty()) return
         CoroutineScope(Dispatchers.IO).launch {
             val attachPolicyRequest =
                 AttachPolicyRequest {
@@ -716,7 +704,7 @@ class MainActivity :
 
             val iotClient =
                 IotClient {
-                    region = identityId?.split(":")?.get(0)
+                    region = identityId.split(":")[0]
                     credentialsProvider =
                         createCredentialsProviderForPolicy(
                             mLocationProvider.getCredentials(),
@@ -951,7 +939,7 @@ class MainActivity :
         mBinding.imgAmazonLogo?.setImageResource(logoResId)
     }
 
-    fun setExplorer() {
+    private fun setExplorer() {
         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
         if (fragment !is ExploreFragment) {
             mNavController.navigate(R.id.explore_fragment)
@@ -1015,7 +1003,6 @@ class MainActivity :
         mTrackingUtils?.hideTrackingBottomSheet()
         mSimulationUtils?.showSimulationBottomSheet()
         if (mNavHostFragment.childFragmentManager.fragments.isNotEmpty()) {
-            val fragment = mNavHostFragment.childFragmentManager.fragments[0]
             if (fragment is ExploreFragment) {
                 if (isTablet) {
                     fragment.hideDirectionAndCurrentLocationIcon()
@@ -1217,7 +1204,64 @@ class MainActivity :
         }
     }
 
-    fun setWelcomeToExplorer() {
+    fun checkPropertiesData() {
+        val missingRequiredFields = requiredFields.filter { it.value == "null" }.keys
+        val simulationMissingFields = simulationFields.filter { it.value == "null" }.keys
+        val analyticsMissingFields = analyticsFields.filter { it.value == "null" }.keys
+
+        if (missingRequiredFields.isNotEmpty() || simulationMissingFields.isNotEmpty() || analyticsMissingFields.isNotEmpty()) {
+            val dialogMessage = buildString {
+                when {
+                    missingRequiredFields.isNotEmpty() -> {
+                        append(getString(R.string.label_required_fields_missing))
+                        append("\n")
+                        missingRequiredFields.forEach { append("• $it\n") }
+                        simulationMissingFields.forEach { append("• $it\n") }
+                        analyticsMissingFields.forEach { append("• $it\n") }
+                    }
+                    simulationMissingFields.isNotEmpty() && analyticsMissingFields.isNotEmpty() -> {
+                        append(getString(R.string.label_some_fields_missing))
+                        append("\n")
+                        simulationMissingFields.forEach { append("• $it\n") }
+                        analyticsMissingFields.forEach { append("• $it\n") }
+                    }
+                    simulationMissingFields.isNotEmpty() -> {
+                        append(getString(R.string.label_simulation_fields_missing))
+                        append("\n")
+                        simulationMissingFields.forEach { append("• $it\n") }
+                    }
+                    analyticsMissingFields.isNotEmpty() -> {
+                        append(getString(R.string.label_analytics_fields_missing))
+                        append("\n")
+                        analyticsMissingFields.forEach { append("• $it\n") }
+                    }
+                }
+            }
+
+            val dialogTitle = getString(R.string.title_configuration_incomplete)
+            val positiveButtonText = if (missingRequiredFields.isNotEmpty()) {
+                getString(R.string.ok)
+            } else {
+                getString(R.string.label_continue)
+            }
+
+            AlertDialog
+                .Builder(this)
+                .setTitle(dialogTitle)
+                .setMessage(dialogMessage)
+                .setPositiveButton(positiveButtonText) { _, _ ->
+                    if (missingRequiredFields.isNotEmpty()) {
+                        finish()
+                    } else {
+                        setWelcomeToExplorer()
+                    }
+                }.setCancelable(false).show()
+        } else {
+            setWelcomeToExplorer()
+        }
+    }
+
+    private fun setWelcomeToExplorer() {
         mPreferenceManager.setValue(IS_APP_FIRST_TIME_OPENED, true)
         isAppNotFirstOpened = true
         val fragment =
@@ -1249,11 +1293,12 @@ class MainActivity :
         }
     }
 
-    fun initClient(isAfterSignOut:Boolean = false){
+    fun initClient(isAfterSignOut: Boolean = false) {
         if (!isAfterSignOut) {
             try {
-                mLocationProvider.locationCredentialsProvider?.clear()
-            } catch (_: Exception) { }
+                mLocationProvider.clearCredentials()
+            } catch (_: Exception) {
+            }
         }
         CoroutineScope(Dispatchers.IO).launch {
             async { initMobileClient() }.await()

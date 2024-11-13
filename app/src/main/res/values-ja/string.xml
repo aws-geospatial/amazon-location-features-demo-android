@@ -254,4 +254,9 @@
   <string name="description_tza">タンザニア 見る オン 湖 マラウイ</string>
   <string name="description_ury">ウルグアイ\ 見る オン リンコン de アルティガス</string>
   <string name="description_vnm">ベトナムの 見る オン その パラセル 島々 そして スプラトリー 島々</string>
+  <string name="label_required_fields_missing">必須 設定 キー です 行方不明、 そして その 応用 できない 関数 なし それら。 ザの 以下 キー です 見つからない:\n</string>
+  <string name="label_some_fields_missing">一部 設定 キー です 行方不明。 マップ、 検索、 場所、 そして ルート です 利用可能、 しかし シミュレーション そして 分析 です 無効になっています まで その 以下 キー です 追加されました:\n</string>
+  <string name="label_simulation_fields_missing">一部 設定 キー です 行方不明。 マップ、 検索、 場所、 そして ルート です 利用可能、 しかし シミュレーション です 無効になっています まで その 以下 キー です 追加されました:\n</string>
+  <string name="label_analytics_fields_missing">分析 追跡 です 無効になっています なぜなら その 以下 設定 キー です 見つからない:\n</string>
+  <string name="title_configuration_incomplete">コンフィギュレーション 不完全</string>
 </resources>

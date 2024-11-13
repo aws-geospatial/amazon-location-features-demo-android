@@ -254,4 +254,9 @@
   <string name="description_tza">坦桑尼亚的 观点 上 湖 马拉维</string>
   <string name="description_ury">乌拉圭 观点 上 林康 de 阿蒂加斯</string>
   <string name="description_vnm">越南 观点 上 这 帕拉塞尔 岛屿 和 南沙群岛 岛屿</string>
+  <string name="label_required_fields_missing">必填项 配置 钥匙 是 失踪， 和 这 应用程序 不能 功能 没有 他们。 这个 以下 钥匙 是 缺失：\n</string>
+  <string name="label_some_fields_missing">一些 配置 钥匙 是 失踪。 地图， 搜索， 地方， 和 路线 是 可用， 但是 模拟 和 分析 是 残疾的 直到 这 以下 钥匙 是 已添加：\n</string>
+  <string name="label_simulation_fields_missing">一些 配置 钥匙 是 失踪。 地图， 搜索， 地方， 和 路线 是 可用， 但是 模拟 是 残疾的 直到 这 以下 钥匙 是 已添加：\n</string>
+  <string name="label_analytics_fields_missing">分析 追踪 是 残疾的 因为 这 以下 配置 钥匙 是 缺失：\n</string>
+  <string name="title_configuration_incomplete">配置 不完整</string>
 </resources>

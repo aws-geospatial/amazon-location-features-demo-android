@@ -254,4 +254,9 @@
   <string name="description_tza">तंज़ानिया\'s राय के ऊपर झील मलावी</string>
   <string name="description_ury">उरुग्वे\'s राय के ऊपर रिनकोन डी अर्टिगास</string>
   <string name="description_vnm">वियतनाम का राय के ऊपर यह पैरासेल द्वीप समूह और स्प्रैटली द्वीप समूह</string>
+  <string name="label_required_fields_missing">ज़रूरी कॉन्फ़िगरेशन चांबियाँ हैं गुम, और यह आवेदन नहीं कर सकता समारोह बगैर उन्हें। द निम्नलिखित चांबियाँ हैं अनुपलब्ध:\n</string>
+  <string name="label_some_fields_missing">कुछ कॉन्फ़िगरेशन चांबियाँ हैं लापता। नक्शा, खोजें, जगहें, और रूट हैं उपलब्ध, परंतु सिमुलेशन और एनालिटिक्स हैं दिव्यांग जब तक यह निम्नलिखित चांबियाँ हैं जोड़ा गया:\n</string>
+  <string name="label_simulation_fields_missing">कुछ कॉन्फ़िगरेशन चांबियाँ हैं लापता। नक्शा, खोजें, जगहें, और रूट हैं उपलब्ध, परंतु सिमुलेशन है दिव्यांग जब तक यह निम्नलिखित चांबियाँ हैं जोड़ा गया:\n</string>
+  <string name="label_analytics_fields_missing">एनालिटिक्स नज़र रखना है दिव्यांग इसलिये यह निम्नलिखित कॉन्फ़िगरेशन चांबियाँ हैं अनुपलब्ध:\n</string>
+  <string name="title_configuration_incomplete">कॉन्फ़िगरेशन अधूरा</string>
 </resources>

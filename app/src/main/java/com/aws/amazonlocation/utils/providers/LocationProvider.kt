@@ -9,7 +9,6 @@ import aws.sdk.kotlin.services.georoutes.GeoRoutesClient
 import aws.sdk.kotlin.services.location.LocationClient
 import aws.smithy.kotlin.runtime.auth.awscredentials.Credentials
 import aws.smithy.kotlin.runtime.auth.awscredentials.CredentialsProvider
-import aws.smithy.kotlin.runtime.net.url.Url
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.epochMilliseconds
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
@@ -58,7 +57,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import software.amazon.location.auth.AuthHelper
-import software.amazon.location.auth.LocationCredentialsProvider
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -69,7 +67,6 @@ class LocationProvider(
     private var mIdentityId: String? = null
     private var region: String? = null
     private var locationClient: LocationClient? = null
-    var locationCredentialsProvider: LocationCredentialsProvider? = null
     private var credentials: aws.sdk.kotlin.services.cognitoidentity.model.Credentials? = null
     private var mBaseActivity: BaseActivity? = null
     private var cognitoIdentityClient: CognitoIdentityClient? = null
@@ -77,31 +74,31 @@ class LocationProvider(
     private var getRoutesClient: GeoRoutesClient?= null
     private var getPlaceClient: GeoPlacesClient?= null
 
-    fun initPlaceRoutesClients() {
+    suspend fun initPlaceRoutesClients(baseActivity: BaseActivity) {
         val mRegion = Units.getRegion(mPreferenceManager)
+        val apiKey = Units.getApiKey(mPreferenceManager)
+        if (apiKey == "null") return
+        val credentialProvider =
+            CoroutineScope(Dispatchers.Main)
+                .async {
+                    AuthHelper.withApiKey(apiKey, mRegion, baseActivity.applicationContext)
+                }.await()
         if (getRoutesClient == null) {
             getRoutesClient =
-                GeoRoutesClient {
-                    region = mRegion
-                    credentialsProvider = createEmptyCredentialsProvider()
-                }
+                GeoRoutesClient(credentialProvider.getGeoRoutesClientConfig())
+
         }
         if (getPlaceClient== null) {
             getPlaceClient =
-                GeoPlacesClient {
-                    region = mRegion
-                    credentialsProvider = createEmptyCredentialsProvider()
-                }
+                GeoPlacesClient(credentialProvider.getGeoPlacesClientConfig())
         }
+        mBaseActivity = baseActivity
     }
 
-    suspend fun initializeLocationCredentialsProvider(
-        authHelper: AuthHelper,
-        baseActivity: BaseActivity,
-    ) {
+    suspend fun initializeLocationCredentialsProvider(baseActivity: BaseActivity) {
         val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
         if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
-            initializeAuthLocationCredentialsProvider(authHelper, baseActivity)
+            initializeAuthLocationCredentialsProvider(baseActivity)
         } else {
             var defaultIdentityPoolId: String =
                 getDefaultIdentityPoolId(
@@ -117,20 +114,22 @@ class LocationProvider(
                     "",
                 ).toString()
             }
+            if (defaultIdentityPoolId == "null") return
             val defaultRegion = defaultIdentityPoolId.split(":")[0]
             region = defaultRegion
-            locationCredentialsProvider =
-                CoroutineScope(Dispatchers.Main)
-                    .async {
-                        authHelper.authenticateWithCognitoIdentityPool(defaultIdentityPoolId)
-                    }.await()
-            locationClient = locationCredentialsProvider?.getLocationClient()
+            region?.let {
+                val credentialProvider =
+                    CoroutineScope(Dispatchers.Main)
+                        .async {
+                            generateUnAuthCredentials(it, defaultIdentityPoolId, false)
+                        }.await()
+                locationClient = credentialProvider?.let { it1 -> generateLocationClient(it, it1) }
+            }
             mBaseActivity = baseActivity
         }
     }
 
     private suspend fun initializeAuthLocationCredentialsProvider(
-        authHelper: AuthHelper,
         baseActivity: BaseActivity,
     ) {
         mBaseActivity = baseActivity
@@ -145,7 +144,7 @@ class LocationProvider(
                 expiration == 0L ||
                 isAuthTokenExpired()
             ) {
-                generateNewAuthCredentials(authHelper)
+                generateNewAuthCredentials()
             } else {
                 region = mPreferenceManager.getValue(KEY_USER_REGION, "").toString()
                 credentials =
@@ -162,22 +161,16 @@ class LocationProvider(
                         credentials?.sessionToken!!,
                         credentials?.expiration?.epochMilliseconds!!,
                     )
-                locationCredentialsProvider =
-                    CoroutineScope(Dispatchers.Main)
-                        .async {
-                            authHelper.authenticateWithCredentialsProvider(
-                                region!!,
-                                credentialsProvider,
-                            )
-                        }.await()
-                locationClient = locationCredentialsProvider?.getLocationClient()
+                region?.let {
+                    locationClient = generateLocationClient(it, credentialsProvider)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    suspend fun generateNewAuthCredentials(authHelper: AuthHelper) {
+    suspend fun generateNewAuthCredentials() {
         try {
             region = mPreferenceManager.getValue(KEY_USER_REGION, "").toString()
             cognitoIdentityClient = generateCognitoIdentityClient(region)
@@ -211,33 +204,27 @@ class LocationProvider(
 
             credentials = getCredentialsResponse?.credentials
             if (credentials != null) {
-                credentials?.let {
-                    if (it.accessKeyId == null ||
-                        it.secretKey == null ||
-                        it.sessionToken == null
+                credentials?.let { cred ->
+                    if (cred.accessKeyId == null ||
+                        cred.secretKey == null ||
+                        cred.sessionToken == null
                     ) {
                         throw Exception("Credentials generation failed")
                     }
-                    mPreferenceManager.setValue(KEY_ACCESS_KEY, it.accessKeyId!!)
-                    mPreferenceManager.setValue(KEY_SECRET_KEY, it.secretKey!!)
-                    mPreferenceManager.setValue(KEY_SESSION_TOKEN, it.sessionToken!!)
-                    mPreferenceManager.setValue(KEY_EXPIRATION, it.expiration?.epochMilliseconds!!)
+                    mPreferenceManager.setValue(KEY_ACCESS_KEY, cred.accessKeyId!!)
+                    mPreferenceManager.setValue(KEY_SECRET_KEY, cred.secretKey!!)
+                    mPreferenceManager.setValue(KEY_SESSION_TOKEN, cred.sessionToken!!)
+                    mPreferenceManager.setValue(KEY_EXPIRATION, cred.expiration?.epochMilliseconds!!)
                     val credentialsProvider =
                         createCredentialsProvider(
-                            it.accessKeyId!!,
-                            it.secretKey!!,
-                            it.sessionToken!!,
-                            it.expiration?.epochMilliseconds!!,
+                            cred.accessKeyId!!,
+                            cred.secretKey!!,
+                            cred.sessionToken!!,
+                            cred.expiration?.epochMilliseconds!!,
                         )
-                    locationCredentialsProvider =
-                        CoroutineScope(Dispatchers.Main)
-                            .async {
-                                authHelper.authenticateWithCredentialsProvider(
-                                    region!!,
-                                    credentialsProvider,
-                                )
-                            }.await()
-                    locationClient = locationCredentialsProvider?.getLocationClient()
+                    region?.let {
+                        locationClient = generateLocationClient(it, credentialsProvider)
+                    }
                 }
             } else {
                 throw Exception("Credentials generation failed")
@@ -247,30 +234,33 @@ class LocationProvider(
         }
     }
     suspend fun getAnalyticsCredentialProvider(): CredentialsProvider? {
+        if (BuildConfig.ANALYTICS_IDENTITY_POOL_ID == "null") return null
         val defaultIdentityPoolId = BuildConfig.ANALYTICS_IDENTITY_POOL_ID
         val defaultRegion = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
-        return generateCredentials(defaultRegion, defaultIdentityPoolId)
+        return generateUnAuthCredentials(defaultRegion, defaultIdentityPoolId, true)
     }
 
-    private suspend fun generateCredentials(region: String, identityPoolId: String): CredentialsProvider? {
+    private suspend fun generateUnAuthCredentials(region: String, identityPoolId: String, isForAnalytics: Boolean): CredentialsProvider? {
         val cognitoIdentityClient = CognitoIdentityClient { this.region = region }
         try {
-            val accessKey = mPreferenceManager.getValue(KEY_ANALYTICS_ACCESS_KEY, "")
-            val secretKey = mPreferenceManager.getValue(KEY_ANALYTICS_SECRET_KEY, "")
-            val sessionToken = mPreferenceManager.getValue(KEY_ANALYTICS_SESSION_TOKEN, "")
-            val expiration = mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L)
+            val accessKey = if (isForAnalytics) mPreferenceManager.getValue(KEY_ANALYTICS_ACCESS_KEY, "") else mPreferenceManager.getValue(KEY_ACCESS_KEY, "")
+            val secretKey = if (isForAnalytics) mPreferenceManager.getValue(KEY_ANALYTICS_SECRET_KEY, "") else mPreferenceManager.getValue(KEY_SECRET_KEY, "")
+            val sessionToken = if (isForAnalytics) mPreferenceManager.getValue(KEY_ANALYTICS_SESSION_TOKEN, "") else mPreferenceManager.getValue(KEY_SESSION_TOKEN, "")
+            val expiration = if (isForAnalytics) mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L) else mPreferenceManager.getLongValue(KEY_EXPIRATION, 0L)
             if (accessKey.isNullOrEmpty() ||
                 secretKey.isNullOrEmpty() ||
                 sessionToken.isNullOrEmpty() ||
                 expiration == 0L ||
-                !isAnalyticsCredentialsValid()
+                !isUnAuthCredentialsValid(isForAnalytics)
             ) {
                 val getIdResponse = cognitoIdentityClient.getId(GetIdRequest {
                     this.identityPoolId = identityPoolId
                 })
                 val identityId =
                     getIdResponse.identityId ?: throw Exception("Failed to get identity ID")
+
                 if (identityId.isNotEmpty()) {
+                    if (!isForAnalytics) mPreferenceManager.setValue(KEY_IDENTITY_ID, identityId)
                     val getCredentialsResponse =
                         cognitoIdentityClient.getCredentialsForIdentity(
                             GetCredentialsForIdentityRequest {
@@ -283,10 +273,25 @@ class LocationProvider(
                     if (credentials.accessKeyId == null || credentials.secretKey == null || credentials.sessionToken == null || credentials.expiration == null) throw Exception(
                         "Credentials generation failed"
                     )
-                    mPreferenceManager.setValue(KEY_ANALYTICS_ACCESS_KEY, credentials.accessKeyId!!)
-                    mPreferenceManager.setValue(KEY_ANALYTICS_SECRET_KEY, credentials.secretKey!!)
-                    mPreferenceManager.setValue(KEY_ANALYTICS_SESSION_TOKEN, credentials.sessionToken!!)
-                    mPreferenceManager.setValue(KEY_ANALYTICS_EXPIRATION, credentials.expiration!!.epochMilliseconds)
+
+                    if (isForAnalytics) {
+                        mPreferenceManager.setValue(KEY_ANALYTICS_ACCESS_KEY, credentials.accessKeyId!!)
+                        mPreferenceManager.setValue(KEY_ANALYTICS_SECRET_KEY, credentials.secretKey!!)
+                        mPreferenceManager.setValue(KEY_ANALYTICS_SESSION_TOKEN, credentials.sessionToken!!)
+                        mPreferenceManager.setValue(KEY_ANALYTICS_EXPIRATION, credentials.expiration!!.epochMilliseconds)
+                    } else {
+                        this.credentials =
+                            aws.sdk.kotlin.services.cognitoidentity.model.Credentials {
+                                this.accessKeyId = credentials.accessKeyId
+                                this.secretKey = credentials.secretKey
+                                this.sessionToken = credentials.sessionToken
+                                this.expiration = credentials.expiration
+                            }
+                        mPreferenceManager.setValue(KEY_ACCESS_KEY, credentials.accessKeyId!!)
+                        mPreferenceManager.setValue(KEY_SECRET_KEY, credentials.secretKey!!)
+                        mPreferenceManager.setValue(KEY_SESSION_TOKEN, credentials.sessionToken!!)
+                        mPreferenceManager.setValue(KEY_EXPIRATION, credentials.expiration?.epochMilliseconds!!)
+                    }
                     return createCredentialsProvider(
                         credentials.accessKeyId!!,
                         credentials.secretKey!!,
@@ -297,6 +302,15 @@ class LocationProvider(
                     return null
                 }
             } else {
+                if (!isForAnalytics) {
+                    credentials =
+                        aws.sdk.kotlin.services.cognitoidentity.model.Credentials {
+                            this.accessKeyId = accessKey
+                            this.secretKey = secretKey
+                            this.sessionToken = sessionToken
+                            this.expiration = Instant.fromEpochMilliseconds(expiration)
+                        }
+                }
                 return createCredentialsProvider(
                     accessKey,
                     secretKey,
@@ -309,8 +323,8 @@ class LocationProvider(
         }
     }
 
-    fun isAnalyticsCredentialsValid(): Boolean {
-        val expirationTimeMillis = mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L)
+    fun isUnAuthCredentialsValid(isForAnalytics: Boolean): Boolean {
+        val expirationTimeMillis = if (isForAnalytics) mPreferenceManager.getLongValue(KEY_ANALYTICS_EXPIRATION, 0L) else mPreferenceManager.getLongValue(KEY_EXPIRATION, 0L)
         if (expirationTimeMillis == 0L) return false
         val currentTimeMillis = Instant.now().epochMilliseconds
         return currentTimeMillis < expirationTimeMillis
@@ -334,15 +348,8 @@ class LocationProvider(
         )
 
     fun getCredentials(): aws.sdk.kotlin.services.cognitoidentity.model.Credentials? {
-        val mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
-        return if (mAuthStatus == AuthEnum.SIGNED_IN.name) {
-            credentials
-        } else {
-            locationCredentialsProvider?.getCredentialsProvider()
-        }
+        return credentials
     }
-
-    fun getRegion(): String? = region
 
     fun checkClientInitialize(): Boolean = locationClient != null
 
@@ -353,17 +360,23 @@ class LocationProvider(
                 activity.refreshToken()
             }
         } else {
-            locationCredentialsProvider?.let {
-                if (!it.isCredentialsValid()) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        async { it.verifyAndRefreshCredentials() }.await()
-                        locationClient = locationCredentialsProvider?.getLocationClient()
-                    }
+            if (!isUnAuthCredentialsValid(false)) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    async { initializeLocationCredentialsProvider(activity) }.await()
                 }
             }
         }
     }
 
+    private fun generateLocationClient(
+        region: String,
+        credentialsProvider: CredentialsProvider,
+    ): LocationClient {
+        return LocationClient {
+            this.region = region
+            this.credentialsProvider = credentialsProvider
+        }
+    }
     fun isAuthTokenExpired(): Boolean {
         val expiresIn = mPreferenceManager.getLongValue(KEY_AUTH_EXPIRES_IN, 0L)
         val authFetchTime = mPreferenceManager.getLongValue(KEY_AUTH_FETCH_TIME, 0L)
@@ -453,12 +466,10 @@ class LocationProvider(
 
     fun getBaseActivity(): BaseActivity? = mBaseActivity
 
-    private fun createEmptyCredentialsProvider(): CredentialsProvider =
-        StaticCredentialsProvider(
-            Credentials.invoke(
-                accessKeyId = "",
-                secretAccessKey = "",
-                sessionToken = null,
-            ),
-        )
+    fun clearCredentials() {
+        mPreferenceManager.removeValue(KEY_ACCESS_KEY)
+        mPreferenceManager.removeValue(KEY_SECRET_KEY)
+        mPreferenceManager.removeValue(KEY_SESSION_TOKEN)
+        mPreferenceManager.removeValue(KEY_EXPIRATION)
+    }
 }

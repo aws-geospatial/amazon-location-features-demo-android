@@ -2,6 +2,7 @@ package com.aws.amazonlocation.ui.main.simulation
 
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -27,6 +28,7 @@ import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.NotificationDialogInterface
 import com.aws.amazonlocation.utils.notificationPermission
+import com.aws.amazonlocation.utils.simulationFields
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -99,36 +101,28 @@ class SimulationBottomSheetFragment : BottomSheetDialogFragment() {
     private fun clickListener() {
         mBinding.apply {
             btnStartSimulation.setOnClickListener {
-                when {
-                    ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        POST_NOTIFICATIONS
-                    ) == PackageManager.PERMISSION_GRANTED -> {
-                        openSimulation()
-                    }
-                    shouldShowRequestPermissionRationale(POST_NOTIFICATIONS) -> {
-                        if (!NotificationManagerCompat.from(requireContext()).areNotificationsEnabled()) {
-                            requireContext().notificationPermission(object : NotificationDialogInterface {
-                                override fun onOkClick(dialog: DialogInterface) {
-                                    openAppNotificationSettings(requireContext())
-                                }
+                val simulationMissingFields = simulationFields.filter { it.value == "null" }.keys
 
-                                override fun onCancelClick(dialog: DialogInterface) {
-                                    openSimulation()
-                                }
-                            })
+                if (simulationMissingFields.isNotEmpty()) {
+                    val dialogMessage =
+                        buildString {
+                            append(getString(R.string.label_simulation_fields_missing))
+                            append("\n")
+                            simulationMissingFields.forEach { append("• $it\n") }
                         }
-                    }
-                    else -> {
-                        // The registered ActivityResultCallback gets the result of this request
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            requestPermissionLauncher.launch(
-                                POST_NOTIFICATIONS
-                            )
-                        } else {
-                            openSimulation()
-                        }
-                    }
+
+                    val dialogTitle: String = getString(R.string.title_configuration_incomplete)
+                    val positiveButtonText: String = getString(R.string.ok)
+
+                    AlertDialog
+                        .Builder(activity)
+                        .setTitle(dialogTitle)
+                        .setMessage(dialogMessage)
+                        .setPositiveButton(positiveButtonText) { dialog, _ ->
+                            dialog.dismiss()
+                        }.setCancelable(false).show()
+                } else {
+                    startSimulation()
                 }
             }
             tvMaybeLater.setOnClickListener {
@@ -136,6 +130,41 @@ class SimulationBottomSheetFragment : BottomSheetDialogFragment() {
             }
             ivStartSimulationClose.setOnClickListener {
                 dialog.dismiss()
+            }
+        }
+    }
+
+    private fun startSimulation() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                openSimulation()
+            }
+
+            shouldShowRequestPermissionRationale(POST_NOTIFICATIONS) -> {
+                if (!NotificationManagerCompat.from(requireContext()).areNotificationsEnabled()) {
+                    requireContext().notificationPermission(object : NotificationDialogInterface {
+                        override fun onOkClick(dialog: DialogInterface) {
+                            openAppNotificationSettings(requireContext())
+                        }
+
+                        override fun onCancelClick(dialog: DialogInterface) {
+                            openSimulation()
+                        }
+                    })
+                }
+            }
+
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestPermissionLauncher.launch(
+                        POST_NOTIFICATIONS
+                    )
+                } else {
+                    openSimulation()
+                }
             }
         }
     }

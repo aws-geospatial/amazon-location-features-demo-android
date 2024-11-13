@@ -45,12 +45,12 @@ class AnalyticsUtils(
 
     suspend fun initAnalytics() {
         credentialProvider = mLocationProvider.getAnalyticsCredentialProvider()
-        credentialProvider?.let {
+        if (BuildConfig.ANALYTICS_IDENTITY_POOL_ID != "null" || credentialProvider != null) {
             val region = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
             pinpointClient =
                 PinpointClient {
                     this.region = region
-                    credentialsProvider = it
+                    credentialsProvider = credentialProvider
                 }
             if (endpointId.isEmpty()) {
                 endpointId = UUID.randomUUID().toString()
@@ -89,105 +89,106 @@ class AnalyticsUtils(
         event: String,
         properties: List<Pair<String, String>> = emptyList(),
     ) {
+        if (BuildConfig.ANALYTICS_APP_ID == "null") return
         CoroutineScope(Dispatchers.IO).launch {
-            if (!mLocationProvider.isAnalyticsCredentialsValid()) {
-                runBlocking { initAnalytics() }
-            }
-            val events: List<EventInput> =
-                if (event == EventTypeEnum.SESSION_STOP.eventType) {
-                    listOf(
-                        EventInput(
-                            eventType = event,
-                            attributes = emptyMap(),
-                            EventSession(
-                                session.id,
-                                session.startTimestamp,
-                                Instant.now().toString(),
-                            ),
-                        ),
-                    )
-                } else {
-                    listOf(EventInput(eventType = event, attributes = emptyMap()))
-                }
-            val mUserId: String?
-            val mAuthStatus =
-                mPreferenceManager.getValue(
-                    KEY_CLOUD_FORMATION_STATUS,
-                    AuthEnum.DEFAULT.name,
-                )
-            var connectedStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_NOT_CONNECTED
-            var authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
-            when (mAuthStatus) {
-                AuthEnum.SIGNED_IN.name -> {
-                    mUserId = mLocationProvider.getIdentityId()
-                    connectedStatus =
-                        AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
-                    authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_AUTHENTICATED
-                }
-
-                AuthEnum.AWS_CONNECTED.name -> {
-                    mUserId = "AnonymousUser:$endpointId"
-                    connectedStatus =
-                        AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
-                    authStatus =
-                        AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
-                }
-
-                else -> {
-                    mUserId = "AnonymousUser:$endpointId"
-                }
-            }
-
-            if (mUserId != null && mUserId != userId) {
-                userId = mUserId
-                runBlocking { createOrUpdateEndpoint() }
-            }
-            val sessionStopEvent =
-                events.find { it.eventType == EventTypeEnum.SESSION_STOP.eventType }
-            if (session.creationStatus == AnalyticsSessionStatus.NOT_CREATED) {
-                startSession()
-            }
-
-            val finalEvents =
-                if (sessionStopEvent != null) {
-                    events +
-                            EventInput(
-                                EventTypeEnum.SESSION_END.eventType,
-                                sessionStopEvent.attributes,
-                            )
-                } else {
-                    events
-                }
-            val attributes = mutableMapOf<String, String>()
-            properties.forEach { (propertyName, propertyValue) ->
-                attributes[propertyName] = propertyValue
-            }
-            attributes[AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS] = connectedStatus
-            attributes[AnalyticsAttribute.USER_AUTHENTICATION_STATUS] = authStatus
-            finalEvents.forEach {
-                it.attributes = attributes
-            }
-            val eventMap: Map<String, Event> =
-                finalEvents.associate {
-                    UUID.randomUUID().toString() to it.toEvent()
-                }
-            val batchItem = mutableMapOf<String, EventsBatch>()
-
-            batchItem[endpointId] =
-                EventsBatch {
-                    endpoint = PublicEndpoint {}
-                    this.events = eventMap
-                }
-
-            val putEventsRequest =
-                PutEventsRequest {
-                    applicationId = BuildConfig.ANALYTICS_APP_ID
-                    eventsRequest =
-                        EventsRequest {
-                            this.batchItem = batchItem
-                        }
-                }
             try {
+                if (!mLocationProvider.isUnAuthCredentialsValid(true)) {
+                    runBlocking { initAnalytics() }
+                }
+                val events: List<EventInput> =
+                    if (event == EventTypeEnum.SESSION_STOP.eventType) {
+                        listOf(
+                            EventInput(
+                                eventType = event,
+                                attributes = emptyMap(),
+                                EventSession(
+                                    session.id,
+                                    session.startTimestamp,
+                                    Instant.now().toString(),
+                                ),
+                            ),
+                        )
+                    } else {
+                        listOf(EventInput(eventType = event, attributes = emptyMap()))
+                    }
+                val mUserId: String?
+                val mAuthStatus =
+                    mPreferenceManager.getValue(
+                        KEY_CLOUD_FORMATION_STATUS,
+                        AuthEnum.DEFAULT.name,
+                    )
+                var connectedStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_NOT_CONNECTED
+                var authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
+                when (mAuthStatus) {
+                    AuthEnum.SIGNED_IN.name -> {
+                        mUserId = mLocationProvider.getIdentityId()
+                        connectedStatus =
+                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
+                        authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_AUTHENTICATED
+                    }
+
+                    AuthEnum.AWS_CONNECTED.name -> {
+                        mUserId = "AnonymousUser:$endpointId"
+                        connectedStatus =
+                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
+                        authStatus =
+                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
+                    }
+
+                    else -> {
+                        mUserId = "AnonymousUser:$endpointId"
+                    }
+                }
+
+                if (mUserId != null && mUserId != userId) {
+                    userId = mUserId
+                    runBlocking { createOrUpdateEndpoint() }
+                }
+                val sessionStopEvent =
+                    events.find { it.eventType == EventTypeEnum.SESSION_STOP.eventType }
+                if (session.creationStatus == AnalyticsSessionStatus.NOT_CREATED) {
+                    startSession()
+                }
+
+                val finalEvents =
+                    if (sessionStopEvent != null) {
+                        events +
+                                EventInput(
+                                    EventTypeEnum.SESSION_END.eventType,
+                                    sessionStopEvent.attributes,
+                                )
+                    } else {
+                        events
+                    }
+                val attributes = mutableMapOf<String, String>()
+                properties.forEach { (propertyName, propertyValue) ->
+                    attributes[propertyName] = propertyValue
+                }
+                attributes[AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS] = connectedStatus
+                attributes[AnalyticsAttribute.USER_AUTHENTICATION_STATUS] = authStatus
+                finalEvents.forEach {
+                    it.attributes = attributes
+                }
+                val eventMap: Map<String, Event> =
+                    finalEvents.associate {
+                        UUID.randomUUID().toString() to it.toEvent()
+                    }
+                val batchItem = mutableMapOf<String, EventsBatch>()
+
+                batchItem[endpointId] =
+                    EventsBatch {
+                        endpoint = PublicEndpoint {}
+                        this.events = eventMap
+                    }
+
+                val putEventsRequest =
+                    PutEventsRequest {
+                        applicationId = BuildConfig.ANALYTICS_APP_ID
+                        eventsRequest =
+                            EventsRequest {
+                                this.batchItem = batchItem
+                            }
+                    }
                 pinpointClient?.putEvents(putEventsRequest)
                 if (sessionStopEvent != null){
                     session = SessionData()
@@ -211,6 +212,7 @@ class AnalyticsUtils(
         }
 
     suspend fun startSession() {
+        if (BuildConfig.ANALYTICS_APP_ID == "null") return
         session.creationStatus = AnalyticsSessionStatus.IN_PROGRESS
         runBlocking { createOrUpdateEndpoint() }
         session.id = UUID.randomUUID().toString()

@@ -72,7 +72,7 @@ class RegionFragment : BaseFragment() {
                             )
                         }
                         adapter.notifyItemRangeChanged(0, mRegionList.size)
-                        mLocationProvider.locationCredentialsProvider?.clear()
+                        mLocationProvider.clearCredentials()
                         lifecycleScope.launch {
                             if (!isRunningTest) {
                                 delay(RESTART_DELAY) // Need delay for preference manager to set default config before restarting

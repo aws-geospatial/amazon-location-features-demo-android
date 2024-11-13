@@ -254,4 +254,9 @@
   <string name="description_tza">탄자니아 전망 ...에 호수 말라위</string>
   <string name="description_ury">우루과이 전망 ...에 린콘 de 아르티가스</string>
   <string name="description_vnm">베트남 전망 ...에 그 파라셀 섬 과 스프래틀리 섬</string>
+  <string name="label_required_fields_missing">필수 구성 키를 누릅니다 입니다 실종, 과 그 응용 프로그램 할 수 없다 기능 없이 그들을. 더 다음의 키를 누릅니다 입니다 누락:\n</string>
+  <string name="label_some_fields_missing">일부 구성 키를 누릅니다 입니다 누락되었습니다. 지도, 검색, 장소, 과 노선 입니다 사용 가능, 하지만 시뮬레이션 과 해석학 입니다 비활성화 ...까지 그 다음의 키를 누릅니다 입니다 추가됨:\n</string>
+  <string name="label_simulation_fields_missing">일부 구성 키를 누릅니다 입니다 누락되었습니다. 지도, 검색, 장소, 과 노선 입니다 사용 가능, 하지만 시뮬레이션 입니다 비활성화 ...까지 그 다음의 키를 누릅니다 입니다 추가됨:\n</string>
+  <string name="label_analytics_fields_missing">해석학 추적 입니다 비활성화 왜냐하면 그 다음의 구성 키를 누릅니다 입니다 누락:\n</string>
+  <string name="title_configuration_incomplete">구성 불완전</string>
 </resources>

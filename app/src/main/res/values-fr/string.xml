@@ -254,4 +254,9 @@
   <string name="description_tza">Tanzanie voir sur Lac Malawi</string>
   <string name="description_ury">Uruguay voir sur Rincón de Artigas</string>
   <string name="description_vnm">Vietnam voir sur le Paracelle Îles et Spratly Îles</string>
+  <string name="label_required_fields_missing">Nécessaire configuration clés sont disparu, et le candidature ne peut pas fonction sans eux. Le suivant clés sont manquant :\n</string>
+  <string name="label_some_fields_missing">Certains configuration clés sont disparu. Carte, Rechercher, Des lieux, et Parcours sont disponible, mais Simulation et Analytique sont handicapé jusqu\'à le suivant clés sont ajouté :\n</string>
+  <string name="label_simulation_fields_missing">Certains configuration clés sont disparu. Carte, Rechercher, Des lieux, et Parcours sont disponible, mais Simulation est handicapé jusqu\'à le suivant clés sont ajouté :\n</string>
+  <string name="label_analytics_fields_missing">Analytique suivi est handicapé parce que le suivant configuration clés sont manquant :\n</string>
+  <string name="title_configuration_incomplete">Configuration Incomplet</string>
 </resources>

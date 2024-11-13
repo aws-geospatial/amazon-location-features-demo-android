@@ -300,4 +300,10 @@
     <string name="label_tza" translatable="false">TZA</string>
     <string name="label_ury" translatable="false">URY</string>
     <string name="label_vnm" translatable="false">VNM</string>
+
+    <string name="label_required_fields_missing">Required configuration keys are missing, and the application cannot function without them. The following keys are missing:\n</string>
+    <string name="label_some_fields_missing">Some configuration keys are missing. Map, Search, Places, and Route are available, but Simulation and Analytics are disabled until the following keys are added:\n</string>
+    <string name="label_simulation_fields_missing">Some configuration keys are missing. Map, Search, Places, and Route are available, but Simulation is disabled until the following keys are added:\n</string>
+    <string name="label_analytics_fields_missing">Analytics tracking is disabled because the following configuration keys are missing:\n</string>
+    <string name="title_configuration_incomplete">Configuration Incomplete</string>
 </resources>

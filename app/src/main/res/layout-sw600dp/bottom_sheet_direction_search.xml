@@ -1365,6 +1365,7 @@
             android:id="@+id/layout_no_data_found"
             layout="@layout/layout_no_data_found"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="@dimen/dp_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
