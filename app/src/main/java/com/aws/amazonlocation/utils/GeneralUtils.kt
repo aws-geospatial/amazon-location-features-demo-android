@@ -226,19 +226,11 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun checkLatLngValid(latitude: Double?, longitude: Double?): Boolean {
-    return latitude?.toInt() in -90 until 90 && longitude?.toInt() in -180 until 180
-}
-
 fun validateLatLng(searchText: String): LatLng? {
-    val pattern = Pattern.compile(LAT_LNG_REG_EXP)
+    val pattern = Pattern.compile(LAT_LNG_REGEX_PATTERN)
     return if (pattern.matcher(searchText).matches()) {
         val latLng = searchText.split(",").toTypedArray()
-        if (checkLatLngValid(latLng[0].toDouble(), latLng[1].toDouble())) {
-            LatLng(latLng[0].toDouble(), latLng[1].toDouble())
-        } else {
-            null
-        }
+        LatLng(latLng[0].trim().toDouble(), latLng[1].trim().toDouble())
     } else {
         null
     }

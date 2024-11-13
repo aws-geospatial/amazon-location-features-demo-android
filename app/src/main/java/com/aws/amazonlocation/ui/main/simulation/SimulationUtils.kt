@@ -50,8 +50,6 @@ import com.aws.amazonlocation.utils.MQTT_CONNECT_TIME_OUT
 import com.aws.amazonlocation.utils.MapCameraZoom.SIMULATION_CAMERA_ZOOM_1
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.NotificationHelper
-import com.aws.amazonlocation.utils.PREFS_KEY_IDENTITY_ID
-import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.SOURCE
 import com.aws.amazonlocation.utils.SOURCE_SIMULATION_ICON
@@ -94,7 +92,6 @@ import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.geojson.LineString
 import org.maplibre.geojson.Point
 import org.maplibre.geojson.Polygon
-import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -134,7 +131,6 @@ class SimulationUtils(
     private var mPreDrawTrackerLine = MutableList(notificationData.size) { mutableListOf<Point>() }
     private var busStopCounts: MutableList<Int>? = null
     private var notificationHelper: NotificationHelper? = null
-    private var encryptedSharedPreferences: EncryptedSharedPreferences?= null
 
     fun setMapBox(
         activity: Activity,
@@ -564,14 +560,6 @@ class SimulationUtils(
                     }
                 })
 
-            mFragmentActivity?.let {
-                if (encryptedSharedPreferences == null) {
-                    encryptedSharedPreferences = EncryptedSharedPreferences(
-                        it.applicationContext,
-                        PREFS_NAME_AUTH
-                    ).apply { initEncryptedSharedPreferences() }
-                }
-            }
             initClick()
             initAdapter()
             setSpinnerData()
@@ -798,7 +786,7 @@ class SimulationUtils(
     }
 
     private fun stopMqttManager() {
-        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
+        val identityId = mLocationProvider.getIdentityId()
         mIsLocationUpdateEnable = false
         if (mqttClient != null) {
             try {
@@ -823,15 +811,7 @@ class SimulationUtils(
 
     private fun startMqttManager() {
         if (mqttClient != null) stopMqttManager()
-        mActivity?.let {
-            if (encryptedSharedPreferences == null) {
-                encryptedSharedPreferences = EncryptedSharedPreferences(
-                    it.applicationContext,
-                    PREFS_NAME_AUTH
-                ).apply { initEncryptedSharedPreferences() }
-            }
-        }
-        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
+        val identityId = mLocationProvider.getIdentityId()
         val defaultIdentityPoolId: String = Units.getDefaultIdentityPoolId(
             mPreferenceManager?.getValue(
                 KEY_SELECTED_REGION,

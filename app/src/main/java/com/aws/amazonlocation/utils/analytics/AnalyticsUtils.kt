@@ -90,7 +90,7 @@ class AnalyticsUtils(
         properties: List<Pair<String, String>> = emptyList(),
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (!mLocationProvider.isAnalyticsCredentialsValid()) {
+            if (!mLocationProvider.isUnAuthCredentialsValid(true)) {
                 runBlocking { initAnalytics() }
             }
             val events: List<EventInput> =

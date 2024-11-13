@@ -44,7 +44,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import software.amazon.location.auth.AuthHelper
 import javax.inject.Inject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -73,7 +72,6 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var mLocationProvider: LocationProvider
 
     private var subTitle = ""
-    lateinit var authHelper: AuthHelper
     val mSignInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +103,6 @@ open class BaseActivity : AppCompatActivity() {
             mGeofenceBottomSheetHelper = GeofenceBottomSheetHelper(this@BaseActivity)
             mGeofenceUtils = GeofenceUtils()
 
-            authHelper = AuthHelper(applicationContext)
             val preference = PreferenceManager(applicationContext)
             mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mLocationProvider)
             mSimulationUtils = SimulationUtils(preference, this@BaseActivity, mLocationProvider)
@@ -127,8 +124,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     suspend fun initMobileClient() {
-        mLocationProvider.initializeLocationCredentialsProvider(authHelper, this)
-        mLocationProvider.initPlaceRoutesClients()
+        mLocationProvider.initializeLocationCredentialsProvider(this)
+        mLocationProvider.initPlaceRoutesClients(this)
     }
 
     private fun locationPermissionDialog() {
@@ -253,7 +250,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun restartAppWithClearData() {
         lifecycleScope.launch {
-            mLocationProvider.locationCredentialsProvider?.clear()
+            mLocationProvider.clearCredentials()
             mPreferenceManager.setDefaultConfig()
             delay(RESTART_DELAY)
             restartApplication()

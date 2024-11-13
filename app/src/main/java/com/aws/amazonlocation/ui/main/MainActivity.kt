@@ -79,8 +79,6 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_ARABIC
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_HEBREW_1
 import com.aws.amazonlocation.utils.NetworkConnectivityObserveInterface
-import com.aws.amazonlocation.utils.PREFS_KEY_IDENTITY_ID
-import com.aws.amazonlocation.utils.PREFS_NAME_AUTH
 import com.aws.amazonlocation.utils.SETTING_FRAGMENT
 import com.aws.amazonlocation.utils.SIGN_IN
 import com.aws.amazonlocation.utils.SIGN_OUT
@@ -102,7 +100,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import software.amazon.location.auth.EncryptedSharedPreferences
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -122,14 +119,7 @@ class MainActivity :
     private var alertDialog: Dialog? = null
     private var currentPage: String? = null
     private var connectivityObserver: ConnectivityObserveInterface? = null
-    private var encryptedSharedPreferences: EncryptedSharedPreferences? = null
     var analyticsUtils: AnalyticsUtils? = null
-    private val mServiceName = "geo"
-
-    var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            checkMap()
-        }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -310,13 +300,6 @@ class MainActivity :
             }
         }
         initClick()
-        if (encryptedSharedPreferences == null) {
-            encryptedSharedPreferences =
-                EncryptedSharedPreferences(
-                    applicationContext,
-                    PREFS_NAME_AUTH,
-                ).apply { initEncryptedSharedPreferences() }
-        }
         KeyBoardUtils.attachKeyboardListeners(
             mBinding.root,
             object : KeyBoardUtils.KeyBoardInterface {
@@ -425,14 +408,14 @@ class MainActivity :
                                 "",
                             ) != AuthEnum.SIGNED_IN.name
                         ) {
-                            mLocationProvider.locationCredentialsProvider?.clear()
+                            mLocationProvider.clearCredentials()
                         }
                         mPreferenceManager.setValue(
                             KEY_CLOUD_FORMATION_STATUS,
                             AuthEnum.SIGNED_IN.name,
                         )
                         mBottomSheetDialog?.dismiss()
-                        async { mLocationProvider.generateNewAuthCredentials(authHelper) }.await()
+                        async { mLocationProvider.generateNewAuthCredentials() }.await()
                         val fragment = mNavHostFragment.childFragmentManager.fragments[0]
                         getTokenAndAttachPolicy()
                         val propertiesAws =
@@ -706,7 +689,7 @@ class MainActivity :
     }
 
     private fun setSimulationIotPolicy() {
-        val identityId = encryptedSharedPreferences?.get(PREFS_KEY_IDENTITY_ID)
+        val identityId = mLocationProvider.getIdentityId()
         CoroutineScope(Dispatchers.IO).launch {
             val attachPolicyRequest =
                 AttachPolicyRequest {
@@ -1252,7 +1235,7 @@ class MainActivity :
     fun initClient(isAfterSignOut:Boolean = false){
         if (!isAfterSignOut) {
             try {
-                mLocationProvider.locationCredentialsProvider?.clear()
+                mLocationProvider.clearCredentials()
             } catch (_: Exception) { }
         }
         CoroutineScope(Dispatchers.IO).launch {

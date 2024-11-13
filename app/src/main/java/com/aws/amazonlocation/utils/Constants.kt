@@ -84,7 +84,6 @@ const val CHANNEL_NAME = "simulation Notification Channel"
 const val GROUP_KEY_WORK_SIMULATION = BuildConfig.APPLICATION_ID + "SIMULATION"
 const val STRING_REPLACE_KEY = "**"
 const val PREFS_NAME_AUTH = "software.amazon.location.auth"
-const val PREFS_KEY_IDENTITY_ID = "identityId"
 const val DEFAULT_COUNTRY = "US"
 
 const val KEY_ID_TOKEN = "key_id_token"
@@ -162,6 +161,7 @@ const val GEOFENCE_NAME_REG_EXP = "^[-._\\p{L}\\p{N}]+\$"
 const val userPoolIdPattern = "[\\w-]+_[0-9a-zA-Z]+"
 const val userPoolClientId = "[\\w+]+"
 const val regionPattern = "^[a-zA-Z-]+-\\d+$"
+const val LAT_LNG_REGEX_PATTERN = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$"
 
 const val LOCATION_AWS_PREFIX = "location.aws.com.demo."
 const val LOCATION_TRACKERS_PREFIX = "trackers."
@@ -195,6 +195,7 @@ object Durations {
     const val CAMERA_RIGHT_PADDING = 180
     const val DEFAULT_RADIUS = 80
     const val DELAY_FOR_FRAGMENT_LOAD = 500L
+    const val DELAY_FOR_BOTTOM_SHEET_LOAD = 500L
 }
 
 object GeofenceCons {
