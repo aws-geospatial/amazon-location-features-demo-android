@@ -1,6 +1,8 @@
 package com.aws.amazonlocation.data.response
 
 import aws.sdk.kotlin.services.geoplaces.model.Address
+import aws.sdk.kotlin.services.geoplaces.model.Contacts
+import aws.sdk.kotlin.services.geoplaces.model.OpeningHours
 
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,5 +25,7 @@ data class SearchSuggestionData(
     var isPlaceIndexForPosition: Boolean = false,
     var amazonLocationAddress: Address? = null,
     var position: List<Double> ? = null,
-    var queryId: String ? = null
+    var queryId: String ? = null,
+    var contacts: Contacts? = null,
+    var openingHours: List<OpeningHours>? = null
 )

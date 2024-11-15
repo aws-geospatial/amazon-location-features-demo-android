@@ -4,6 +4,7 @@ import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
@@ -55,4 +56,6 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
         lng: Double?,
         searchPlace: SearchDataInterface
     ) = mLocationSearchRepository.searPlaceIndexForPosition(lat, lng, searchPlace)
+
+    suspend fun getPlace(placeId: String, placeInterface: PlaceInterface) = mLocationSearchRepository.getPlace(placeId, placeInterface)
 }

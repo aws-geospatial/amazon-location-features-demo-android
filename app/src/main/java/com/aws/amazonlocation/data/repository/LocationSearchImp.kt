@@ -1,10 +1,13 @@
 package com.aws.amazonlocation.data.repository
 
+import aws.sdk.kotlin.services.geoplaces.GeoPlacesClient
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
+import com.aws.amazonlocation.ui.base.BaseActivity
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -63,5 +66,9 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
             lng,
             searchPlace
         )
+    }
+
+    override suspend fun getPlace(placeId: String, placeInterface: PlaceInterface) {
+        mRemoteDataSource.getPlace(placeId, placeInterface)
     }
 }

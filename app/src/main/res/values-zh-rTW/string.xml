@@ -254,4 +254,11 @@
   <string name="description_tza">坦桑尼亞\ 的 檢視 上 湖 馬拉威</string>
   <string name="description_ury">烏拉圭\ 的 檢視 上 林康 下 阿蒂加斯</string>
   <string name="description_vnm">越南\ 的 檢視 上 該 帕拉塞爾 島嶼 和 普拉特利 島嶼</string>
+  <string name="label_required_fields_missing">必須 配置 按鍵 是 遺失， 和 該 應用程式 不能 功能 無 他們。 The 以下 按鍵 是 缺少：\n</string>
+  <string name="label_some_fields_missing">一些 配置 按鍵 是 遺失。 地圖, 搜索, 地點， 和 路線 是 可用， 但 模擬 和 分析 是 殘疾人 直到 該 以下 按鍵 是 添加：\n</string>
+  <string name="label_simulation_fields_missing">一些 配置 按鍵 是 遺失。 地圖, 搜索, 地點， 和 路線 是 可用， 但 模擬 是 殘疾人 直到 該 以下 按鍵 是 添加：\n</string>
+  <string name="label_analytics_fields_missing">分析 追蹤 是 殘疾人 因為 該 以下 配置 按鍵 是 缺少：\n</string>
+  <string name="title_configuration_incomplete">配置 不完整</string>
+  <string name="label_schedule">時間表</string>
+  <string name="label_copied_to_clipboard">已複製 至 剪貼板</string>
 </resources>

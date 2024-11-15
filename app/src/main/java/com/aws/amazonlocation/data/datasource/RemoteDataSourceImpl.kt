@@ -9,6 +9,7 @@ import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
@@ -48,8 +49,8 @@ class RemoteDataSourceImpl(
         if (mContext.isInternetAvailable()) {
             val mSearchSuggestionResponse =
                 mPlacesProvider.searchPlaceSuggestion(lat, lng, searchText, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
-            if (validateLatLng(searchText) != null) {
-                val mLatLng = validateLatLng(searchText)
+            if (validateLatLng(searchText.trim()) != null) {
+                val mLatLng = validateLatLng(searchText.trim())
                 if (mSearchSuggestionResponse.text == (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())) {
                     searchPlace.getSearchPlaceSuggestionResponse(mSearchSuggestionResponse)
                 } else {
@@ -265,6 +266,27 @@ class RemoteDataSourceImpl(
             signInInterface.refreshTokensWithOkHttpSuccess("success", response)
         } else {
             signInInterface.refreshTokensWithOkHttpFailed("failed")
+        }
+    }
+
+    override suspend fun getPlace(placeId: String, placeInterface: PlaceInterface) {
+        if (mContext.isInternetAvailable()) {
+            val placeResponse = mPlacesProvider.getPlace(placeId, mLocationProvider.getBaseActivity(), mLocationProvider.getGeoPlacesClient())
+            if (placeResponse != null) {
+                placeInterface.placeSuccess(placeResponse)
+            } else {
+                placeInterface.placeFailed(DataSourceException.Error(""))
+            }
+        } else {
+            placeInterface.internetConnectionError(
+                if (isRunningRemoteDataSourceImplTest) {
+                    ""
+                } else {
+                    mContext.resources.getString(
+                        R.string.check_your_internet_connection_and_try_again,
+                    )
+                },
+            )
         }
     }
 }

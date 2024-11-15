@@ -1,14 +1,12 @@
 package com.aws.amazonlocation.data.datasource
 
-import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
 import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
@@ -101,5 +99,10 @@ interface RemoteDataSource {
 
     suspend fun refreshTokensWithOkHttp(
         signInInterface: SignInInterface
+    )
+
+    suspend fun getPlace(
+        placeId: String,
+        placeInterface: PlaceInterface
     )
 }

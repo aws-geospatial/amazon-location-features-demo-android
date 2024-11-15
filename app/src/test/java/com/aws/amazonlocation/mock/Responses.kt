@@ -1,7 +1,10 @@
 package com.aws.amazonlocation.mock
 
 import aws.sdk.kotlin.services.geoplaces.model.Address
+import aws.sdk.kotlin.services.geoplaces.model.ContactDetails
+import aws.sdk.kotlin.services.geoplaces.model.Contacts
 import aws.sdk.kotlin.services.geoplaces.model.Country
+import aws.sdk.kotlin.services.geoplaces.model.GetPlaceResponse
 import aws.sdk.kotlin.services.geoplaces.model.PlaceType
 import aws.sdk.kotlin.services.geoplaces.model.Region
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
@@ -515,19 +518,20 @@ object Responses {
             country = "IND",
         )
 
-    val RESPONSE_NAVIGATION_DATA_CAR_STEP_2 =
-        NavigationData(
-            duration = 16.70485124,
-            distance = 0.060054637848645454,
-            startLat = 72.83317999485907,
-            startLng = 18.92106998837811,
-            endLat = 72.83338298024672,
-            endLng = 18.921575535610945,
-            destinationAddress = "Jokim Alva Chowk, Colaba, Mumbai, Maharashtra, 400005, IND",
-            region = "Maharashtra",
-            subRegion = "Mumbai",
-            country = "IND",
-        )
+    val GET_PLACE_RESPONSE = GetPlaceResponse {
+        placeId = "test"
+        placeType = PlaceType.Block
+        pricingBucket = "test"
+        title = "place"
+        contacts = Contacts {
+            phones = listOf(
+                ContactDetails {
+                    label = "test"
+                    value = "6666444422"
+                }
+            )
+        }
+    }
 
     val RESPONSE_GEOFENCE_LIST =
         GeofenceData(

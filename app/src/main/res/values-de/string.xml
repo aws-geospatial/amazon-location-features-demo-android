@@ -254,4 +254,11 @@
   <string name="description_tza">Tansania\'s anzeigen auf See Malawi</string>
   <string name="description_ury">Uruguays anzeigen auf Rincon de Artigas</string>
   <string name="description_vnm">Vietnams anzeigen auf die Paracel Inseln und Spratli Inseln</string>
+  <string name="label_required_fields_missing">Erforderlich Aufbau Schlüssel sind fehlt, und die Anwendung kann nicht wirken ohne sie. Das folgend Schlüssel sind fehlt:\n</string>
+  <string name="label_some_fields_missing">Einige Aufbau Schlüssel sind fehlt. Landkarte, Suche, Orte, und Route sind verfügbar, aber Simulation und Analytik sind Behinderte bis die folgend Schlüssel sind hinzugefügt:\n</string>
+  <string name="label_simulation_fields_missing">Einige Aufbau Schlüssel sind fehlt. Landkarte, Suche, Orte, und Route sind verfügbar, aber Simulation ist Behinderte bis die folgend Schlüssel sind hinzugefügt:\n</string>
+  <string name="label_analytics_fields_missing">Analytik Verfolgung ist Behinderte da die folgend Aufbau Schlüssel sind fehlt:\n</string>
+  <string name="title_configuration_incomplete">Konfiguration Unvollständig</string>
+  <string name="label_schedule">Zeitplan</string>
+  <string name="label_copied_to_clipboard">Kopiert zu Zwischenablage</string>
 </resources>

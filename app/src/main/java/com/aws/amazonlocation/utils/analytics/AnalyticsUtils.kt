@@ -45,12 +45,12 @@ class AnalyticsUtils(
 
     suspend fun initAnalytics() {
         credentialProvider = mLocationProvider.getAnalyticsCredentialProvider()
-        credentialProvider?.let {
+        if (BuildConfig.ANALYTICS_IDENTITY_POOL_ID != "null" || credentialProvider != null) {
             val region = BuildConfig.ANALYTICS_IDENTITY_POOL_ID.split(":")[0]
             pinpointClient =
                 PinpointClient {
                     this.region = region
-                    credentialsProvider = it
+                    credentialsProvider = credentialProvider
                 }
             if (endpointId.isEmpty()) {
                 endpointId = UUID.randomUUID().toString()
@@ -89,8 +89,9 @@ class AnalyticsUtils(
         event: String,
         properties: List<Pair<String, String>> = emptyList(),
     ) {
+        if (BuildConfig.ANALYTICS_APP_ID == "null") return
         CoroutineScope(Dispatchers.IO).launch {
-            if (!mLocationProvider.isAnalyticsCredentialsValid()) {
+            if (!mLocationProvider.isUnAuthCredentialsValid(true)) {
                 runBlocking { initAnalytics() }
             }
             val events: List<EventInput> =
@@ -211,6 +212,7 @@ class AnalyticsUtils(
         }
 
     suspend fun startSession() {
+        if (BuildConfig.ANALYTICS_APP_ID == "null") return
         session.creationStatus = AnalyticsSessionStatus.IN_PROGRESS
         runBlocking { createOrUpdateEndpoint() }
         session.id = UUID.randomUUID().toString()

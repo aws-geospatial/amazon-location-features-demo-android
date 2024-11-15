@@ -4,6 +4,7 @@ import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.location.model.Step
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 
@@ -43,4 +44,6 @@ interface LocationSearchRepository {
         lng: Double?,
         searchPlace: SearchDataInterface
     )
+
+    suspend fun getPlace(placeId: String, placeInterface: PlaceInterface)
 }

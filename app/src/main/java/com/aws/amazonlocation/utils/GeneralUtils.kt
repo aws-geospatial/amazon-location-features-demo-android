@@ -1,6 +1,8 @@
 package com.aws.amazonlocation.utils
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -226,19 +228,11 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun checkLatLngValid(latitude: Double?, longitude: Double?): Boolean {
-    return latitude?.toInt() in -90 until 90 && longitude?.toInt() in -180 until 180
-}
-
 fun validateLatLng(searchText: String): LatLng? {
-    val pattern = Pattern.compile(LAT_LNG_REG_EXP)
+    val pattern = Pattern.compile(LAT_LNG_REGEX_PATTERN)
     return if (pattern.matcher(searchText).matches()) {
         val latLng = searchText.split(",").toTypedArray()
-        if (checkLatLngValid(latLng[0].toDouble(), latLng[1].toDouble())) {
-            LatLng(latLng[0].toDouble(), latLng[1].toDouble())
-        } else {
-            null
-        }
+        LatLng(latLng[0].trim().toDouble(), latLng[1].trim().toDouble())
     } else {
         null
     }
@@ -611,4 +605,10 @@ fun hideKeyboard(activity: Activity, appCompatEditText: AppCompatEditText) {
     val imm: InputMethodManager =
         activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(appCompatEditText.windowToken, 0)
+}
+
+fun copyTextToClipboard(context: Context, text: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("label", text)
+    clipboard.setPrimaryClip(clip)
 }

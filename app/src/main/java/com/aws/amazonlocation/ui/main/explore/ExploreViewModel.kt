@@ -3,6 +3,7 @@ package com.aws.amazonlocation.ui.main.explore
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import aws.sdk.kotlin.services.geoplaces.model.GetPlaceResponse
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
 import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.georoutes.model.RouteTravelMode
@@ -19,6 +20,7 @@ import com.aws.amazonlocation.data.response.SearchResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
+import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
@@ -93,6 +95,11 @@ class ExploreViewModel
             Channel<HandleResult<SearchResponse>>(Channel.BUFFERED)
         val addressLineData: Flow<HandleResult<SearchResponse>> =
             _addressLineData.receiveAsFlow()
+
+        private val _placeData =
+            Channel<HandleResult<GetPlaceResponse>>(Channel.BUFFERED)
+        val placeData: Flow<HandleResult<GetPlaceResponse>> =
+            _placeData.receiveAsFlow()
 
         fun searchPlaceSuggestion(
             searchText: String,
@@ -450,6 +457,44 @@ class ExploreViewModel
                                 HandleResult.Error(
                                     DataSourceException.Error(
                                         error,
+                                    ),
+                                ),
+                            )
+                        }
+                    },
+                )
+            }
+        }
+
+        fun getPlaceData(
+            placeId: String
+        ) {
+            _placeData.trySend(HandleResult.Loading)
+            viewModelScope.launch(Dispatchers.IO) {
+                getLocationSearchUseCase.getPlace(
+                    placeId,
+                    object : PlaceInterface {
+                        override fun placeSuccess(success: GetPlaceResponse) {
+                            _placeData.trySend(
+                                HandleResult.Success(
+                                    success,
+                                ),
+                            )
+                        }
+
+                        override fun placeFailed(exception: DataSourceException) {
+                            _placeData.trySend(
+                                HandleResult.Error(
+                                    exception
+                                ),
+                            )
+                        }
+
+                        override fun internetConnectionError(exception: String) {
+                            _placeData.trySend(
+                                HandleResult.Error(
+                                    DataSourceException.Error(
+                                        exception,
                                     ),
                                 ),
                             )

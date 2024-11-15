@@ -89,10 +89,21 @@
             android:textDirection="locale"
             android:lines="2"
             android:maxLines="2"
-            app:layout_constraintEnd_toStartOf="@id/iv_direction_close_direction"
+            android:layout_marginEnd="@dimen/dp_8"
+            app:layout_constraintEnd_toStartOf="@id/iv_copy_address"
             app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
             app:layout_constraintTop_toBottomOf="@id/tv_direction_address"
             tools:text="24 Heath Hill Road South,London,RG45" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_copy_address"
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:src="@drawable/ic_copy"
+            app:layout_constraintBottom_toBottomOf="@+id/sheet_direction_tv_direction_street"
+            app:layout_constraintEnd_toStartOf="@id/iv_direction_close_direction"
+            app:layout_constraintStart_toEndOf="@+id/sheet_direction_tv_direction_street"
+            app:layout_constraintTop_toTopOf="@+id/sheet_direction_tv_direction_street" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_direction_distance"
@@ -199,6 +210,199 @@
             app:layout_constraintStart_toEndOf="@id/tv_direction_error_2"
             app:layout_constraintTop_toTopOf="@id/tv_direction_error_2" />
 
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_view_line"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/tv_direction_error_2"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            app:layout_constraintStart_toStartOf="@+id/direction_sheet_gl_direction_start" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_schedule_1"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:backgroundTint="@color/loader_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@+id/card_loader_schedule_2"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/card_loader_schedule_2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_schedule_2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_8"
+            android:backgroundTint="@color/loader_color"
+            android:layout_marginStart="@dimen/dp_8"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            app:layout_constraintStart_toEndOf="@+id/card_loader_schedule_1"
+            app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_place_1"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:backgroundTint="@color/loader_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@+id/card_loader_place_2"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/card_loader_place_2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_place_2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_8"
+            android:backgroundTint="@color/loader_color"
+            android:layout_marginStart="@dimen/dp_8"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            app:layout_constraintStart_toEndOf="@+id/card_loader_place_1"
+            app:layout_constraintTop_toBottomOf="@id/card_loader_schedule_2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_phone_1"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:backgroundTint="@color/loader_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@+id/card_loader_phone_2"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/card_loader_phone_2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_loader_phone_2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_8"
+            android:backgroundTint="@color/loader_color"
+            android:layout_marginStart="@dimen/dp_8"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            app:layout_constraintStart_toEndOf="@+id/card_loader_phone_1"
+            app:layout_constraintTop_toBottomOf="@id/card_loader_place_2" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_timing"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_schedule"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/tv_schedule" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_schedule"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/dp_8"
+            android:gravity="start"
+            android:textDirection="locale"
+            android:text="@string/label_schedule"
+            android:textColor="@color/color_medium_black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+            app:layout_constraintStart_toEndOf="@+id/iv_schedule"
+            app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_down_arrow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_schedule"
+            app:layout_constraintEnd_toStartOf="@+id/sheet_direction_gl_direction_end"
+            app:layout_constraintTop_toTopOf="@+id/tv_schedule" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_schedule_details"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/dp_8"
+            android:gravity="start"
+            android:textDirection="locale"
+            android:textColor="@color/color_medium_black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+            app:layout_constraintStart_toEndOf="@+id/iv_schedule"
+            app:layout_constraintTop_toBottomOf="@id/tv_schedule" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_place_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_place_link"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/tv_place_link" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_place_link"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/dp_8"
+            android:focusable="true"
+            android:gravity="start"
+            android:textDirection="locale"
+            android:clickable="true"
+            android:textColor="@color/color_primary_green"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/iv_place_link"
+            app:layout_constraintTop_toBottomOf="@id/tv_schedule_details"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            tools:text="www.starbucks.ca" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_phone_number"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
+            app:layout_constraintTop_toTopOf="@+id/tv_phone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_phone"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/dp_8"
+            android:focusable="true"
+            android:gravity="start"
+            android:textDirection="locale"
+            android:clickable="true"
+            android:textColor="@color/color_medium_black"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/iv_phone"
+            app:layout_constraintTop_toBottomOf="@id/tv_place_link"
+            app:layout_constraintEnd_toEndOf="@+id/sheet_direction_gl_direction_end"
+            tools:text="+1 604-731-5743" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/top_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_phone,card_loader_phone_2" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_direction"
             android:layout_width="@dimen/dp_0"
@@ -208,10 +412,9 @@
             app:cardBackgroundColor="@color/color_primary_green"
             app:cardUseCompatPadding="false"
             app:cornerRadius="@dimen/dp_8"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/sheet_direction_gl_direction_end"
             app:layout_constraintStart_toStartOf="@id/direction_sheet_gl_direction_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_direction_error_2">
+            app:layout_constraintTop_toBottomOf="@id/top_barrier">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -253,13 +456,19 @@
             android:visibility="invisible"
             app:constraint_referenced_ids="tv_direction_distance,tv_direction_dot,tv_direction_time" />
 
-
         <androidx.constraintlayout.widget.Group
             android:id="@+id/group_distance_load"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
             app:constraint_referenced_ids="card_loader_sheet_1,card_loader_sheet_2" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_place_details_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="card_loader_schedule_1,card_loader_schedule_2,card_loader_place_1,card_loader_place_2,card_loader_phone_1,card_loader_phone_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

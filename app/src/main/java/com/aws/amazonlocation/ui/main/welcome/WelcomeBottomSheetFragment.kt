@@ -90,7 +90,7 @@ class WelcomeBottomSheetFragment : BottomSheetDialogFragment() {
     private fun clickListener() {
         mBinding.apply {
             btnContinueToApp.setOnClickListener {
-                (activity as MainActivity).setWelcomeToExplorer()
+                (activity as MainActivity).checkPropertiesData()
                 dialog.dismiss()
             }
         }

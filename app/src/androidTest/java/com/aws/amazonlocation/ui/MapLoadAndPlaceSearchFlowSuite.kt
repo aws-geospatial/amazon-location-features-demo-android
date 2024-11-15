@@ -13,6 +13,7 @@ import com.aws.amazonlocation.ui.main.ExploreFragmentSearchByCategoriesTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchCollapseTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchExistsTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchGeocodeReversedTest
+import com.aws.amazonlocation.ui.main.SearchContactInfoPOICardTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
@@ -31,5 +32,6 @@ import org.junit.runners.Suite
     ExploreFragmentSearchCollapseTest::class,
     ExploreFragmentSearchExistsTest::class,
     ExploreFragmentSearchGeocodeReversedTest::class,
+    SearchContactInfoPOICardTest::class
 )
 class MapLoadAndPlaceSearchFlowSuite

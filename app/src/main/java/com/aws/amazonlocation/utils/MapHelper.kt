@@ -175,6 +175,7 @@ class MapHelper(
                     ),
                     mPreferenceManager?.getValue(KEY_NEAREST_REGION, ""),
                 )
+            if (defaultIdentityPoolId == "null") return
             region = defaultIdentityPoolId.split(":")[0]
         }
     }

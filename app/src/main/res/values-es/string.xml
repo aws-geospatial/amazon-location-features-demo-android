@@ -254,4 +254,11 @@
   <string name="description_tza">Tanzania\'s vista en lago Malawi</string>
   <string name="description_ury">Uruguay\'s vista en Rincón de Artigas</string>
   <string name="description_vnm">Vietnam vista en la Paracelso Islas y Spratly Islas</string>
+  <string name="label_required_fields_missing">Necesario configuración llaves somos desaparecido, y la aplicación no poder función sin ellos. El siguiendo llaves somos falta:\n</string>
+  <string name="label_some_fields_missing">Algunos configuración llaves somos desaparecido. Mapa, Buscar, Lugares, y Ruta somos disponible, pero Simulación y Analítica somos inhabilitado hasta la siguiendo llaves somos agregado:\n</string>
+  <string name="label_simulation_fields_missing">Algunos configuración llaves somos desaparecido. Mapa, Buscar, Lugares, y Ruta somos disponible, pero Simulación es inhabilitado hasta la siguiendo llaves somos agregado:\n</string>
+  <string name="label_analytics_fields_missing">Analítica rastreo es inhabilitado porque la siguiendo configuración llaves somos falta:\n</string>
+  <string name="title_configuration_incomplete">Configuración Incompleto</string>
+  <string name="label_schedule">Programar</string>
+  <string name="label_copied_to_clipboard">Copiado a portapapeles</string>
 </resources>
