@@ -2,12 +2,14 @@ package com.aws.amazonlocation.ui
 
 import com.aws.amazonlocation.ui.main.CheckRouteMapAdjustedTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentChangeStyleTest
+import com.aws.amazonlocation.ui.main.ExploreFragmentMapLanguageTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentPoliticalViewTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchLocationByAddressTest
 import com.aws.amazonlocation.ui.main.SearchResultComparisonTest
 import com.aws.amazonlocation.ui.main.SettingRouteOptionAvailableTest
 import com.aws.amazonlocation.ui.main.SettingsFragmentContentTest
 import com.aws.amazonlocation.ui.main.SettingsFragmentDefaultRouteTest
+import com.aws.amazonlocation.ui.main.SettingsMapLanguageTest
 import com.aws.amazonlocation.ui.main.SettingsMapPoliticalViewTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
@@ -23,5 +25,7 @@ import org.junit.runners.Suite
     ExploreFragmentChangeStyleTest::class,
     ExploreFragmentPoliticalViewTest::class,
     SettingsMapPoliticalViewTest::class,
+    ExploreFragmentMapLanguageTest::class,
+    SettingsMapLanguageTest::class,
 )
 class MapStylesSettingAndExplorerFlowSuite

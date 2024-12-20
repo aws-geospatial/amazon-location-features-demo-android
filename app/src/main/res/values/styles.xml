@@ -255,5 +255,6 @@
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">#fff</item>
         <item name="boxStrokeWidth">0dp</item>
+        <item name="cursorColor">@color/teal_700</item>
     </style>
 </resources>

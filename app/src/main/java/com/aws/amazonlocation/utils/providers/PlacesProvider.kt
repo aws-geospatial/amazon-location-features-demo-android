@@ -21,11 +21,14 @@ import com.aws.amazonlocation.utils.SEARCH_MAX_SUGGESTION_RESULT
 import com.aws.amazonlocation.utils.Units.getApiKey
 import com.aws.amazonlocation.utils.Units.isMetric
 import com.aws.amazonlocation.utils.Units.meterToFeet
+import com.aws.amazonlocation.utils.geofence_helper.turf.TurfConstants
+import com.aws.amazonlocation.utils.geofence_helper.turf.TurfMeasurement
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.validateLatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.maplibre.android.geometry.LatLng
+import org.maplibre.geojson.Point
 
 class PlacesProvider(
     private var mMapHelper: MapHelper,
@@ -108,47 +111,67 @@ class PlacesProvider(
             }
 
             reverseGeocodeResponse?.resultItems?.forEach {
-                val mSearchSuggestionData: SearchSuggestionData =
-                    if (it.placeId.isNotEmpty()) {
-                        SearchSuggestionData(
-                            placeId = it.placeId,
-                            text = it.address?.label,
-                            amazonLocationAddress = it.address,
-                            distance = it.distance.toDouble(),
-                            position =
-                            it.position?.let { doubles ->
-                                listOf(
-                                    doubles[0],
-                                    doubles[1],
-                                )
-                            },
+                liveLocation?.let { liveLocation ->
+                    it.position?.let { position ->
+                        val distance = TurfMeasurement.distance(
+                            Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
+                            Point.fromLngLat(position[0], position[1]),
+                            TurfConstants.UNIT_METRES
                         )
-                    } else {
-                        SearchSuggestionData(text = it.address?.label)
+                        val mSearchSuggestionData: SearchSuggestionData =
+                            if (it.placeId.isNotEmpty()) {
+                                SearchSuggestionData(
+                                    placeId = it.placeId,
+                                    text = it.address?.label,
+                                    amazonLocationAddress = it.address,
+                                    distance = distance,
+                                    position = listOf(position[0], position[1]),
+                                )
+                            } else {
+                                SearchSuggestionData(text = it.address?.label)
+                            }
+                        mList.add(mSearchSuggestionData)
                     }
-                mList.add(mSearchSuggestionData)
+                }
             }
             suggestResponse?.resultItems?.forEach {
-                val mSearchSuggestionData: SearchSuggestionData =
-                    if (!it.place?.placeId.isNullOrEmpty()) {
-                        SearchSuggestionData(
-                            placeId = it.place!!.placeId,
-                            searchText = searchText,
-                            text = it.place?.address?.label,
-                            amazonLocationAddress = it.place?.address,
-                            distance = it.place?.distance?.toDouble(),
-                            position =
-                            it.place?.position?.let { doubles ->
-                                listOf(
-                                    doubles[0],
-                                    doubles[1],
+                liveLocation?.let { liveLocation ->
+                    if (!it.place?.position.isNullOrEmpty()) {
+                        it.place?.position?.let { position ->
+                            val distance = TurfMeasurement.distance(
+                                Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
+                                Point.fromLngLat(position[0], position[1]),
+                                TurfConstants.UNIT_METRES
+                            )
+
+                            if (!it.place?.placeId.isNullOrEmpty()) {
+                                mList.add(
+                                    SearchSuggestionData(
+                                        placeId = it.place!!.placeId,
+                                        searchText = searchText,
+                                        text = it.place?.address?.label,
+                                        amazonLocationAddress = it.place?.address,
+                                        distance = distance,
+                                        position = listOf(position[0], position[1]),
+                                    ),
                                 )
-                            },
-                        )
+                            } else {
+                                it.query?.let { query ->
+                                    mList.add(
+                                        SearchSuggestionData(text = it.title, queryId = query.queryId),
+                                    )
+                                }
+                            }
+                        }
                     } else {
-                        SearchSuggestionData(text = it.title, queryId = it.query?.queryId)
+                        it.query?.let { query ->
+                            mList.add(
+                                SearchSuggestionData(text = it.title, queryId = query.queryId),
+                            )
+                        }
                     }
-                mList.add(mSearchSuggestionData)
+                }
+
             }
             response.data = mList
             return response
@@ -226,27 +249,25 @@ class PlacesProvider(
                 addMarkerBasedOnLatLng(searchSuggestionResponse, text, mList)
             } else {
                 response?.resultItems?.forEach { result ->
-                    val placeData =
-                        SearchSuggestionData(
-                            placeId = result.placeId,
-                            searchText = text,
-                            amazonLocationAddress = result.address,
-                            text = result.title,
-                            position =
-                                listOf(
-                                    result.position?.get(0) ?: 0.0,
-                                    result.position?.get(1) ?: 0.0,
-                                ),
-                                distance =
-                                getDistance(
-                                    liveLocation,
-                                    result.position
-                                        ?.get(1) ?: 0.0,
-                                    result.position
-                                        ?.get(0) ?: 0.0,
-                                ),
-                        )
-                    mList.add(placeData)
+                    liveLocation?.let {
+                        result.position?.let {
+                            val distance = TurfMeasurement.distance(
+                                Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
+                                Point.fromLngLat(it[0], it[1]),
+                                TurfConstants.UNIT_METRES
+                            )
+                            val placeData =
+                                SearchSuggestionData(
+                                    placeId = result.placeId,
+                                    searchText = text,
+                                    amazonLocationAddress = result.address,
+                                    text = result.title,
+                                    position = listOf(it[0], it[1]),
+                                    distance = distance,
+                                )
+                            mList.add(placeData)
+                        }
+                    }
                 }
             }
             searchSuggestionResponse.data = mList

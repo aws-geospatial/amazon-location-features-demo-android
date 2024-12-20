@@ -32,7 +32,6 @@
     <string name="how_to_connect_1_3">You can delete these resources through the stack deletion option or ‘Manage resources’ pages in the menu on the left.</string>
     <string name="how_to_connect_2_1">Connect the demo app with the recently created AWS resources by copying in input fields.</string>
     <string name="how_to_connect_2_2">From your CloudFormation output section copy the corresponding named values as reflected in the right section form (IdentityPoolId etc.). **Learn more**.</string>
-    <string name="learn_more"><b>Learn more</b></string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="how_to_connect_3_1">Login using the generated user credentials.</string>
@@ -44,7 +43,6 @@
     <string name="by_connecting_i_agree_to_amazon">By connecting I agree to Amazon Location’s\n**Terms &amp; Conditions**</string>
     <string name="terms_condition">Terms &amp; Conditions</string>
     <string name="help">Help</string>
-    <string name="click_here">Click here</string>
     <string name="user_domain">UserDomain</string>
     <string name="enter_user_domain">Enter UserDomain</string>
     <string name="enter_identity_pool_id">Enter IdentityPoolId</string>
@@ -108,7 +106,6 @@
     <string name="delete">Delete</string>
     <string name="edit_geofence">Edit Geofence</string>
     <string name="label_map_style">Map Style</string>
-    <string name="label_map_style_description"><![CDATA[Changing data provider also affects Places & Routes API]]></string>
     <string name="map_standard" translatable="false">Standard</string>
     <string name="map_monochrome" translatable="false">Monochrome</string>
     <string name="map_hybrid" translatable="false">Hybrid</string>
@@ -118,7 +115,6 @@
     <string name="label_enter_user_pool_client_id">Entered user pool client id is wrong</string>
     <string name="label_enter_user_pool_id">Entered user pool id is wrong</string>
     <string name="label_enter_web_socket_url">Entered web socket url is wrong</string>
-    <string name="data_provider">Data provider</string>
     <string name="map_style">Map style</string>
     <string name="aws_cloudformation">Connect your AWS Account</string>
     <string name="label_connected">You are connected</string>
@@ -159,7 +155,6 @@
     <string name="connect_to_aws_account">Connect AWS Account</string>
     <string name="label_preview">Preview</string>
     <string name="label_location_permission_denied">Location permission denied</string>
-    <string name="label_give_permission">Give permission</string>
     <string name="label_required_permission">Distance can\'t be calculated if location permission is not granted. Please enable location permission for Amazon Location from Settings</string>
     <string name="label_attribution">Attribution</string>
     <string name="label_disconnect">Disconnect</string>
@@ -170,10 +165,6 @@
     <string name="label_right_aws">© 2024, Amazon Web Services, Inc. or its affiliates. All rights reserved.</string>
     <string name="label_terms_desc">By downloading, installing, or using the Amazon Location Demo App, you agree to the App\'s **Terms &amp; Conditions** for use.</string>
     <string name="label_terms_desc_terms_page">By downloading, installing, or using the Amazon Location Demo App, you agree to the App\'s **Terms &amp; Conditions** for use.</string>
-    <string name="text_terms_desc_coloured_1">Terms &amp; Conditions</string>
-    <string name="text_terms_desc_coloured_2">AWS Acceptable Use Policy</string>
-    <string name="text_terms_desc_coloured_3">AWS Privacy Notice</string>
-    <string name="label_legal_and_privacy">Legal and Privacy</string>
     <string name="label_version">Version</string>
     <string name="label_sign_out">Sign out</string>
     <string name="label_partner_attribution">Partner Attribution</string>
@@ -197,11 +188,6 @@
     <string name="label_km">km</string>
     <string name="label_ft">ft</string>
     <string name="label_mi">mi</string>
-    <string name="label_provider">Provider</string>
-    <string name="label_attribute">Attribute</string>
-    <string name="label_type">Type</string>
-    <string name="label_apply_filters">Apply view</string>
-    <string name="label_clear_selection">Clear selection</string>
     <string name="label_style_search_error_title">No matching styles found</string>
     <string name="label_style_search_error_des">Make sure your search is spelled correctly and try again, make sure you have applied the appropriate filter or remove the filter and try again</string>
     <string name="label_clear_filters">Clear filters</string>
@@ -244,8 +230,8 @@
     <string name="label_fran_ais" translatable="false">Français</string>
     <string name="label_italiano" translatable="false">Italiano</string>
     <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-    <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-    <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
+    <string name="label_simplified_chinese" translatable="false">简体中文</string>
+    <string name="label_traditional_chinese" translatable="false">繁体中文</string>
     <string name="label_japanese" translatable="false">日本語</string>
     <string name="label_korean" translatable="false">한국어</string>
     <string name="label_arabic" translatable="false">العربية</string>
@@ -269,7 +255,10 @@
     <string name="description_tur">Turkey\'s view on Cyprus and Northern Cyprus</string>
     <string name="description_tza">Tanzania\'s view on Lake Malawi</string>
     <string name="description_ury">Uruguay\'s view on Rincon de Artigas</string>
-    <string name="description_vnm">Vietnam\'s view on the Paracel Islands and Spratly Islands</string>
+    <string name="description_cyp">Cyprus\'s political view</string>
+    <string name="description_geo">Georgia\'s political view</string>
+    <string name="description_grc">Greece\'s political view</string>
+    <string name="description_ps">Palestine\'s political view</string>
 
     <string name="flag_arg" translatable="false">🇦🇷</string>
     <string name="flag_egy" translatable="false">🇪🇬</string>
@@ -284,7 +273,10 @@
     <string name="flag_tur" translatable="false">🇹🇷</string>
     <string name="flag_tza" translatable="false">🇹🇿</string>
     <string name="flag_ury" translatable="false">🇺🇾</string>
-    <string name="flag_vnm" translatable="false">🇻🇳</string>
+    <string name="flag_geo" translatable="false">🇬🇪</string>
+    <string name="flag_cyp" translatable="false">🇨🇾</string>
+    <string name="flag_ps" translatable="false">🇵🇸</string>
+    <string name="flag_grc" translatable="false">🇬🇷</string>
 
     <string name="label_arg" translatable="false">ARG</string>
     <string name="label_egy" translatable="false">EGY</string>
@@ -299,7 +291,10 @@
     <string name="label_tur" translatable="false">TUR</string>
     <string name="label_tza" translatable="false">TZA</string>
     <string name="label_ury" translatable="false">URY</string>
-    <string name="label_vnm" translatable="false">VNM</string>
+    <string name="label_geo" translatable="false">GEO</string>
+    <string name="label_cyp" translatable="false">CYP</string>
+    <string name="label_ps" translatable="false">PS</string>
+    <string name="label_grc" translatable="false">GRC</string>
 
     <string name="label_required_fields_missing">Required configuration keys are missing, and the application cannot function without them. The following keys are missing:\n</string>
     <string name="label_some_fields_missing">Some configuration keys are missing. Map, Search, Places, and Route are available, but Simulation and Analytics are disabled until the following keys are added:\n</string>
@@ -308,4 +303,9 @@
     <string name="title_configuration_incomplete">Configuration Incomplete</string>
     <string name="label_schedule">Schedule</string>
     <string name="label_copied_to_clipboard">Copied to clipboard</string>
+    <string name="label_no_political_view">No political view</string>
+    <string name="label_map_language">Map language</string>
+    <string name="label_change_map_language">Change map language</string>
+    <string name="label_no_map_language">No map language</string>
+    <string name="label_is_selected">" is selected"</string>
 </resources>

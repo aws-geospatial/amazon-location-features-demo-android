@@ -37,11 +37,13 @@ class ExploreVMSetPoliticalListData : BaseTest() {
 
     @Test
     fun setPoliticalListDataSuccess() = runTest {
+        mExploreVM.mPoliticalData = arrayListOf()
+        mExploreVM.mPoliticalSearchData = arrayListOf()
         mExploreVM.setPoliticalListData(context)
 
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
-            mExploreVM.mPoliticalData.size == 14
+            mExploreVM.mPoliticalData.size == 18
         )
         val testPoliticalData = PoliticalData("testCountry", "description", "AR", false)
         mExploreVM.mPoliticalData.add(testPoliticalData)
@@ -49,7 +51,7 @@ class ExploreVMSetPoliticalListData : BaseTest() {
 
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
-            mExploreVM.mPoliticalData.size == 15
+            mExploreVM.mPoliticalData.size == 19
         )
 
         Assert.assertTrue(

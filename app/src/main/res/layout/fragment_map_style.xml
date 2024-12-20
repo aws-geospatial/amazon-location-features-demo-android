@@ -177,13 +177,73 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_map_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        app:layout_constraintTop_toBottomOf="@+id/cl_political_view">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_language"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_16"
+            android:src="@drawable/icon_language"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_map_language"
+            style="@style/SP16HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:fontFamily="@font/amazon_ember_medium"
+            android:gravity="start"
+            android:text="@string/label_map_language"
+            android:textDirection="locale"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_language"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_map_language_description"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:textDirection="locale"
+            android:lines="1"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/label_change_map_language"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_map_language"
+            app:layout_constraintStart_toEndOf="@id/iv_language"
+            app:layout_constraintTop_toBottomOf="@id/tv_map_language" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_arrow_map_language"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            android:tint="@color/color_hint_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_search_political"
         android:layout_width="match_parent"
         android:visibility="gone"
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_political_view">
+        app:layout_constraintTop_toBottomOf="@+id/cl_map_language">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_search_country"
@@ -242,7 +302,8 @@
                         android:paddingStart="@dimen/dp_4"
                         android:paddingEnd="@dimen/dp_4"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/color_hint_text" />
+                        android:textColorHint="@color/color_hint_text"
+                        android:textColor="@color/color_medium_black" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -257,7 +318,7 @@
             android:paddingBottom="@dimen/dp_16"
             android:clipToPadding="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/cl_apply"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_search_country">
 
             <com.google.android.material.card.MaterialCardView
@@ -291,56 +352,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_apply"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:background="@color/color_f8f8f7"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <View
-                android:id="@+id/view_divider"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dp_1"
-                android:layout_marginBottom="@dimen/dp_14"
-                android:background="@color/color_view"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/btn_apply_filter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_clear_selection"
-                style="@style/SP13BoldMediumBlackTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:text="@string/label_clear_selection"
-                android:textDirection="locale"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_apply_filter"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btn_apply_filter" />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_apply_filter"
-                style="@style/SigInHintTxt"
-                android:layout_width="@dimen/dp_140"
-                android:layout_height="@dimen/dp_40"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_56"
-                android:layout_marginBottom="@dimen/dp_24"
-                android:background="@drawable/sign_in_bg_1"
-                android:text="@string/label_apply_filters"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_16"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <include
             android:id="@+id/layout_no_data_found_political"
             layout="@layout/layout_no_data_found_political"
@@ -351,4 +362,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_search_country" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_map_language"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_map_language">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_map_language"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

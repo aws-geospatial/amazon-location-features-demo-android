@@ -39,6 +39,7 @@ class ExploreVMSetMapListData : BaseTest() {
 
     @Test
     fun setMapListDataSuccess() = runTest {
+        mExploreVM.mStyleList = arrayListOf()
         mExploreVM.setMapListData(context)
 
         mExploreVM.mStyleList[0].styleNameDisplay = STANDARD

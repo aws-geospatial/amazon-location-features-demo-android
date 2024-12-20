@@ -11,6 +11,7 @@ import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.data.common.HandleResult
 import com.aws.amazonlocation.data.response.CalculateDistanceResponse
+import com.aws.amazonlocation.data.response.LanguageData
 import com.aws.amazonlocation.data.response.MapStyleData
 import com.aws.amazonlocation.data.response.MapStyleInnerData
 import com.aws.amazonlocation.data.response.NavigationData
@@ -25,15 +26,16 @@ import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
 import com.aws.amazonlocation.utils.Units
+import com.aws.amazonlocation.utils.getLanguageData
+import com.aws.amazonlocation.utils.getPoliticalData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.maplibre.android.geometry.LatLng
+import javax.inject.Inject
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -51,6 +53,10 @@ class ExploreViewModel
         var mSearchSuggestionData: SearchSuggestionData? = null
         var mSearchDirectionOriginData: SearchSuggestionData? = null
         var mSearchDirectionDestinationData: SearchSuggestionData? = null
+        var mCarCalculateDistanceResponse: CalculateDistanceResponse? = null
+        var mWalkCalculateDistanceResponse: CalculateDistanceResponse? = null
+        var mTruckCalculateDistanceResponse: CalculateDistanceResponse? = null
+        var mScooterCalculateDistanceResponse: CalculateDistanceResponse? = null
         var mCarData: CalculateRoutesResponse? = null
         var mWalkingData: CalculateRoutesResponse? = null
         var mTruckData: CalculateRoutesResponse? = null
@@ -60,6 +66,7 @@ class ExploreViewModel
         var mStyleList = ArrayList<MapStyleData>()
         var mPoliticalData = ArrayList<PoliticalData>()
         var mPoliticalSearchData = ArrayList<PoliticalData>()
+        var mMapLanguageData = ArrayList<LanguageData>()
 
         private val _searchForSuggestionsResultList =
             Channel<HandleResult<SearchSuggestionResponse>>(Channel.BUFFERED)
@@ -101,9 +108,7 @@ class ExploreViewModel
         val placeData: Flow<HandleResult<GetPlaceResponse>> =
             _placeData.receiveAsFlow()
 
-        fun searchPlaceSuggestion(
-            searchText: String,
-        ) {
+        fun searchPlaceSuggestion(searchText: String) {
             _searchForSuggestionsResultList.trySend(
                 HandleResult.Loading,
             )
@@ -187,59 +192,43 @@ class ExploreViewModel
         ) {
             viewModelScope.launch(Dispatchers.IO) {
                 if (isWalkingAndTruckCall) {
-                    val two =
-                        async {
-                            calculateDistanceFromMode(
-                                latitude,
-                                longitude,
-                                latDestination,
-                                lngDestination,
-                                isAvoidFerries,
-                                isAvoidTolls,
-                                RouteTravelMode.Pedestrian.value,
-                            )
-                        }
-                    two.await()
-                    val three =
-                        async {
-                            calculateDistanceFromMode(
-                                latitude,
-                                longitude,
-                                latDestination,
-                                lngDestination,
-                                isAvoidFerries,
-                                isAvoidTolls,
-                                RouteTravelMode.Truck.value,
-                            )
-                        }
-                    three.await()
-                    val four =
-                        async {
-                            calculateDistanceFromMode(
-                                latitude,
-                                longitude,
-                                latDestination,
-                                lngDestination,
-                                isAvoidFerries,
-                                isAvoidTolls,
-                                RouteTravelMode.Scooter.value,
-                            )
-                        }
-                    four.await()
+                    calculateDistanceFromMode(
+                        latitude,
+                        longitude,
+                        latDestination,
+                        lngDestination,
+                        isAvoidFerries,
+                        isAvoidTolls,
+                        RouteTravelMode.Pedestrian.value,
+                    )
+                    calculateDistanceFromMode(
+                        latitude,
+                        longitude,
+                        latDestination,
+                        lngDestination,
+                        isAvoidFerries,
+                        isAvoidTolls,
+                        RouteTravelMode.Truck.value,
+                    )
+                    calculateDistanceFromMode(
+                        latitude,
+                        longitude,
+                        latDestination,
+                        lngDestination,
+                        isAvoidFerries,
+                        isAvoidTolls,
+                        RouteTravelMode.Scooter.value,
+                    )
                 } else {
-                    val one =
-                        async {
-                            calculateDistanceFromMode(
-                                latitude,
-                                longitude,
-                                latDestination,
-                                lngDestination,
-                                isAvoidFerries,
-                                isAvoidTolls,
-                                RouteTravelMode.Car.value,
-                            )
-                        }
-                    one.await()
+                    calculateDistanceFromMode(
+                        latitude,
+                        longitude,
+                        latDestination,
+                        lngDestination,
+                        isAvoidFerries,
+                        isAvoidTolls,
+                        RouteTravelMode.Car.value,
+                    )
                 }
             }
         }
@@ -399,7 +388,7 @@ class ExploreViewModel
                                     ),
                                 )
                             }
-                        }else if (leg.ferryLegDetails != null) {
+                        } else if (leg.ferryLegDetails != null) {
                             leg.ferryLegDetails?.travelSteps?.forEach {
                                 mNavigationListModel.add(
                                     NavigationData(
@@ -466,9 +455,7 @@ class ExploreViewModel
             }
         }
 
-        fun getPlaceData(
-            placeId: String
-        ) {
+        fun getPlaceData(placeId: String) {
             _placeData.trySend(HandleResult.Loading)
             viewModelScope.launch(Dispatchers.IO) {
                 getLocationSearchUseCase.getPlace(
@@ -485,7 +472,7 @@ class ExploreViewModel
                         override fun placeFailed(exception: DataSourceException) {
                             _placeData.trySend(
                                 HandleResult.Error(
-                                    exception
+                                    exception,
                                 ),
                             )
                         }
@@ -540,87 +527,26 @@ class ExploreViewModel
                 )
         }
 
-    fun setPoliticalListData(context: Context) {
-        val item = arrayListOf(
-            PoliticalData(
-                countryName = context.getString(R.string.label_arg),
-                description = context.getString(R.string.description_arg),
-                    countryCode = context.getString(R.string.flag_arg),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_egy),
-                    description = context.getString(R.string.description_egy),
-                    countryCode = context.getString(R.string.flag_egy),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_ind),
-                    description = context.getString(R.string.description_ind),
-                    countryCode = context.getString(R.string.flag_ind),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_ken),
-                    description = context.getString(R.string.description_ken),
-                    countryCode = context.getString(R.string.flag_ken),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_mar),
-                    description = context.getString(R.string.description_mar),
-                    countryCode = context.getString(R.string.flag_mar),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_rus),
-                    description = context.getString(R.string.description_rus),
-                    countryCode = context.getString(R.string.flag_rus),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_sdn),
-                    description = context.getString(R.string.description_sdn),
-                    countryCode = context.getString(R.string.flag_sdn),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_srb),
-                    description = context.getString(R.string.description_srb),
-                    countryCode = context.getString(R.string.flag_srb),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_sur),
-                    description = context.getString(R.string.description_sur),
-                    countryCode = context.getString(R.string.flag_sur),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_syr),
-                    description = context.getString(R.string.description_syr),
-                    countryCode = context.getString(R.string.flag_syr),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_tur),
-                    description = context.getString(R.string.description_tur),
-                    countryCode = context.getString(R.string.flag_tur),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_tza),
-                    description = context.getString(R.string.description_tza),
-                    countryCode = context.getString(R.string.flag_tza),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_ury),
-                    description = context.getString(R.string.description_ury),
-                    countryCode = context.getString(R.string.flag_ury),
-            ),
-            PoliticalData(
-                countryName = context.getString(R.string.label_vnm),
-                    description = context.getString(R.string.description_vnm),
-                    countryCode = context.getString(R.string.flag_vnm),
+        fun setPoliticalListData(context: Context) {
+            val item = getPoliticalData(context)
+
+            mPoliticalData.addAll(item)
+
+            mPoliticalSearchData.addAll(item)
+        }
+
+        fun searchPoliticalData(query: String): ArrayList<PoliticalData> =
+            ArrayList(
+                mPoliticalSearchData.filter {
+                    it.countryName.contains(query, ignoreCase = true)
+                },
             )
-        )
-        mPoliticalData.addAll(item)
 
-        mPoliticalSearchData.addAll(item)
-    }
+        fun setMapLanguageData(context: Context) {
+            val item = getLanguageData(context)
 
-    fun searchPoliticalData(query: String): ArrayList<PoliticalData> {
-        return ArrayList(mPoliticalSearchData.filter {
-            it.countryName.contains(query, ignoreCase = true)
-        })
+            mMapLanguageData.clear()
+
+            mMapLanguageData.addAll(item)
+        }
     }
-}

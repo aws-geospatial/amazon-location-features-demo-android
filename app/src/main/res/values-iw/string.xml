@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">אתה מסוגל למחוק אלו משאבים דרך ה ערימה מחיקה אפשרות או \'לנהל משאבים עמודים בתוך ה תפריט על ה שמאלה.</string>
   <string name="how_to_connect_2_1">התחבר ה דמו יישום עם ה לאחרונה נברא AWS משאבים על ידי להעתיק בתוך להזין שדות.</string>
   <string name="how_to_connect_2_2">מ שלך תצורת ענן פלט קטע העתק ה תואם בשם ערכים בתור משתקף בתוך ה ימין קטע טופס (זהותPoolid וכו \'). **למד יותר**.</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">התחברות לנצל ה נוצר משתמש אישורים.</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">על ידי מקשר אנוכי מסכים כדי Amazon תנאי\n** של המיקום &amp; תנאים**</string>
   <string name="terms_condition">תנאים &amp; תנאים</string>
   <string name="help">עזרה</string>
-  <string name="click_here">לחץ פה</string>
   <string name="user_domain">דומיין משתמש</string>
   <string name="enter_user_domain">הזן דומיין משתמש</string>
   <string name="enter_identity_pool_id">הזן זיהויPoolid</string>
@@ -96,13 +92,11 @@
   <string name="delete">מחק</string>
   <string name="edit_geofence">עריכה גיאופנס</string>
   <string name="label_map_style">מפה סגנון</string>
-  <string name="label_map_style_description">משתנה פרטים ספק וכן משפיע מקומות &amp; מסלולים ממשק תכנות יישומים</string>
   <string name="label_enter_identity_pool_id">נא הכנס ראוי זהות בריכה מזהה</string>
   <string name="label_enter_domain">נכנס משתמש תחום הווה שגוי</string>
   <string name="label_enter_user_pool_client_id">נכנס משתמש בריכה לקוח מזהה הווה שגוי</string>
   <string name="label_enter_user_pool_id">נכנס משתמש בריכה מזהה הווה שגוי</string>
   <string name="label_enter_web_socket_url">נכנס אינטרנט שקע כתובת אתר הווה שגוי</string>
-  <string name="data_provider">נתונים ספק</string>
   <string name="map_style">מפה סגנון</string>
   <string name="aws_cloudformation">התחבר שלך AWS חשבון</string>
   <string name="label_connected">אתה מהווים מחובר</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">התחבר AWS חשבון</string>
   <string name="label_preview">תצוגה מקדימה</string>
   <string name="label_location_permission_denied">מיקום רשות נדחה</string>
-  <string name="label_give_permission">תן רשות</string>
   <string name="label_required_permission">מרחק יכול\ לא להיות מחושב אם מקום רשות הווה לא הוענקה. נא להפעיל מקום רשות בשביל Amazon מיקום מ הגדרות</string>
   <string name="label_attribution">ייחוס</string>
   <string name="label_disconnect">התנתק</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon אינטרנט שירותים, "בע""מ" או שלו שותפים. כל זכויות שמורה.</string>
   <string name="label_terms_desc">על ידי הורדה, התקנה, או לנצל ה Amazon מיקום הדגמה אפליקציה, אתה מסכים כדי ה אפליקציות\ **תנאים &amp; תנאים** בשביל להשתמש.</string>
   <string name="label_terms_desc_terms_page">על ידי הורדה, התקנה, או לנצל ה Amazon מיקום הדגמה אפליקציה, אתה מסכים כדי ה אפליקציות\ **תנאים &amp; תנאים** בשביל להשתמש.</string>
-  <string name="text_terms_desc_coloured_1">תנאים &amp; תנאים</string>
-  <string name="text_terms_desc_coloured_2">AWS מקובל השתמש מדיניות</string>
-  <string name="text_terms_desc_coloured_3">AWS פרטיות שימו לב</string>
-  <string name="label_legal_and_privacy">משפטי ו פרטיות</string>
   <string name="label_version">גרסה</string>
   <string name="label_sign_out">לחתום החוצה</string>
   <string name="label_partner_attribution">פרטנר ייחוס</string>
@@ -181,11 +170,6 @@
   <string name="label_km">"ק""מ"</string>
   <string name="label_ft">רגל</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">ספק</string>
-  <string name="label_attribute">תכונה</string>
-  <string name="label_type">הקלד</string>
-  <string name="label_apply_filters">הגש בקשה מסננים</string>
-  <string name="label_clear_selection">ברור בחירה</string>
   <string name="label_style_search_error_title">לא זיווג סגנונות נמצא</string>
   <string name="label_style_search_error_des">לעשות בטח שלך חפש הווה מאוית נכון ו השתדל שוב, עשה בטח אתה יש הגיש בקשה ה ראוי מסנן או הסר ה מסנן ו השתדל שוב</string>
   <string name="label_clear_filters">ברור מסננים</string>
@@ -221,19 +205,6 @@
   <string name="label_language">שפה</string>
   <string name="label_tracker_entered">גשש נכנס</string>
   <string name="label_tracker_exited">גשש יצא</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">עבור חלק הדמייה חוויה בבקשה להתיר הודעה רשות מ הגדרות.</string>
   <string name="region">אזור</string>
   <string name="mode_light">אור</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">טורקיה\ של מבט על קפריסין ו צפוני קפריסין</string>
   <string name="description_tza">טנזניה מבט על אגם מלאווי</string>
   <string name="description_ury">אורוגוואי\ של מבט על רינקון דה ארטיגאס</string>
-  <string name="description_vnm">וייטנאם\ מבט על ה פאראסל איים ו ספראטלי איים</string>
   <string name="label_required_fields_missing">חובה תצורה מפתחות מהווים חסר, ו ה יישום לא יכול תפקוד בלי אותם. ה הבא מפתחות מהווים חסר:\ n</string>
   <string name="label_some_fields_missing">חלק תצורה מפתחות מהווים חסר. מפה, חיפוש, מקומות, ו מסלול מהווים זמין, אולם סימולציה ו ניתוח מהווים מושבת עד ה הבא מפתחות מהווים הוסיף:\ n</string>
   <string name="label_simulation_fields_missing">חלק תצורה מפתחות מהווים חסר. מפה, חיפוש, מקומות, ו מסלול מהווים זמין, אולם סימולציה הווה מושבת עד ה הבא מפתחות מהווים הוסיף:\ n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">תצורה לא שלם</string>
   <string name="label_schedule">לוח זמנים</string>
   <string name="label_copied_to_clipboard">הועתק כדי הלוח</string>
+  <string name="label_no_political_view">לא מדיני מבט</string>
+  <string name="label_map_language">מפה לשון</string>
+  <string name="label_change_map_language">שינוי מפה לשון</string>
+  <string name="label_no_map_language">לא מפה לשון</string>
+  <string name="label_is_selected">" הווה נבחר"</string>
+  <string name="description_cyp">קפריסין\ של מדיני מבט</string>
+  <string name="description_geo">ג\'ורג\'יה\ \'ס מדיני מבט</string>
+  <string name="description_grc">יוון\ של מדיני מבט</string>
+  <string name="description_ps">פלסטין\ מדיני מבט</string>
 </resources>

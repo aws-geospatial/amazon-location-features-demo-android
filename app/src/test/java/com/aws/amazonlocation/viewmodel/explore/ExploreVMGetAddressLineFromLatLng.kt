@@ -10,7 +10,6 @@ import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
 import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule

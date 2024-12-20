@@ -367,7 +367,11 @@ class MainActivity :
                         }
                         moveToExploreScreen()
                     } else if (mBottomSheetHelper.isAttributeExpandedOrHalfExpand()) {
-                        mBottomSheetHelper.hideAttributeSheet()
+                        if (fragment is ExploreFragment) {
+                            fragment.hideAttribution()
+                        } else {
+                            mBottomSheetHelper.hideAttributeSheet()
+                        }
                     } else if (mBottomSheetHelper.isSearchBottomSheetExpandedOrHalfExpand()) {
                         mBottomSheetHelper.collapseSearchBottomSheet()
                     } else if (fragment is ExploreFragment && fragment.isMapStyleExpandedOrHalfExpand()) {

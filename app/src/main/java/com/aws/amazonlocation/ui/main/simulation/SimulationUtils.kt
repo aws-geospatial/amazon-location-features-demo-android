@@ -1078,6 +1078,10 @@ class SimulationUtils(
         mBottomSheetSimulationBehavior?.isDraggable = isDrag
     }
 
+    fun setImageIcon(logoResId: Int) {
+        simulationBinding?.imgAmazonLogoTrackingSheet?.setImageResource(logoResId)
+    }
+
     fun setSimulationDraggable() {
         setSimulationDraggable(true)
     }

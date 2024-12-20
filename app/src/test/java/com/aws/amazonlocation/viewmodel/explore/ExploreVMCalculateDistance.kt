@@ -48,6 +48,10 @@ class ExploreVMCalculateDistance : BaseTest() {
         mExploreVM.mWalkingData = null
         mExploreVM.mTruckData = null
         mExploreVM.mScooterData = null
+        mExploreVM.mCarCalculateDistanceResponse = null
+        mExploreVM.mWalkCalculateDistanceResponse = null
+        mExploreVM.mTruckCalculateDistanceResponse = null
+        mExploreVM.mScooterCalculateDistanceResponse = null
     }
 
     @Test
@@ -65,10 +69,14 @@ class ExploreVMCalculateDistance : BaseTest() {
         }
 
         mExploreVM.mCalculateDistance.test {
+            mExploreVM.mStartLatLng = null
+            mExploreVM.mDestinationLatLng = null
             val start = DISTANCE_COORDINATE_FROM
             val end = DISTANCE_COORDINATE_TO
             mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, AVOID_FERRIES, AVOID_TOLLS, false)
             var result = awaitItem()
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, mExploreVM.mStartLatLng == start)
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, mExploreVM.mDestinationLatLng == end)
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)

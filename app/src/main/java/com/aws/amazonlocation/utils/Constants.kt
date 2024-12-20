@@ -50,6 +50,7 @@ const val KEY_MAP_NAME = "key_map_name"
 const val KEY_MAP_STYLE_NAME = "key_map_style_name"
 const val KEY_COLOR_SCHEMES = "key_color_schemes"
 const val KEY_POLITICAL_VIEW = "key_political_view"
+const val KEY_SELECTED_MAP_LANGUAGE = "key_selected_map_language"
 const val KEY_END_POINT = "key_end_point"
 
 const val CLICK_DEBOUNCE = 1000L
@@ -129,6 +130,8 @@ const val LANGUAGE_CODE_ARABIC = "ar"
 const val LANGUAGE_CODE_HEBREW = "iw"
 const val LANGUAGE_CODE_HINDI = "hi"
 const val LANGUAGE_CODE_HEBREW_1 = "he"
+const val LANGUAGE_CODE_ZH_HANT= "zh-Hant"
+const val LANGUAGE_CODE_ZH= "zh"
 
 val regionMapList: MutableMap<String, String> = mutableMapOf(
     Pair("US East (Ohio) us-east-2", "us-east-2"),
@@ -184,6 +187,7 @@ object MapCameraZoom {
     const val DEFAULT_CAMERA_ZOOM = 14.0
     const val TRACKING_CAMERA_ZOOM = 14.0
     const val MAX_ZOOM = 22.0
+    const val MIN_ZOOM = 2.0
 }
 
 object Durations {

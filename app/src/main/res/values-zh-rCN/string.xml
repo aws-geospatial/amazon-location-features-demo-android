@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">你 能够 删除 这些 资源 通过 这 堆 删除 选项 要么 \'管理 资源\' 页面 在 这 菜单 上 这 左。</string>
   <string name="how_to_connect_2_1">连接 这 演示 应用 和 这 最近 创造 AWS 资源 通过 复制 在 输入 字段。</string>
   <string name="how_to_connect_2_2">来自 您的 云形成 输出 部分 复制 这 相应的 被命名 价值 如同 反映 在 这 权利 部分 表单 (identityPoolID 等等）。 **学习 更多**。</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">登录 使用 这 生成的 用户 证书。</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">由 连接 我 同意 到 Amazon 地点的\n**条款 &amp; 条件**</string>
   <string name="terms_condition">条款 &amp; 条件</string>
   <string name="help">帮帮我</string>
-  <string name="click_here">点击 这里</string>
   <string name="user_domain">用户域</string>
   <string name="enter_user_domain">输入 用户域</string>
   <string name="enter_identity_pool_id">输入 identitypoolID</string>
@@ -96,13 +92,11 @@
   <string name="delete">删除</string>
   <string name="edit_geofence">编辑 Geofence</string>
   <string name="label_map_style">地图 风格</string>
-  <string name="label_map_style_description">正在改变 数据 提供者 也 影响 地方 &amp; 路线 API</string>
   <string name="label_enter_identity_pool_id">请 输入 正确的 身份 池 id</string>
   <string name="label_enter_domain">已输入 用户 域 是 错了</string>
   <string name="label_enter_user_pool_client_id">已输入 用户 池 客户 id 是 错了</string>
   <string name="label_enter_user_pool_id">已输入 用户 池 id 是 错了</string>
   <string name="label_enter_web_socket_url">已输入 网站 插座 网址 是 错了</string>
-  <string name="data_provider">数据 提供者</string>
   <string name="map_style">地图 风格</string>
   <string name="aws_cloudformation">连接 您的 AWS 账户</string>
   <string name="label_connected">你 是 连接的</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">连接 AWS 账户</string>
   <string name="label_preview">预览</string>
   <string name="label_location_permission_denied">地点 许可 否认</string>
-  <string name="label_give_permission">给 许可</string>
   <string name="label_required_permission">距离 不能 是 已计算 如果 位置 许可 是 不 授予。 请 启用 位置 许可 为了 Amazon 地点 从 设置</string>
   <string name="label_attribution">归因</string>
   <string name="label_disconnect">断开连接</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024年， Amazon 网页 服务， 公司 要么 它的 附属公司。 全部 权利 保留的。</string>
   <string name="label_terms_desc">由 正在下载， 正在安装， 要么 使用 这 Amazon 地点 演示 应用程序， 你 同意 到 这 应用程序 **条款 &amp; 条件** 为了 使用。</string>
   <string name="label_terms_desc_terms_page">由 正在下载， 正在安装， 要么 使用 这 Amazon 地点 演示 应用程序， 你 同意 到 这 应用程序 **条款 &amp; 条件** 为了 使用。</string>
-  <string name="text_terms_desc_coloured_1">条款 &amp; 条件</string>
-  <string name="text_terms_desc_coloured_2">AWS 可以接受 使用 政策</string>
-  <string name="text_terms_desc_coloured_3">AWS 隐私 通知</string>
-  <string name="label_legal_and_privacy">合法 和 隐私</string>
   <string name="label_version">版本</string>
   <string name="label_sign_out">标志 出</string>
   <string name="label_partner_attribution">合作伙伴 归因</string>
@@ -181,11 +170,6 @@
   <string name="label_km">公里</string>
   <string name="label_ft">英尺</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">提供商</string>
-  <string name="label_attribute">属性</string>
-  <string name="label_type">键入</string>
-  <string name="label_apply_filters">申请 过滤器</string>
-  <string name="label_clear_selection">清除 选择</string>
   <string name="label_style_search_error_title">没有 匹配 风格 找到</string>
   <string name="label_style_search_error_des">制作 当然 您的 搜索 是 拼出的 正确地 和 尝试 再说一遍， 使 当然 你 有 应用的 这 适当 过滤 要么 去除 这 过滤 和 尝试 再次</string>
   <string name="label_clear_filters">清除 过滤器</string>
@@ -221,19 +205,6 @@
   <string name="label_language">语言</string>
   <string name="label_tracker_entered">追踪器 已输入</string>
   <string name="label_tracker_exited">追踪器 退出</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">对于 光滑 模拟 经历 拜托 允许 通知 许可 从 设置。</string>
   <string name="region">区域</string>
   <string name="mode_light">光</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">土耳其的 观点 上 塞浦路斯 和 北方 塞浦路斯</string>
   <string name="description_tza">坦桑尼亚的 观点 上 湖 马拉维</string>
   <string name="description_ury">乌拉圭 观点 上 林康 de 阿蒂加斯</string>
-  <string name="description_vnm">越南 观点 上 这 帕拉塞尔 岛屿 和 南沙群岛 岛屿</string>
   <string name="label_required_fields_missing">必填项 配置 钥匙 是 失踪， 和 这 应用程序 不能 功能 没有 他们。 这个 以下 钥匙 是 缺失：\n</string>
   <string name="label_some_fields_missing">一些 配置 钥匙 是 失踪。 地图， 搜索， 地方， 和 路线 是 可用， 但是 模拟 和 分析 是 残疾的 直到 这 以下 钥匙 是 已添加：\n</string>
   <string name="label_simulation_fields_missing">一些 配置 钥匙 是 失踪。 地图， 搜索， 地方， 和 路线 是 可用， 但是 模拟 是 残疾的 直到 这 以下 钥匙 是 已添加：\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">配置 不完整</string>
   <string name="label_schedule">日程安排</string>
   <string name="label_copied_to_clipboard">已复制 到 剪贴板</string>
+  <string name="label_no_political_view">没有 政治的 观点</string>
+  <string name="label_map_language">地图 语言</string>
+  <string name="label_change_map_language">改变 地图 语言</string>
+  <string name="label_no_map_language">没有 地图 语言</string>
+  <string name="label_is_selected">“ 是 已选择”</string>
+  <string name="description_cyp">塞浦路斯 政治的 观点</string>
+  <string name="description_geo">乔治亚州 政治的 观点</string>
+  <string name="description_grc">希腊的 政治的 观点</string>
+  <string name="description_ps">巴勒斯坦的 政治的 观点</string>
 </resources>

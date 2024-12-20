@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">Tú poder eliminar estos recursos por la pila eliminación opción o «Gestionar recursos\' páginas en la menú en la izquierda.</string>
   <string name="how_to_connect_2_1">Conéctate la muestra app con la recientemente creado AWS recursos por copiado en entrada campos.</string>
   <string name="how_to_connect_2_2">De vuestro Formación en la nube salida sección copiar la correspondiente llamado valora tan reflejada en la derecha sección formulario (ID de grupo de identidad) etc.). **Aprenda más**.</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">Iniciar sesión usando la generado usuario credenciales.</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">Por conectando YO acordar a Amazon \n**Términos de la ubicación y Condiciones**</string>
   <string name="terms_condition">Términos y Condiciones</string>
   <string name="help">Ayuda</string>
-  <string name="click_here">Haga clic aquí</string>
   <string name="user_domain">Dominio de usuario</string>
   <string name="enter_user_domain">Entrar Dominio de usuario</string>
   <string name="enter_identity_pool_id">Entrar ID de grupo de identidad</string>
@@ -96,13 +92,11 @@
   <string name="delete">Eliminar</string>
   <string name="edit_geofence">Editar Geofence</string>
   <string name="label_map_style">Mapa Estilo</string>
-  <string name="label_map_style_description">Cambiando dato proveedora además afecta Lugares y Rutas API</string>
   <string name="label_enter_identity_pool_id">Por favor entrar apropiado identidad piscina id</string>
   <string name="label_enter_domain">Entró usuario dominio es incorrecta</string>
   <string name="label_enter_user_pool_client_id">Entró usuario piscina cliente id es incorrecta</string>
   <string name="label_enter_user_pool_id">Entró usuario piscina id es incorrecta</string>
   <string name="label_enter_web_socket_url">Entró web toma de corriente URL es incorrecta</string>
-  <string name="data_provider">Datos proveedora</string>
   <string name="map_style">Mapa estilo</string>
   <string name="aws_cloudformation">Conéctate vuestro AWS Cuenta</string>
   <string name="label_connected">Tú somos conectada</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">Conéctate AWS Cuenta</string>
   <string name="label_preview">Vista previa</string>
   <string name="label_location_permission_denied">Ubicación permiso denegado</string>
-  <string name="label_give_permission">Regala permiso</string>
   <string name="label_required_permission">Distancia no puedo estar calculada si ubicación permiso es no concedido. Por favor habilitar ubicación permiso por Amazon Ubicación de Ajustes</string>
   <string name="label_attribution">Atribución</string>
   <string name="label_disconnect">Desconectar</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon Web Servicios, Cía. o sus afiliados. Todos derechos reservado.</string>
   <string name="label_terms_desc">Por descargando, instalar, o usando la Amazon Ubicación Demo Aplicación, tú acordar a la Apps\'s **Términos y Condiciones** por usar.</string>
   <string name="label_terms_desc_terms_page">Por descargando, instalar, o usando la Amazon Ubicación Demo Aplicación, tú acordar a la Apps\'s **Términos y Condiciones** por usar.</string>
-  <string name="text_terms_desc_coloured_1">Términos y Condiciones</string>
-  <string name="text_terms_desc_coloured_2">AWS Aceptable Uso Política</string>
-  <string name="text_terms_desc_coloured_3">AWS Privacidad Aviso</string>
-  <string name="label_legal_and_privacy">Legal y Privacidad</string>
   <string name="label_version">Versión</string>
   <string name="label_sign_out">Signo fuera</string>
   <string name="label_partner_attribution">Socio Atribución</string>
@@ -181,11 +170,6 @@
   <string name="label_km">km</string>
   <string name="label_ft">pies</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">Proveedor</string>
-  <string name="label_attribute">Atributo</string>
-  <string name="label_type">Tipo</string>
-  <string name="label_apply_filters">Aplicar filtra</string>
-  <string name="label_clear_selection">Borrar selección</string>
   <string name="label_style_search_error_title">No a juego estilos encontrado</string>
   <string name="label_style_search_error_des">Hacer Sí, claro vuestro búsqueda es deletreado correctamente y intentar otra vez, hacer Sí, claro tú tener aplicado la apropiado filtrar o retirar la filtrar y intentar nuevamente</string>
   <string name="label_clear_filters">Borrar filtra</string>
@@ -221,19 +205,6 @@
   <string name="label_language">Lengua</string>
   <string name="label_tracker_entered">rastreador ingresó</string>
   <string name="label_tracker_exited">rastreador salió</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Para suave simulación experiencia por favor permitir notificación permiso de ajustes.</string>
   <string name="region">Región</string>
   <string name="mode_light">Luz</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">Turquía\'s vista en Chipre y Septentrional Chipre</string>
   <string name="description_tza">Tanzania\'s vista en lago Malawi</string>
   <string name="description_ury">Uruguay\'s vista en Rincón de Artigas</string>
-  <string name="description_vnm">Vietnam vista en la Paracelso Islas y Spratly Islas</string>
   <string name="label_required_fields_missing">Necesario configuración llaves somos desaparecido, y la aplicación no poder función sin ellos. El siguiendo llaves somos falta:\n</string>
   <string name="label_some_fields_missing">Algunos configuración llaves somos desaparecido. Mapa, Buscar, Lugares, y Ruta somos disponible, pero Simulación y Analítica somos inhabilitado hasta la siguiendo llaves somos agregado:\n</string>
   <string name="label_simulation_fields_missing">Algunos configuración llaves somos desaparecido. Mapa, Buscar, Lugares, y Ruta somos disponible, pero Simulación es inhabilitado hasta la siguiendo llaves somos agregado:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">Configuración Incompleto</string>
   <string name="label_schedule">Programar</string>
   <string name="label_copied_to_clipboard">Copiado a portapapeles</string>
+  <string name="label_no_political_view">No política vista</string>
+  <string name="label_map_language">Mapa lengua</string>
+  <string name="label_change_map_language">Cambiar mapa lengua</string>
+  <string name="label_no_map_language">No mapa lengua</string>
+  <string name="label_is_selected">« es seleccionado»</string>
+  <string name="description_cyp">Chipre\'s política vista</string>
+  <string name="description_geo">Georgia\'s política vista</string>
+  <string name="description_grc">Grecia\'s política vista</string>
+  <string name="description_ps">Palestina\'s política vista</string>
 </resources>

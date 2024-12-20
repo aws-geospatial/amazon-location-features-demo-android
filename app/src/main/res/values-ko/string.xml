@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">당신 양철통 지우다 이들 자원 를 통해 그 스택 삭제 선택권 또는 \'관리 리소스\' 페이지 에서 그 메뉴 ...에 그 왼쪽.</string>
   <string name="how_to_connect_2_1">커넥트 그 데모 앱 와 그 최근에 생성되었습니다 AWS 자원 에 의해 복사 에서 입력 필드.</string>
   <string name="how_to_connect_2_2">에서 당신의 클라우드 포메이션 출력 섹션 복사 그 동 이름이 지정되어 있습니다 가치 같이 반영 에서 그 오른쪽 섹션 형식 (아이덴티티 풀 ID) 등). **알아보기 더보기**.</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">로그인 를 사용하여 그 생성 사용자 자격 증명.</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">에 의해 연결 나는 동의하다 에 Amazon 위치\n**약관 &amp; 조건**</string>
   <string name="terms_condition">약관 &amp; 조건</string>
   <string name="help">도움말</string>
-  <string name="click_here">클릭 이리</string>
   <string name="user_domain">사용자 도메인</string>
   <string name="enter_user_domain">들어가기 사용자 도메인</string>
   <string name="enter_identity_pool_id">들어가기 아이덴티티 풀 ID</string>
@@ -96,13 +92,11 @@
   <string name="delete">삭제</string>
   <string name="edit_geofence">편집 지오펜스</string>
   <string name="label_map_style">지도 스타일</string>
-  <string name="label_map_style_description">변경 데이터 공급자 또한 영향을 미친다 장소 &amp; 노선 API</string>
   <string name="label_enter_identity_pool_id">부디 를 입력합니다 적절한 신원을 확인합니다 풀 id</string>
   <string name="label_enter_domain">입력됨 사용자 도메인 입니다 잘못된</string>
   <string name="label_enter_user_pool_client_id">입력됨 사용자 풀 고객 id 입니다 잘못된</string>
   <string name="label_enter_user_pool_id">입력됨 사용자 풀 id 입니다 잘못된</string>
   <string name="label_enter_web_socket_url">입력됨 웹 소켓 url 입니다 잘못된</string>
-  <string name="data_provider">데이터 공급자</string>
   <string name="map_style">지도 스타일</string>
   <string name="aws_cloudformation">커넥트 당신의 AWS 계정</string>
   <string name="label_connected">당신 입니다 연결됨</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">커넥트 AWS 계정</string>
   <string name="label_preview">시사</string>
   <string name="label_location_permission_denied">위치 허가 거부되었습니다</string>
-  <string name="label_give_permission">주기 허가</string>
   <string name="label_required_permission">거리 할 수 없습니다 있다 계획된 만약 위치 허가 입니다 아니 부여됩니다. 부디 활성화하십시오 위치 허가 ...에 대한 Amazon 위치 ...에서 설정</string>
   <string name="label_attribution">저작자 표시</string>
   <string name="label_disconnect">연결 끊기</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon 웹 서비스, 주식회사 또는 그것의 계열사. 모두 권한 예약되어 있습니다.</string>
   <string name="label_terms_desc">에 의해 다운로드, 설치, 또는 를 사용하여 그 Amazon 위치 데모 앱, 당신 동의하다 에 그 앱\ \'의 **약관 &amp; 조건** ...에 대한 용도.</string>
   <string name="label_terms_desc_terms_page">에 의해 다운로드, 설치, 또는 를 사용하여 그 Amazon 위치 데모 앱, 당신 동의하다 에 그 앱\ \'의 **약관 &amp; 조건** ...에 대한 용도.</string>
-  <string name="text_terms_desc_coloured_1">약관 &amp; 조건</string>
-  <string name="text_terms_desc_coloured_2">AWS 수용 가능 용도 정책</string>
-  <string name="text_terms_desc_coloured_3">AWS 프라이버시 공지</string>
-  <string name="label_legal_and_privacy">법률 과 프라이버시</string>
   <string name="label_version">버전</string>
   <string name="label_sign_out">서명 밖으로</string>
   <string name="label_partner_attribution">파트너 저작자 표시</string>
@@ -181,11 +170,6 @@
   <string name="label_km">km</string>
   <string name="label_ft">피트</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">제공자</string>
-  <string name="label_attribute">특성</string>
-  <string name="label_type">타입</string>
-  <string name="label_apply_filters">적용하기 필터</string>
-  <string name="label_clear_selection">투명 선택</string>
   <string name="label_style_search_error_title">아니요 어울리는 스타일 녹이다</string>
   <string name="label_style_search_error_des">만들기 확실한 당신의 수색 입니다 철자 바르게 과 시도해 보십시오 다시 말하지만, 만들 확실한 당신 있다 적용된 그 적절한 필터 또는 제거 그 필터 과 시도해 보십시오 다시</string>
   <string name="label_clear_filters">투명 필터</string>
@@ -221,19 +205,6 @@
   <string name="label_language">언어</string>
   <string name="label_tracker_entered">트래커 입력했다</string>
   <string name="label_tracker_exited">트래커 종료되었습니다</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">에 대해 부드러운 시뮬레이션 경험 제발 허용 알림 허가 …에서 설정.</string>
   <string name="region">지역</string>
   <string name="mode_light">라이트</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">터키 전망 ...에 키프로스 과 북부 키프로스</string>
   <string name="description_tza">탄자니아 전망 ...에 호수 말라위</string>
   <string name="description_ury">우루과이 전망 ...에 린콘 de 아르티가스</string>
-  <string name="description_vnm">베트남 전망 ...에 그 파라셀 섬 과 스프래틀리 섬</string>
   <string name="label_required_fields_missing">필수 구성 키를 누릅니다 입니다 실종, 과 그 응용 프로그램 할 수 없다 기능 없이 그들을. 더 다음의 키를 누릅니다 입니다 누락:\n</string>
   <string name="label_some_fields_missing">일부 구성 키를 누릅니다 입니다 누락되었습니다. 지도, 검색, 장소, 과 노선 입니다 사용 가능, 하지만 시뮬레이션 과 해석학 입니다 비활성화 ...까지 그 다음의 키를 누릅니다 입니다 추가됨:\n</string>
   <string name="label_simulation_fields_missing">일부 구성 키를 누릅니다 입니다 누락되었습니다. 지도, 검색, 장소, 과 노선 입니다 사용 가능, 하지만 시뮬레이션 입니다 비활성화 ...까지 그 다음의 키를 누릅니다 입니다 추가됨:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">구성 불완전</string>
   <string name="label_schedule">스케줄</string>
   <string name="label_copied_to_clipboard">복사됨 에 클립보드</string>
+  <string name="label_no_political_view">아니요 정치적 전망</string>
+  <string name="label_map_language">지도 언어</string>
+  <string name="label_change_map_language">변경 지도 언어</string>
+  <string name="label_no_map_language">아니요 지도 언어</string>
+  <string name="label_is_selected">“ 입니다 선택됨”</string>
+  <string name="description_cyp">키프로스 정치적 전망</string>
+  <string name="description_geo">조지아 정치적 전망</string>
+  <string name="description_grc">그리스 정치적 전망</string>
+  <string name="description_ps">팔레스타인 정치적 전망</string>
 </resources>

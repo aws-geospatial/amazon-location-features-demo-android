@@ -11,7 +11,6 @@ import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
 import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.tracking.TrackingViewModel
 import com.aws.amazonlocation.utils.GeofenceCons
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -21,7 +20,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class TrackingVMGetGeofenceList : BaseTest() {

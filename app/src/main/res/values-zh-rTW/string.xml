@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">你 可以 刪除 這些 資源 通過 該 堆 刪除 選項 或者 \'管理 資源 頁面 在 該 菜單 上 該 左。</string>
   <string name="how_to_connect_2_1">連接 該 演示 應用程式 與 該 最近 已建立 亞馬遜網路服務公司 資源 由 複製 在 輸入 欄位。</string>
   <string name="how_to_connect_2_2">從 你的 雲形成 產量 區段 複製 該 相應的 命名 值 如 反映 在 該 對 區段 形式 (身份類型 等）。 ** 學習 更多 **。</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">登入 運用 該 產生 用戶 認證。</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">通過 連線 我 同意 至 Amazon 地點\n** 條款 &amp; 條件 **</string>
   <string name="terms_condition">條款 &amp; 條件</string>
   <string name="help">幫助</string>
-  <string name="click_here">按一下 這裡</string>
   <string name="user_domain">使用者網域</string>
   <string name="enter_user_domain">輸入 使用者網域</string>
   <string name="enter_identity_pool_id">輸入 身份類型</string>
@@ -96,13 +92,11 @@
   <string name="delete">刪除</string>
   <string name="edit_geofence">編輯 地理圍欄</string>
   <string name="label_map_style">地圖 風格</string>
-  <string name="label_map_style_description">改變 資料 供應商 也 影響 地方 &amp; 路線 應用程式編程介面</string>
   <string name="label_enter_identity_pool_id">求你了 輸入 正確的 身份 池 身份證</string>
   <string name="label_enter_domain">已輸入 用戶 域 是 錯了</string>
   <string name="label_enter_user_pool_client_id">已輸入 用戶 池 客戶 身份證 是 錯了</string>
   <string name="label_enter_user_pool_id">已輸入 用戶 池 身份證 是 錯了</string>
   <string name="label_enter_web_socket_url">已輸入 網路 插座 網址 是 錯了</string>
-  <string name="data_provider">數據 供應商</string>
   <string name="map_style">地圖 風格</string>
   <string name="aws_cloudformation">連接 你的 亞馬遜網路服務公司 帳號</string>
   <string name="label_connected">你 是 連線</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">連接 亞馬遜網路服務公司 帳號</string>
   <string name="label_preview">預覽</string>
   <string name="label_location_permission_denied">位置 允許 否認</string>
-  <string name="label_give_permission">給 允許</string>
   <string name="label_required_permission">距離 不能\ 是 計算 如果 地點 允許 是 不 授予。 求你了 啟用 地點 允許 為了 Amazon 位置 從 設定</string>
   <string name="label_attribution">歸因</string>
   <string name="label_disconnect">斷開</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon 網頁 服務， 公司 或者 它的 附屬機構。 所有 權利 保留。</string>
   <string name="label_terms_desc">通過 下載， 安裝， 或者 運用 該 Amazon 位置 演示 應用程序， 您 同意 至 該 應用\ 的 ** 條款 &amp; 條件 ** 為了 使用。</string>
   <string name="label_terms_desc_terms_page">通過 下載， 安裝， 或者 運用 該 Amazon 位置 演示 應用程序， 您 同意 至 該 應用\ 的 ** 條款 &amp; 條件 ** 為了 使用。</string>
-  <string name="text_terms_desc_coloured_1">條款 &amp; 條件</string>
-  <string name="text_terms_desc_coloured_2">亞馬遜網路服務公司 可接受 使用 政策</string>
-  <string name="text_terms_desc_coloured_3">亞馬遜網路服務公司 隐私 通知</string>
-  <string name="label_legal_and_privacy">法律 和 隐私</string>
   <string name="label_version">版本</string>
   <string name="label_sign_out">簽署 出</string>
   <string name="label_partner_attribution">夥伴 歸因</string>
@@ -181,11 +170,6 @@
   <string name="label_km">公里</string>
   <string name="label_ft">英呎</string>
   <string name="label_mi">英哩</string>
-  <string name="label_provider">供應商</string>
-  <string name="label_attribute">屬性</string>
-  <string name="label_type">类型</string>
-  <string name="label_apply_filters">申請 過濾器</string>
-  <string name="label_clear_selection">清除 選擇</string>
   <string name="label_style_search_error_title">沒有 匹配 款式 發現</string>
   <string name="label_style_search_error_des">製作 當然 你的 搜尋 是 拼寫 正確地 和 嘗試 再次， 做 當然 您 有 應用的 該 適當的 過濾器 或者 去掉 該 過濾器 和 嘗試 再次</string>
   <string name="label_clear_filters">清除 過濾器</string>
@@ -221,19 +205,6 @@
   <string name="label_language">語言</string>
   <string name="label_tracker_entered">追蹤器 輸入</string>
   <string name="label_tracker_exited">追蹤器 退出</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">對於 順利 模擬 經驗 請 允許 通知 允許 從 設置。</string>
   <string name="region">地區</string>
   <string name="mode_light">光</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">土耳其\ 的 檢視 上 塞浦路斯 和 北方 塞浦路斯</string>
   <string name="description_tza">坦桑尼亞\ 的 檢視 上 湖 馬拉威</string>
   <string name="description_ury">烏拉圭\ 的 檢視 上 林康 下 阿蒂加斯</string>
-  <string name="description_vnm">越南\ 的 檢視 上 該 帕拉塞爾 島嶼 和 普拉特利 島嶼</string>
   <string name="label_required_fields_missing">必須 配置 按鍵 是 遺失， 和 該 應用程式 不能 功能 無 他們。 The 以下 按鍵 是 缺少：\n</string>
   <string name="label_some_fields_missing">一些 配置 按鍵 是 遺失。 地圖, 搜索, 地點， 和 路線 是 可用， 但 模擬 和 分析 是 殘疾人 直到 該 以下 按鍵 是 添加：\n</string>
   <string name="label_simulation_fields_missing">一些 配置 按鍵 是 遺失。 地圖, 搜索, 地點， 和 路線 是 可用， 但 模擬 是 殘疾人 直到 該 以下 按鍵 是 添加：\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">配置 不完整</string>
   <string name="label_schedule">時間表</string>
   <string name="label_copied_to_clipboard">已複製 至 剪貼板</string>
+  <string name="label_no_political_view">否 政治 檢視</string>
+  <string name="label_map_language">地圖 語言</string>
+  <string name="label_change_map_language">變更 地圖 語言</string>
+  <string name="label_no_map_language">否 地圖 語言</string>
+  <string name="label_is_selected">「 是 已選擇」</string>
+  <string name="description_cyp">塞浦路斯\ 的 政治 檢視</string>
+  <string name="description_geo">格魯吉亞\ 的 政治 檢視</string>
+  <string name="description_grc">希臘\ 的 政治 檢視</string>
+  <string name="description_ps">巴勒斯坦\ 的 政治 檢視</string>
 </resources>

@@ -12,8 +12,6 @@ import com.aws.amazonlocation.mock.*
 import com.aws.amazonlocation.ui.main.simulation.SimulationViewModel
 import com.aws.amazonlocation.utils.GeofenceCons
 import com.aws.amazonlocation.utils.simulationCollectionName
-import java.util.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule

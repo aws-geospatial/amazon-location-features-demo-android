@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">आप कर सकते हैं हटाना ये साधनों से यह ढेर विलोपन विकल्प या \'मैनेज करें संसाधन\' पृष्ठों में यह मेन्यू के ऊपर यह छोड़ दिया है।</string>
   <string name="how_to_connect_2_1">कनेक्ट करें यह प्रदर्शन ऐप साथ यह हाल ही में बनाया था एडब्ल्यूएस साधनों द्वारा नकल में इनपुट फ़ील्ड।</string>
   <string name="how_to_connect_2_2">से तुम्हारा क्लाउड फ़ॉर्मेशन आउटपुट अनुभाग कॉपी करें यह इसी नामित मान जैसा परिलक्षित होता है में यह दाएँ अनुभाग प्रपत्र (आइडेंटिटीपूलिड आदि)। **सीखें अधिक**।</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">लॉगइन इस्तेमाल करते हुए यह उत्पन्न हुआ उपभोक्ता क्रेडेंशियल्स।</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">द्वारा जोड़ने मैं सहमत हैं को Amazon स्थान की\n**शर्तें &amp; शर्तें**</string>
   <string name="terms_condition">शर्तें &amp; शर्तेँ</string>
   <string name="help">मदद</string>
-  <string name="click_here">क्लिक करें इधर</string>
   <string name="user_domain">यूज़र डोमेन</string>
   <string name="enter_user_domain">दर्ज करें यूज़र डोमेन</string>
   <string name="enter_identity_pool_id">दर्ज करें आइडेंटिटी पूलिड</string>
@@ -96,13 +92,11 @@
   <string name="delete">डिलीट करें</string>
   <string name="edit_geofence">संपादित करें जियोफेंस</string>
   <string name="label_map_style">नक्शा स्टाइल</string>
-  <string name="label_map_style_description">बदल रहा है डेटा प्रदाता भी प्रभावित करता है प्लेसेस &amp; रूट्स एपीआई</string>
   <string name="label_enter_identity_pool_id">कृपया दर्ज करें उचित पहचान पूल आईडी</string>
   <string name="label_enter_domain">दर्ज किया गया उपभोक्ता डोमेन है गलत</string>
   <string name="label_enter_user_pool_client_id">दर्ज किया गया उपभोक्ता पूल ग्राहक आईडी है गलत</string>
   <string name="label_enter_user_pool_id">दर्ज किया गया उपभोक्ता पूल आईडी है गलत</string>
   <string name="label_enter_web_socket_url">दर्ज किया गया वेब सॉकेट यूआरएल है गलत</string>
-  <string name="data_provider">डेटा प्रदाता</string>
   <string name="map_style">नक्शा अंदाज</string>
   <string name="aws_cloudformation">कनेक्ट करें तुम्हारा एडब्ल्यूएस अकाउंट</string>
   <string name="label_connected">आप हैं जुड़े हुए</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">कनेक्ट करें एडब्ल्यूएस अकाउंट</string>
   <string name="label_preview">पूर्वावलोकन</string>
   <string name="label_location_permission_denied">लोकेशन अनुमति इनकार किया</string>
-  <string name="label_give_permission">दे अनुमति</string>
   <string name="label_required_permission">दूरी कर सकते हैं\ नहीं होना गणना की अगर स्थान अनुमति है ना दी। कृपया सक्षम स्थान अनुमति के लिए Amazon लोकेशन से सेटिंग</string>
   <string name="label_attribution">एट्रिब्यूशन</string>
   <string name="label_disconnect">डिस्कनेक्ट करें</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon वेब सेवाएँ, निगमित या इसके सहयोगी कंपनियों। सभी अधिकार आरक्षित।</string>
   <string name="label_terms_desc">द्वारा डाउनलोड कर रहा है, स्थापित कर रहा है, या इस्तेमाल करते हुए यह Amazon लोकेशन डेमो ऐप, आप सहमत हैं को यह ऐप्लिकेशन\'s **शर्तें &amp; शर्तें** के लिए उपयोग करें।</string>
   <string name="label_terms_desc_terms_page">द्वारा डाउनलोड कर रहा है, स्थापित कर रहा है, या इस्तेमाल करते हुए यह Amazon लोकेशन डेमो ऐप, आप सहमत हैं को यह ऐप्लिकेशन\'s **शर्तें &amp; शर्तें** के लिए उपयोग करें।</string>
-  <string name="text_terms_desc_coloured_1">शर्तें &amp; शर्तेँ</string>
-  <string name="text_terms_desc_coloured_2">एडब्ल्यूएस स्वीकार्य उपयोग करें पॉलिसी</string>
-  <string name="text_terms_desc_coloured_3">एडब्ल्यूएस प्राइवेसी नोटिस</string>
-  <string name="label_legal_and_privacy">लीगल और प्राइवेसी</string>
   <string name="label_version">वर्ज़न</string>
   <string name="label_sign_out">साइन इन करें बाहर</string>
   <string name="label_partner_attribution">पार्टनर एट्रिब्यूशन</string>
@@ -181,11 +170,6 @@
   <string name="label_km">किमी</string>
   <string name="label_ft">फुट</string>
   <string name="label_mi">मील</string>
-  <string name="label_provider">प्रोवाइडर</string>
-  <string name="label_attribute">गुण</string>
-  <string name="label_type">टाइप करें</string>
-  <string name="label_apply_filters">लागू करें फिल्टर</string>
-  <string name="label_clear_selection">साफ़ करें चुनना</string>
   <string name="label_style_search_error_title">नहीं मिलान शैलियों पाया</string>
   <string name="label_style_search_error_des">बनाओ ज़रूर तुम्हारा तलाश है वर्तनी सही ढंग से और कोशिश करो फिर से, बनाना ज़रूर आप है लागू किया यह उचित फ़िल्टर करें या हटाना यह फ़िल्टर करें और कोशिश करो फिर से</string>
   <string name="label_clear_filters">साफ़ करें फिल्टर</string>
@@ -221,19 +205,6 @@
   <string name="label_language">भाषा</string>
   <string name="label_tracker_entered">ट्रैकर घुसा</string>
   <string name="label_tracker_exited">ट्रैकर बाहर निकल गया</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">के लिए चिकनी अनुकरण अनुभव कृपया अनुमति देना अधिसूचना अनुमति से सेटिंग्स।</string>
   <string name="region">क्षेत्र</string>
   <string name="mode_light">लाइट</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">तुर्की का राय के ऊपर साइप्रस और उत्तरी साइप्रस</string>
   <string name="description_tza">तंज़ानिया\'s राय के ऊपर झील मलावी</string>
   <string name="description_ury">उरुग्वे\'s राय के ऊपर रिनकोन डी अर्टिगास</string>
-  <string name="description_vnm">वियतनाम का राय के ऊपर यह पैरासेल द्वीप समूह और स्प्रैटली द्वीप समूह</string>
   <string name="label_required_fields_missing">ज़रूरी कॉन्फ़िगरेशन चांबियाँ हैं गुम, और यह आवेदन नहीं कर सकता समारोह बगैर उन्हें। द निम्नलिखित चांबियाँ हैं अनुपलब्ध:\n</string>
   <string name="label_some_fields_missing">कुछ कॉन्फ़िगरेशन चांबियाँ हैं लापता। नक्शा, खोजें, जगहें, और रूट हैं उपलब्ध, परंतु सिमुलेशन और एनालिटिक्स हैं दिव्यांग जब तक यह निम्नलिखित चांबियाँ हैं जोड़ा गया:\n</string>
   <string name="label_simulation_fields_missing">कुछ कॉन्फ़िगरेशन चांबियाँ हैं लापता। नक्शा, खोजें, जगहें, और रूट हैं उपलब्ध, परंतु सिमुलेशन है दिव्यांग जब तक यह निम्नलिखित चांबियाँ हैं जोड़ा गया:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">कॉन्फ़िगरेशन अधूरा</string>
   <string name="label_schedule">शेड्यूल</string>
   <string name="label_copied_to_clipboard">कॉपी किया गया को क्लिपबोर्ड</string>
+  <string name="label_no_political_view">नहीं राजनीतिक राय</string>
+  <string name="label_map_language">नक्शा भाषा</string>
+  <string name="label_change_map_language">बदलें नक्शा भाषा</string>
+  <string name="label_no_map_language">नहीं नक्शा भाषा</string>
+  <string name="label_is_selected">“ है चयनित”</string>
+  <string name="description_cyp">साइप्रस का राजनीतिक राय</string>
+  <string name="description_geo">जॉर्जिया का राजनीतिक राय</string>
+  <string name="description_grc">ग्रीस का राजनीतिक राय</string>
+  <string name="description_ps">फिलिस्तीन राजनीतिक राय</string>
 </resources>

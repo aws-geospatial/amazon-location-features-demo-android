@@ -6,7 +6,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.net.ConnectivityManager
@@ -44,14 +43,15 @@ import aws.sdk.kotlin.services.cognitoidentity.model.GetIdRequest
 import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
+import com.aws.amazonlocation.data.response.LanguageData
 import com.aws.amazonlocation.data.response.LoginResponse
+import com.aws.amazonlocation.data.response.PoliticalData
 import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.web_view.WebViewActivity
 import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -61,9 +61,6 @@ import org.maplibre.android.geometry.LatLng
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
-val Int.px: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
 val isRunningTest: Boolean by lazy {
     try {
         val testProperty = System.getProperty("robolectric") != null ||
@@ -190,7 +187,6 @@ fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
 }
 
 @ExcludeFromJacocoGeneratedReport
-@ExperimentalCoroutinesApi
 @CheckResult
 fun EditText.textChanges(): Flow<CharSequence?> {
     return callbackFlow {
@@ -601,14 +597,186 @@ fun getLanguageCode(): String? {
     return languageCode
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun hideKeyboard(activity: Activity, appCompatEditText: AppCompatEditText) {
     val imm: InputMethodManager =
         activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(appCompatEditText.windowToken, 0)
 }
 
+@ExcludeFromJacocoGeneratedReport
 fun copyTextToClipboard(context: Context, text: String) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText("label", text)
     clipboard.setPrimaryClip(clip)
+}
+
+fun getPoliticalData(context: Context): ArrayList<PoliticalData> {
+    return arrayListOf(
+        PoliticalData(
+            countryName = context.getString(R.string.label_no_political_view),
+            description = "",
+            countryCode = "",
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_arg),
+            description = context.getString(R.string.description_arg),
+            countryCode = context.getString(R.string.flag_arg),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_cyp),
+            description = context.getString(R.string.description_cyp),
+            countryCode = context.getString(R.string.flag_cyp),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_egy),
+            description = context.getString(R.string.description_egy),
+            countryCode = context.getString(R.string.flag_egy),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_geo),
+            description = context.getString(R.string.description_geo),
+            countryCode = context.getString(R.string.flag_geo),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_grc),
+            description = context.getString(R.string.description_grc),
+            countryCode = context.getString(R.string.flag_grc),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_ind),
+            description = context.getString(R.string.description_ind),
+            countryCode = context.getString(R.string.flag_ind),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_ken),
+            description = context.getString(R.string.description_ken),
+            countryCode = context.getString(R.string.flag_ken),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_mar),
+            description = context.getString(R.string.description_mar),
+            countryCode = context.getString(R.string.flag_mar),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_ps),
+            description = context.getString(R.string.description_ps),
+            countryCode = context.getString(R.string.flag_ps),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_rus),
+            description = context.getString(R.string.description_rus),
+            countryCode = context.getString(R.string.flag_rus),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_sdn),
+            description = context.getString(R.string.description_sdn),
+            countryCode = context.getString(R.string.flag_sdn),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_srb),
+            description = context.getString(R.string.description_srb),
+            countryCode = context.getString(R.string.flag_srb),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_sur),
+            description = context.getString(R.string.description_sur),
+            countryCode = context.getString(R.string.flag_sur),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_syr),
+            description = context.getString(R.string.description_syr),
+            countryCode = context.getString(R.string.flag_syr),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_tur),
+            description = context.getString(R.string.description_tur),
+            countryCode = context.getString(R.string.flag_tur),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_tza),
+            description = context.getString(R.string.description_tza),
+            countryCode = context.getString(R.string.flag_tza),
+        ),
+        PoliticalData(
+            countryName = context.getString(R.string.label_ury),
+            description = context.getString(R.string.description_ury),
+            countryCode = context.getString(R.string.flag_ury),
+        ),
+    )
+}
+
+fun getLanguageData(context: Context): ArrayList<LanguageData> {
+    return arrayListOf(
+        LanguageData(value = context.getString(R.string.label_no_map_language), label = context.getString(R.string.label_no_map_language),),
+        LanguageData(value = "en", label = "English"),
+        LanguageData(value = "ar", label = "العربية"),
+        LanguageData(value = "as", label = "অসমীয়া"),
+        LanguageData(value = "az", label = "Azərbaycan dili"),
+        LanguageData(value = "be", label = "Беларуская"),
+        LanguageData(value = "bg", label = "Български"),
+        LanguageData(value = "bn", label = "বাংলা"),
+        LanguageData(value = "bs", label = "Bosanski"),
+        LanguageData(value = "ca", label = "Català"),
+        LanguageData(value = "cs", label = "Čeština"),
+        LanguageData(value = "cy", label = "Cymraeg"),
+        LanguageData(value = "da", label = "Dansk"),
+        LanguageData(value = "de", label = "Deutsch"),
+        LanguageData(value = "el", label = "Ελληνικά"),
+        LanguageData(value = "es", label = "Español"),
+        LanguageData(value = "et", label = "Eesti"),
+        LanguageData(value = "eu", label = "Euskara"),
+        LanguageData(value = "fi", label = "Suomi"),
+        LanguageData(value = "fo", label = "Føroyskt"),
+        LanguageData(value = "fr", label = "Français"),
+        LanguageData(value = "ga", label = "Gaeilge"),
+        LanguageData(value = "gl", label = "Galego"),
+        LanguageData(value = "gn", label = "Avañe'ẽ"),
+        LanguageData(value = "gu", label = "ગુજરાતી"),
+        LanguageData(value = "he", label = "עברית"),
+        LanguageData(value = "hi", label = "हिन्दी"),
+        LanguageData(value = "hr", label = "Hrvatski"),
+        LanguageData(value = "hu", label = "Magyar"),
+        LanguageData(value = "hy", label = "Հայերեն"),
+        LanguageData(value = "id", label = "Bahasa Indonesia"),
+        LanguageData(value = "is", label = "Íslenska"),
+        LanguageData(value = "it", label = "Italiano"),
+        LanguageData(value = "ja", label = "日本語"),
+        LanguageData(value = "ka", label = "ქართული"),
+        LanguageData(value = "kk", label = "Қазақ тілі"),
+        LanguageData(value = "km", label = "ខ្មែរ"),
+        LanguageData(value = "kn", label = "ಕನ್ನಡ"),
+        LanguageData(value = "ko", label = "한국어"),
+        LanguageData(value = "ky", label = "Кыргызча"),
+        LanguageData(value = "lt", label = "Lietuvių"),
+        LanguageData(value = "lv", label = "Latviešu"),
+        LanguageData(value = "mk", label = "Македонски"),
+        LanguageData(value = "ml", label = "മലയാളം"),
+        LanguageData(value = "mr", label = "मराठी"),
+        LanguageData(value = "ms", label = "Bahasa Melayu"),
+        LanguageData(value = "mt", label = "Malti"),
+        LanguageData(value = "my", label = "မြန်မာစာ"),
+        LanguageData(value = "nl", label = "Nederlands"),
+        LanguageData(value = "no", label = "Norsk"),
+        LanguageData(value = "or", label = "ଓଡ଼ିଆ"),
+        LanguageData(value = "pa", label = "ਪੰਜਾਬੀ"),
+        LanguageData(value = "pl", label = "Polski"),
+        LanguageData(value = "pt", label = "Português"),
+        LanguageData(value = "ro", label = "Română"),
+        LanguageData(value = "ru", label = "Русский"),
+        LanguageData(value = "sk", label = "Slovenčina"),
+        LanguageData(value = "sl", label = "Slovenščina"),
+        LanguageData(value = "sq", label = "Shqip"),
+        LanguageData(value = "sr", label = "Српски"),
+        LanguageData(value = "sv", label = "Svenska"),
+        LanguageData(value = "ta", label = "தமிழ்"),
+        LanguageData(value = "te", label = "తెలుగు"),
+        LanguageData(value = "th", label = "ไทย"),
+        LanguageData(value = "tr", label = "Türkçe"),
+        LanguageData(value = "uk", label = "Українська"),
+        LanguageData(value = "uz", label = "Oʻzbek"),
+        LanguageData(value = "vi", label = "Tiếng Việt"),
+        LanguageData(value = "zh", label = "简体中文"),
+        LanguageData(value = "zh-Hant", label = "繁體中文"),
+    )
 }

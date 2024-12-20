@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">أنت يستطيعون حذف هؤلاء الموارد خلال ال كومة حذف اختيار أو «إدارة» الموارد» صفحات في ال قائمة طعام في ال يسار.</string>
   <string name="how_to_connect_2_1">قم بالاتصال ال تجريبي التطبيق مع ال حديثا تم إنشاؤه الخدمات اللاسلكية المتقدمة الموارد بواسطة نسخ في مدخل الحقول.</string>
   <string name="how_to_connect_2_2">من ك تشكيل السحابة انتاج الجزء نسخ ال موافق اسمه يقيم كما انعكست في ال حق الجزء نموذج (معرف تجمع الهوية) إلخ.). **تعلم المزيد**.</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">تسجيل الدخول باستخدام ال ولدت مستخدم أوراق اعتماد.</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">بواسطة توصيل أنا يوافق إلى Amazon شروط الموقع\n** &amp; الشروط**</string>
   <string name="terms_condition">الشروط &amp; الشروط</string>
   <string name="help">المساعدة</string>
-  <string name="click_here">انقر هنا</string>
   <string name="user_domain">نطاق المستخدم</string>
   <string name="enter_user_domain">أدخل نطاق المستخدم</string>
   <string name="enter_identity_pool_id">أدخل معرف تجمع الهوية</string>
@@ -96,13 +92,11 @@
   <string name="delete">حذف</string>
   <string name="edit_geofence">تحرير السياج الجغرافي</string>
   <string name="label_map_style">خريطة أسلوب</string>
-  <string name="label_map_style_description">تغيير البيانات مزود أيضا يؤثر الأماكن &amp; المسارات API</string>
   <string name="label_enter_identity_pool_id">رجاء يدخل لائق هوية حوض السباحة هوية شخصية</string>
   <string name="label_enter_domain">تم إدخالها مستخدم نطاق هو خطأ</string>
   <string name="label_enter_user_pool_client_id">تم إدخالها مستخدم حوض السباحة عميل هوية شخصية هو خطأ</string>
   <string name="label_enter_user_pool_id">تم إدخالها مستخدم حوض السباحة هوية شخصية هو خطأ</string>
   <string name="label_enter_web_socket_url">تم إدخالها انترنت قابس كهرباء رابط هو خطأ</string>
-  <string name="data_provider">البيانات مزود</string>
   <string name="map_style">خريطة طراز</string>
   <string name="aws_cloudformation">قم بالاتصال ك الخدمات اللاسلكية المتقدمة الحساب</string>
   <string name="label_connected">أنت يكونوا متصل</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">قم بالاتصال الخدمات اللاسلكية المتقدمة الحساب</string>
   <string name="label_preview">استطلاع</string>
   <string name="label_location_permission_denied">الموقع تصريح تم رفضه</string>
-  <string name="label_give_permission">اعطي تصريح</string>
   <string name="label_required_permission">مسافة لا أستطيع هو حسب لو موقع تصريح هو لا منحت. رجاء تمكين موقع تصريح من أجل Amazon الموقع من عند إعدادات</string>
   <string name="label_attribution">الإسناد</string>
   <string name="label_disconnect">قطع الاتصال</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024، Amazon الويب خدمات، شركة أو لها الشركات التابعة. جميع حقوق محجوز.</string>
   <string name="label_terms_desc">بواسطة تنزيل، تثبيت، أو باستخدام ال Amazon الموقع نسخة تجريبية التطبيق، أنت يوافق إلى ال التطبيقات **الشروط &amp; الشروط** من أجل استخدم.</string>
   <string name="label_terms_desc_terms_page">بواسطة تنزيل، تثبيت، أو باستخدام ال Amazon الموقع نسخة تجريبية التطبيق، أنت يوافق إلى ال التطبيقات **الشروط &amp; الشروط** من أجل استخدم.</string>
-  <string name="text_terms_desc_coloured_1">الشروط &amp; الشروط</string>
-  <string name="text_terms_desc_coloured_2">الخدمات اللاسلكية المتقدمة مقبول استخدم السياسة</string>
-  <string name="text_terms_desc_coloured_3">الخدمات اللاسلكية المتقدمة الخصوصية تنويه</string>
-  <string name="label_legal_and_privacy">قانوني و الخصوصية</string>
   <string name="label_version">الإصدار</string>
   <string name="label_sign_out">علامة خارج</string>
   <string name="label_partner_attribution">شريك الإسناد</string>
@@ -181,11 +170,6 @@
   <string name="label_km">كم</string>
   <string name="label_ft">قدم</string>
   <string name="label_mi">ميل</string>
-  <string name="label_provider">الموفر</string>
-  <string name="label_attribute">السمة</string>
-  <string name="label_type">النوع</string>
-  <string name="label_apply_filters">تقدم بطلبك مرشحات</string>
-  <string name="label_clear_selection">واضح اختيار</string>
   <string name="label_style_search_error_title">لا مطابقة الأنماط وجد</string>
   <string name="label_style_search_error_des">يصنع بالتأكيد ك بحث هو توضيح بشكل صحيح و محاولة مرة أخرى، ماركة بالتأكيد أنت يملك طبق ال مناسب فلتر أو إزالة ال فلتر و محاولة مرة أخرى</string>
   <string name="label_clear_filters">واضح مرشحات</string>
@@ -221,19 +205,6 @@
   <string name="label_language">اللغة</string>
   <string name="label_tracker_entered">متعقب دخل</string>
   <string name="label_tracker_exited">متعقب خرج</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">من أجل ناعم محاكاة تجربة من فضلك سمح إعلام تصريح من عند إعدادات.</string>
   <string name="region">المنطقة</string>
   <string name="mode_light">ضوء</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">تركيا منظر في قبرص و شمالي قبرص</string>
   <string name="description_tza">تنزانيا منظر في بحيرة مالاوي</string>
   <string name="description_ury">الأوروغواي منظر في رينكون دي أرتيجاس</string>
-  <string name="description_vnm">فيتنام منظر في ال باراسيل الجزر و سبراتلي الجزر</string>
   <string name="label_required_fields_missing">مطلوب التكوين مفاتيح يكونوا في عداد المفقودين، و ال تطبيق غير قادر وظيفة بدون هم. ال التالي مفاتيح يكونوا مفقود:\n</string>
   <string name="label_some_fields_missing">بعض التكوين مفاتيح يكونوا مفقود. خريطة، ابحث، الأماكن، و المسار يكونوا متاح، لكن محاكاة و تحليلات يكونوا معاق حتى ال التالي مفاتيح يكونوا وأضاف:\n</string>
   <string name="label_simulation_fields_missing">بعض التكوين مفاتيح يكونوا مفقود. خريطة، ابحث، الأماكن، و المسار يكونوا متاح، لكن محاكاة هو معاق حتى ال التالي مفاتيح يكونوا وأضاف:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">التكوين غير مكتمل</string>
   <string name="label_schedule">جدول</string>
   <string name="label_copied_to_clipboard">تم نسخها إلى الحافظة</string>
+  <string name="label_no_political_view">لا سياسي منظر</string>
+  <string name="label_map_language">خريطة لغة</string>
+  <string name="label_change_map_language">تغيير خريطة لغة</string>
+  <string name="label_no_map_language">لا خريطة لغة</string>
+  <string name="label_is_selected">« هو تم اختياره»</string>
+  <string name="description_cyp">قبرص سياسي منظر</string>
+  <string name="description_geo">جورجيا سياسي منظر</string>
+  <string name="description_grc">اليونان سياسي منظر</string>
+  <string name="description_ps">فلسطين سياسي منظر</string>
 </resources>

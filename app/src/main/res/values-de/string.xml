@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">Du Dose löschen diese Ressourcen durch die stapeln Löschung Option oder \'Verwalten Ressourcen“ Seiten in die Speisekarte auf die links.</string>
   <string name="how_to_connect_2_1">Verbinden die Demo App mit die vor kurzem erstellt AWS Ressourcen von Kopieren in Eingang Felder.</string>
   <string name="how_to_connect_2_2">Von dein Wolkenbildung Ausgang Abschnitt Kopie die entsprechende genannt Werte als reflektiert in die Recht Abschnitt bilden (Identity) Oolid usw.). **Lernen mehr**.</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">Einloggen unter Verwendung von die generiert Benutzer Referenzen.</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">Von verbindend ICH zustimmen zu Amazon Standort\n**Nutzungsbedingungen &amp; Bedingungen**</string>
   <string name="terms_condition">Bedingungen &amp; Bedingungen</string>
   <string name="help">Hilfe</string>
-  <string name="click_here">Klick hier</string>
   <string name="user_domain">Benutzerdomäne</string>
   <string name="enter_user_domain">Geben Sie ein Benutzerdomäne</string>
   <string name="enter_identity_pool_id">Geben Sie ein Identity Oolid</string>
@@ -96,13 +92,11 @@
   <string name="delete">Löschen</string>
   <string name="edit_geofence">Bearbeiten Geofence</string>
   <string name="label_map_style">Karte Stil</string>
-  <string name="label_map_style_description">Ändern Daten Anbieter ebenfalls wirkt Orte &amp; Routen API</string>
   <string name="label_enter_identity_pool_id">Bitte eintragen richtig Identität bündeln id</string>
   <string name="label_enter_domain">Eingetragen Benutzer Domäne ist falsch</string>
   <string name="label_enter_user_pool_client_id">Eingetragen Benutzer bündeln Auftraggeber id ist falsch</string>
   <string name="label_enter_user_pool_id">Eingetragen Benutzer bündeln id ist falsch</string>
   <string name="label_enter_web_socket_url">Eingetragen Netz Steckdose url ist falsch</string>
-  <string name="data_provider">Daten Anbieter</string>
   <string name="map_style">Karte Stil</string>
   <string name="aws_cloudformation">Verbinden dein AWS Konto</string>
   <string name="label_connected">Du sind verbunden</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">Verbinden AWS Konto</string>
   <string name="label_preview">Vorschau</string>
   <string name="label_location_permission_denied">Standort Genehmigung verweigert</string>
-  <string name="label_give_permission">Schenken Genehmigung</string>
   <string name="label_required_permission">Entfernung kann\nicht Sein berechnete wenn Standort Genehmigung ist nicht gewährt. Bitte ermöglichen Standort Genehmigung zum Amazon Standort von Einstellungen</string>
   <string name="label_attribution">Namensnennung</string>
   <string name="label_disconnect">Verbindung trennen</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon Web Dienstleistungen, Inc. oder seine verbundene Unternehmen. Alles Rechte reserviert.</string>
   <string name="label_terms_desc">Von wird heruntergeladen, installieren, oder unter Verwendung von die Amazon Standort Demoversion App, Sie zustimmen zu die Apps\'s **Bedingungen &amp; Bedingungen** zum verwenden.</string>
   <string name="label_terms_desc_terms_page">Von wird heruntergeladen, installieren, oder unter Verwendung von die Amazon Standort Demoversion App, Sie zustimmen zu die Apps\'s **Bedingungen &amp; Bedingungen** zum verwenden.</string>
-  <string name="text_terms_desc_coloured_1">Bedingungen &amp; Bedingungen</string>
-  <string name="text_terms_desc_coloured_2">AWS Annehmbar Benutzen Politik</string>
-  <string name="text_terms_desc_coloured_3">AWS Datenschutz Hinweis</string>
-  <string name="label_legal_and_privacy">Rechtlich und Datenschutz</string>
   <string name="label_version">Version</string>
   <string name="label_sign_out">Schild aus</string>
   <string name="label_partner_attribution">Partnerin Namensnennung</string>
@@ -181,11 +170,6 @@
   <string name="label_km">km</string>
   <string name="label_ft">ft</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">Anbieter</string>
-  <string name="label_attribute">Attribut</string>
-  <string name="label_type">Typ</string>
-  <string name="label_apply_filters">Bewerben Filter</string>
-  <string name="label_clear_selection">Klar Auswahl</string>
   <string name="label_style_search_error_title">Nein übereinstimmende Arten gefunden</string>
   <string name="label_style_search_error_des">Machen sicher dein Suche ist buchstabiert richtig und versuchen wieder machen sicher Sie haben angewandt die aneignen Filter oder entfernen die Filter und versuchen nochmal</string>
   <string name="label_clear_filters">Klar Filter</string>
@@ -221,19 +205,6 @@
   <string name="label_language">Sprache</string>
   <string name="label_tracker_entered">Tracker eingegeben</string>
   <string name="label_tracker_exited">Tracker hinausgegangen</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">Für glatt Simulation Erfahrung bitte ermöglichen Benachrichtigung Genehmigung von Einstellungen.</string>
   <string name="region">Region</string>
   <string name="mode_light">Licht</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">Türkei\'s anzeigen auf Zypern und Nördlich Zypern</string>
   <string name="description_tza">Tansania\'s anzeigen auf See Malawi</string>
   <string name="description_ury">Uruguays anzeigen auf Rincon de Artigas</string>
-  <string name="description_vnm">Vietnams anzeigen auf die Paracel Inseln und Spratli Inseln</string>
   <string name="label_required_fields_missing">Erforderlich Aufbau Schlüssel sind fehlt, und die Anwendung kann nicht wirken ohne sie. Das folgend Schlüssel sind fehlt:\n</string>
   <string name="label_some_fields_missing">Einige Aufbau Schlüssel sind fehlt. Landkarte, Suche, Orte, und Route sind verfügbar, aber Simulation und Analytik sind Behinderte bis die folgend Schlüssel sind hinzugefügt:\n</string>
   <string name="label_simulation_fields_missing">Einige Aufbau Schlüssel sind fehlt. Landkarte, Suche, Orte, und Route sind verfügbar, aber Simulation ist Behinderte bis die folgend Schlüssel sind hinzugefügt:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">Konfiguration Unvollständig</string>
   <string name="label_schedule">Zeitplan</string>
   <string name="label_copied_to_clipboard">Kopiert zu Zwischenablage</string>
+  <string name="label_no_political_view">Nein politisch anzeigen</string>
+  <string name="label_map_language">Landkarte Sprache</string>
+  <string name="label_change_map_language">Änderung Karte Sprache</string>
+  <string name="label_no_map_language">Nein Karte Sprache</string>
+  <string name="label_is_selected">„ ist ausgewählt“</string>
+  <string name="description_cyp">Zyperns politisch anzeigen</string>
+  <string name="description_geo">Georgiens politisch anzeigen</string>
+  <string name="description_grc">Griechenlands politisch anzeigen</string>
+  <string name="description_ps">Palästinas politisch anzeigen</string>
 </resources>

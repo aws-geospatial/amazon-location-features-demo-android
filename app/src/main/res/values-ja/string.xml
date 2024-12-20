@@ -30,9 +30,6 @@
   <string name="how_to_connect_1_3">あなた できます 削除する これら リソース を通して その スタック 削除 オプション または \'管理 リソース \' ページ数 に その メニュー オン その 左。</string>
   <string name="how_to_connect_2_1">接続 その デモ アプリ と その 最近です 作成した AWS リソース によって コピー に 入力 畑。</string>
   <string name="how_to_connect_2_2">から きみの クラウド形成 出力 セクション コピーします その 対応する 名前付き 値 なので 反映 に その 右 セクション フォーム (ID プール ID など)。 **学習 もっと**。</string>
-  <string name="learn_more">
-    <b>Learn more</b>
-  </string>
   <string name="one">1</string>
   <string name="two">2</string>
   <string name="how_to_connect_3_1">ログイン を使用します その 生成された ユーザー 資格情報。</string>
@@ -44,7 +41,6 @@
   <string name="by_connecting_i_agree_to_amazon">によって 接続する 私 同意する に Amazon 場所の\n**規約 &amp; 条件**</string>
   <string name="terms_condition">規約 &amp; 条件</string>
   <string name="help">ヘルプ</string>
-  <string name="click_here">クリック ここに</string>
   <string name="user_domain">ユーザードメイン</string>
   <string name="enter_user_domain">[入力] ユーザードメイン</string>
   <string name="enter_identity_pool_id">[入力] ID プール ID</string>
@@ -96,13 +92,11 @@
   <string name="delete">[削除]</string>
   <string name="edit_geofence">[編集] ジオフェンス</string>
   <string name="label_map_style">マップ スタイル</string>
-  <string name="label_map_style_description">変更 データ プロバイダー また 影響する 場所 &amp; ルート API</string>
   <string name="label_enter_identity_pool_id">お願いします 入る 適切な アイデンティティ プール ID</string>
   <string name="label_enter_domain">入力済み ユーザー ドメイン です 間違っています</string>
   <string name="label_enter_user_pool_client_id">入力済み ユーザー プール クライアント ID です 間違っています</string>
   <string name="label_enter_user_pool_id">入力済み ユーザー プール ID です 間違っています</string>
   <string name="label_enter_web_socket_url">入力済み ウェブ ソケット URL です 間違っています</string>
-  <string name="data_provider">[データ] プロバイダー</string>
   <string name="map_style">マップ スタイル</string>
   <string name="aws_cloudformation">接続 きみの AWS 口座</string>
   <string name="label_connected">あなた です 接続されています</string>
@@ -143,7 +137,6 @@
   <string name="connect_to_aws_account">接続 AWS 口座</string>
   <string name="label_preview">プレビュー</string>
   <string name="label_location_permission_denied">ロケーション 許可 拒否されました</string>
-  <string name="label_give_permission">与える 許可</string>
   <string name="label_required_permission">距離 できない です 計算された もし ロケーション 許可 です じゃない 付与されました。 お願いします 有効にします ロケーション 許可 にとって Amazon ロケーション から [設定]</string>
   <string name="label_attribution">アトリビューション</string>
   <string name="label_disconnect">接続解除</string>
@@ -154,10 +147,6 @@
   <string name="label_right_aws">© 2024, Amazon ウェブ サービス、 インコーポレイテッド または その アフィリエイト。 [すべて] 権利 予約済み。</string>
   <string name="label_terms_desc">によって ダウンロード中、 インストール、 または を使用します その Amazon ロケーション デモ アプリ、 あなた 同意する に その アプリ **規約 &amp; 条件** にとって 使用。</string>
   <string name="label_terms_desc_terms_page">によって ダウンロード中、 インストール、 または を使用します その Amazon ロケーション デモ アプリ、 あなた 同意する に その アプリ **規約 &amp; 条件** にとって 使用。</string>
-  <string name="text_terms_desc_coloured_1">規約 &amp; 条件</string>
-  <string name="text_terms_desc_coloured_2">AWS 許容範囲内 使用 ポリシー</string>
-  <string name="text_terms_desc_coloured_3">AWS プライバシー 通知</string>
-  <string name="label_legal_and_privacy">リーガル そして プライバシー</string>
   <string name="label_version">バージョン</string>
   <string name="label_sign_out">サイン アウト</string>
   <string name="label_partner_attribution">パートナー アトリビューション</string>
@@ -181,11 +170,6 @@
   <string name="label_km">キロ</string>
   <string name="label_ft">フィート</string>
   <string name="label_mi">mi</string>
-  <string name="label_provider">プロバイダー</string>
-  <string name="label_attribute">[属性]</string>
-  <string name="label_type">タイプ</string>
-  <string name="label_apply_filters">[適用] フィルター</string>
-  <string name="label_clear_selection">クリア 選択</string>
   <string name="label_style_search_error_title">いいえ マッチング スタイル 見つけた</string>
   <string name="label_style_search_error_des">作る 承知しました きみの 検索 です 綴られた 正しく そして 試してみる もう一度、 作る 承知しました あなた 持っている 適用された その 適切な フィルタ または 削除する その フィルタ そして 試してみる 再び</string>
   <string name="label_clear_filters">クリア フィルター</string>
@@ -221,19 +205,6 @@
   <string name="label_language">言語</string>
   <string name="label_tracker_entered">トラッカー 入った</string>
   <string name="label_tracker_exited">トラッカー 出た</string>
-  <string name="label_deutsch" translatable="false">Deutsch</string>
-  <string name="label_espa_ol" translatable="false">Español</string>
-  <string name="label_english" translatable="false">English</string>
-  <string name="label_fran_ais" translatable="false">Français</string>
-  <string name="label_italiano" translatable="false">Italiano</string>
-  <string name="label_portugu_s_brasileiro" translatable="false">Português Brasileiro</string>
-  <string name="label_simplified_chinese" translatable="false">Simplified Chinese</string>
-  <string name="label_traditional_chinese" translatable="false">Traditional Chinese</string>
-  <string name="label_japanese" translatable="false">日本語</string>
-  <string name="label_korean" translatable="false">한국어</string>
-  <string name="label_arabic" translatable="false">العربية</string>
-  <string name="label_hebrew" translatable="false">עברית</string>
-  <string name="label_hindi" translatable="false">हिन्दी</string>
   <string name="simulation_notification_permission">にとって スムーズ シミュレーション 経験 お願い 許す 通知 許可 から 設定。</string>
   <string name="region">リージョン</string>
   <string name="mode_light">ライト</string>
@@ -253,7 +224,6 @@
   <string name="description_tur">トルコの 見る オン キプロス そして 北方だ キプロス</string>
   <string name="description_tza">タンザニア 見る オン 湖 マラウイ</string>
   <string name="description_ury">ウルグアイ\ 見る オン リンコン de アルティガス</string>
-  <string name="description_vnm">ベトナムの 見る オン その パラセル 島々 そして スプラトリー 島々</string>
   <string name="label_required_fields_missing">必須 設定 キー です 行方不明、 そして その 応用 できない 関数 なし それら。 ザの 以下 キー です 見つからない:\n</string>
   <string name="label_some_fields_missing">一部 設定 キー です 行方不明。 マップ、 検索、 場所、 そして ルート です 利用可能、 しかし シミュレーション そして 分析 です 無効になっています まで その 以下 キー です 追加されました:\n</string>
   <string name="label_simulation_fields_missing">一部 設定 キー です 行方不明。 マップ、 検索、 場所、 そして ルート です 利用可能、 しかし シミュレーション です 無効になっています まで その 以下 キー です 追加されました:\n</string>
@@ -261,4 +231,13 @@
   <string name="title_configuration_incomplete">コンフィギュレーション 不完全</string>
   <string name="label_schedule">スケジュール</string>
   <string name="label_copied_to_clipboard">コピーされました に クリップボード</string>
+  <string name="label_no_political_view">いいえ 政治的 見る</string>
+  <string name="label_map_language">マップ 言語</string>
+  <string name="label_change_map_language">変更 地図 言語</string>
+  <string name="label_no_map_language">いいえ 地図 言語</string>
+  <string name="label_is_selected">「 です 選択済み」</string>
+  <string name="description_cyp">キプロスの 政治的 見る</string>
+  <string name="description_geo">ジョージア州 政治的 見る</string>
+  <string name="description_grc">ギリシャの 政治的 見る</string>
+  <string name="description_ps">パレスチナ\ 政治的 見る</string>
 </resources>

@@ -5,37 +5,31 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.response.PoliticalData
-import com.aws.amazonlocation.databinding.ItemSearchCountryBinding
-import com.aws.amazonlocation.utils.hide
-import com.aws.amazonlocation.utils.show
+import com.aws.amazonlocation.data.response.LanguageData
+import com.aws.amazonlocation.databinding.ItemMapLanguageBinding
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
-class PoliticalAdapter(
-    private val politicalData: ArrayList<PoliticalData>,
+class MapLanguageAdapter(
+    private val languageData: ArrayList<LanguageData>,
     private val isRtl: Boolean,
-    var placeInterface: PoliticalInterface,
+    var placeInterface: MapLanguageInterface,
 ) :
-    RecyclerView.Adapter<PoliticalAdapter.SearchPoliticalVH>() {
+    RecyclerView.Adapter<MapLanguageAdapter.SearchPoliticalVH>() {
 
-    inner class SearchPoliticalVH(private val binding: ItemSearchCountryBinding) :
+    inner class SearchPoliticalVH(private val binding: ItemMapLanguageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: PoliticalData) {
+        fun bind(data: LanguageData) {
             binding.apply {
-                tvCountryName.text = data.countryName
-                tvDescription.text = data.description
-                if (data.description.isEmpty()) tvDescription.hide() else tvDescription.show()
-                if (data.countryCode.isEmpty()) tvCountry.hide() else tvCountry.show()
-                tvCountry.text = data.countryCode
+                tvLanguage.text = data.label
                 clMain.setOnClickListener {
-                    placeInterface.countryClick(adapterPosition)
+                    placeInterface.languageClick(adapterPosition)
                 }
                 if (data.isSelected) {
-                    setRadioButtonIcon(rbCountry, R.drawable.icon_checkmark)
+                    setRadioButtonIcon(rbLanguage, R.drawable.icon_checkmark)
                 } else {
-                    setRadioButtonIcon(rbCountry, R.drawable.ic_radio_button_unchecked)
+                    setRadioButtonIcon(rbLanguage, R.drawable.ic_radio_button_unchecked)
                 }
             }
         }
@@ -43,18 +37,18 @@ class PoliticalAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchPoliticalVH {
         return SearchPoliticalVH(
-            ItemSearchCountryBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemMapLanguageBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
     override fun onBindViewHolder(holder: SearchPoliticalVH, position: Int) {
-        holder.bind(politicalData[position])
+        holder.bind(languageData[position])
     }
 
-    override fun getItemCount() = politicalData.size
+    override fun getItemCount() = languageData.size
 
-    interface PoliticalInterface {
-        fun countryClick(position: Int)
+    interface MapLanguageInterface {
+        fun languageClick(position: Int)
     }
     private fun setRadioButtonIcon(
         rb: AppCompatRadioButton,

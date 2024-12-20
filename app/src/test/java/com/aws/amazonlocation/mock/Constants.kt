@@ -53,7 +53,9 @@ const val TEST_FAILED_DUE_TO_DATA_NOT_EMPTY = "Test failed due to data not empty
 const val TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE = "Test failed due to incorrect data size"
 const val TEST_FAILED_DUE_TO_INCORRECT_ERROR_MESSAGE = "Test failed due to incorrect error message"
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR = "Test failed due to incorrect no internet error"
+const val TEST_FAILED_DUE_TO_ROBOLECTRIC_TEST_RUNNING = "Test failed due to robolectric test running"
 
+const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_LANGUAGE_LOADED = "Test failed due to incorrect no of language loaded"
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED = "Test failed due to incorrect no of providers loaded"
 const val TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_STANDARD = "Test failed due to incorrect style name for Standard"
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD = "Test failed due to incorrect no of styles loaded for Standard"
@@ -72,7 +74,6 @@ const val TEST_FAILED_MAP_STYLE_DATA = "Map style data not match"
 
 const val NO_DATA_FOUND = "No data found"
 const val TEST_DATA = "Mumbai"
-const val TEST_DATA_1 = "en"
 const val TEST_DATA_2 = "IND"
 const val TEST_DATA_3 = "The Taj, Mumbai, Mahārāshtra, IND"
 const val TEST_DATA_4 = "Mahārāshtra"
@@ -117,12 +118,6 @@ const val UNIT_METRICS_I_INPUT_2 = 5281.0
 const val UNIT_METRICS_I_OUTPUT_2 = "1 mi"
 const val UNIT_METRICS_I_OUTPUT_3 = "5,280 ft"
 
-const val UNIT_KM_TO_M_INPUT = 1.0
-const val UNIT_KM_TO_M_OUTPUT = 1000.0
-
-const val UNIT_MI_TO_FT_INPUT = 1.0
-const val UNIT_MI_TO_FT_OUTPUT = 5280.0
-
 const val UNIT_TIME_SEC_1 = 50L
 const val UNIT_TIME_SEC_2 = 120L
 const val UNIT_TIME_SEC_3 = 3600L
@@ -135,12 +130,10 @@ val LOCALE_US = Locale.US
 val METRIC = "Metric"
 val IMPERIAL = "Imperial"
 val AUTOMATIC = "Automatic"
-val SE_REGION = "ap-southeast-1"
 
 // Dummy credential for test case
 val IDENTITY_POOL_CLIENT_ID_TEST = "66afllav6ri6hf66sikh6t6foh"
 val USER_POOL_ID_TEST = "ca-central-1_X6aaHHHb6"
-const val UNIT_AMPLIFY_JSON_CONF_INPUT_REGION = "us-east-1"
 val jsonTurf: String = """
                 {
   "type": "Feature",

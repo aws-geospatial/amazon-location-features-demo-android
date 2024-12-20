@@ -14,7 +14,6 @@ import com.aws.amazonlocation.mock.NO_DATA_FOUND
 import com.aws.amazonlocation.mock.TEST_DATA_9
 import com.aws.amazonlocation.ui.main.geofence.GeofenceViewModel
 import com.aws.amazonlocation.utils.GeofenceCons
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

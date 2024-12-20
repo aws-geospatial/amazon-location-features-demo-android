@@ -63,10 +63,12 @@ import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
 import org.maplibre.android.plugins.annotation.SymbolOptions
+import org.maplibre.android.style.expressions.Expression
 import org.maplibre.android.style.layers.CircleLayer
 import org.maplibre.android.style.layers.LineLayer
 import org.maplibre.android.style.layers.Property
 import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.layers.PropertyFactory.textField
 import org.maplibre.android.style.layers.SymbolLayer
 import org.maplibre.android.style.sources.GeoJsonSource
 import org.maplibre.android.utils.BitmapUtils
@@ -1520,11 +1522,37 @@ class MapHelper(
         fun mapLoadedSuccess()
     }
 
+    fun setStyleLanguage(style: Style) {
+        val languageCode = mPreferenceManager?.getValue(KEY_SELECTED_MAP_LANGUAGE, LANGUAGE_CODE_ENGLISH) ?: LANGUAGE_CODE_ENGLISH
+        val expression: Expression? = if (languageCode == LANGUAGE_CODE_ZH_HANT) {
+            Expression.coalesce(
+                Expression.get("name:$languageCode"),
+                Expression.get("name:$LANGUAGE_CODE_ZH"),
+                Expression.get("name:$LANGUAGE_CODE_ENGLISH"),
+                Expression.get("name")
+            )
+        } else {
+            Expression.coalesce(
+                Expression.get("name:$languageCode"),
+                Expression.get("name:$LANGUAGE_CODE_ENGLISH"),
+                Expression.get("name")
+            )
+        }
+
+        for (layer in style.layers) {
+            if (layer is SymbolLayer) {
+                val textField = textField(expression)
+                layer.setProperties(textField)
+            }
+        }
+    }
+
     fun updateZoomRange(style: Style) {
         mMapLibreMap?.getStyle {
+            setStyleLanguage(style)
             val cameraPosition = mMapLibreMap?.cameraPosition
             val zoom = cameraPosition?.zoom
-            val minZoom = minZoomLevel()
+            val minZoom = MapCameraZoom.MIN_ZOOM
             val maxZoom = MapCameraZoom.MAX_ZOOM
             if (zoom != null) {
                 if (zoom < minZoom) {
@@ -1545,8 +1573,6 @@ class MapHelper(
             mMapLibreMap?.setMaxZoomPreference(maxZoom)
         }
     }
-
-    private fun minZoomLevel(): Double = MapLibreConstants.MINIMUM_ZOOM.toDouble()
 
     // Class is used to interpolate the marker animation.
     private val latLngEvaluators: Array<TypeEvaluator<LatLng>> =

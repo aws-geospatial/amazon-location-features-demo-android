@@ -3,7 +3,6 @@ package com.aws.amazonlocation.ui.main
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
@@ -22,7 +21,7 @@ import org.junit.Test
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
-class ExploreFragmentPoliticalViewTest : BaseTestMainActivity() {
+class ExploreFragmentMapLanguageTest : BaseTestMainActivity() {
 
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
@@ -38,38 +37,32 @@ class ExploreFragmentPoliticalViewTest : BaseTestMainActivity() {
     }
 
     @Test
-    fun testPoliticalViewChange() {
+    fun testMapLanguageChangeTest() {
         try {
-            Thread.sleep(DELAY_2000)
+            val btnContinueToApp = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/btn_continue_to_app"))
+            if (btnContinueToApp.exists()) {
+                btnContinueToApp.click()
+                Thread.sleep(DELAY_2000)
+            }
+            uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
+            uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
+            uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
+            uiDevice.findObject(By.text(ALLOW))?.click()
+            enableGPS(ApplicationProvider.getApplicationContext())
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-
-            Thread.sleep(DELAY_2000)
 
             goToMapStyles()
 
-            val clPoliticalView =
-                onView(withId(R.id.cl_political_view)).check(matches(isDisplayed()))
-            clPoliticalView.perform(click())
+            val clMapLanguage =
+                onView(withId(R.id.cl_map_language)).check(matches(isDisplayed()))
+            clMapLanguage.perform(click())
 
-            Thread.sleep(DELAY_2000)
+            val language =
+                waitForView(allOf(withText(TEST_WORD_LANGUAGE_AR), isDisplayed()))
+            language?.perform(click())
 
-            val etSearchCountry =
-                onView(withId(R.id.et_search_country)).check(matches(isDisplayed()))
-            etSearchCountry.perform(click())
-
-            Thread.sleep(DELAY_1000)
-            onView(withId(R.id.et_search_country)).perform(replaceText(TEST_WORD_ARG))
-
-            Thread.sleep(DELAY_1000)
-
-            val rbCountry =
-                onView(withId(R.id.rb_country)).check(matches(isDisplayed()))
-            rbCountry.perform(click())
-
-            Thread.sleep(DELAY_2000)
-
-            val tvPoliticalDescription = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_political_description"))
-            Assert.assertTrue(TEST_FAILED_COUNTRY, tvPoliticalDescription.text.contains(TEST_WORD_ARG))
+            val description = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_map_language_description"))
+            Assert.assertTrue(TEST_FAILED_LANGUAGE, description.text.contains(TEST_WORD_LANGUAGE_AR))
         } catch (e: Exception) {
             failTest(147, e)
             Assert.fail(TEST_FAILED)
@@ -80,9 +73,8 @@ class ExploreFragmentPoliticalViewTest : BaseTestMainActivity() {
         val cardMap = waitForView(allOf(withId(R.id.card_map), isDisplayed()))
         cardMap?.perform(click())
 
-        Thread.sleep(DELAY_2000)
+        waitForView(allOf(withId(R.id.cl_map_language), isDisplayed()))
         swipeUp()
-        Thread.sleep(DELAY_2000)
     }
 
     private fun swipeUp(): UiDevice? {

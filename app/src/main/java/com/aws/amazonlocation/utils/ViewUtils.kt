@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.utils
 
+import android.content.res.Resources
 import android.view.View
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -29,3 +30,6 @@ fun hideViews(vararg view: View?) {
         it?.hide()
     }
 }
+
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

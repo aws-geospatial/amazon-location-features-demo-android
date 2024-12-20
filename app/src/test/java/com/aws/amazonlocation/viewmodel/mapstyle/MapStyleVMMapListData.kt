@@ -30,6 +30,7 @@ class MapStyleVMSetMapListData : BaseTest() {
 
     @Test
     fun setMapListDataSuccess() = runTest {
+        mMapStyleViewModel.mStyleList = arrayListOf()
         mMapStyleViewModel.setMapListData(context)
         Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD, mMapStyleViewModel.mStyleList.size == 1)
     }

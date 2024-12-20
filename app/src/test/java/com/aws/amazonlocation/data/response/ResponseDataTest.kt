@@ -203,6 +203,11 @@ class ResponseDataTest {
             isSelected = false,
             mapInnerData = null
         )
+        // checking default it is not disabled and then making it disable
+        if (!mapStyleData.isDisable) {
+            mapStyleData.isDisable = true
+        }
+
         mapStyleData.mapInnerData = arrayListOf(data)
         Assert.assertTrue(TEST_FAILED_MAP_STYLE_DATA, !mapStyleData.isSelected)
     }

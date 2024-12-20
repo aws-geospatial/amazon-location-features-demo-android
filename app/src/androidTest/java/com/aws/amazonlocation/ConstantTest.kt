@@ -42,6 +42,8 @@ const val TEST_WORD_GUOCO_MIDTOWN_SQUARE = "Guoco Midtown Square"
 const val TEST_WORD_KLUANG = "Kluang "
 const val TEST_WORD_ARG = "ARG"
 const val TEST_WORD_RUS = "RUS"
+const val TEST_WORD_LANGUAGE_AR = "العربية"
+const val TEST_WORD_LANGUAGE_BO = "Bosanski"
 const val ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION"
 const val ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION"
 const val TEST_FAILED = "Test failed"
@@ -54,6 +56,7 @@ const val TEST_FAILED_SEARCH_DIRECTION = "Test failed due to search direction no
 const val TEST_FAILED_ZOOM_LEVEL = "Test failed due to zoom level not available"
 const val TEST_FAILED_LIST = "Test failed due to list not visible"
 const val TEST_FAILED_COUNTRY= "Test failed due to selected country doesn't match"
+const val TEST_FAILED_LANGUAGE= "Test failed due to selected language doesn't match"
 
 const val TEST_FAILED_SETTINGS_ALL_OPTIONS_NOT_VISIBLE = "Test failed due to settings all options not visible"
 
