@@ -11,6 +11,7 @@ import com.aws.amazonlocation.ui.main.ExploreFragmentMapZoomInOutTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentMaxZoomInOutTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchByCategoriesTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchCollapseTest
+import com.aws.amazonlocation.ui.main.ExploreFragmentSearchDistanceTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchExistsTest
 import com.aws.amazonlocation.ui.main.ExploreFragmentSearchGeocodeReversedTest
 import com.aws.amazonlocation.ui.main.SearchContactInfoPOICardTest
@@ -32,6 +33,7 @@ import org.junit.runners.Suite
     ExploreFragmentSearchCollapseTest::class,
     ExploreFragmentSearchExistsTest::class,
     ExploreFragmentSearchGeocodeReversedTest::class,
+    ExploreFragmentSearchDistanceTest::class,
     SearchContactInfoPOICardTest::class
 )
 class MapLoadAndPlaceSearchFlowSuite

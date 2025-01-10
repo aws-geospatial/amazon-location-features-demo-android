@@ -807,6 +807,7 @@ class GeofenceUtils {
         mGeofenceSearchSuggestionAdapter = SearchPlacesSuggestionAdapter(
             mPlaceList,
             preferenceManager,
+            true,
             object : SearchPlacesSuggestionAdapter.SearchPlaceSuggestionInterface {
                 override fun suggestedPlaceClick(position: Int) {
                     if (checkInternetConnection()) {
@@ -881,6 +882,7 @@ class GeofenceUtils {
             mSearchPlacesAdapter = SearchPlacesAdapter(
                 mPlaceList,
                 preferenceManager,
+                true,
                 object : SearchPlacesAdapter.SearchPlaceInterface {
                     override fun placeClick(position: Int) {
                         if (checkInternetConnection()) {

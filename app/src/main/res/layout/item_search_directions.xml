@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/cl_main"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/dp_20">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_search_location"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_12"
+        android:src="@drawable/icon_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_place_name"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:gravity="start"
+        android:textDirection="locale"
+        app:layout_constraintBottom_toTopOf="@id/tv_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_search_location"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Mike’s Wings London" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        style="@style/SP13HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_place_name"
+        app:layout_constraintStart_toEndOf="@id/iv_search_location"
+        tools:text="52m" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_view"
+        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

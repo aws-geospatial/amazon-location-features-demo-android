@@ -2009,8 +2009,7 @@ class ExploreFragment :
         cardView: MaterialCardView,
         cl: ConstraintLayout,
     ) {
-        if (source == resources.getString(R.string.label_my_location)
-        ) {
+        if (source == resources.getString(R.string.label_my_location)) {
             mBinding.bottomSheetDirectionSearch.apply {
                 when (cardView) {
                     cardWalkGo -> {
@@ -4150,6 +4149,7 @@ class ExploreFragment :
                 SearchPlacesAdapter(
                     mPlaceList,
                     mPreferenceManager,
+                    true,
                     object : SearchPlacesAdapter.SearchPlaceInterface {
                         override fun placeClick(position: Int) {
                             if (checkInternetConnection()) {
@@ -4175,6 +4175,7 @@ class ExploreFragment :
                 SearchPlacesSuggestionAdapter(
                     mPlaceList,
                     mPreferenceManager,
+                    true,
                     object : SearchPlacesSuggestionAdapter.SearchPlaceSuggestionInterface {
                         override fun suggestedPlaceClick(position: Int) {
                             if (checkInternetConnection()) {
@@ -4196,9 +4197,9 @@ class ExploreFragment :
                                     mIsDirectionDataSet = false
                                 }
                                 if (mPlaceList[position].placeId.isNullOrEmpty() && !mPlaceList[position].queryId.isNullOrEmpty()) {
-                                    mPlaceList[position].text?.let {
+                                    mPlaceList[position].queryId?.let {
                                         mViewModel.searchPlaceIndexForText(
-                                            it,
+                                            queryId = it
                                         )
                                     }
                                 } else {
@@ -4480,6 +4481,7 @@ class ExploreFragment :
                 SearchPlacesAdapter(
                     mPlaceList,
                     mPreferenceManager,
+                    false,
                     object : SearchPlacesAdapter.SearchPlaceInterface {
                         override fun placeClick(position: Int) {
                             if (checkInternetConnection()) {
@@ -4503,6 +4505,7 @@ class ExploreFragment :
                 SearchPlacesSuggestionAdapter(
                     mPlaceList,
                     mPreferenceManager,
+                    false,
                     object : SearchPlacesSuggestionAdapter.SearchPlaceSuggestionInterface {
                         override fun suggestedPlaceClick(position: Int) {
                             if (checkInternetConnection()) {
