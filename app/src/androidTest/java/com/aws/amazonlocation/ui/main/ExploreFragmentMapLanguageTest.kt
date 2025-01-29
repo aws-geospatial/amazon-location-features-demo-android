@@ -6,10 +6,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.*
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.utils.*
@@ -39,17 +37,7 @@ class ExploreFragmentMapLanguageTest : BaseTestMainActivity() {
     @Test
     fun testMapLanguageChangeTest() {
         try {
-            val btnContinueToApp = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/btn_continue_to_app"))
-            if (btnContinueToApp.exists()) {
-                btnContinueToApp.click()
-                Thread.sleep(DELAY_2000)
-            }
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
-            uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
-            uiDevice.findObject(By.text(ALLOW))?.click()
-            enableGPS(ApplicationProvider.getApplicationContext())
-            uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
+            checkLocationPermission(uiDevice)
 
             goToMapStyles()
 
@@ -64,8 +52,7 @@ class ExploreFragmentMapLanguageTest : BaseTestMainActivity() {
             val description = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_map_language_description"))
             Assert.assertTrue(TEST_FAILED_LANGUAGE, description.text.contains(TEST_WORD_LANGUAGE_AR))
         } catch (e: Exception) {
-            failTest(147, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 

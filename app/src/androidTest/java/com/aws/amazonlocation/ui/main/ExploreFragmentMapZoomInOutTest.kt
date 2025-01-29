@@ -2,7 +2,7 @@ package com.aws.amazonlocation.ui.main
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -11,11 +11,9 @@ import androidx.test.uiautomator.Until.hasObject
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_3000
-import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_MAP_NOT_FOUND
@@ -26,7 +24,6 @@ import com.aws.amazonlocation.actions.pinchIn
 import com.aws.amazonlocation.actions.pinchOut
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
-import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.utils.retry_rule.Retry
 import com.aws.amazonlocation.waitUntil
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -49,17 +46,14 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
             enableGPS(ApplicationProvider.getApplicationContext())
             var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
 
             val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
-            Thread.sleep(DELAY_5000)
             val beforeZoomLevel: Double? = mapbox?.cameraPosition?.zoom
             uiDevice.wait(hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/mapView")), DELAY_10000)
             onView(withId(R.id.mapView)).perform(pinchOut(), pinchOut(), pinchOut(), pinchOut(), pinchOut(), pinchOut())
-            Thread.sleep(DELAY_5000)
             if (beforeZoomLevel != null) {
                 waitUntil(DELAY_3000, 25) {
                     mapbox?.cameraPosition?.zoom?.let {
@@ -75,8 +69,7 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
                 Assert.fail(TEST_FAILED_ZOOM_LEVEL)
             }
         } catch (e: Exception) {
-            failTest(86, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 
@@ -86,17 +79,14 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
         try {
             var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
 
             val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
-            Thread.sleep(DELAY_5000)
             val beforeZoomLevel: Double? = mapbox?.cameraPosition?.zoom
             uiDevice.wait(hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/mapView")), DELAY_10000)
             onView(withId(R.id.mapView)).perform(pinchIn(), pinchIn(), pinchIn(), pinchIn(), pinchIn(), pinchIn())
-            Thread.sleep(DELAY_5000)
             if (beforeZoomLevel != null) {
                 waitUntil(DELAY_3000, 25) {
                     mapbox?.cameraPosition?.zoom?.let {
@@ -112,8 +102,7 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
                 Assert.fail(TEST_FAILED_ZOOM_LEVEL)
             }
         } catch (e: Exception) {
-            failTest(115, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 
@@ -123,13 +112,11 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
         try {
             var mapbox: MapLibreMap? = null
             uiDevice.wait(hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_1000)
 
             val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {
                 mapbox = it
             }
-            Thread.sleep(DELAY_5000)
             val beforeZoomLevel: Double? = mapbox?.cameraPosition?.zoom
             uiDevice.wait(hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/mapView")), DELAY_10000)
             val map = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/mapView"))
@@ -138,7 +125,6 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
             } else {
                 Assert.fail(TEST_FAILED_MAP_NOT_FOUND)
             }
-            Thread.sleep(DELAY_5000)
             if (beforeZoomLevel != null) {
                 waitUntil(DELAY_3000, 25) {
                     mapbox?.cameraPosition?.zoom?.let {
@@ -154,8 +140,7 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
                 Assert.fail(TEST_FAILED_ZOOM_LEVEL)
             }
         } catch (e: Exception) {
-            failTest(149, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 }

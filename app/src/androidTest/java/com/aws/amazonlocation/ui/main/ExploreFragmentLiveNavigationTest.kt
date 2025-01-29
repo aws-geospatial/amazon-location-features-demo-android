@@ -6,7 +6,11 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -21,7 +25,6 @@ import com.aws.amazonlocation.TEST_FAILED_LIST
 import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
-import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.waitForView
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -111,8 +114,7 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
             // navListView
             waitForView(allOf(withId(R.id.rv_navigation_list), isDisplayed(), hasMinimumChildCount(1)))
         } catch (e: Exception) {
-            failTest(136, e)
-            Assert.fail(TEST_FAILED_LIST)
+            Assert.fail("$TEST_FAILED_LIST ${e.message}")
         }
     }
 }

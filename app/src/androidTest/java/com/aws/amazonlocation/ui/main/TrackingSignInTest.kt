@@ -17,17 +17,15 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_20000
-import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
+import com.aws.amazonlocation.waitForView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import org.junit.Before
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.Test
 
 @UninstallModules(AppModule::class)
@@ -36,23 +34,20 @@ class TrackingSignInTest : BaseTestMainActivity() {
 
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
-    @Before
-    fun delay() {
-        Thread.sleep(DELAY_10000)
-    }
-
     @Test
     fun showSignInTest() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-        Thread.sleep(DELAY_10000)
+
         val tracking = uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.menu_tracking)))
         tracking.click()
-        Thread.sleep(DELAY_1000)
+
         val signIn =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.sign_in)))
         signIn?.click()
-        Thread.sleep(DELAY_5000)
+
+        waitForView(allOf(withId(R.id.sign_in_web_view), isDisplayed()))
+
         onView(withId(R.id.sign_in_web_view))
             .check(matches(isDisplayed()))
 

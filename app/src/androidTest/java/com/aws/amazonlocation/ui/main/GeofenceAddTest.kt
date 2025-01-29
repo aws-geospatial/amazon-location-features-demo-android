@@ -10,6 +10,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -20,21 +21,18 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
-import com.aws.amazonlocation.DELAY_3000
-import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_WORD_SHYAMAL_CROSS_ROAD
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.getRandomGeofenceName
+import com.aws.amazonlocation.waitForView
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import org.hamcrest.CoreMatchers
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Assert
 import org.junit.Test
@@ -51,7 +49,6 @@ class GeofenceAddTest : BaseTestMainActivity() {
     fun addGeoFenceTest() {
         try {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
 
             onView(
                 allOf(
@@ -60,13 +57,10 @@ class GeofenceAddTest : BaseTestMainActivity() {
                 ),
             ).perform(click())
 
-            Thread.sleep(DELAY_1000)
-
             uiDevice.wait(
                 Until.gone(By.res("${BuildConfig.APPLICATION_ID}:id/cl_search_loader_geofence_list")),
                 DELAY_15000,
             )
-            Thread.sleep(DELAY_2000)
             val emptyContainer =
                 mActivityRule.activity.findViewById<View>(R.id.cl_empty_geofence_list)
 
@@ -75,10 +69,16 @@ class GeofenceAddTest : BaseTestMainActivity() {
             } else {
                 onView(withId(R.id.card_add_geofence)).perform(click())
             }
-            Thread.sleep(DELAY_5000)
+            waitForView(CoreMatchers.allOf(withId(R.id.edt_add_geofence_search), isDisplayed()))
             onView(withId(R.id.edt_add_geofence_search)).perform(clearText(), typeText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
-            Thread.sleep(DELAY_15000)
+            waitForView(
+                CoreMatchers.allOf(
+                    withId(R.id.rv_geofence_search_places_suggestion),
+                    isDisplayed(),
+                    hasMinimumChildCount(1)
+                )
+            )
             val rvGeofenceSearchPlaces =
                 mActivityRule.activity.findViewById<RecyclerView>(R.id.rv_geofence_search_places_suggestion)
             rvGeofenceSearchPlaces.adapter?.itemCount?.let {
@@ -91,11 +91,8 @@ class GeofenceAddTest : BaseTestMainActivity() {
                     )
                 }
             }
-            Thread.sleep(DELAY_3000)
             val seekbar = mActivityRule.activity.findViewById<SeekBar>(R.id.seekbar_geofence_radius)
             seekbar.progress = 400
-
-            Thread.sleep(DELAY_1000)
 
             onView(withId(R.id.edt_enter_geofence_name)).perform(typeText(geofenceName))
 
@@ -121,8 +118,7 @@ class GeofenceAddTest : BaseTestMainActivity() {
                 Assert.assertNotNull(snackBarMsg)
             }
         } catch (e: Exception) {
-            failTest(128, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 }

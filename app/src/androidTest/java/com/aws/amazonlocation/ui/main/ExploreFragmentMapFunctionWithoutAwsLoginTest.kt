@@ -9,7 +9,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -18,10 +19,8 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_BUTTON_DIRECTION
@@ -59,27 +58,22 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
     fun showMapFunctionWithoutAwsLoginTest() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-        Thread.sleep(DELAY_2000)
         val map = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/mapView"))
         if (map.exists()) {
             onView(withId(R.id.mapView)).perform(swipeLeft())
         }
-        Thread.sleep(DELAY_1000)
 
         val btnCardMap =
             onView(withId(R.id.card_map)).check(ViewAssertions.matches(isDisplayed()))
         btnCardMap?.perform(click())
-        Thread.sleep(DELAY_1000)
 
         uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.map_monochrome)))
             ?.click()
 
-        Thread.sleep(DELAY_2000)
         val ivMapStyleClose =
             onView(withId(R.id.iv_map_style_close)).check(ViewAssertions.matches(isDisplayed()))
         ivMapStyleClose?.perform(click())
 
-        Thread.sleep(DELAY_2000)
         val edtSearch =
             onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
         edtSearch?.perform(click())

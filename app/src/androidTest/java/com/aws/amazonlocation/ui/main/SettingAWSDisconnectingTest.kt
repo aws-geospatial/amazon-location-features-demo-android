@@ -15,8 +15,6 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
-import com.aws.amazonlocation.DELAY_1000
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
@@ -44,7 +42,6 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
     fun delay() {
         val activity: MainActivity = mActivityRule.activity
         preferenceManager = (activity as BaseActivity).mPreferenceManager
-        Thread.sleep(DELAY_10000)
     }
 
     @Test
@@ -52,7 +49,6 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
-        Thread.sleep(DELAY_1000)
         onView(
             AllOf.allOf(
                 withText(settingTabText),
@@ -60,7 +56,6 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
                 isDisplayed()
             )
         ).perform(ViewActions.click())
-        Thread.sleep(DELAY_1000)
         onView(
             AllOf.allOf(
                 withId(R.id.cl_aws_cloudformation),
@@ -68,29 +63,23 @@ class SettingAWSDisconnectingTest : BaseTestMainActivity() {
             )
         ).perform(ViewActions.click())
 
-        Thread.sleep(DELAY_1000)
-
         onView(withId(R.id.ns_cloud_formation)).perform(swipeUp())
-        Thread.sleep(DELAY_1000)
+
         val region =
             uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
         region?.click()
 
-        Thread.sleep(DELAY_1000)
         val logOut =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.disconnect_aws)))
         logOut?.click()
 
-        Thread.sleep(DELAY_1000)
         uiDevice.wait(
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.disconnect_aws))),
             DELAY_20000
         )
-        Thread.sleep(DELAY_1000)
         val disconnectAws =
             onView(withId(android.R.id.button1)).check(ViewAssertions.matches(isDisplayed()))
         disconnectAws.perform(ViewActions.click())
-        Thread.sleep(DELAY_1000)
 
         val poolId = preferenceManager.getValue(KEY_POOL_ID, "")
         Assert.assertTrue(TEST_FAILED_POOL_ID_NOT_BLANK, poolId == "")

@@ -18,8 +18,6 @@ import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
-import com.aws.amazonlocation.DELAY_1000
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
@@ -30,7 +28,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.core.AllOf
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 
 @UninstallModules(AppModule::class)
@@ -39,18 +36,12 @@ class SettingSignOutTest : BaseTestMainActivity() {
 
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
-    @Before
-    fun delay() {
-        Thread.sleep(DELAY_10000)
-    }
-
     @Test
     fun showSettingSignInTest() {
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
 
-        Thread.sleep(DELAY_1000)
         Espresso.onView(
             AllOf.allOf(
                 withText(settingTabText),
@@ -59,7 +50,6 @@ class SettingSignOutTest : BaseTestMainActivity() {
             ),
         ).perform(ViewActions.click())
 
-        Thread.sleep(DELAY_1000)
         Espresso.onView(
             AllOf.allOf(
                 withId(R.id.cl_aws_cloudformation),
@@ -72,22 +62,19 @@ class SettingSignOutTest : BaseTestMainActivity() {
             val appViews = UiScrollable(UiSelector().scrollable(true))
             appViews.scrollForward()
         }
-        Thread.sleep(DELAY_1000)
+
         val region =
             uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
         region?.click()
 
-        Thread.sleep(DELAY_1000)
         val logOut =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.log_out)))
         logOut?.click()
 
-        Thread.sleep(DELAY_1000)
         uiDevice.wait(
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.logout))),
             DELAY_20000,
         )
-        Thread.sleep(DELAY_1000)
         val btnLogOut =
             Espresso.onView(withId(android.R.id.button1)).check(ViewAssertions.matches(isDisplayed()))
         btnLogOut.perform(ViewActions.click())
@@ -96,7 +83,6 @@ class SettingSignOutTest : BaseTestMainActivity() {
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.sign_in))),
             DELAY_20000,
         )
-        Thread.sleep(DELAY_1000)
         val btnSignIn =
             mActivityRule.activity.findViewById<AppCompatButton>(R.id.btn_sign_in)
         Assert.assertTrue(TEST_FAILED_SIGNIN_BUTTON_NOT_VISIBLE, btnSignIn.visibility == View.VISIBLE)

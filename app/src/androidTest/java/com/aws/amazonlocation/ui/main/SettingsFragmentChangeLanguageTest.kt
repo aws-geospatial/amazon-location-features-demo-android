@@ -12,13 +12,13 @@ import com.aws.amazonlocation.*
 import com.aws.amazonlocation.di.AppModule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import org.hamcrest.CoreMatchers
 import org.hamcrest.core.AllOf.allOf
 import org.junit.*
 
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
 class SettingsFragmentChangeLanguageTest : BaseTestMainActivity() {
-
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
     @Throws(java.lang.Exception::class)
@@ -30,12 +30,10 @@ class SettingsFragmentChangeLanguageTest : BaseTestMainActivity() {
     fun checkChangeLanguage() {
         try {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
 
             goToLanguage()
         } catch (e: Exception) {
-            failTest(95, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 
@@ -45,26 +43,22 @@ class SettingsFragmentChangeLanguageTest : BaseTestMainActivity() {
             allOf(
                 withText(settingTabText),
                 isDescendantOfA(withId(R.id.bottom_navigation_main)),
-                isDisplayed()
-            )
+                isDisplayed(),
+            ),
         ).perform(click())
-
-        Thread.sleep(DELAY_1000)
-
+        waitForView(CoreMatchers.allOf(withId(R.id.cl_language), isDisplayed()))
         onView(
             allOf(
                 withId(R.id.cl_language),
-                isDisplayed()
-            )
+                isDisplayed(),
+            ),
         ).perform(click())
-
-        Thread.sleep(DELAY_1000)
-
+        waitForView(CoreMatchers.allOf(withId(R.id.rb_arabic), isDisplayed()))
         onView(
             allOf(
                 withId(R.id.rb_arabic),
-                isDisplayed()
-            )
+                isDisplayed(),
+            ),
         ).perform(click())
 
         val rbArabic =

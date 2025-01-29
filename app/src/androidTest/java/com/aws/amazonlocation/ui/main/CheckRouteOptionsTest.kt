@@ -1,28 +1,25 @@
 package com.aws.amazonlocation.ui.main
 
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.Visibility
+import androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
-import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
-import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_WORD_AUBURN_SYDNEY
 import com.aws.amazonlocation.TEST_WORD_MANLY_BEACH_SYDNEY
+import com.aws.amazonlocation.checkLocationPermission
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.enableGPS
-import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.waitForView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -39,20 +36,14 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
     @Test
     fun showCheckRouteOptionsTest() {
         try {
-            enableGPS(ApplicationProvider.getApplicationContext())
-            uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
+            checkLocationPermission(uiDevice)
 
             val cardDirectionTest =
                 onView(withId(R.id.card_direction)).check(matches(isDisplayed()))
             cardDirectionTest.perform(click())
 
-            Thread.sleep(DELAY_2000)
-
             val sourceEdt = waitForView(CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed()))
             sourceEdt?.perform(replaceText(TEST_WORD_AUBURN_SYDNEY))
-
-            Thread.sleep(DELAY_2000)
 
             val suggestionListRv = waitForView(
                 CoreMatchers.allOf(
@@ -67,7 +58,6 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                     click()
                 )
             )
-            Thread.sleep(DELAY_2000)
 
             val destinationEdt = waitForView(
                 CoreMatchers.allOf(
@@ -79,8 +69,6 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                 click(),
                 replaceText(TEST_WORD_MANLY_BEACH_SYDNEY)
             )
-
-            Thread.sleep(DELAY_2000)
 
             val suggestionListDestRv = waitForView(
                 CoreMatchers.allOf(
@@ -96,7 +84,6 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                 )
             )
 
-            // btnCarGoFirst
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
@@ -119,11 +106,14 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                 )
             )
             switchAvoidTolls?.perform(click())
-
-            Thread.sleep(DELAY_2000)
+            waitForView(
+                CoreMatchers.allOf(
+                    withId(R.id.card_drive_go),
+                    isDisplayed()
+                )
+            )
         } catch (e: Exception) {
-            failTest(221, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 }

@@ -15,7 +15,6 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_15000
 import com.aws.amazonlocation.DELAY_20000
 import com.aws.amazonlocation.R
@@ -42,7 +41,6 @@ class SearchPlaceDisplayedOnMapTest : BaseTestMainActivity() {
         var mapbox: MapLibreMap? = null
         enableGPS(ApplicationProvider.getApplicationContext())
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-        Thread.sleep(DELAY_1000)
 
         val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
         mapView.getMapAsync {

@@ -39,10 +39,7 @@ class SettingsMapPoliticalViewTest : BaseTestMainActivity() {
 
     @Test
     fun testSettingsMapPoliticalViewTest() {
-        Thread.sleep(DELAY_2000)
-
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-        Thread.sleep(DELAY_2000)
 
         goToMapStyles()
 
@@ -50,22 +47,16 @@ class SettingsMapPoliticalViewTest : BaseTestMainActivity() {
             onView(withId(R.id.cl_political_view)).check(matches(isDisplayed()))
         clPoliticalView.perform(click())
 
-        Thread.sleep(DELAY_2000)
-
         val etSearchCountry =
             onView(withId(R.id.et_search_country)).check(matches(isDisplayed()))
         etSearchCountry.perform(click())
-
-        Thread.sleep(DELAY_1000)
         onView(withId(R.id.et_search_country)).perform(replaceText(TEST_WORD_RUS))
 
-        Thread.sleep(DELAY_1000)
+        uiDevice.wait(Until.hasObject(By.text(mActivityRule.activity.getString(R.string.description_rus))), DELAY_5000)
 
         val rbCountry =
             onView(withId(R.id.rb_country)).check(matches(isDisplayed()))
         rbCountry.perform(click())
-
-        Thread.sleep(DELAY_2000)
 
         val tvPoliticalDescription = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_political_description"))
         Assert.assertTrue(TEST_FAILED_COUNTRY, tvPoliticalDescription.text.contains(TEST_WORD_RUS))
@@ -81,8 +72,6 @@ class SettingsMapPoliticalViewTest : BaseTestMainActivity() {
         )
             ?.perform(click())
 
-        Thread.sleep(DELAY_3000)
-
         waitForView(
             AllOf.allOf(
                 withId(R.id.cl_map_style),
@@ -90,7 +79,5 @@ class SettingsMapPoliticalViewTest : BaseTestMainActivity() {
             )
         )
             ?.perform(click())
-
-        Thread.sleep(DELAY_3000)
     }
 }

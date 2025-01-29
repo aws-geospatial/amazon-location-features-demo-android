@@ -3,13 +3,16 @@ package com.aws.amazonlocation
 import android.content.Context
 import android.provider.Settings
 import android.view.View
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewInteraction
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject
 import androidx.test.uiautomator.UiObjectNotFoundException
 import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.Until
 import org.hamcrest.Matcher
 import org.junit.Assert
 import java.util.Calendar
@@ -37,6 +40,21 @@ fun enableGPS(context: Context) {
             } while (allowGpsBtn.exists())
         }
     }
+}
+
+fun checkLocationPermission(uiDevice: UiDevice) {
+    val btnContinueToApp =
+        uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/btn_continue_to_app"))
+    if (btnContinueToApp.exists()) {
+        btnContinueToApp.click()
+    }
+    Thread.sleep(DELAY_1000)
+    uiDevice.findObject(By.text(WHILE_USING_THE_APP))?.click()
+    uiDevice.findObject(By.text(WHILE_USING_THE_APP_CAPS))?.click()
+    uiDevice.findObject(By.text(WHILE_USING_THE_APP_ALLOW))?.click()
+    uiDevice.findObject(By.text(ALLOW))?.click()
+    enableGPS(ApplicationProvider.getApplicationContext())
+    uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
 }
 
 @Suppress("DEPRECATION")
@@ -85,15 +103,6 @@ val mockLocationsExit = listOf(
     MockLocation(23.012348, 72.522382),
     MockLocation(23.011594, 72.522444),
 )
-
-fun failTest(lineNo: Int, exception: Exception?) {
-//    Assert.fail("$TEST_FAILED - Exception caught at line $lineNo: ${exception?.stackTraceToString() ?: "Custom error"}")
-    if (exception != null) {
-        throw exception
-    } else {
-        throw Exception("$TEST_FAILED - Exception caught at line $lineNo: Custom error")
-    }
-}
 
 fun waitUntil(waitTime: Long, maxCount: Int, condition: () -> Boolean?) {
     var count = 0

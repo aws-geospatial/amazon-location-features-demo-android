@@ -19,17 +19,14 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
 import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_ADDRESS
 import com.aws.amazonlocation.TEST_FAILED
 import com.aws.amazonlocation.TEST_FAILED_NO_MESSAGE_FOUND
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.failTest
 import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_MAP_NAME
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
@@ -44,7 +41,6 @@ import org.junit.Test
 @UninstallModules(AppModule::class)
 @HiltAndroidTest
 class AnalyticsTest : BaseTestMainActivity() {
-
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
     private lateinit var preferenceManager: PreferenceManager
@@ -66,17 +62,17 @@ class AnalyticsTest : BaseTestMainActivity() {
     fun checkAnalyticsContent() {
         try {
             uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
-            Thread.sleep(DELAY_2000)
             uiDevice.wait(
                 Until.hasObject(By.res("${BuildConfig.APPLICATION_ID}:id/edt_search_places")),
-                DELAY_5000
+                DELAY_5000,
             )
             // Start - Search event check
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
             edtSearch.perform(click())
             onView(withId(R.id.edt_search_places)).perform(ViewActions.replaceText(TEST_ADDRESS))
-            var snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.PLACE_SEARCH)), DELAY_10000)
+            var snackBarMsg =
+                uiDevice.wait(Until.hasObject(By.text(EventType.PLACE_SEARCH)), DELAY_10000)
             Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             edtSearch.perform(ViewActions.closeSoftKeyboard())
             val clSearchSheet =
@@ -84,44 +80,43 @@ class AnalyticsTest : BaseTestMainActivity() {
             val mBottomSheetSearchPlaces: BottomSheetBehavior<ConstraintLayout> =
                 BottomSheetBehavior.from(clSearchSheet)
             mBottomSheetSearchPlaces.state = BottomSheetBehavior.STATE_COLLAPSED
-            uiDevice.wait(Until.hasObject(By.text(mActivityRule.activity.getString(R.string.menu_explore))), DELAY_5000)
-            // End - Search event check
-            Thread.sleep(DELAY_1000)
-            // Start - Screen change event test
+            uiDevice.wait(
+                Until.hasObject(By.text(mActivityRule.activity.getString(R.string.menu_explore))),
+                DELAY_5000,
+            )
             val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
             onView(
                 allOf(
                     withText(settingTabText),
                     isDescendantOfA(withId(R.id.bottom_navigation_main)),
-                    isDisplayed()
-                )
+                    isDisplayed(),
+                ),
             ).perform(click())
-            snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.SCREEN_OPEN)), DELAY_10000)
+            snackBarMsg =
+                uiDevice.wait(Until.hasObject(By.text(EventType.SCREEN_OPEN)), DELAY_10000)
             Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             // End - Screen change event test
             // Start - Map unit change event test
             onView(
                 allOf(
                     withId(R.id.cl_unit_system),
-                    isDisplayed()
-                )
+                    isDisplayed(),
+                ),
             ).perform(click())
 
-            Thread.sleep(DELAY_2000)
             onView(
                 allOf(
                     withId(R.id.ll_imperial),
-                    isDisplayed()
-                )
+                    isDisplayed(),
+                ),
             ).perform(click())
-            Thread.sleep(DELAY_2000)
 
-            snackBarMsg = uiDevice.wait(Until.hasObject(By.text(EventType.MAP_UNIT_CHANGE)), DELAY_10000)
+            snackBarMsg =
+                uiDevice.wait(Until.hasObject(By.text(EventType.MAP_UNIT_CHANGE)), DELAY_10000)
             Assert.assertTrue(TEST_FAILED_NO_MESSAGE_FOUND, snackBarMsg)
             // End - Map unit change event test
         } catch (e: Exception) {
-            failTest(95, e)
-            Assert.fail(TEST_FAILED)
+            Assert.fail("$TEST_FAILED ${e.message}")
         }
     }
 

@@ -3,11 +3,13 @@ package com.aws.amazonlocation.ui.main
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.web.sugar.Web.onWebView
 import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
 import androidx.test.espresso.web.webdriver.DriverAtoms.webClick
@@ -22,22 +24,18 @@ import androidx.test.uiautomator.Until
 import com.aws.amazonlocation.AMAZON_MAP_READY
 import com.aws.amazonlocation.BaseTestMainActivity
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.DELAY_1000
-import com.aws.amazonlocation.DELAY_10000
 import com.aws.amazonlocation.DELAY_15000
-import com.aws.amazonlocation.DELAY_2000
 import com.aws.amazonlocation.DELAY_20000
-import com.aws.amazonlocation.DELAY_4000
-import com.aws.amazonlocation.DELAY_5000
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.TEST_FAILED_LOGOUT_BUTTON_NOT_VISIBLE
 import com.aws.amazonlocation.di.AppModule
 import com.aws.amazonlocation.enableGPS
+import com.aws.amazonlocation.waitForView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.core.AllOf
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 
 @UninstallModules(AppModule::class)
@@ -46,10 +44,6 @@ class SettingSignInTest : BaseTestMainActivity() {
 
     private val uiDevice = UiDevice.getInstance(getInstrumentation())
 
-    @Before
-    fun delay() {
-        Thread.sleep(DELAY_10000)
-    }
 
     @Test
     fun showSettingSignInTest() {
@@ -57,7 +51,6 @@ class SettingSignInTest : BaseTestMainActivity() {
         uiDevice.wait(Until.hasObject(By.desc(AMAZON_MAP_READY)), DELAY_15000)
         val settingTabText = mActivityRule.activity.getString(R.string.menu_setting)
 
-        Thread.sleep(DELAY_1000)
         onView(
             AllOf.allOf(
                 withText(settingTabText),
@@ -66,7 +59,6 @@ class SettingSignInTest : BaseTestMainActivity() {
             ),
         ).perform(ViewActions.click())
 
-        Thread.sleep(DELAY_2000)
         onView(
             AllOf.allOf(
                 withId(R.id.cl_aws_cloudformation),
@@ -80,17 +72,16 @@ class SettingSignInTest : BaseTestMainActivity() {
             val appViews = UiScrollable(UiSelector().scrollable(true))
             appViews.scrollForward()
         }
-        Thread.sleep(DELAY_1000)
         val region =
             uiDevice.findObject(By.text("Canada (Central) ca-central-1"))
         region?.click()
 
-        Thread.sleep(DELAY_4000)
         val signIn =
             uiDevice.findObject(By.text(mActivityRule.activity.getString(R.string.sign_in)))
         signIn?.click()
 
-        Thread.sleep(DELAY_5000)
+        waitForView(allOf(withId(R.id.sign_in_web_view), isDisplayed()))
+
         onView(withId(R.id.sign_in_web_view))
             .check(matches(isDisplayed()))
 
@@ -113,7 +104,6 @@ class SettingSignInTest : BaseTestMainActivity() {
             Until.hasObject(By.text(mActivityRule.activity.getString(R.string.log_out))),
             DELAY_20000,
         )
-        Thread.sleep(DELAY_5000)
         val btnLogout =
             mActivityRule.activity.findViewById<AppCompatButton>(R.id.btn_logout)
         Assert.assertTrue(TEST_FAILED_LOGOUT_BUTTON_NOT_VISIBLE, btnLogout.isVisible)
