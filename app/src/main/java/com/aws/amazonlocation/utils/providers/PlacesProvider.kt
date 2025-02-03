@@ -69,7 +69,7 @@ class PlacesProvider(
         getPlaceClient: GeoPlacesClient?,
     ): SearchSuggestionResponse {
         try {
-            val liveLocation = mMapHelper.getLiveLocation()
+            val liveLocation = mMapHelper.getLiveLocation(isDefaultLocationNeeded = false)
             var isLatLng = false
             var suggestResponse: SuggestResponse? = null
             var reverseGeocodeResponse: ReverseGeocodeResponse? = null
@@ -111,67 +111,67 @@ class PlacesProvider(
             }
 
             reverseGeocodeResponse?.resultItems?.forEach {
-                liveLocation?.let { liveLocation ->
-                    it.position?.let { position ->
-                        val distance = TurfMeasurement.distance(
+                it.position?.let { position ->
+                    val distance = if (liveLocation != null) {
+                        TurfMeasurement.distance(
                             Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
                             Point.fromLngLat(position[0], position[1]),
                             TurfConstants.UNIT_METRES
                         )
-                        val mSearchSuggestionData: SearchSuggestionData =
-                            if (it.placeId.isNotEmpty()) {
-                                SearchSuggestionData(
-                                    placeId = it.placeId,
-                                    text = it.address?.label,
-                                    amazonLocationAddress = it.address,
-                                    distance = distance,
-                                    position = listOf(position[0], position[1]),
-                                )
-                            } else {
-                                SearchSuggestionData(text = it.address?.label)
-                            }
-                        mList.add(mSearchSuggestionData)
-                    }
+                    } else it.distance.toDouble()
+
+                    val mSearchSuggestionData: SearchSuggestionData =
+                        if (it.placeId.isNotEmpty()) {
+                            SearchSuggestionData(
+                                placeId = it.placeId,
+                                text = it.address?.label,
+                                amazonLocationAddress = it.address,
+                                distance = distance,
+                                position = listOf(position[0], position[1]),
+                            )
+                        } else {
+                            SearchSuggestionData(text = it.address?.label)
+                        }
+                    mList.add(mSearchSuggestionData)
                 }
             }
             suggestResponse?.resultItems?.forEach {
-                liveLocation?.let { liveLocation ->
-                    if (!it.place?.position.isNullOrEmpty()) {
-                        it.place?.position?.let { position ->
-                            val distance = TurfMeasurement.distance(
+                if (!it.place?.position.isNullOrEmpty()) {
+                    it.place?.position?.let { position ->
+                        val distance = if (liveLocation != null) {
+                            TurfMeasurement.distance(
                                 Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
                                 Point.fromLngLat(position[0], position[1]),
                                 TurfConstants.UNIT_METRES
                             )
+                        } else it.place!!.distance.toDouble()
 
-                            if (!it.place?.placeId.isNullOrEmpty()) {
+                        if (!it.place?.placeId.isNullOrEmpty()) {
+                            mList.add(
+                                SearchSuggestionData(
+                                    placeId = it.place!!.placeId,
+                                    searchText = searchText,
+                                    text = it.place?.address?.label,
+                                    amazonLocationAddress = it.place?.address,
+                                    distance = distance,
+                                    position = listOf(position[0], position[1]),
+                                ),
+                            )
+                        } else {
+                            it.query?.let { query ->
                                 mList.add(
-                                    SearchSuggestionData(
-                                        placeId = it.place!!.placeId,
-                                        searchText = searchText,
-                                        text = it.place?.address?.label,
-                                        amazonLocationAddress = it.place?.address,
-                                        distance = distance,
-                                        position = listOf(position[0], position[1]),
-                                    ),
+                                    SearchSuggestionData(text = it.title, queryId = query.queryId),
                                 )
-                            } else {
-                                it.query?.let { query ->
-                                    mList.add(
-                                        SearchSuggestionData(text = it.title, queryId = query.queryId),
-                                    )
-                                }
                             }
                         }
-                    } else {
-                        it.query?.let { query ->
-                            mList.add(
-                                SearchSuggestionData(text = it.title, queryId = query.queryId),
-                            )
-                        }
+                    }
+                } else {
+                    it.query?.let { query ->
+                        mList.add(
+                            SearchSuggestionData(text = it.title, queryId = query.queryId),
+                        )
                     }
                 }
-
             }
             response.data = mList
             return response
@@ -216,7 +216,7 @@ class PlacesProvider(
         getPlaceClient: GeoPlacesClient?,
     ): SearchSuggestionResponse? =
         try {
-            val liveLocation = mMapHelper.getLiveLocation()
+            val liveLocation = mMapHelper.getLiveLocation(isDefaultLocationNeeded = false)
             val request =
                 SearchTextRequest {
                     if (mText != null) this.queryText = mText
@@ -249,24 +249,24 @@ class PlacesProvider(
                 addMarkerBasedOnLatLng(searchSuggestionResponse, text, mList)
             } else {
                 response?.resultItems?.forEach { result ->
-                    liveLocation?.let {
-                        result.position?.let {
-                            val distance = TurfMeasurement.distance(
+                    result.position?.let {
+                        val distance = if (liveLocation != null) {
+                            TurfMeasurement.distance(
                                 Point.fromLngLat(liveLocation.longitude, liveLocation.latitude),
                                 Point.fromLngLat(it[0], it[1]),
                                 TurfConstants.UNIT_METRES
                             )
-                            val placeData =
-                                SearchSuggestionData(
-                                    placeId = result.placeId,
-                                    searchText = text,
-                                    amazonLocationAddress = result.address,
-                                    text = result.title,
-                                    position = listOf(it[0], it[1]),
-                                    distance = distance,
-                                )
-                            mList.add(placeData)
-                        }
+                        } else result.distance.toDouble()
+                        val placeData =
+                            SearchSuggestionData(
+                                placeId = result.placeId,
+                                searchText = text,
+                                amazonLocationAddress = result.address,
+                                text = result.title,
+                                position = listOf(it[0], it[1]),
+                                distance = distance,
+                            )
+                        mList.add(placeData)
                     }
                 }
             }
