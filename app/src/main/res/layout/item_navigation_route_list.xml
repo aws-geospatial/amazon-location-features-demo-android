@@ -1,53 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.aws.amazonlocation.utils.DotLineView
-        android:id="@+id/view_top_dotted"
-        android:layout_width="7dp"
-        android:layout_height="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_2"
-        android:visibility="gone"
-        app:dlv_dotCount="2"
-        app:dlv_isMirror="true"
-        app:layout_constraintBottom_toTopOf="@id/iv_navigation_icon"
-        app:layout_constraintEnd_toEndOf="@id/iv_navigation_icon"
-        app:layout_constraintStart_toStartOf="@id/iv_navigation_icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view_top"
-        android:layout_width="@dimen/dp_4"
-        android:layout_height="@dimen/dp_0"
-        android:background="@color/color_primary_green"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/iv_navigation_icon"
-        app:layout_constraintEnd_toEndOf="@id/iv_navigation_icon"
-        app:layout_constraintStart_toStartOf="@id/iv_navigation_icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/view_bottom"
-        android:layout_width="@dimen/dp_4"
+        android:layout_width="@dimen/dp_1"
         android:layout_height="@dimen/dp_0"
-        android:background="@color/color_primary_green"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/iv_navigation_icon"
-        app:layout_constraintStart_toStartOf="@id/iv_navigation_icon"
-        app:layout_constraintTop_toBottomOf="@id/iv_navigation_icon" />
-
-    <com.aws.amazonlocation.utils.DotLineView
-        android:id="@+id/view_bottom_dotted"
-        android:layout_width="7dp"
-        android:layout_height="@dimen/dp_20"
-        android:visibility="gone"
-        app:dlv_dotCount="2"
-        app:dlv_isMirror="true"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@color/color_dotted_line"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/iv_navigation_icon"
         app:layout_constraintStart_toStartOf="@id/iv_navigation_icon"
@@ -55,11 +19,11 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_navigation_icon"
-        android:layout_width="@dimen/dp_15"
-        android:layout_height="@dimen/dp_15"
-        android:layout_marginStart="@dimen/dp_20"
-        android:src="@drawable/ic_navigation_route"
-        app:layout_constraintBottom_toBottomOf="@id/cl_navigation_item"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_4"
+        android:src="@drawable/ic_continue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/cl_navigation_item" />
 
@@ -68,7 +32,7 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_16"
-        android:paddingVertical="@dimen/dp_14"
+        android:paddingVertical="@dimen/dp_6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_navigation_icon"
         app:layout_constraintTop_toTopOf="parent">
@@ -79,22 +43,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:textDirection="locale"
             android:maxLines="2"
+            android:textDirection="locale"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Victoria st" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:visibility="gone"
+            android:src="@drawable/ic_info_fill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_navigation_address" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_destination"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_destination_will_be_on_the_right"
+            android:textColor="@color/color_primary_green"
+            android:textDirection="locale"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/dp_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_destination"
+            app:layout_constraintStart_toEndOf="@+id/iv_destination"
+            app:layout_constraintTop_toTopOf="@id/iv_destination" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_navigation_distance"
             style="@style/SP13HintRegularTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
             android:textDirection="locale"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_navigation_address"
+            app:layout_constraintTop_toBottomOf="@id/tv_destination"
             tools:text="300 m" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

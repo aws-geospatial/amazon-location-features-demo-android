@@ -257,4 +257,7 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="cursorColor">@color/teal_700</item>
     </style>
+    <style name="CalenderViewCustom">
+        <item name="colorControlActivated">@color/color_primary_green</item>
+    </style>
 </resources>

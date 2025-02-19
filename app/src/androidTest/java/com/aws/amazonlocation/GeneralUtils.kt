@@ -8,14 +8,12 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject
 import androidx.test.uiautomator.UiObjectNotFoundException
 import androidx.test.uiautomator.UiSelector
-import androidx.test.uiautomator.Until
 import org.hamcrest.Matcher
 import org.junit.Assert
 import java.util.Calendar
@@ -29,7 +27,7 @@ import org.hamcrest.CoreMatchers.allOf
 fun enableGPS(context: Context) {
     if (!isLocationEnabled(context)) {
         val uiDevice: UiDevice =
-            UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+            UiDevice.getInstance(getInstrumentation())
 
         val allowGpsBtn: UiObject = uiDevice.findObject(
             UiSelector()
@@ -80,10 +78,6 @@ fun isLocationEnabled(context: Context): Boolean {
 
 fun getRandomGeofenceName(): String {
     return "Geofence${Calendar.getInstance().timeInMillis}"
-}
-
-fun getRandom1To100(): Float {
-    return Random.nextDouble(1.0, 100.0).toFloat()
 }
 
 fun getRandom0_01To1_0(): Double {

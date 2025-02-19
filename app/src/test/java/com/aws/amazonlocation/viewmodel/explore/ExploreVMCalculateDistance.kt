@@ -11,6 +11,8 @@ import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
 import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
+import com.aws.amazonlocation.ui.main.explore.DepartOption
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -52,13 +54,38 @@ class ExploreVMCalculateDistance : BaseTest() {
         mExploreVM.mWalkCalculateDistanceResponse = null
         mExploreVM.mTruckCalculateDistanceResponse = null
         mExploreVM.mScooterCalculateDistanceResponse = null
+        mExploreVM.mIsAvoidTolls = false
+        mExploreVM.mIsAvoidFerries = false
+        mExploreVM.mIsAvoidDirtRoads = false
+        mExploreVM.mIsAvoidUTurns = false
+        mExploreVM.mIsAvoidTunnels = false
+        mExploreVM.mIsRouteOptionsOpened  = false
+        mExploreVM.mIsDepartOptionsOpened  = false
+        mExploreVM.mRouteFinish  = false
+        mExploreVM.mIsSwapClicked  = false
+        mExploreVM.mIsDirectionDataSet  = false
+        mExploreVM.mIsDirectionDataSetNew  = false
+        mExploreVM.mIsDirectionSheetHalfExpanded  = false
+        mExploreVM.mIsLocationAlreadyEnabled  = false
+        mExploreVM.mIsCurrentLocationClicked  = false
+        mExploreVM.mIsTrackingLocationClicked  = false
+        mExploreVM.isCalculateDriveApiError  = false
+        mExploreVM.isCalculateWalkApiError  = false
+        mExploreVM.isCalculateTruckApiError  = false
+        mExploreVM.isCalculateScooterApiError  = false
+        mExploreVM.isLocationUpdatedNeeded  = false
+        mExploreVM.isZooming  = false
+        mExploreVM.isDataSearchForDestination  = false
+        mExploreVM.isLiveLocationClick  = false
+        mExploreVM.mLastClickTime  = 0
+
     }
 
     @Test
     fun calculateDistanceSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())).thenAnswer {
+        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any(), any(),  any(),anyOrNull())).thenAnswer {
             val mode = it.arguments[6] as String
-            val callback: DistanceInterface = it.arguments[7] as DistanceInterface
+            val callback: DistanceInterface = it.arguments[8] as DistanceInterface
 
             when (mode) {
                 RouteTravelMode.Car.value -> callback.distanceSuccess(Responses.RESPONSE_CALCULATE_DISTANCE_CAR)
@@ -73,7 +100,10 @@ class ExploreVMCalculateDistance : BaseTest() {
             mExploreVM.mDestinationLatLng = null
             val start = DISTANCE_COORDINATE_FROM
             val end = DISTANCE_COORDINATE_TO
-            mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, AVOID_FERRIES, AVOID_TOLLS, false)
+            mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, arrayListOf<AvoidanceOption>().apply {
+                add(AvoidanceOption.FERRIES)
+                add(AvoidanceOption.TOLL_ROADS)
+            },  DepartOption.LEAVE_NOW.name,"",false)
             var result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, mExploreVM.mStartLatLng == start)
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, mExploreVM.mDestinationLatLng == end)
@@ -81,7 +111,13 @@ class ExploreVMCalculateDistance : BaseTest() {
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, (result as? HandleResult.Success)?.response?.calculateRouteResult == Responses.RESPONSE_CALCULATE_DISTANCE_CAR)
-            mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, AVOID_FERRIES, AVOID_TOLLS, true)
+            mExploreVM.calculateDistance(start.latitude, start.longitude, end.latitude, end.longitude, arrayListOf<AvoidanceOption>().apply {
+                if (mExploreVM.mIsAvoidTolls) add(AvoidanceOption.TOLL_ROADS)
+                if (mExploreVM.mIsAvoidFerries)  add(AvoidanceOption.FERRIES)
+                if (mExploreVM.mIsAvoidDirtRoads)  add(AvoidanceOption.DIRT_ROADS)
+                if (mExploreVM.mIsAvoidUTurns)  add(AvoidanceOption.U_TURNS)
+                if (mExploreVM.mIsAvoidTunnels)  add(AvoidanceOption.TUNNELS)
+            }, DepartOption.LEAVE_NOW.name,"",true)
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()
@@ -103,21 +139,30 @@ class ExploreVMCalculateDistance : BaseTest() {
 
     @Test
     fun calculateDistanceError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any(), any(),  any(), anyOrNull(), anyOrNull())).thenAnswer {
             val distanceType = it.arguments[6] as String?
-            val callback: DistanceInterface = it.arguments[7] as DistanceInterface
+            val callback: DistanceInterface = it.arguments[8] as DistanceInterface
             callback.distanceFailed(DataSourceException.Error(distanceType!!))
         }
 
         mExploreVM.mCalculateDistance.test {
-            mExploreVM.calculateDistance(null, null, null, null, AVOID_FERRIES, AVOID_TOLLS, false)
+            mExploreVM.calculateDistance(null, null, null, null, arrayListOf<AvoidanceOption>().apply {
+                add(AvoidanceOption.FERRIES)
+                add(AvoidanceOption.TOLL_ROADS)
+            }, DepartOption.LEAVE_NOW.name,"",false)
             var result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_ERROR, result is HandleResult.Error)
             Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_ERROR_MESSAGE, (result as? HandleResult.Error)?.exception?.messageResource == RouteTravelMode.Car.value)
 
-            mExploreVM.calculateDistance(null, null, null, null, AVOID_FERRIES, AVOID_TOLLS, true)
+            mExploreVM.calculateDistance(null, null, null, null, arrayListOf<AvoidanceOption>().apply {
+                add(AvoidanceOption.FERRIES)
+                add(AvoidanceOption.TOLL_ROADS)
+                add(AvoidanceOption.U_TURNS)
+                add(AvoidanceOption.DIRT_ROADS)
+                add(AvoidanceOption.TUNNELS)
+            }, DepartOption.LEAVE_NOW.name,"",true)
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()
@@ -136,13 +181,19 @@ class ExploreVMCalculateDistance : BaseTest() {
 
     @Test
     fun calculateDistanceInternetError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
-            val callback: DistanceInterface = it.arguments[7] as DistanceInterface
+        Mockito.`when`(mRemoteDataSourceImpl.calculateRoute(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any(), any(),  any(), anyOrNull(), anyOrNull())).thenAnswer {
+            val callback: DistanceInterface = it.arguments[8] as DistanceInterface
             callback.internetConnectionError(NO_INTERNET_ERROR)
         }
 
         mExploreVM.mCalculateDistance.test {
-            mExploreVM.calculateDistance(null, null, null, null, AVOID_FERRIES, AVOID_TOLLS, false)
+            mExploreVM.calculateDistance(null, null, null, null, arrayListOf<AvoidanceOption>().apply {
+                add(AvoidanceOption.FERRIES)
+                add(AvoidanceOption.TOLL_ROADS)
+                add(AvoidanceOption.U_TURNS)
+                add(AvoidanceOption.DIRT_ROADS)
+                add(AvoidanceOption.TUNNELS)
+            }, DepartOption.LEAVE_NOW.name,"",false)
             var result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()

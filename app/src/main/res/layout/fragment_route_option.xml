@@ -117,4 +117,136 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_trolls"/>
 
+    <View
+        android:id="@+id/view_ferries"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_view_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_avoid_ferries" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_avoid_dirt_roads"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="@android:color/transparent"
+        android:ellipsize="end"
+        android:imeOptions="actionSearch"
+        android:maxLength="200"
+        android:gravity="start"
+        android:textDirection="locale"
+        android:singleLine="true"
+        android:text="@string/text_switch_avoid_dirt_roads"
+        app:layout_constraintBottom_toBottomOf="@id/switch_avoid_dirt_roads"
+        app:layout_constraintEnd_toStartOf="@id/switch_avoid_dirt_roads"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/switch_avoid_dirt_roads"
+        app:layout_goneMarginStart="@dimen/dp_16" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_avoid_dirt_roads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:checked="false"
+        app:thumbTint="@drawable/route_options_switch"
+        app:trackTint="@drawable/route_options_switch_track"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_ferries"/>
+
+    <View
+        android:id="@+id/view_u_turn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_view_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_avoid_dirt_roads" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_avoid_u_turn"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="@android:color/transparent"
+        android:ellipsize="end"
+        android:imeOptions="actionSearch"
+        android:maxLength="200"
+        android:gravity="start"
+        android:textDirection="locale"
+        android:singleLine="true"
+        android:text="@string/text_switch_avoid_u_turns"
+        app:layout_constraintBottom_toBottomOf="@id/switch_avoid_u_turns"
+        app:layout_constraintEnd_toStartOf="@id/switch_avoid_u_turns"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/switch_avoid_u_turns"
+        app:layout_goneMarginStart="@dimen/dp_16" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_avoid_u_turns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:checked="false"
+        app:thumbTint="@drawable/route_options_switch"
+        app:trackTint="@drawable/route_options_switch_track"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_u_turn"/>
+
+    <View
+        android:id="@+id/view_tunnel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginHorizontal="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_view_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_avoid_u_turns" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_avoid_tunnels"
+        style="@style/SP16HintRegularTextStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_16"
+        android:background="@android:color/transparent"
+        android:ellipsize="end"
+        android:imeOptions="actionSearch"
+        android:maxLength="200"
+        android:gravity="start"
+        android:textDirection="locale"
+        android:singleLine="true"
+        android:text="@string/text_switch_avoid_tunnels"
+        app:layout_constraintBottom_toBottomOf="@id/switch_avoid_tunnels"
+        app:layout_constraintEnd_toStartOf="@id/switch_avoid_tunnels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/switch_avoid_tunnels"
+        app:layout_goneMarginStart="@dimen/dp_16" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_avoid_tunnels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:checked="false"
+        app:thumbTint="@drawable/route_options_switch"
+        app:trackTint="@drawable/route_options_switch_track"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_tunnel"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

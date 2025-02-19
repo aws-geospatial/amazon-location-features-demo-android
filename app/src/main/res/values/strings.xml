@@ -67,8 +67,10 @@
     <string name="make_sure_your_search_is_spelled_correctly_try_adding_a_city_country_or_postcode">Make sure your search is spelled correctly. Try adding a city, postcode, or country.</string>
     <string name="search_nearby">Search nearby</string>
     <string name="text_switch_avoid_tools">Avoid tolls</string>
-    <string name="text_switch_avoid_highways">Avoid highways</string>
     <string name="text_switch_avoid_ferries">Avoid ferries</string>
+    <string name="text_switch_avoid_dirt_roads">Avoid dirt roads</string>
+    <string name="text_switch_avoid_u_turns">Avoid U-turns</string>
+    <string name="text_switch_avoid_tunnels">Avoid tunnels</string>
 
     <!-- Dummy text-->
     <string name="_2_min">2 min</string>
@@ -81,8 +83,8 @@
     <string name="label_default_route_options">Default route options</string>
     <string name="label_selected">• Selected</string>
     <string name="btn_go">Go</string>
-    <string name="label_walk">Walk</string>
-    <string name="label_drive">Drive</string>
+    <string name="label_walk">Pedestrian</string>
+    <string name="label_drive">Car</string>
     <string name="label_truck">Truck</string>
     <string name="label_scooter">Scooter</string>
     <string name="label_search_starting_point">Search starting point</string>
@@ -296,6 +298,11 @@
     <string name="label_ps" translatable="false">PS</string>
     <string name="label_grc" translatable="false">GRC</string>
 
+    <string name="label_map_language">Map language</string>
+    <string name="label_change_map_language">Change map language</string>
+    <string name="label_no_map_language">No map language</string>
+    <string name="label_is_selected">" is selected"</string>
+
     <string name="label_required_fields_missing">Required configuration keys are missing, and the application cannot function without them. The following keys are missing:\n</string>
     <string name="label_some_fields_missing">Some configuration keys are missing. Map, Search, Places, and Route are available, but Simulation and Analytics are disabled until the following keys are added:\n</string>
     <string name="label_simulation_fields_missing">Some configuration keys are missing. Map, Search, Places, and Route are available, but Simulation is disabled until the following keys are added:\n</string>
@@ -304,8 +311,14 @@
     <string name="label_schedule">Schedule</string>
     <string name="label_copied_to_clipboard">Copied to clipboard</string>
     <string name="label_no_political_view">No political view</string>
-    <string name="label_map_language">Map language</string>
-    <string name="label_change_map_language">Change map language</string>
-    <string name="label_no_map_language">No map language</string>
-    <string name="label_is_selected">" is selected"</string>
+    <string name="label_leave_now">Leave now</string>
+    <string name="label_leave_at">Leave at</string>
+    <string name="label_arrive_by">Arrive by</string>
+    <string name="label_you_ve_arrived">You’ve arrived!</string>
+    <string name="done">Done</string>
+    <string name="label_destination_will_be_on_the_right">Destination will be on the right</string>
+    <string name="label_destination_will_be_on_the_left">Destination will be on the left</string>
+    <string name="time">Time</string>
+    <string name="label_selected_time_cannot_be_in_the_past">Selected time cannot be in the past!</string>
+    <string name="text_switch_options">Options</string>
 </resources>

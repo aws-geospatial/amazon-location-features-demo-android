@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_direction_search_sheet"
@@ -27,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_4"
         android:src="@drawable/ic_info"
-        app:layout_constraintStart_toEndOf="@+id/img_amazon_logo_direction_search_sheet"
         app:layout_constraintBottom_toBottomOf="@+id/img_amazon_logo_direction_search_sheet"
+        app:layout_constraintStart_toEndOf="@+id/img_amazon_logo_direction_search_sheet"
         app:layout_constraintTop_toTopOf="@+id/img_amazon_logo_direction_search_sheet" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,1405 +70,1794 @@
             android:layout_marginTop="@dimen/dp_13"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textDirection="locale"
             android:text="@string/label_directions"
             android:textAlignment="viewStart"
+            android:textDirection="locale"
             android:textSize="@dimen/sp_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_direction_search" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_direction_search"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_direction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_16"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/dp_8"
-            app:cardElevation="@dimen/dp_1"
-            app:cardUseCompatPadding="false"
+            android:layout_height="@dimen/dp_0"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_direction">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/img_amazon_logo_direction_search_sheet">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_location_icons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginVertical="@dimen/dp_14"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_direction_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_1"
+                    app:cardUseCompatPadding="false"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_search_sheet_direction_search"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_18"
-                        android:src="@drawable/ic_my_location"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_searching_destination"
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:src="@drawable/dotted"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_search_dest"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_search_sheet_direction_search" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_search_dest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_18"
-                        android:src="@drawable/ic_destination_small"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_search_start_destination"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/cl_location_icons"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_search_direction"
-                        style="@style/SearchTextMedium"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:hint="@string/label_search_starting_point"
-                        android:imeOptions="actionSearch"
-                        android:maxLength="200"
-                        android:textDirection="locale"
-                        android:singleLine="true"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_location_icons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginVertical="@dimen/dp_14"
+                            android:layout_marginEnd="@dimen/dp_8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_search_sheet_direction_search"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_18"
+                                android:src="@drawable/ic_my_location"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_searching_destination"
+                                android:layout_width="@dimen/dp_20"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="@dimen/dp_16"
+                                android:src="@drawable/dotted"
+                                app:layout_constraintBottom_toTopOf="@+id/iv_search_dest"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/iv_search_sheet_direction_search" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_search_dest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_18"
+                                android:src="@drawable/ic_destination_small"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_search_start_destination"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginEnd="@dimen/dp_8"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/cl_location_icons"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_search_direction"
+                                style="@style/SearchTextMedium"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:hint="@string/label_search_starting_point"
+                                android:imeOptions="actionSearch"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:textAlignment="viewStart"
+                                android:textDirection="locale"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/view_divider"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/dp_7"
-                    android:layout_marginStart="@dimen/dp_52"
-                    android:background="@color/color_view"
-                    app:layout_constraintBottom_toTopOf="@id/cl_search_destination"
+                        <View
+                            android:id="@+id/view_divider"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/dp_7"
+                            android:layout_marginStart="@dimen/dp_52"
+                            android:background="@color/color_view"
+                            app:layout_constraintBottom_toTopOf="@id/cl_search_destination"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_search_start_destination" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_search_destination"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:layout_marginEnd="@dimen/dp_8"
+                            android:layout_marginBottom="@dimen/dp_12"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/cl_location_icons">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_search_dest"
+                                style="@style/SearchTextMedium"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="@dimen/dp_0"
+                                android:layout_marginEnd="@dimen/dp_16"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:hint="@string/label_search_destination"
+                                android:imeOptions="actionSearch"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:textAlignment="viewStart"
+                                android:textDirection="locale"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/barrier_iv_dest"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+                            <androidx.constraintlayout.widget.Barrier
+                                android:id="@+id/barrier_iv_dest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:barrierDirection="start"
+                                app:constraint_referenced_ids="iv_swap_location" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_swap_location"
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:src="@drawable/ic_switch"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:strokeColor="@android:color/transparent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_route_depart_options"
+                    style="@style/SP11MediumBlackRegularTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_search_start_destination" />
+                    app:layout_constraintTop_toBottomOf="@id/card_direction_search">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_search_destination"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_12"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/cl_location_icons">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_search_dest"
-                        style="@style/SearchTextMedium"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="@dimen/dp_0"
-                        android:layout_marginEnd="@dimen/dp_16"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:hint="@string/label_search_destination"
-                        android:imeOptions="actionSearch"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:textDirection="locale"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/barrier_iv_dest"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-                    <androidx.constraintlayout.widget.Barrier
-                        android:id="@+id/barrier_iv_dest"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:barrierDirection="start"
-                        app:constraint_referenced_ids="iv_swap_location" />
+                        android:layout_gravity="center">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_swap_location"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@drawable/ic_switch"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_depart_options"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/dp_12"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_depart_options"
+                                style="@style/SP13BoldMediumBlackTextStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_16"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:text="@string/label_leave_now"
+                                android:textDirection="locale"
+                                android:textSize="@dimen/sp_14"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/barrier_leave_options"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.Barrier
+                                android:id="@+id/barrier_leave_options"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:barrierDirection="start"
+                                app:constraint_referenced_ids="iv_down_depart_options,iv_up_depart_options" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_down_depart_options"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginEnd="@dimen/dp_18"
+                                android:rotation="180"
+                                android:src="@drawable/ic_back"
+                                android:tint="@color/color_hint_text"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_up_depart_options"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginEnd="@dimen/dp_18"
+                                android:rotation="270"
+                                android:src="@drawable/ic_back"
+                                android:tint="@color/color_hint_text"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_list_depart_options"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp_16"
+                            android:paddingBottom="@dimen/dp_16"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/card_depart_options">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_choose_depart_option"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/dp_16"
+                                android:background="@drawable/rounded_bg"
+                                android:padding="@dimen/dp_4"
+                                app:layout_constraintBottom_toTopOf="@+id/cal_depart"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cl_leave_now"
+                                    android:layout_width="@dimen/dp_0"
+                                    android:layout_height="@dimen/dp_34"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/dp_6"
+                                    app:cardElevation="0dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/cl_leave_at"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_leave_now"
+                                            style="@style/SP14EmberRegularHintTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="@string/label_leave_now"
+                                            android:textColor="@color/color_primary_green"
+                                            android:textDirection="locale"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cl_leave_at"
+                                    android:layout_width="@dimen/dp_0"
+                                    android:layout_height="@dimen/dp_34"
+                                    app:cardBackgroundColor="@color/color_view"
+                                    app:cardCornerRadius="@dimen/dp_6"
+                                    app:cardElevation="0dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/cl_arrive_by"
+                                    app:layout_constraintStart_toEndOf="@+id/cl_leave_now"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_leave_at"
+                                            style="@style/SP14EmberRegularHintTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="@string/label_leave_at"
+                                            android:textColor="@color/black"
+                                            android:textDirection="locale"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cl_arrive_by"
+                                    android:layout_width="@dimen/dp_0"
+                                    android:layout_height="@dimen/dp_34"
+                                    app:cardBackgroundColor="@color/color_view"
+                                    app:cardCornerRadius="@dimen/dp_6"
+                                    app:cardElevation="0dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/cl_leave_at"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tv_arrive_by"
+                                            style="@style/SP14EmberRegularHintTextStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="@string/label_arrive_by"
+                                            android:textColor="@color/black"
+                                            android:textDirection="locale"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <CalendarView
+                                android:id="@+id/cal_depart"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/CalenderViewCustom"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cl_choose_depart_option" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_time"
+                                style="@style/SP14MediumBlackTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_16"
+                                android:text="@string/time"
+                                android:textColor="@color/black"
+                                android:textDirection="locale"
+                                android:textSize="@dimen/sp_14"
+                                app:layout_constraintBottom_toBottomOf="@+id/card_time_pick"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/card_time_pick" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_time_pick"
+                                android:layout_width="@dimen/dp_96"
+                                android:layout_height="@dimen/dp_36"
+                                android:layout_marginTop="@dimen/dp_16"
+                                android:layout_marginEnd="@dimen/dp_16"
+                                app:cardBackgroundColor="@color/color_view_line"
+                                app:cardCornerRadius="@dimen/dp_6"
+                                app:cardElevation="@dimen/dp_0"
+                                app:cardUseCompatPadding="false"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cal_depart">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_picked_time"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:textColor="@color/black"
+                                    android:textDirection="locale"
+                                    android:textSize="@dimen/sp_14"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="10:00 AM" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/view_route_avoid_divider"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/color_view"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/card_list_depart_options" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_routing_option"
+                            style="@style/SP11MediumBlackRegularTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/dp_12"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_route_avoid_divider">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_routing_option"
+                                style="@style/SP14MediumBlackTextStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_16"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:text="@string/label_route_options"
+                                android:textDirection="locale"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/barrier_avoid_options"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.Barrier
+                                android:id="@+id/barrier_avoid_options"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:barrierDirection="start"
+                                app:constraint_referenced_ids="iv_down,iv_up" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_down"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginEnd="@dimen/dp_18"
+                                android:rotation="180"
+                                android:src="@drawable/ic_back"
+                                android:tint="@color/color_hint_text"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_up"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginEnd="@dimen/dp_18"
+                                android:rotation="270"
+                                android:src="@drawable/ic_back"
+                                android:tint="@color/color_hint_text"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_list_routes_option"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/card_routing_option">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_item_route_options_1"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/dp_56"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_avoid_tools"
+                                    style="@style/SP16HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/text_switch_avoid_tools"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switch_avoid_tools"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/dp_12"
+                                    android:checked="false"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:thumbTint="@drawable/route_options_switch"
+                                    app:trackTint="@drawable/route_options_switch_track" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:id="@+id/view_route_option_1"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/color_view"
+                                android:layout_marginHorizontal="@dimen/dp_16"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_1" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_item_route_options_2"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/dp_56"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toTopOf="@id/view_route_option_2"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_1">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_avoid_ferries"
+                                    style="@style/SP16HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/text_switch_avoid_ferries"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switch_avoid_ferries"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/dp_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:thumbTint="@drawable/route_options_switch"
+                                    app:trackTint="@drawable/route_options_switch_track" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:id="@+id/view_route_option_2"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/color_view"
+                                android:layout_marginHorizontal="@dimen/dp_16"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_2" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_item_route_options_3"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/dp_56"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_2">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_avoid_dirt_roads"
+                                    style="@style/SP16HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/text_switch_avoid_dirt_roads"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switch_avoid_dirt_roads"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/dp_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:thumbTint="@drawable/route_options_switch"
+                                    app:trackTint="@drawable/route_options_switch_track" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:id="@+id/view_route_option_3"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/color_view"
+                                android:layout_marginHorizontal="@dimen/dp_16"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_3" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_item_route_options_4"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/dp_56"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_3">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_avoid_u_turn"
+                                    style="@style/SP16HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/text_switch_avoid_u_turns"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switch_avoid_u_turns"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/dp_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:thumbTint="@drawable/route_options_switch"
+                                    app:trackTint="@drawable/route_options_switch_track" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:id="@+id/view_route_option_4"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/color_view"
+                                android:layout_marginHorizontal="@dimen/dp_16"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_4" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_item_route_options_5"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/dp_56"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_4">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_avoid_tunnels"
+                                    style="@style/SP16HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/text_switch_avoid_tunnels"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switch_avoid_tunnels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/dp_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:thumbTint="@drawable/route_options_switch"
+                                    app:trackTint="@drawable/route_options_switch_track" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_map_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/dp_3"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_1"
+                    app:cardUseCompatPadding="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_route_depart_options">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_map_option_route"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@android:color/transparent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_drive_loader"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.card.MaterialCardView>
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_drive_loader"
+                                android:layout_width="@dimen/dp_140"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:backgroundTint="@color/loader_color"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_routing_option"
-            style="@style/SP11MediumBlackRegularTextStyle"
-            android:layout_width="@dimen/dp_152"
-            android:layout_height="@dimen/dp_32"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/color_route_option_unselected"
-            app:cardCornerRadius="@dimen/dp_8"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_direction_search">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_drive_distance_loader"
+                                android:layout_width="@dimen/dp_100"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:backgroundTint="@color/loader_color"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_drive_loader" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_routing_option"
-                    style="@style/SP13BoldMediumBlackTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dp_23"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLength="200"
-                    android:textDirection="locale"
-                    android:singleLine="true"
-                    android:text="@string/label_route_options"
-                    android:textSize="@dimen/sp_12"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/iv_down"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_drive_go_loader"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_35"
+                                app:cardBackgroundColor="@color/color_img_tint"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_down"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_18"
-                    android:src="@drawable/ic_down_arrow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_drive"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_18"
-                    android:rotation="180"
-                    android:src="@drawable/ic_down_arrow"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_car"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:src="@drawable/ic_direction_card"
+                                android:tint="@color/color_primary_green"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/cl_car" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_car"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toEndOf="@id/iv_car"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/card_drive_go">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_drive_minute"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_primary_green"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="2 min" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_drive_distance"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:layout_marginTop="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_drive_minute"
+                                    tools:text="650 m" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_drive_leave_time"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_drive_distance"
+                                    tools:text="Leave at 06:58 PM" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_drive_selected"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/label_selected"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_primary_green"
+                                    app:layout_constraintStart_toEndOf="@id/tv_drive_minute"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_drive_go"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_40"
+                                app:cardBackgroundColor="@color/color_dark_yellow"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_drive_go"
+                                        style="@style/SP13BoldMediumBlackTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@android:color/transparent"
+                                        android:ellipsize="end"
+                                        android:maxLength="200"
+                                        android:singleLine="true"
+                                        android:text="@string/btn_go"
+                                        android:textColor="@color/white"
+                                        android:textDirection="locale"
+                                        android:textSize="@dimen/sp_14"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/view_divider_option_scooter"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/dp_16"
+                            android:background="@color/color_view"
+                            app:layout_constraintBottom_toTopOf="@id/cl_scooter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_drive" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_scooter_loader"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_scooter_loader"
+                                android:layout_width="@dimen/dp_140"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:backgroundTint="@color/loader_color"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_scooter_distance_loader"
+                                android:layout_width="@dimen/dp_100"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:backgroundTint="@color/loader_color"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_scooter_loader" />
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_scooter_selected_loader"
+                                style="@style/SP13HintRegularTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_4"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:text="@string/label_selected"
+                                android:textDirection="locale"
+                                android:visibility="gone"
+                                app:layout_constraintStart_toEndOf="@id/tv_scooter_loader"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_scooter_go_loader"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_35"
+                                app:cardBackgroundColor="@color/color_img_tint"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_scooter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_scooter"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:src="@drawable/ic_scooter"
+                                android:tint="@color/color_medium_black"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/cl_scooter_inside"
+                                tools:ignore="TooManyViews" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_scooter_inside"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/card_scooter_go"
+                                app:layout_constraintStart_toEndOf="@id/iv_scooter"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_scooter_minute"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_medium_black"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="2 min"/>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_scooter_distance"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:layout_marginTop="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_scooter_minute"
+                                    tools:text="500 m" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_scooter_leave_time"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_scooter_distance"
+                                    tools:text="Leave at 06:58 PM" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_scooter_selected"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/label_selected"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_primary_green"
+                                    app:layout_constraintStart_toEndOf="@id/tv_scooter_minute"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_scooter_go"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_40"
+                                app:cardBackgroundColor="@color/color_dark_yellow"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_scooter_go"
+                                        style="@style/SP13BoldMediumBlackTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@android:color/transparent"
+                                        android:ellipsize="end"
+                                        android:maxLength="200"
+                                        android:singleLine="true"
+                                        android:text="@string/btn_go"
+                                        android:textColor="@color/white"
+                                        android:textDirection="locale"
+                                        android:textSize="@dimen/sp_14"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/view_divider_option"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/dp_16"
+                            android:background="@color/color_view"
+                            app:layout_constraintBottom_toTopOf="@id/cl_walk"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_scooter" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_walk_loader"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option">
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_walk_loader"
+                                android:layout_width="@dimen/dp_140"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:backgroundTint="@color/loader_color"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_walk_distance_loader"
+                                android:layout_width="@dimen/dp_100"
+                                android:layout_height="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:backgroundTint="@color/loader_color"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_walk_loader" />
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_walk_selected_loader"
+                                style="@style/SP13HintRegularTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_4"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:text="@string/label_selected"
+                                android:textDirection="locale"
+                                android:visibility="gone"
+                                app:layout_constraintStart_toEndOf="@id/tv_walk_loader"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_walk_go_loader"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_35"
+                                app:cardBackgroundColor="@color/color_img_tint"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_walk"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_walk"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:src="@drawable/icon_person_walking"
+                                android:tint="@color/color_medium_black"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/cl_walk_inside" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_walk_inside"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/card_walk_go"
+                                app:layout_constraintStart_toEndOf="@id/iv_walk"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_walk_minute"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_medium_black"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:text="2 min"/>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_walk_distance"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:layout_marginTop="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_walk_minute"
+                                    tools:text="500 m" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_walk_leave_time"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_walk_distance"
+                                    tools:text="Leave at 06:58 PM" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_walk_selected"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/label_selected"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_primary_green"
+                                    app:layout_constraintStart_toEndOf="@id/tv_walk_minute"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_walk_go"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_40"
+                                app:cardBackgroundColor="@color/color_dark_yellow"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_walk_go"
+                                        style="@style/SP13BoldMediumBlackTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@android:color/transparent"
+                                        android:ellipsize="end"
+                                        android:maxLength="200"
+                                        android:singleLine="true"
+                                        android:text="@string/btn_go"
+                                        android:textColor="@color/white"
+                                        android:textDirection="locale"
+                                        android:textSize="@dimen/sp_14"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/view_divider_option_truck"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/dp_16"
+                            android:background="@color/color_view"
+                            app:layout_constraintBottom_toTopOf="@id/cl_truck"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cl_walk" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_truck_loader"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option_truck">
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_truck_loader"
+                                android:layout_width="@dimen/dp_140"
+                                android:layout_height="8dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_4"
+                                android:backgroundTint="@color/loader_color"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/tv_truck_distance_loader"
+                                android:layout_width="@dimen/dp_100"
+                                android:layout_height="8dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:backgroundTint="@color/loader_color"
+                                app:cardCornerRadius="@dimen/dp_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_truck_loader" />
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_truck_selected_loader"
+                                style="@style/SP13HintRegularTextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/dp_4"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:maxLength="200"
+                                android:singleLine="true"
+                                android:text="@string/label_selected"
+                                android:textDirection="locale"
+                                android:visibility="gone"
+                                app:layout_constraintStart_toEndOf="@id/tv_truck_loader"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_truck_go_loader"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_35"
+                                app:cardBackgroundColor="@color/color_img_tint"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_truck"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/view_divider_option_truck">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_truck"
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_16"
+                                android:src="@drawable/icon_truck"
+                                android:tint="@color/color_medium_black"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/cl_truck_inside"
+                                tools:ignore="TooManyViews" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cl_truck_inside"
+                                android:layout_width="@dimen/dp_0"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/card_truck_go"
+                                app:layout_constraintStart_toEndOf="@id/iv_truck"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_truck_minute"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_medium_black"
+                                    tools:text="2 min"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_truck_distance"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:layout_marginTop="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:textDirection="locale"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_truck_minute"
+                                    tools:text="500 m" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_truck_leave_time"
+                                    style="@style/SP13HintRegularTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_8"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_truck_distance"
+                                    tools:text="Leave at 06:58 PM" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tv_truck_selected"
+                                    style="@style/SP14BoldBlackTextStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/dp_4"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="end"
+                                    android:maxLength="200"
+                                    android:singleLine="true"
+                                    android:text="@string/label_selected"
+                                    android:visibility="gone"
+                                    android:textDirection="locale"
+                                    android:textColor="@color/color_primary_green"
+                                    app:layout_constraintStart_toEndOf="@id/tv_truck_minute"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_truck_go"
+                                style="@style/SP11MediumBlackRegularTextStyle"
+                                android:layout_width="@dimen/dp_77"
+                                android:layout_height="@dimen/dp_40"
+                                app:cardBackgroundColor="@color/color_dark_yellow"
+                                app:cardCornerRadius="@dimen/dp_8"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tv_truck_go"
+                                        style="@style/SP13BoldMediumBlackTextStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:background="@android:color/transparent"
+                                        android:ellipsize="end"
+                                        android:maxLength="200"
+                                        android:singleLine="true"
+                                        android:text="@string/btn_go"
+                                        android:textColor="@color/white"
+                                        android:textDirection="locale"
+                                        android:textSize="@dimen/sp_14"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <include
+                    android:id="@+id/layout_no_data_found"
+                    layout="@layout/layout_no_data_found"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_list_routes_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_1"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/dp_8"
-            app:cardElevation="@dimen/dp_1"
-            app:cardUseCompatPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_routing_option">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_map_option" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_route_options_1"
-                    android:layout_width="0dp"
+                    android:id="@+id/cl_my_location_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/card_map_option">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_avoid_tools"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
+                    <include
+                        android:id="@+id/cl_my_location"
+                        layout="@layout/layout_my_location"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/text_switch_avoid_tools"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_avoid_tools"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_12"
-                        android:layout_marginVertical="@dimen/dp_12"
-                        android:checked="false"
-                        app:thumbTint="@drawable/route_options_switch"
-                        app:trackTint="@drawable/route_options_switch_track"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="@dimen/dp_26"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view_route_option_1"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/color_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_route_options_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@id/view_route_option_2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_avoid_highways"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/text_switch_avoid_highways"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_avoid_highways"
-                        android:layout_width="wrap_content"
+                    <include
+                        android:id="@+id/cl_search_loader_direction_search"
+                        layout="@layout/bottom_sheet_search_loader"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_12"
-                        android:layout_marginVertical="@dimen/dp_12"
-                        app:thumbTint="@drawable/route_options_switch"
-                        app:trackTint="@drawable/route_options_switch_track"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view_route_option_2"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/color_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_item_route_options_2" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_item_route_options_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_item_route_options_2">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_avoid_ferries"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_16"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:textDirection="locale"
-                        android:text="@string/text_switch_avoid_ferries"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
 
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_avoid_ferries"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_search_places_suggestion_direction"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_12"
-                        android:layout_marginVertical="@dimen/dp_12"
-                        app:thumbTint="@drawable/route_options_switch"
-                        app:trackTint="@drawable/route_options_switch_track"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_map_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_5"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/dp_8"
-            app:cardElevation="@dimen/dp_1"
-            app:cardUseCompatPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_list_routes_option">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_map_option_route"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_16"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_drive_loader"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_drive_loader"
-                        android:layout_width="@dimen/dp_140"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/loader_color"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_drive_distance_loader"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:backgroundTint="@color/loader_color"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_drive_loader" />
+                        android:background="@color/color_f8f8f7"
+                        android:overScrollMode="never"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_drive_go_loader"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_35"
-                        app:cardBackgroundColor="@color/color_img_tint"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_drive"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_car"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:src="@drawable/ic_direction_card"
-                        android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/cl_car"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/cl_car" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_search_places_direction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@color/color_f8f8f7"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_car"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/cl_no_internet_connection_direction_search"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/iv_car"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_drive"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:textDirection="locale"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:text="@string/label_drive"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_drive_distance"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:textDirection="locale"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_drive"
-                            tools:text="650 m" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_drive_selected"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:textDirection="locale"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:text="@string/label_selected"
-                            app:layout_constraintStart_toEndOf="@id/tv_drive"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_drive_minute"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:gravity="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_drive_go"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@id/cl_car"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="2 min" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_drive_go"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_40"
-                        app:cardBackgroundColor="@color/color_dark_yellow"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_drive_go"
-                                style="@style/SP13BoldMediumBlackTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:ellipsize="end"
-                                android:maxLength="200"
-                                android:singleLine="true"
-                                android:textDirection="locale"
-                                android:text="@string/btn_go"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view_divider_option"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/dp_15"
-                    android:background="@color/color_view"
-                    app:layout_constraintBottom_toTopOf="@id/cl_walk"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_drive" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_walk_loader"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_walk_loader"
-                        android:layout_width="@dimen/dp_140"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:backgroundTint="@color/loader_color"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_walk_distance_loader"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:backgroundTint="@color/loader_color"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_walk_loader" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_walk_selected_loader"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
                         android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_walk_loader"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_walk_go_loader"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_35"
-                        app:cardBackgroundColor="@color/color_img_tint"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_walk"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_walk"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:src="@drawable/icon_person_walking"
-                        android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/cl_walk_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/cl_walk_inside" />
+                        app:layout_constraintTop_toBottomOf="@id/cl_my_location">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_walk_inside"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/iv_walk"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_walk"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:textDirection="locale"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:text="@string/label_walk"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_cloud_sheet_direction_search"
+                            android:layout_width="@dimen/dp_40"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_marginTop="@dimen/dp_60"
+                            android:src="@drawable/icon_cloud"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="TooManyViews" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_walk_distance"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_1_sheet_direction_search"
+                            style="@style/SP16BoldMediumBlackTextStyle"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
+                            android:layout_marginHorizontal="@dimen/dp_40"
+                            android:layout_marginTop="@dimen/dp_36"
+                            android:gravity="center"
+                            android:text="@string/amazon_location_can_t_reach_the_internet"
                             android:textDirection="locale"
-                            android:singleLine="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_walk"
-                            tools:text="500 m" />
+                            app:layout_constraintTop_toBottomOf="@id/iv_cloud_sheet_direction_search" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_walk_selected"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_2_no_internet_desc_direction_search"
+                            style="@style/SP13HintInterRegularTextStyle"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
+                            android:layout_marginHorizontal="@dimen/dp_40"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:gravity="center"
+                            android:text="@string/check_your_internet_connection_and_try_again"
                             android:textDirection="locale"
-                            android:text="@string/label_selected"
-                            android:visibility="gone"
-                            app:layout_constraintStart_toEndOf="@id/tv_walk"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_1_sheet_direction_search" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_walk_minute"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:gravity="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_walk_go"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@id/cl_walk_inside"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="7 min" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_walk_go"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_40"
-                        app:cardBackgroundColor="@color/color_dark_yellow"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_walk_go"
-                                style="@style/SP13BoldMediumBlackTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:ellipsize="end"
-                                android:maxLength="200"
-                                android:singleLine="true"
-                                android:textDirection="locale"
-                                android:text="@string/btn_go"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view_divider_option_truck"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/dp_15"
-                    android:background="@color/color_view"
-                    app:layout_constraintBottom_toTopOf="@id/cl_truck"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_walk" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_truck_loader"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_truck">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_truck_loader"
-                        android:layout_width="@dimen/dp_140"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_truck_distance_loader"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_truck_loader" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_truck_selected_loader"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:textDirection="locale"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_truck_loader"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_truck_go_loader"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_35"
-                        app:cardBackgroundColor="@color/color_img_tint"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_truck"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_truck">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_truck"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:src="@drawable/icon_truck"
-                        android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/cl_truck_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/cl_truck_inside"
-                        tools:ignore="TooManyViews" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_truck_inside"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/iv_truck"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_truck"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:textDirection="locale"
-                            android:text="@string/label_truck"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_truck_distance"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:textDirection="locale"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_truck"
-                            tools:text="500 m" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_truck_selected"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:text="@string/label_selected"
-                            android:visibility="gone"
-                            android:textDirection="locale"
-                            app:layout_constraintStart_toEndOf="@id/tv_truck"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_truck_minute"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:gravity="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_truck_go"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@id/cl_truck_inside"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="7 min" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_truck_go"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_40"
-                        app:cardBackgroundColor="@color/color_dark_yellow"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_truck_go"
-                                style="@style/SP13BoldMediumBlackTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:ellipsize="end"
-                                android:maxLength="200"
-                                android:singleLine="true"
-                                android:text="@string/btn_go"
-                                android:textDirection="locale"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/view_divider_option_scooter"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/dp_15"
-                    android:background="@color/color_view"
-                    app:layout_constraintBottom_toTopOf="@id/cl_scooter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_truck" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_scooter_loader"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_scooter_loader"
-                        android:layout_width="@dimen/dp_140"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/tv_scooter_distance_loader"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:backgroundTint="@color/loader_color"
-                        app:cardCornerRadius="@dimen/dp_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_scooter_loader" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_scooter_selected_loader"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:maxLength="200"
-                        android:textDirection="locale"
-                        android:singleLine="true"
-                        android:text="@string/label_selected"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toEndOf="@id/tv_scooter_loader"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_scooter_go_loader"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_35"
-                        app:cardBackgroundColor="@color/color_img_tint"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_scooter"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_divider_option_scooter">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_scooter"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:src="@drawable/icon_motorcycle"
-                        android:tint="@color/color_hint_text"
-                        app:layout_constraintBottom_toBottomOf="@id/cl_scooter_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/cl_scooter_inside"
-                        tools:ignore="TooManyViews" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_scooter_inside"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/iv_scooter"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_scooter"
-                            style="@style/SP13BoldMediumBlackTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:textDirection="locale"
-                            android:text="@string/label_scooter"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_scooter_distance"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_16"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:textDirection="locale"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_scooter"
-                            tools:text="500 m" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_scooter_selected"
-                            style="@style/SP13HintRegularTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/dp_4"
-                            android:background="@android:color/transparent"
-                            android:ellipsize="end"
-                            android:maxLength="200"
-                            android:singleLine="true"
-                            android:text="@string/label_selected"
-                            android:visibility="gone"
-                            android:textDirection="locale"
-                            app:layout_constraintStart_toEndOf="@id/tv_scooter"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_scooter_minute"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dp_4"
-                        android:layout_marginEnd="@dimen/dp_22"
-                        android:background="@android:color/transparent"
-                        android:ellipsize="end"
-                        android:textDirection="locale"
-                        android:gravity="end"
-                        android:maxLength="200"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/card_scooter_go"
-                        app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@id/cl_scooter_inside"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="7 min" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_scooter_go"
-                        style="@style/SP11MediumBlackRegularTextStyle"
-                        android:layout_width="@dimen/dp_77"
-                        android:layout_height="@dimen/dp_40"
-                        app:cardBackgroundColor="@color/color_dark_yellow"
-                        app:cardCornerRadius="@dimen/dp_8"
-                        app:cardElevation="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_scooter_go"
-                                style="@style/SP13BoldMediumBlackTextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/transparent"
-                                android:ellipsize="end"
-                                android:maxLength="200"
-                                android:singleLine="true"
-                                android:text="@string/btn_go"
-                                android:textDirection="locale"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <include
-            android:id="@+id/layout_no_data_found"
-            layout="@layout/layout_no_data_found"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="@dimen/dp_0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_map_option" />
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/ns_direction_search_places"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0"
-            android:background="@color/search_bs_bg_color"
-            android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_map_option">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
                 <include
-                    android:id="@+id/cl_my_location"
-                    layout="@layout/layout_my_location"
+                    android:id="@+id/layout_card_error"
+                    layout="@layout/layout_card_error"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_26"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <include
-                    android:id="@+id/cl_search_loader_direction_search"
-                    layout="@layout/bottom_sheet_search_loader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_0"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
+                    app:layout_constraintTop_toBottomOf="@id/card_map_option" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_places_suggestion_direction"
+                <View
+                    android:id="@+id/view_keyboard_scroll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:overScrollMode="never"
-                    android:background="@color/color_f8f8f7"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
+                    android:layout_height="@dimen/dp_280"
+                    android:layout_gravity="bottom|center"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_my_location_parent" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_places_direction"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_gravity="bottom|center"
                     android:visibility="visible"
-                    android:background="@color/color_f8f8f7"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_my_location" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_no_internet_connection_direction_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_my_location">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_cloud_sheet_direction_search"
-                        android:layout_width="@dimen/dp_40"
-                        android:layout_height="@dimen/dp_32"
-                        android:layout_marginTop="@dimen/dp_60"
-                        android:src="@drawable/icon_cloud"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="TooManyViews" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_1_sheet_direction_search"
-                        style="@style/SP16BoldMediumBlackTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_40"
-                        android:layout_marginTop="@dimen/dp_36"
-                        android:gravity="center"
-                        android:textDirection="locale"
-                        android:text="@string/amazon_location_can_t_reach_the_internet"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_cloud_sheet_direction_search" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_2_no_internet_desc_direction_search"
-                        style="@style/SP13HintInterRegularTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_40"
-                        android:layout_marginTop="@dimen/dp_8"
-                        android:textDirection="locale"
-                        android:gravity="center"
-                        android:text="@string/check_your_internet_connection_and_try_again"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_1_sheet_direction_search" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    app:layout_constraintTop_toBottomOf="@+id/view_keyboard_scroll" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <include
-            android:id="@+id/layout_card_error"
-            layout="@layout/layout_card_error"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_map_option" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

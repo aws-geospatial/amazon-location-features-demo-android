@@ -28,7 +28,6 @@ import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
 import com.aws.amazonlocation.domain.`interface`.UpdateRouteInterface
 import com.aws.amazonlocation.domain.`interface`.UpdateTrackingInterface
 import com.aws.amazonlocation.ui.main.map_style.MapStyleChangeListener
-import com.aws.amazonlocation.utils.Distance.DISTANCE_IN_METER_20
 import com.aws.amazonlocation.utils.Distance.DISTANCE_IN_METER_30
 import com.aws.amazonlocation.utils.Durations.CAMERA_DURATION_1000
 import com.aws.amazonlocation.utils.Durations.CAMERA_DURATION_1500
@@ -282,14 +281,9 @@ class MapHelper(
                 if (mLastStoreLocation == null) {
                     mLastStoreLocation = result.lastLocation
                 } else {
-                    mLastStoreLocation?.let {
-                        val distance = result.lastLocation?.let { it1 -> it.distanceTo(it1) }
-                        if (distance != null) {
-                            if (distance > DISTANCE_IN_METER_20) {
-                                mLastStoreLocation = result.lastLocation
-                                mRouteInterface?.updateRoute(it, result.lastLocation?.bearing)
-                            }
-                        }
+                    result.lastLocation?.let {
+                        mLastStoreLocation = it
+                        mRouteInterface?.updateRoute(it, result.lastLocation?.bearing)
                     }
                 }
             }

@@ -101,10 +101,34 @@
             android:layout_marginHorizontal="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_2"
             android:textAlignment="viewStart"
-            app:layout_constraintEnd_toStartOf="@id/btn_exit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_navigation_time"
             tools:text="300 m" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tv_navigation_dot"
+            android:layout_width="@dimen/dp_3"
+            android:layout_height="@dimen/dp_3"
+            android:layout_marginHorizontal="@dimen/dp_4"
+            app:cardBackgroundColor="@color/color_hint_text"
+            app:cardCornerRadius="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="@id/tv_navigation_distance"
+            app:layout_constraintStart_toEndOf="@id/tv_navigation_distance"
+            app:layout_constraintTop_toTopOf="@id/tv_navigation_distance" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_arrival_time"
+            style="@style/SP13HintRegularTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_4"
+            android:gravity="start"
+            android:textDirection="locale"
+            app:layout_constraintBottom_toBottomOf="@id/tv_navigation_dot"
+            app:layout_constraintTop_toTopOf="@id/tv_navigation_dot"
+            app:layout_constraintStart_toEndOf="@id/tv_navigation_dot"
+            app:layout_constraintEnd_toStartOf="@id/btn_exit"
+            tools:text="15.20" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_exit"
@@ -115,42 +139,123 @@
             android:layout_marginEnd="@dimen/dp_16"
             android:background="@drawable/navigation_exit"
             android:text="@string/exit"
+            android:textDirection="locale"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:cornerRadius="@dimen/dp_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_navigation" />
 
-        <View
-            android:id="@+id/view_exit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_30"
-            android:background="@color/color_view"
-            app:layout_constraintTop_toBottomOf="@id/btn_exit" />
-
-        <include
-            android:id="@+id/cl_search_loader_navigation"
-            layout="@layout/bottom_sheet_search_loader"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_exit" />
+            android:orientation="vertical"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="btn_exit, tv_navigation_distance" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_navigation_list"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
             android:overScrollMode="never"
-            android:paddingBottom="@dimen/dp_46"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_64"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_exit" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_top">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_depart_name"
+                    style="@style/SP20BoldMediumBlackTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="South vancouver" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_depart_address"
+                    style="@style/SP13HintRegularTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_depart_name"
+                    tools:text="vancouver" />
+
+                <include
+                    android:id="@+id/cl_search_loader_navigation"
+                    layout="@layout/bottom_sheet_search_loader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_depart_address" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_navigation_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_depart_address" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_destination_name"
+                    style="@style/SP20BoldMediumBlackTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/sp_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_navigation_list"
+                    tools:text="South vancouver" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_destination_address"
+                    style="@style/SP13HintRegularTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_destination_name"
+                    tools:text="vancouver" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

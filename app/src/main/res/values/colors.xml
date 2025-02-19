@@ -33,4 +33,5 @@
     <color name="switch_color_primary_green">#61008296</color>
     <color name="color_cross_button">#993C3C43</color>
     <color name="color_selected_spinner_bg">#ebf5f7</color>
+    <color name="color_787880">#1F787880</color>
 </resources>

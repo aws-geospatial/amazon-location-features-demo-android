@@ -132,6 +132,8 @@ val IMPERIAL = "Imperial"
 val AUTOMATIC = "Automatic"
 
 // Dummy credential for test case
+val UTC_TIME = "2025-01-07T14:30:00+05:30"
+val RESULT_TIME = "14:30"
 val IDENTITY_POOL_CLIENT_ID_TEST = "66afllav6ri6hf66sikh6t6foh"
 val USER_POOL_ID_TEST = "ca-central-1_X6aaHHHb6"
 val jsonTurf: String = """

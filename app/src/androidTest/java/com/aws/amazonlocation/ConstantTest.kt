@@ -37,6 +37,9 @@ const val TEST_WORD_GUOCO_MIDTOWN_SQUARE = "Guoco Midtown Square"
 const val TEST_WORD_KLUANG = "Kluang "
 const val TEST_WORD_ARG = "ARG"
 const val TEST_WORD_RUS = "RUS"
+const val TEST_WORD_ARRIVE = "Arrive"
+const val TEST_WORD_LEAVE = "Leave"
+const val TEST_WORD_LEAVE_AT = "Leave at"
 const val TEST_WORD_LANGUAGE_AR = "العربية"
 const val TEST_WORD_LANGUAGE_BO = "Bosanski"
 const val TEST_FAILED = "Test failed"
@@ -80,6 +83,7 @@ const val TEST_FAILED_NOT_TRACKING_ENTERED_DIALOG = "Test failed due to not trac
 const val TEST_FAILED_NOT_TRACKING_EXIT_DIALOG = "Test failed due to not tracking exit dialog"
 const val TEST_FAILED_NO_DATA_FOUND = "No data found"
 const val TEST_FAILED_NO_MESSAGE_FOUND = "Expected message not found"
+const val TEST_FAILED_DUE_TO_WORD_MISMATCHED = "Test failed due to word mismatched"
 
 val MAP_1 = MAP + 0
 val MAP_2 = MAP + 1

@@ -25,7 +25,9 @@ import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
+import com.aws.amazonlocation.utils.DateFormat.HH_MM
 import com.aws.amazonlocation.utils.Units
+import com.aws.amazonlocation.utils.formatToDisplayTime
 import com.aws.amazonlocation.utils.getLanguageData
 import com.aws.amazonlocation.utils.getPoliticalData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,6 +68,33 @@ class ExploreViewModel
         var mStyleList = ArrayList<MapStyleData>()
         var mPoliticalData = ArrayList<PoliticalData>()
         var mPoliticalSearchData = ArrayList<PoliticalData>()
+        var mIsAvoidTolls: Boolean = false
+        var mIsAvoidFerries: Boolean = false
+        var mIsAvoidDirtRoads: Boolean = false
+        var mIsAvoidUTurns: Boolean = false
+        var mIsAvoidTunnels: Boolean = false
+        var mIsRouteOptionsOpened = false
+        var mIsDepartOptionsOpened = false
+        var mTravelMode: String = RouteTravelMode.Car.value
+        var mRouteFinish: Boolean = false
+        var mIsSwapClicked: Boolean = false
+        var mIsDirectionDataSet: Boolean = false
+        var mIsDirectionDataSetNew: Boolean = false
+        var mIsDirectionSheetHalfExpanded: Boolean = false
+        var mIsLocationAlreadyEnabled: Boolean = false
+        var mIsCurrentLocationClicked: Boolean = false
+        var mIsTrackingLocationClicked: Boolean = false
+        var isCalculateDriveApiError: Boolean = false
+        var isCalculateWalkApiError: Boolean = false
+        var isCalculateTruckApiError: Boolean = false
+        var isCalculateScooterApiError: Boolean = false
+        var isLocationUpdatedNeeded: Boolean = false
+        var isFromMapStyle: Boolean = false
+        var isZooming: Boolean = false
+        var isDataSearchForDestination: Boolean = false
+        var isLiveLocationClick: Boolean = false
+        var mSelectedDepartOption: String = DepartOption.LEAVE_NOW.name
+        var mLastClickTime: Long = 0
         var mMapLanguageData = ArrayList<LanguageData>()
 
         private val _searchForSuggestionsResultList =
@@ -186,8 +215,9 @@ class ExploreViewModel
             longitude: Double?,
             latDestination: Double?,
             lngDestination: Double?,
-            isAvoidFerries: Boolean?,
-            isAvoidTolls: Boolean?,
+            avoidanceOptions: ArrayList<AvoidanceOption>,
+            departOption: String,
+            time: String?,
             isWalkingAndTruckCall: Boolean,
         ) {
             viewModelScope.launch(Dispatchers.IO) {
@@ -197,8 +227,9 @@ class ExploreViewModel
                         longitude,
                         latDestination,
                         lngDestination,
-                        isAvoidFerries,
-                        isAvoidTolls,
+                        avoidanceOptions,
+                        departOption,
+                        time,
                         RouteTravelMode.Pedestrian.value,
                     )
                     calculateDistanceFromMode(
@@ -206,8 +237,9 @@ class ExploreViewModel
                         longitude,
                         latDestination,
                         lngDestination,
-                        isAvoidFerries,
-                        isAvoidTolls,
+                        avoidanceOptions,
+                        departOption,
+                        time,
                         RouteTravelMode.Truck.value,
                     )
                     calculateDistanceFromMode(
@@ -215,8 +247,9 @@ class ExploreViewModel
                         longitude,
                         latDestination,
                         lngDestination,
-                        isAvoidFerries,
-                        isAvoidTolls,
+                        avoidanceOptions,
+                        departOption,
+                        time,
                         RouteTravelMode.Scooter.value,
                     )
                 } else {
@@ -225,8 +258,9 @@ class ExploreViewModel
                         longitude,
                         latDestination,
                         lngDestination,
-                        isAvoidFerries,
-                        isAvoidTolls,
+                        avoidanceOptions,
+                        departOption,
+                        time,
                         RouteTravelMode.Car.value,
                     )
                 }
@@ -238,8 +272,9 @@ class ExploreViewModel
             longitude: Double?,
             latDestination: Double?,
             lngDestination: Double?,
-            isAvoidFerries: Boolean?,
-            isAvoidTolls: Boolean?,
+            avoidanceOptions: ArrayList<AvoidanceOption>,
+            departOption: String,
+            time: String?,
             travelMode: String?,
         ) {
             _calculateDistance.trySend(HandleResult.Loading)
@@ -250,9 +285,10 @@ class ExploreViewModel
                 longitude,
                 latDestination,
                 lngDestination,
-                isAvoidFerries,
-                isAvoidTolls,
+                avoidanceOptions,
+                departOption,
                 travelMode,
+                time,
                 object : DistanceInterface {
                     override fun distanceSuccess(success: CalculateRoutesResponse) {
                         _calculateDistance.trySend(
@@ -302,8 +338,9 @@ class ExploreViewModel
             longitude: Double?,
             latDestination: Double?,
             lngDestination: Double?,
-            isAvoidFerries: Boolean?,
-            isAvoidTolls: Boolean?,
+            avoidanceOptions: ArrayList<AvoidanceOption>,
+            departOption: String,
+            time: String?,
             travelMode: String?,
         ) {
             _updateCalculateDistance.trySend(HandleResult.Loading)
@@ -313,9 +350,10 @@ class ExploreViewModel
                     longitude,
                     latDestination,
                     lngDestination,
-                    isAvoidFerries,
-                    isAvoidTolls,
+                    avoidanceOptions,
+                    departOption,
                     travelMode,
+                    time,
                     object : DistanceInterface {
                         override fun distanceSuccess(success: CalculateRoutesResponse) {
                             _updateCalculateDistance.trySend(
@@ -365,6 +403,10 @@ class ExploreViewModel
                             .summary
                             ?.distance
                             ?.toDouble()
+                    val getLastTime = legs.last().vehicleLegDetails?.arrival?.time
+                        ?: legs.last().pedestrianLegDetails?.arrival?.time
+                        ?: legs.last().ferryLegDetails?.arrival?.time
+                    mNavigationResponse?.time = getLastTime?.let { formatToDisplayTime(it, HH_MM) }
                     for (leg in legs) {
                         if (leg.vehicleLegDetails != null) {
                             leg.vehicleLegDetails?.travelSteps?.forEach {
@@ -374,6 +416,18 @@ class ExploreViewModel
                                         destinationAddress = it.instruction,
                                         distance = it.distance.toDouble(),
                                         duration = it.duration.toDouble(),
+                                        type = it.type.value,
+                                        routeTurnStepDetails = it.turnStepDetails,
+                                        routeContinueHighwayStepDetails = it.continueHighwayStepDetails,
+                                        routeContinueStepDetails = it.continueStepDetails,
+                                        routeEnterHighwayStepDetails = it.enterHighwayStepDetails,
+                                        routeExitStepDetails = it.exitStepDetails,
+                                        routeKeepStepDetails = it.keepStepDetails,
+                                        routeRampStepDetails = it.rampStepDetails,
+                                        routeRoundaboutEnterStepDetails = it.roundaboutEnterStepDetails,
+                                        routeRoundaboutExitStepDetails = it.roundaboutExitStepDetails,
+                                        routeRoundaboutPassStepDetails = it.roundaboutPassStepDetails,
+                                        routeUTurnStepDetails = it.uTurnStepDetails,
                                     ),
                                 )
                             }
@@ -385,6 +439,13 @@ class ExploreViewModel
                                         destinationAddress = it.instruction,
                                         distance = it.distance.toDouble(),
                                         duration = it.duration.toDouble(),
+                                        type = it.type.value,
+                                        routeTurnStepDetails = it.turnStepDetails,
+                                        routeContinueStepDetails = it.continueStepDetails,
+                                        routeKeepStepDetails = it.keepStepDetails,
+                                        routeRoundaboutEnterStepDetails = it.roundaboutEnterStepDetails,
+                                        routeRoundaboutExitStepDetails = it.roundaboutExitStepDetails,
+                                        routeRoundaboutPassStepDetails = it.roundaboutPassStepDetails,
                                     ),
                                 )
                             }
@@ -396,6 +457,7 @@ class ExploreViewModel
                                         destinationAddress = it.instruction,
                                         distance = it.distance.toDouble(),
                                         duration = it.duration.toDouble(),
+                                        type = it.type.value,
                                     ),
                                 )
                             }
@@ -549,4 +611,13 @@ class ExploreViewModel
 
             mMapLanguageData.addAll(item)
         }
+
+        fun getAvoidanceOptions(): ArrayList<AvoidanceOption> =
+            arrayListOf<AvoidanceOption>().apply {
+                if (mIsAvoidFerries) add(AvoidanceOption.FERRIES)
+                if (mIsAvoidTolls) add(AvoidanceOption.TOLL_ROADS)
+                if (mIsAvoidDirtRoads) add(AvoidanceOption.DIRT_ROADS)
+                if (mIsAvoidUTurns) add(AvoidanceOption.U_TURNS)
+                if (mIsAvoidTunnels) add(AvoidanceOption.TUNNELS)
+            }
     }

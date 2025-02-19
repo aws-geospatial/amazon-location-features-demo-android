@@ -85,7 +85,6 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
                 ),
             )
 
-            // btnExit
             waitForView(allOf(withId(R.id.btn_exit), isDisplayed())) {
                 Assert.fail("$TEST_FAILED button exit not visible")
             }

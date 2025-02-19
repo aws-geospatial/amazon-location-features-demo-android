@@ -14,6 +14,12 @@ import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
 import aws.sdk.kotlin.services.georoutes.model.GeometryFormat
 import aws.sdk.kotlin.services.georoutes.model.LocalizedString
 import aws.sdk.kotlin.services.georoutes.model.Route
+import aws.sdk.kotlin.services.georoutes.model.RouteFerryLegDetails
+import aws.sdk.kotlin.services.georoutes.model.RouteFerryNotice
+import aws.sdk.kotlin.services.georoutes.model.RouteFerryNoticeCode
+import aws.sdk.kotlin.services.georoutes.model.RouteFerrySummary
+import aws.sdk.kotlin.services.georoutes.model.RouteFerryTravelStep
+import aws.sdk.kotlin.services.georoutes.model.RouteFerryTravelStepType
 import aws.sdk.kotlin.services.georoutes.model.RouteLeg
 import aws.sdk.kotlin.services.georoutes.model.RouteLegGeometry
 import aws.sdk.kotlin.services.georoutes.model.RouteLegTravelMode
@@ -313,6 +319,85 @@ object Responses {
                                                         details = listOf(RouteVehicleNoticeDetail {
                                                             title = "test"
                                                         })
+                                                    },
+                                                )
+                                        }
+                                },
+                            )
+                        majorRoadLabels = listOf(RouteMajorRoadLabel{
+                            roadName = LocalizedString {
+                                value = "test"
+                                language = "en"
+                            }
+                        })
+                        summary =
+                            RouteSummary {
+                                distance = 20
+                                duration = 48
+                            }
+                    },
+                )
+            notices = listOf()
+            pricingBucket = "test"
+            legGeometryFormat = GeometryFormat.Simple
+        }
+
+    val RESPONSE_CALCULATE_DISTANCE_FERRIES =
+        CalculateRoutesResponse {
+            routes =
+                listOf(
+                    Route {
+                        legs =
+                            listOf(
+                                RouteLeg {
+                                    travelMode = RouteLegTravelMode.Ferry
+                                    type = RouteLegType.Ferry
+                                    geometry =
+                                        RouteLegGeometry {
+                                            lineString =
+                                                listOf(
+                                                    listOf(72.83371801248408, 18.922163986834548),
+                                                    listOf(72.83368999799727, 18.922080011205793),
+                                                    listOf(72.83332001005944, 18.92124998876538),
+                                                    listOf(72.83318000545705, 18.92106999738339),
+                                                    listOf(72.83317999485907, 18.92106998837811),
+                                                    listOf(72.83324999683737, 18.921269989185305),
+                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                )
+                                        }
+                                    ferryLegDetails =
+                                        RouteFerryLegDetails {
+                                            afterTravelSteps = listOf()
+                                            beforeTravelSteps = listOf()
+                                            travelSteps =
+                                                listOf(
+                                                    RouteFerryTravelStep {
+                                                        distance = 10
+                                                        duration = 32
+                                                        geometryOffset = 1
+                                                        type = RouteFerryTravelStepType.Depart
+                                                    },
+                                                    RouteFerryTravelStep {
+                                                        distance = 10
+                                                        duration = 16
+                                                        geometryOffset = 4
+                                                        type = RouteFerryTravelStepType.Depart
+                                                    },
+                                                )
+                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
+                                                geometryOffset = 2
+                                                place = RoutePassThroughPlace {
+                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                                }
+                                            })
+                                            summary = RouteFerrySummary {
+
+                                            }
+                                            spans = listOf()
+                                            notices =
+                                                listOf(
+                                                    RouteFerryNotice {
+                                                        code = RouteFerryNoticeCode.Other
                                                     },
                                                 )
                                         }

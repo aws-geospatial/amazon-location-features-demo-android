@@ -32,46 +32,63 @@
             android:id="@+id/card_navigation_time_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_40"
             android:visibility="gone"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/dp_8"
+            app:cardCornerRadius="@dimen/dp_0"
             app:cardUseCompatPadding="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_50"
                 android:padding="@dimen/dp_10">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_direction"
+                    android:layout_width="@dimen/dp_56"
+                    android:layout_height="@dimen/dp_56"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:src="@drawable/ic_left_black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_distance"
                     style="@style/SP24BoldWhiteTextStyle"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_medium_black"
-                    android:textSize="@dimen/sp_20"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:textSize="@dimen/sp_24"
                     android:textDirection="locale"
-                    android:gravity="center"
-                    tools:text="300 m" />
+                    android:gravity="start"
+                    tools:text="300 m"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_direction"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_navigation_name"
-                    style="@style/SP16RegularWhiteTextStyle"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/color_medium_black"
-                    android:textSize="@dimen/sp_13"
-                    android:textDirection="locale"
+                    style="@style/SP16InterSemiBoldMediumBlackTextStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_hint_text"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:textSize="@dimen/sp_16"
+                    android:textDirection="locale"
                     android:ellipsize="end"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:maxLines="1"
-                    tools:text="Victoria st" />
+                    tools:text="Victoria st"
+                    app:layout_constraintTop_toBottomOf="@id/tv_distance"
+                    app:layout_constraintStart_toEndOf="@+id/iv_direction"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 

@@ -99,6 +99,30 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
         }
     }
 
+    @Test
+    fun calculateNavigationLineFerriesSuccess() = runTest {
+
+        val param = Responses.RESPONSE_CALCULATE_DISTANCE_FERRIES
+
+        val searchSuggestionData = getSearchSuggestionData()
+
+        mExploreVM.mSearchSuggestionData = searchSuggestionData
+        mExploreVM.mSearchDirectionOriginData = searchSuggestionData
+        mExploreVM.mSearchDirectionDestinationData = searchSuggestionData
+        mExploreVM.mSearchDirectionDestinationData?.isDestination = true
+
+        mExploreVM.mNavigationData.test {
+            mExploreVM.calculateNavigationLine(context, param)
+            var result = awaitItem()
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
+            result = awaitItem()
+            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
+            val data = (result as HandleResult.Success).response
+            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA_SIZE, data.navigationList.size == 2)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
     private fun getSearchSuggestionData(): SearchSuggestionData {
         val it = Responses.SEARCH_RESPONSE_TAJ
         val searchSuggestionData = SearchSuggestionData()

@@ -1,13 +1,12 @@
 package com.aws.amazonlocation.data.repository
 
-import aws.sdk.kotlin.services.geoplaces.GeoPlacesClient
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
+import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
-import com.aws.amazonlocation.ui.base.BaseActivity
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -39,9 +38,10 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         lngDeparture: Double?,
         latDestination: Double?,
         lngDestination: Double?,
-        isAvoidFerries: Boolean?,
-        isAvoidTolls: Boolean?,
+        avoidanceOptions: ArrayList<AvoidanceOption>,
+        departOption: String,
         travelMode: String?,
+        time: String?,
         distanceInterface: DistanceInterface
     ) {
         mRemoteDataSource.calculateRoute(
@@ -49,9 +49,10 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
             lngDeparture,
             latDestination,
             lngDestination,
-            isAvoidFerries,
-            isAvoidTolls,
+            avoidanceOptions,
+            departOption,
             travelMode,
+            time,
             distanceInterface
         )
     }

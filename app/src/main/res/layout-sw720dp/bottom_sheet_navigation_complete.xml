@@ -35,6 +35,7 @@
         android:id="@+id/cl_navigation_main_sheet_navigation_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
         android:background="@drawable/bottom_sheet_top_corner_curved_white_bg"
         android:clickable="true"
         android:focusable="true"
@@ -76,17 +77,31 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_navigation_complete_address"
+            android:id="@+id/tv_arrived"
             style="@style/SP20BoldMediumBlackTextStyle"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_27"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="@string/label_you_ve_arrived"
             android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@id/iv_navigation_complete_close"
             app:layout_constraintStart_toStartOf="@id/sheet_navigation_complete_gl_direction_start"
-            app:layout_constraintTop_toBottomOf="@id/view_navigation_complete"
+            app:layout_constraintTop_toBottomOf="@id/view_navigation_complete" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_navigation_complete_address"
+            style="@style/SP13BoldMediumBlackTextStyle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toStartOf="@id/iv_navigation_complete_close"
+            app:layout_constraintStart_toStartOf="@id/sheet_navigation_complete_gl_direction_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_arrived"
             tools:text="Mike’s Wings London" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -96,7 +111,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_2"
             android:ellipsize="end"
+            android:gravity="start"
+            android:lines="2"
             android:maxLines="2"
+            android:textDirection="locale"
             app:layout_constraintEnd_toStartOf="@id/iv_navigation_complete_close"
             app:layout_constraintStart_toStartOf="@id/sheet_navigation_complete_gl_direction_start"
             app:layout_constraintTop_toBottomOf="@id/tv_navigation_complete_address"
@@ -122,8 +140,8 @@
                     android:id="@+id/iv_direction_navigation_complete"
                     android:layout_width="@dimen/dp_22"
                     android:layout_height="@dimen/dp_22"
-                    android:layout_marginEnd="@dimen/dp_19"
-                    android:src="@drawable/ic_directions"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:src="@drawable/ic_done"
                     android:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tv_directions_navigation_complete"
@@ -136,7 +154,7 @@
                     style="@style/SP16BoldWhiteTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/directions"
+                    android:text="@string/done"
                     android:textAllCaps="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -1,9 +1,7 @@
 package com.aws.amazonlocation.domain.usecase
 
-import aws.sdk.kotlin.services.georoutes.model.CalculateRoutesResponse
-import aws.sdk.kotlin.services.location.model.Step
+import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
-import com.aws.amazonlocation.domain.`interface`.NavigationDataInterface
 import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
@@ -36,18 +34,21 @@ class LocationSearchUseCase @Inject constructor(private val mLocationSearchRepos
         lngDeparture: Double?,
         latDestination: Double?,
         lngDestination: Double?,
-        isAvoidFerries: Boolean?,
-        isAvoidTolls: Boolean?,
+        avoidanceOptions: ArrayList<AvoidanceOption>,
+        departOption: String,
         travelMode: String?,
+        time: String?,
         distanceInterface: DistanceInterface
-    ) = mLocationSearchRepository.calculateDistance(
+    ) = mLocationSearchRepository.
+    calculateDistance(
         latDeparture,
         lngDeparture,
         latDestination,
         lngDestination,
-        isAvoidFerries,
-        isAvoidTolls,
+        avoidanceOptions,
+        departOption,
         travelMode,
+        time,
         distanceInterface
     )
 

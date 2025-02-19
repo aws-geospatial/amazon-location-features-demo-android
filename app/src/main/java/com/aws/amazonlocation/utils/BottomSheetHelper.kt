@@ -201,8 +201,6 @@ class BottomSheetHelper {
         mNavigationBottomSheet.isHideable = true
         mNavigationBottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
         mNavigationBottomSheet.isFitToContents = false
-        mNavigationBottomSheet.expandedOffset =
-            view.clNavigationParent.context.resources.getDimension(R.dimen.dp_50).toInt()
 
         mNavigationBottomSheet.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -210,14 +208,20 @@ class BottomSheetHelper {
                 when (newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         view.cardNavigationLocation.alpha = 1f
+                        view.ivAmazonInfoNavigation.alpha = 1f
+                        view.imgAmazonLogoNavigation.alpha = 1f
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         view.cardNavigationLocation.alpha = 0f
+                        view.ivAmazonInfoNavigation.alpha = 0f
+                        view.imgAmazonLogoNavigation.alpha = 0f
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
                     }
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {
                         view.cardNavigationLocation.alpha = 1f
+                        view.ivAmazonInfoNavigation.alpha = 1f
+                        view.imgAmazonLogoNavigation.alpha = 1f
                     }
                     BottomSheetBehavior.STATE_HIDDEN -> {
                     }

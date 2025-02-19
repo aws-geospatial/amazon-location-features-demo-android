@@ -32,6 +32,9 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
         preferenceManager.setValue(IS_APP_FIRST_TIME_OPENED, true)
         preferenceManager.removeValue(KEY_AVOID_TOLLS)
         preferenceManager.removeValue(KEY_AVOID_FERRIES)
+        preferenceManager.removeValue(KEY_AVOID_DIRT_ROADS)
+        preferenceManager.removeValue(KEY_AVOID_U_TURNS)
+        preferenceManager.removeValue(KEY_AVOID_TUNNELS)
 
         super.before()
     }
@@ -45,10 +48,16 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
 
             toggleSwitch(R.id.switch_avoid_tools)
             toggleSwitch(R.id.switch_avoid_ferries)
+            toggleSwitch(R.id.switch_avoid_dirt_roads)
+            toggleSwitch(R.id.switch_avoid_u_turns)
+            toggleSwitch(R.id.switch_avoid_tunnels)
 
             checkDefaultRouteOptions(
                 avoidTollsShouldBe = true,
                 avoidFerriesShouldBe = true,
+                avoidDirtRoadShouldBe = true,
+                avoidUTurnShouldBe = true,
+                avoidTunnelsShouldBe = true,
             )
         } catch (_: Exception) {
             Assert.fail(TEST_FAILED)
@@ -70,12 +79,14 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
             ),
         )?.perform(click())
 
-        waitForView(
-            allOf(
-                withId(R.id.cl_route_option),
-                isDisplayed(),
-            ),
-        )?.perform(click())
+
+            waitForView(
+                allOf(
+                    withId(R.id.cl_route_option),
+                    isDisplayed(),
+                ),
+            )
+        ?.perform(click())
     }
 
     private fun toggleSwitch(
@@ -92,6 +103,9 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
     private fun checkDefaultRouteOptions(
         avoidTollsShouldBe: Boolean,
         avoidFerriesShouldBe: Boolean,
+        avoidDirtRoadShouldBe: Boolean,
+        avoidUTurnShouldBe: Boolean,
+        avoidTunnelsShouldBe: Boolean,
     ) {
         waitForView(
             allOf(
@@ -187,6 +201,33 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
                 Assert.assertTrue(
                     TEST_FAILED_DEFAULT_ROUTE_OPTIONS_NOT_LOADED,
                     view.isChecked == avoidFerriesShouldBe,
+                )
+            }
+        }
+
+        onView(withId(R.id.switch_avoid_dirt_roads)).check { view, _ ->
+            if (view is SwitchCompat) {
+                Assert.assertTrue(
+                    TEST_FAILED_DEFAULT_ROUTE_OPTIONS_NOT_LOADED,
+                    view.isChecked == avoidDirtRoadShouldBe,
+                )
+            }
+        }
+
+        onView(withId(R.id.switch_avoid_tunnels)).check { view, _ ->
+            if (view is SwitchCompat) {
+                Assert.assertTrue(
+                    TEST_FAILED_DEFAULT_ROUTE_OPTIONS_NOT_LOADED,
+                    view.isChecked == avoidTunnelsShouldBe,
+                )
+            }
+        }
+
+        onView(withId(R.id.switch_avoid_u_turns)).check { view, _ ->
+            if (view is SwitchCompat) {
+                Assert.assertTrue(
+                    TEST_FAILED_DEFAULT_ROUTE_OPTIONS_NOT_LOADED,
+                    view.isChecked == avoidUTurnShouldBe,
                 )
             }
         }
