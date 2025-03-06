@@ -40,8 +40,8 @@ class AfterSearchDirectionButtonWorkingTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
 
             var itemCount = 0
@@ -61,8 +61,8 @@ class AfterSearchDirectionButtonWorkingTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId(R.id.edt_search_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             } else {
                 Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

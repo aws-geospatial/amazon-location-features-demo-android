@@ -38,13 +38,13 @@ class ExploreFragmentMapLocateMeButtonTest : BaseTestMainActivity() {
             waitForView(
                 allOf(
                     withId(R.id.card_navigation),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )?.perform(click())
             Assert.assertTrue(
                 TEST_FAILED_LOCATION_COMPONENT_NOT_ACTIVATED_OR_ENABLED,
                 mapbox?.locationComponent?.isLocationComponentActivated == true &&
-                    mapbox?.locationComponent?.isLocationComponentEnabled == true,
+                    mapbox?.locationComponent?.isLocationComponentEnabled == true
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")

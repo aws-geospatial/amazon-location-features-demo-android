@@ -6,12 +6,23 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.UiDevice
-import com.aws.amazonlocation.*
+import com.aws.amazonlocation.BaseTestMainActivity
+import com.aws.amazonlocation.R
+import com.aws.amazonlocation.TEST_FAILED
+import com.aws.amazonlocation.TEST_FAILED_COUNTRY
+import com.aws.amazonlocation.TEST_WORD_ARG
+import com.aws.amazonlocation.checkLocationPermission
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.utils.*
+import com.aws.amazonlocation.utils.IS_APP_FIRST_TIME_OPENED
+import com.aws.amazonlocation.utils.KEY_MAP_NAME
+import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
+import com.aws.amazonlocation.utils.PreferenceManager
+import com.aws.amazonlocation.waitForView
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.CoreMatchers.allOf
@@ -52,8 +63,8 @@ class ExploreFragmentPoliticalViewTest : BaseTestMainActivity() {
             waitForView(
                 AllOf.allOf(
                     withText(mActivityRule.activity.getString(R.string.description_arg)),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
             val rbCountry =
                 onView(withId(R.id.rb_country)).check(matches(isDisplayed()))
@@ -63,8 +74,8 @@ class ExploreFragmentPoliticalViewTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId(R.id.tv_political_description),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
 
             tvPoliticalDescription?.check { view, _ ->

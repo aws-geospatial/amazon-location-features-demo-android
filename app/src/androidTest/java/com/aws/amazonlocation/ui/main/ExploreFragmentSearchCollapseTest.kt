@@ -28,8 +28,8 @@ class ExploreFragmentSearchCollapseTest : BaseTestMainActivity() {
         waitForView(
             allOf(
                 withId(R.id.edt_search_places),
-                isDisplayed(),
-            ),
+                isDisplayed()
+            )
         )
         val edtSearch =
             onView(withId(R.id.edt_search_places)).check(ViewAssertions.matches(isDisplayed()))
@@ -40,8 +40,8 @@ class ExploreFragmentSearchCollapseTest : BaseTestMainActivity() {
             waitForView(
                 allOf(
                     withId(R.id.bottom_sheet_search),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
         clSearchSheet?.check { view, _ ->
             if (view is ConstraintLayout) {
@@ -53,14 +53,14 @@ class ExploreFragmentSearchCollapseTest : BaseTestMainActivity() {
         waitForView(
             allOf(
                 withText(mActivityRule.activity.getString(R.string.menu_explore)),
-                isDisplayed(),
-            ),
+                isDisplayed()
+            )
         )
         waitForView(
             allOf(
                 withId(R.id.card_navigation),
-                isDisplayed(),
-            ),
+                isDisplayed()
+            )
         )
     }
 }

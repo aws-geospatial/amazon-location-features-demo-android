@@ -53,14 +53,14 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             val btnCarGo =
@@ -68,10 +68,10 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.card_drive_go),
                         hasDescendant(
-                            withText(GO),
+                            withText(GO)
                         ),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             btnCarGo?.perform(click())
 
@@ -81,8 +81,8 @@ class CheckGoButtonClickLiveNavigationTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_navigation_list),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
 
             waitForView(allOf(withId(R.id.btn_exit), isDisplayed())) {

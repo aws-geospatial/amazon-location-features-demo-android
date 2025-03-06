@@ -46,14 +46,14 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId((R.id.card_direction)),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             cardDirectionTest?.perform(click())
             waitForView(allOf(withId(R.id.edt_search_direction), isDisplayed()))?.perform(
                 ViewActions.replaceText(
-                    TEST_WORD_AUBURN_SYDNEY,
-                ),
+                    TEST_WORD_AUBURN_SYDNEY
+                )
             )
 
             val rvSearchPlaceSuggestion =
@@ -61,8 +61,8 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             var itemCount = 0
             rvSearchPlaceSuggestion?.check { view, _ ->
@@ -77,14 +77,14 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                 onView(withId(R.id.rv_search_places_suggestion_direction)).perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         0,
-                        click(),
-                    ),
+                        click()
+                    )
                 )
             }
             onView(withId(R.id.edt_search_dest)).perform(
                 ViewActions.typeText(
-                    TEST_WORD_MANLY_BEACH_SYDNEY,
-                ),
+                    TEST_WORD_MANLY_BEACH_SYDNEY
+                )
             )
 
             val rvSearchPlaceSuggestionDirection =
@@ -92,8 +92,8 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             var itemCountDirection = 0
             rvSearchPlaceSuggestionDirection?.check { view, _ ->
@@ -107,8 +107,8 @@ class CheckRouteMapAdjustedTest : BaseTestMainActivity() {
                 onView(withId(R.id.rv_search_places_suggestion_direction)).perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         0,
-                        click(),
-                    ),
+                        click()
+                    )
                 )
             }
 

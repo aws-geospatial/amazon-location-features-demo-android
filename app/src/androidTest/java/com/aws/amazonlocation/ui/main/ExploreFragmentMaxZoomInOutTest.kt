@@ -39,7 +39,9 @@ class ExploreFragmentMaxZoomInOutTest : BaseTestMainActivity() {
             var isMaxZoomInReach = false
             while (!isMaxZoomInReach) {
                 val map =
-                    uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/mapView"))
+                    uiDevice.findObject(
+                        UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/mapView")
+                    )
                 if (map.exists()) {
                     map.pinchIn(50, 15)
                 }

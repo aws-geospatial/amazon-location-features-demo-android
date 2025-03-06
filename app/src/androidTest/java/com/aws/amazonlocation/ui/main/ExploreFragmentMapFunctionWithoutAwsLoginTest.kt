@@ -38,7 +38,7 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
         preferenceManager = PreferenceManager(ApplicationProvider.getApplicationContext())
         preferenceManager.setValue(
             KEY_MAP_STYLE_NAME,
-            mActivityRule.activity.getString(R.string.map_standard),
+            mActivityRule.activity.getString(R.string.map_standard)
         )
     }
 
@@ -48,8 +48,8 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
         waitForView(
             allOf(
                 withId((R.id.mapView)),
-                isDisplayed(),
-            ),
+                isDisplayed()
+            )
         )
         onView(withId(R.id.mapView)).perform(swipeLeft())
         val btnCardMap =
@@ -59,8 +59,8 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
         waitForView(
             allOf(
                 withText(mActivityRule.activity.getString(R.string.map_monochrome)),
-                isDisplayed(),
-            ),
+                isDisplayed()
+            )
         )?.perform(click())
 
         val ivMapStyleClose =
@@ -76,8 +76,8 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_search_places_suggestion),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
         var itemCount = 0
         rvSearchPlaceSuggestion?.check { view, _ ->
@@ -92,22 +92,22 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
             onView(withId(R.id.rv_search_places_suggestion))?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
             waitForView(
                 allOf(
                     withId(R.id.tv_direction_time),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
 
             val btnDirection =
                 waitForView(
                     allOf(
                         withId(R.id.btn_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             btnDirection?.perform(click())
 
@@ -115,8 +115,8 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId(R.id.card_drive_go),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             cardDriveGo?.perform(click())
 
@@ -124,8 +124,8 @@ class ExploreFragmentMapFunctionWithoutAwsLoginTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_navigation_list),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
         } else {
             Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

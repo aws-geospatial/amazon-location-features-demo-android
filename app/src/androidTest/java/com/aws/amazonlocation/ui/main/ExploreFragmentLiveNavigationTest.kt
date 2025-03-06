@@ -40,30 +40,30 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             rvRecyclerView?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             // txtTime
             waitForView(
                 allOf(
                     withId(R.id.tv_direction_distance),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
 
             val btnDirection =
                 waitForView(
                     allOf(
                         withId(R.id.btn_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             btnDirection?.perform(click())
 
@@ -72,10 +72,10 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.card_drive_go),
                         hasDescendant(
-                            withText(GO),
+                            withText(GO)
                         ),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             btnCarGo?.perform(click())
 
@@ -86,8 +86,8 @@ class ExploreFragmentLiveNavigationTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_navigation_list),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED_LIST ${e.message}")

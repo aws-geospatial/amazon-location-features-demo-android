@@ -48,22 +48,22 @@ class CheckRouteEstimatedTimeAndDistanceTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRvSrc?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             val destinationEdt =
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.edt_search_dest),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             destinationEdt?.perform(click(), replaceText(TEST_WORD_KEWDALE_PERTH))
 
@@ -72,38 +72,38 @@ class CheckRouteEstimatedTimeAndDistanceTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRvDest?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             // btnCarGo
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             // btnWalkGo
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_walk_go),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             // btnTruckGo
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_truck_go),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             val tvDriveDistance = onView(withId(R.id.tv_drive_distance))

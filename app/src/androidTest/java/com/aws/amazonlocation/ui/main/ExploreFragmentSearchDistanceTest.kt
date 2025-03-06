@@ -44,12 +44,20 @@ class ExploreFragmentSearchDistanceTest : BaseTestMainActivity() {
             edtSearch.perform(click())
             onView(withId(R.id.edt_search_places)).perform(
                 replaceText(
-                    TEST_WORD_TALWALKERS_SHYAMAL_CROSS_ROAD,
-                ),
+                    TEST_WORD_TALWALKERS_SHYAMAL_CROSS_ROAD
+                )
             )
-            waitForView(allOf(withId(R.id.rv_search_places_suggestion), isDisplayed(), hasMinimumChildCount(1)))
+            waitForView(
+                allOf(
+                    withId(R.id.rv_search_places_suggestion),
+                    isDisplayed(),
+                    hasMinimumChildCount(1)
+                )
+            )
 
-            val tvDistance = uiDevice.findObject(UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_distance"))
+            val tvDistance = uiDevice.findObject(
+                UiSelector().resourceId("${BuildConfig.APPLICATION_ID}:id/tv_distance")
+            )
             val distanceValue = tvDistance.text.split(" ")[0].toDouble()
             Assert.assertTrue(
                 TEST_FAILED_DISTANCE_EMPTY,

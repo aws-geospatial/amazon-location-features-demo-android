@@ -49,8 +49,8 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId(R.id.edt_search_dest),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_SHYAMAL))
 
@@ -59,14 +59,14 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             // btnCarGo
@@ -74,10 +74,10 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(
-                        withText(GO),
+                        withText(GO)
                     ),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
 
             // sourceTest
@@ -85,10 +85,10 @@ class CheckRouteUserEnterMyLocationTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.edt_search_direction),
                     withText(
-                        MY_LOCATION,
+                        MY_LOCATION
                     ),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")

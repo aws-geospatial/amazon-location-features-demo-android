@@ -27,8 +27,8 @@ class ExploreFragmentSearchExistsTest : BaseTestMainActivity() {
                 waitForView(
                     allOf(
                         withId(R.id.edt_search_places),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             val point = IntArray(2)
             edtSearchPlaces?.check { view, _ ->
@@ -38,7 +38,7 @@ class ExploreFragmentSearchExistsTest : BaseTestMainActivity() {
                     val screenHeight = mActivityRule.activity.window.decorView.height / 2
                     Assert.assertTrue(
                         TEST_FAILED_HEIGHT_NOT_GREATER,
-                        point[1] + view.height > screenHeight,
+                        point[1] + view.height > screenHeight
                     )
                 }
             }

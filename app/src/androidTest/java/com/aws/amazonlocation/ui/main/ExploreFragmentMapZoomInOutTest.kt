@@ -46,7 +46,7 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
                 pinchOut(),
                 pinchOut(),
                 pinchOut(),
-                pinchOut(),
+                pinchOut()
             )
             if (beforeZoomLevel != null) {
                 waitUntil(DELAY_3000, 25) {
@@ -85,7 +85,7 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
                 pinchIn(),
                 pinchIn(),
                 pinchIn(),
-                pinchIn(),
+                pinchIn()
             )
             if (beforeZoomLevel != null) {
                 waitUntil(DELAY_3000, 25) {
@@ -115,8 +115,8 @@ class ExploreFragmentMapZoomInOutTest : BaseTestMainActivity() {
             waitForView(
                 allOf(
                     withId((R.id.mapView)),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
             val mapView = mActivityRule.activity.findViewById<MapView>(R.id.mapView)
             mapView.getMapAsync {

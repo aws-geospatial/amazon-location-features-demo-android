@@ -36,13 +36,13 @@ class ExploreFragmentSearchLocationByAddressTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_search_places_suggestion),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
             onView(withId(R.id.rv_search_places_suggestion)).check(
                 matches(
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")
