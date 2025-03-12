@@ -156,8 +156,8 @@
                         android:id="@+id/iv_close"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
-                        android:src="@drawable/ic_close_search"
-                        android:visibility="gone"
+                        android:src="@drawable/icon_close"
+                        android:padding="@dimen/dp_6"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

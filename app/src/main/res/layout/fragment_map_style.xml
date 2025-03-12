@@ -279,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible"
                     app:endIconContentDescription="open map icon"
-                    app:endIconDrawable="@drawable/ic_close_search"
+                    app:endIconDrawable="@drawable/icon_close"
                     app:endIconMode="custom"
                     app:hintEnabled="false"
                     android:paddingEnd="@dimen/dp_4"

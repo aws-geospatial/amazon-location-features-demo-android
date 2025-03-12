@@ -27,6 +27,7 @@ import org.junit.runners.Suite
     ExploreFragmentSearchTotalResultTest::class,
     CheckGoButtonClickLiveNavigationTest::class,
     CheckRouteEstimatedTimeAndDistanceTest::class,
+    CheckRouteSearchCloseIconTest::class,
     CheckRouteOptionsTest::class,
     CheckDepartOptionsTest::class,
     ChangeMultipleDepartOptionsTest::class,

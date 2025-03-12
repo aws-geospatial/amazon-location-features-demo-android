@@ -161,9 +161,9 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_search_start_destination"
+                            android:id="@+id/cl_search_starting_point"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dp_24"
                             android:layout_marginStart="@dimen/dp_18"
                             android:layout_marginTop="@dimen/dp_12"
                             android:layout_marginEnd="@dimen/dp_8"
@@ -176,6 +176,7 @@
                                 style="@style/SearchTextMedium"
                                 android:layout_width="@dimen/dp_0"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_16"
                                 android:background="@android:color/transparent"
                                 android:ellipsize="end"
                                 android:hint="@string/label_search_starting_point"
@@ -185,10 +186,20 @@
                                 android:textAlignment="viewStart"
                                 android:textDirection="locale"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/iv_close_direction"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_close_direction"
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:src="@drawable/icon_close"
+                                android:visibility="gone"
+                                android:padding="@dimen/dp_6"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -202,12 +213,12 @@
                             app:layout_constraintBottom_toTopOf="@id/cl_search_destination"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/cl_search_start_destination" />
+                            app:layout_constraintTop_toBottomOf="@id/cl_search_starting_point" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cl_search_destination"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/dp_24"
                             android:layout_marginStart="@dimen/dp_18"
                             android:layout_marginTop="@dimen/dp_8"
                             android:layout_marginEnd="@dimen/dp_8"
@@ -220,7 +231,7 @@
                                 android:id="@+id/edt_search_dest"
                                 style="@style/SearchTextMedium"
                                 android:layout_width="@dimen/dp_0"
-                                android:layout_height="@dimen/dp_0"
+                                android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/dp_16"
                                 android:background="@android:color/transparent"
                                 android:ellipsize="end"
@@ -242,7 +253,17 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 app:barrierDirection="start"
-                                app:constraint_referenced_ids="iv_swap_location" />
+                                app:constraint_referenced_ids="iv_swap_location,iv_close_destination" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_close_destination"
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:src="@drawable/icon_close"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/iv_swap_location"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_swap_location"
@@ -250,6 +271,7 @@
                                 android:layout_height="@dimen/dp_24"
                                 android:src="@drawable/ic_switch"
                                 android:visibility="visible"
+                                android:padding="@dimen/dp_6"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
