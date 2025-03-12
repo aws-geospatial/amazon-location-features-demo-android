@@ -25,6 +25,7 @@ class ExploreVMSetLanguageListData : BaseTest() {
     private val context: Context = RuntimeEnvironment.getApplication().applicationContext
 
     private lateinit var mExploreVM: ExploreViewModel
+
     @Mock
     private lateinit var locationSearchUseCase: LocationSearchUseCase
 
@@ -53,8 +54,8 @@ class ExploreVMSetLanguageListData : BaseTest() {
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_LANGUAGE_LOADED,
             mExploreVM.mMapLanguageData.last().value == languageData.value &&
-                    mExploreVM.mMapLanguageData.last().label == languageData.label&&
-                    mExploreVM.mMapLanguageData.last().isSelected == languageData.isSelected
+                mExploreVM.mMapLanguageData.last().label == languageData.label &&
+                mExploreVM.mMapLanguageData.last().isSelected == languageData.isSelected
         )
     }
 }

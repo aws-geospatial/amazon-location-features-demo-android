@@ -54,8 +54,8 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             var itemCount = 0
             rvSearchPlaceSuggestion?.check { view, _ ->
@@ -69,33 +69,35 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                 for (i in 0 until itemCount) {
                     rvSearchPlaceSuggestion?.perform(
                         RecyclerViewActions.scrollToPosition<SearchPlacesSuggestionAdapter.SearchPlaceVH>(
-                            i,
+                            i
                         ),
                         RecyclerViewActions.actionOnItemAtPosition<SearchPlacesSuggestionAdapter.SearchPlaceVH>(
                             i,
                             object : ViewAction {
-                                override fun getConstraints(): Matcher<View> = isAssignableFrom(TextView::class.java)
+                                override fun getConstraints(): Matcher<View> = isAssignableFrom(
+                                    TextView::class.java
+                                )
 
                                 override fun getDescription(): String = "Get data from RecyclerView item"
 
                                 override fun perform(
                                     uiController: UiController?,
-                                    view: View,
+                                    view: View
                                 ) {
                                     val data =
                                         view.findViewById<AppCompatTextView>(R.id.tv_place_name)
                                     listDataSearch.add(data.text.toString())
                                 }
-                            },
-                        ),
+                            }
+                        )
                     )
                 }
                 pressBack()
                 waitForView(
                     AllOf.allOf(
                         withText(mActivityRule.activity.getString(R.string.menu_explore)),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
 
                 val cardDirectionTest =
@@ -106,8 +108,8 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                 edtSearchDirection?.perform(click())
                 onView(withId(R.id.edt_search_direction)).perform(
                     replaceText(
-                        TEST_WORD_RIO_TINTO,
-                    ),
+                        TEST_WORD_RIO_TINTO
+                    )
                 )
 
                 val rvSearchPlaceDirection =
@@ -115,8 +117,8 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                         allOf(
                             withId(R.id.rv_search_places_suggestion_direction),
                             isDisplayed(),
-                            hasMinimumChildCount(1),
-                        ),
+                            hasMinimumChildCount(1)
+                        )
                     )
                 var itemCountInside = 0
                 rvSearchPlaceDirection?.check { view, _ ->
@@ -131,33 +133,35 @@ class SearchResultComparisonTest : BaseTestMainActivity() {
                     for (i in 0 until itemCountInside) {
                         onView(withId(R.id.rv_search_places_suggestion_direction)).perform(
                             RecyclerViewActions.scrollToPosition<SearchPlacesAdapter.SearchPlaceVH>(
-                                i,
+                                i
                             ),
                             RecyclerViewActions.actionOnItemAtPosition<SearchPlacesAdapter.SearchPlaceVH>(
                                 i,
                                 object : ViewAction {
-                                    override fun getConstraints(): Matcher<View> = isAssignableFrom(TextView::class.java)
+                                    override fun getConstraints(): Matcher<View> = isAssignableFrom(
+                                        TextView::class.java
+                                    )
 
                                     override fun getDescription(): String = "Get data from RecyclerView item"
 
                                     override fun perform(
                                         uiController: UiController?,
-                                        view: View,
+                                        view: View
                                     ) {
                                         val data =
                                             view.findViewById<AppCompatTextView>(
-                                                R.id.tv_place_name,
+                                                R.id.tv_place_name
                                             )
                                         listInsideDataSearch.add(data.text.toString())
                                     }
-                                },
-                            ),
+                                }
+                            )
                         )
                     }
                 }
                 Assert.assertTrue(
                     TEST_FAILED_NOT_EQUAL,
-                    listDataSearch == listInsideDataSearch,
+                    listDataSearch == listInsideDataSearch
                 )
             } else {
                 Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

@@ -7,9 +7,9 @@ import aws.sdk.kotlin.services.geoplaces.model.Region
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResponse
 import aws.sdk.kotlin.services.geoplaces.model.ReverseGeocodeResultItem
 import aws.sdk.kotlin.services.geoplaces.model.SubRegion
-import com.aws.amazonlocation.mock.STANDARD
 import com.aws.amazonlocation.mock.NO_DATA_FOUND
 import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.STANDARD
 import com.aws.amazonlocation.mock.TEST_DATA
 import com.aws.amazonlocation.mock.TEST_DATA_2
 import com.aws.amazonlocation.mock.TEST_DATA_3
@@ -94,10 +94,10 @@ class ResponseDataTest {
                     distance = 0L
                     position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
                     address = Address {
-                        country = Country {name = TEST_DATA_2}
+                        country = Country { name = TEST_DATA_2 }
                         label = TEST_DATA_3
-                        region = Region{name = TEST_DATA_4}
-                        subRegion = SubRegion {name = TEST_DATA}
+                        region = Region { name = TEST_DATA_4 }
+                        subRegion = SubRegion { name = TEST_DATA }
                     }
                 }
             )
@@ -230,7 +230,12 @@ class ResponseDataTest {
         navigationResponse.source = navigationResponse.source
         navigationResponse.stopName = navigationResponse.stopName
         navigationResponse.trackerEventType = navigationResponse.trackerEventType
-        navigationResponse.coordinates?.let { Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, it.isEmpty()) }
+        navigationResponse.coordinates?.let {
+            Assert.assertTrue(
+                TEST_FAILED_NAVIGATION_DATA,
+                it.isEmpty()
+            )
+        }
     }
 
     @Test

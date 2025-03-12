@@ -34,13 +34,13 @@ private fun getCenterPoint(view: View): Point {
     val viewWidth = view.width * view.scaleX
     return Point(
         (locationOnScreen[0] + viewWidth / 2).toInt(),
-        (locationOnScreen[1] + viewHeight / 2).toInt(),
+        (locationOnScreen[1] + viewHeight / 2).toInt()
     )
 }
 
 private fun performDoubleTap(
     uiController: UiController,
-    clickPoint: Point,
+    clickPoint: Point
 ) {
     val eventMinInterval: Long = 50
     val startTime = SystemClock.uptimeMillis()
@@ -80,7 +80,7 @@ private fun performDoubleTap(
             event = MotionEvent.obtain(
                 startTime, eventTime,
                 MotionEvent.ACTION_DOWN, 1, properties,
-                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0,
+                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0
             )
             injectMotionEventToUiController(uiController, event)
 
@@ -91,7 +91,7 @@ private fun performDoubleTap(
             event = MotionEvent.obtain(
                 startTime, eventTime,
                 MotionEvent.ACTION_UP, 1, properties,
-                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0,
+                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0
             )
             injectMotionEventToUiController(uiController, event)
         }

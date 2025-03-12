@@ -52,7 +52,9 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
 
     @Test
     fun searchPlaceSuggestionSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())).thenAnswer {
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())
+        ).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
             callback.getSearchPlaceSuggestionResponse(Responses.RESPONSE_SEARCH_TEXT_RIO_TINTO)
         }
@@ -72,9 +74,13 @@ class ExploreVMSearchSuggestionTest : BaseTest() {
 
     @Test
     fun searchPlaceSuggestionError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())).thenAnswer {
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searchPlaceSuggestions(anyOrNull(), anyOrNull(), any(), any())
+        ).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[3] as SearchPlaceInterface
-            callback.internetConnectionError(mContext.resources.getString(R.string.check_your_internet_connection_and_try_again))
+            callback.internetConnectionError(
+                mContext.resources.getString(R.string.check_your_internet_connection_and_try_again)
+            )
         }
 
         mExploreVM.searchForSuggestionsResultList.test {

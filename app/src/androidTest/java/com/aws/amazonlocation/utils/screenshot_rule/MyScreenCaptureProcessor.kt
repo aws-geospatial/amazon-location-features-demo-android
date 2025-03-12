@@ -11,9 +11,9 @@ class MyScreenCaptureProcessor(parentFolderPath: String) : BasicScreenCapturePro
         this.mDefaultScreenshotPath = File(
             File(
                 getExternalStoragePublicDirectory(DIRECTORY_PICTURES),
-                "my_app_folder",
+                "my_app_folder"
             ).absolutePath,
-            "screenshots/$parentFolderPath",
+            "screenshots/$parentFolderPath"
         )
     }
 

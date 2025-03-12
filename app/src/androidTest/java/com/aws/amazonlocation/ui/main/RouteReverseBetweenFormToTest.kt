@@ -51,8 +51,8 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.edt_search_dest),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
@@ -61,24 +61,24 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(
-                        withText(GO),
+                        withText(GO)
                     ),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
 
             val originText = StringBuilder()
@@ -102,8 +102,8 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.iv_swap_location),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             swapBtn?.perform(click())
 
@@ -120,7 +120,7 @@ class RouteReverseBetweenFormToTest : BaseTestMainActivity() {
             }
             Assert.assertTrue(
                 TEST_FAILED_INVALID_ORIGIN_OR_DESTINATION_TEXT,
-                originText.toString() == swappedDestinationText.toString() && destinationText.toString() == swappedOriginText.toString(),
+                originText.toString() == swappedDestinationText.toString() && destinationText.toString() == swappedOriginText.toString()
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")

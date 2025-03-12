@@ -40,16 +40,16 @@ class SearchContactInfoPOICardTest : BaseTestMainActivity() {
             edtSearch.perform(click())
             onView(withId(R.id.edt_search_places)).perform(
                 replaceText(
-                    TEST_WORD_DOMINO_PIZZA_VEJALPUR,
-                ),
+                    TEST_WORD_DOMINO_PIZZA_VEJALPUR
+                )
             )
             val rvSearchPlaceSuggestion =
                 waitForView(
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
 
             var itemCount = 0
@@ -68,22 +68,22 @@ class SearchContactInfoPOICardTest : BaseTestMainActivity() {
                     .perform(
                         RecyclerViewActions.actionOnItem<ViewHolder>(
                             hasDescendant(
-                                withText(TEST_WORD_DOMINO_PIZZA),
+                                withText(TEST_WORD_DOMINO_PIZZA)
                             ),
-                            click(),
-                        ),
+                            click()
+                        )
                     )
                 waitForView(
                     allOf(
                         withId(R.id.btn_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
                 waitForView(
                     allOf(
                         withId(R.id.tv_place_link),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             } else {
                 Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

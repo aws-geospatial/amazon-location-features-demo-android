@@ -52,7 +52,7 @@ object AppModuleTest {
 
     @Provides
     @Singleton
-    fun getPlacesProvider(mMapHelper: MapHelper,mPreferenceManager: PreferenceManager) =
+    fun getPlacesProvider(mMapHelper: MapHelper, mPreferenceManager: PreferenceManager) =
         PlacesProvider(mMapHelper, mPreferenceManager)
 
     @Provides
@@ -76,9 +76,18 @@ object AppModuleTest {
         mPlacesProvider: PlacesProvider,
         mRoutesProvider: RoutesProvider,
         mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider,
+        mTrackingProvider: TrackingProvider
     ): AuthRepository =
-        AuthImp(RemoteDataSourceImpl(appContext, mLocationHelper, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
+        AuthImp(
+            RemoteDataSourceImpl(
+                appContext,
+                mLocationHelper,
+                mPlacesProvider,
+                mRoutesProvider,
+                mGeofenceProvider,
+                mTrackingProvider
+            )
+        )
 
     @Provides
     @Singleton
@@ -88,9 +97,18 @@ object AppModuleTest {
         mPlacesProvider: PlacesProvider,
         mRoutesProvider: RoutesProvider,
         mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider,
+        mTrackingProvider: TrackingProvider
     ): LocationSearchRepository =
-        LocationSearchImp(RemoteDataSourceImpl(appContext, mLocationProvider, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
+        LocationSearchImp(
+            RemoteDataSourceImpl(
+                appContext,
+                mLocationProvider,
+                mPlacesProvider,
+                mRoutesProvider,
+                mGeofenceProvider,
+                mTrackingProvider
+            )
+        )
 
     @Provides
     @Singleton
@@ -100,7 +118,16 @@ object AppModuleTest {
         mPlacesProvider: PlacesProvider,
         mRoutesProvider: RoutesProvider,
         mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider,
+        mTrackingProvider: TrackingProvider
     ): GeofenceRepository =
-        GeofenceImp(RemoteDataSourceImpl(appContext, mLocationProvider, mPlacesProvider, mRoutesProvider, mGeofenceProvider, mTrackingProvider))
+        GeofenceImp(
+            RemoteDataSourceImpl(
+                appContext,
+                mLocationProvider,
+                mPlacesProvider,
+                mRoutesProvider,
+                mGeofenceProvider,
+                mTrackingProvider
+            )
+        )
 }

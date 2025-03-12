@@ -7,11 +7,12 @@ import android.net.NetworkCapabilities
 import androidx.test.core.app.ApplicationProvider
 import com.aws.amazonlocation.mock.END_DATE_NULL
 import com.aws.amazonlocation.mock.START_DATE_NULL
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowNetworkCapabilities
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun getDateRange(startDate: String, endDate: String): Pair<Date, Date> {
     val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
@@ -29,11 +30,16 @@ fun setConnectivity(enabled: Boolean) {
     if (enabled) {
         shadowOf(networkCapabilities).addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
     }
-    shadowOf(connectivityManager).setNetworkCapabilities(connectivityManager.activeNetwork, networkCapabilities)
+    shadowOf(connectivityManager).setNetworkCapabilities(
+        connectivityManager.activeNetwork,
+        networkCapabilities
+    )
 }
 
 @Throws(Exception::class)
 fun setGPSEnabled(enabled: Boolean) {
-    val locationManager = RuntimeEnvironment.getApplication().applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val locationManager = RuntimeEnvironment.getApplication().applicationContext.getSystemService(
+        Context.LOCATION_SERVICE
+    ) as LocationManager
     shadowOf(locationManager).setProviderEnabled(LocationManager.GPS_PROVIDER, enabled)
 }

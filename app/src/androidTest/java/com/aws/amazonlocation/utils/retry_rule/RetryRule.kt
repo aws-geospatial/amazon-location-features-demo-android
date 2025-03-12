@@ -34,7 +34,10 @@ class RetryTestRule(val retryCount: Int = 3) : TestRule {
                     }
                 }
 
-                Log.e(TAG, description.displayName + ": giving up after " + retryCount + " failures")
+                Log.e(
+                    TAG,
+                    description.displayName + ": giving up after " + retryCount + " failures"
+                )
                 throw caughtThrowable!!
             }
         }

@@ -9,7 +9,14 @@ import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.data.response.SearchSuggestionResponse
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.mock.DEFAULT_LOCATION
+import com.aws.amazonlocation.mock.NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.SEARCH_TEXT_RIO_TINTO
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -47,7 +54,15 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searchPlaceIndexForText(
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                any()
+            )
+        ).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.success(Responses.RESPONSE_PLACE_INDEX_RIO_TINTO)
         }
@@ -66,7 +81,15 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searchPlaceIndexForText(
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                any()
+            )
+        ).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.error(Responses.RESPONSE_PLACE_INDEX_RIO_TINTO_ERROR)
         }.thenAnswer {
@@ -91,7 +114,15 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
 
     @Test
     fun searchPlaceIndexForTextInternetError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searchPlaceIndexForText(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any())).thenAnswer {
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searchPlaceIndexForText(
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                anyOrNull(),
+                any()
+            )
+        ).thenAnswer {
             val callback: SearchPlaceInterface = it.arguments[4] as SearchPlaceInterface
             callback.internetConnectionError(NO_INTERNET_ERROR)
         }
@@ -102,7 +133,10 @@ class ExploreVMSearchPlaceIndexTest : BaseTest() {
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, result is HandleResult.Loading)
             result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_ERROR, result is HandleResult.Error)
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR, (result as HandleResult.Error).exception.messageResource == NO_INTERNET_ERROR)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR,
+                (result as HandleResult.Error).exception.messageResource == NO_INTERNET_ERROR
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }

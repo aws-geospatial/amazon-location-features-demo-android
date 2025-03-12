@@ -20,7 +20,11 @@ abstract class BaseTestMainActivity {
             return getClassInstance()
         }
 
-    var mActivityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java, true, false)
+    var mActivityRule: ActivityTestRule<MainActivity> = ActivityTestRule(
+        MainActivity::class.java,
+        true,
+        false
+    )
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(instance)

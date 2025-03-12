@@ -8,7 +8,15 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.mock.GATE_WAY_OF_INDIA_LAT_LNG
+import com.aws.amazonlocation.mock.NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_DATA_NOT_EMPTY
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -46,7 +54,9 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
 
     @Test
     fun getAddressLineFromLatLngSuccess() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any())
+        )
             .thenAnswer {
                 val callback: SearchDataInterface = it.arguments[2] as SearchDataInterface
                 Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG.reverseGeocodeResponse?.let { it1 ->
@@ -57,20 +67,31 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
             }
 
         mExploreVM.addressLineData.test {
-            mExploreVM.getAddressLineFromLatLng(GATE_WAY_OF_INDIA_LAT_LNG.longitude, GATE_WAY_OF_INDIA_LAT_LNG.latitude)
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            mExploreVM.getAddressLineFromLatLng(
+                GATE_WAY_OF_INDIA_LAT_LNG.longitude,
+                GATE_WAY_OF_INDIA_LAT_LNG.latitude
+            )
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, data.reverseGeocodeResponse == Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG.reverseGeocodeResponse)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_INCORRECT_DATA,
+                data.reverseGeocodeResponse == Responses.RESPONSE_ADDRESS_LINE_FROM_LAT_LNG.reverseGeocodeResponse
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }
 
     @Test
     fun getAddressLineFromLatLngError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any())
+        )
             .thenAnswer {
                 val callback: SearchDataInterface = it.arguments[2] as SearchDataInterface
                 callback.error("")
@@ -78,18 +99,26 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
 
         mExploreVM.addressLineData.test {
             mExploreVM.getAddressLineFromLatLng(null, null)
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
-            Assert.assertTrue(TEST_FAILED_DUE_TO_DATA_NOT_EMPTY, data.reverseGeocodeResponse == null)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_DATA_NOT_EMPTY,
+                data.reverseGeocodeResponse == null
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }
 
     @Test
     fun getAddressLineFromLatLngInternetError() = runTest {
-        Mockito.`when`(mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any()))
+        Mockito.`when`(
+            mRemoteDataSourceImpl.searPlaceIndexForPosition(anyOrNull(), anyOrNull(), any())
+        )
             .thenAnswer {
                 val callback: SearchDataInterface = it.arguments[2] as SearchDataInterface
                 callback.internetConnectionError(NO_INTERNET_ERROR)
@@ -97,12 +126,18 @@ class ExploreVMGetAddressLineFromLatLng : BaseTest() {
 
         mExploreVM.addressLineData.test {
             mExploreVM.getAddressLineFromLatLng(null, null)
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_ERROR, result is HandleResult.Error)
             val error = (result as HandleResult.Error).exception.messageResource
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR, error == NO_INTERNET_ERROR)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR,
+                error == NO_INTERNET_ERROR
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }

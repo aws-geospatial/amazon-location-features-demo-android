@@ -47,8 +47,8 @@ class SearchPlaceDisplayedOnMapTest : BaseTestMainActivity() {
                 allOf(
                     withId(R.id.rv_search_places_suggestion),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
         var itemCount = 0
         rvSearchPlaceSuggestion?.check { view, _ ->

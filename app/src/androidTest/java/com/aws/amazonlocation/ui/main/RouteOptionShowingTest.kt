@@ -51,8 +51,8 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.edt_search_dest),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             destinationEdt?.perform(click(), ViewActions.replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
 
@@ -61,14 +61,14 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             // btnCarGo
@@ -76,10 +76,10 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
                     hasDescendant(
-                        withText(GO),
+                        withText(GO)
                     ),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             // btnWalkGo
@@ -87,10 +87,10 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 CoreMatchers.allOf(
                     withId(R.id.card_walk_go),
                     hasDescendant(
-                        withText(GO),
+                        withText(GO)
                     ),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             // btnTruckGo
@@ -98,10 +98,10 @@ class RouteOptionShowingTest : BaseTestMainActivity() {
                 CoreMatchers.allOf(
                     withId(R.id.card_truck_go),
                     hasDescendant(
-                        withText(GO),
+                        withText(GO)
                     ),
-                    withEffectiveVisibility(Visibility.VISIBLE),
-                ),
+                    withEffectiveVisibility(Visibility.VISIBLE)
+                )
             )
 
             onView(withId(R.id.cl_drive)).check(matches(isDisplayed()))

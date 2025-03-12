@@ -37,24 +37,24 @@ class AfterSearchDirectionErrorExistsTest : BaseTestMainActivity() {
             edtSearch.perform(click())
             onView(withId(R.id.edt_search_places)).perform(
                 replaceText(
-                    TEST_WORD_GUOCO_MIDTOWN_SQUARE,
-                ),
+                    TEST_WORD_GUOCO_MIDTOWN_SQUARE
+                )
             )
             BuildConfig.APPLICATION_ID
             waitForView(
                 allOf(
                     withId(R.id.rv_search_places_suggestion),
                     isDisplayed(),
-                    hasMinimumChildCount(1),
-                ),
+                    hasMinimumChildCount(1)
+                )
             )
             val rvSearchPlaceSuggestion =
                 waitForView(
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             var itemCount = 0
             rvSearchPlaceSuggestion?.check { view, _ ->
@@ -68,26 +68,26 @@ class AfterSearchDirectionErrorExistsTest : BaseTestMainActivity() {
                 onView(withId(R.id.rv_search_places_suggestion))?.perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                         0,
-                        click(),
-                    ),
+                        click()
+                    )
                 )
                 waitForView(
                     allOf(
                         withId(R.id.tv_direction_time),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
                 waitForView(
                     allOf(
                         withId(R.id.btn_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
                 waitForView(
                     allOf(
                         withId(R.id.tv_direction_error_2),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             } else {
                 Assert.fail(TEST_FAILED_NO_SEARCH_RESULT)

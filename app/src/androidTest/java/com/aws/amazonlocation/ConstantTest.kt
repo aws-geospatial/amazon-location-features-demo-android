@@ -46,9 +46,8 @@ const val TEST_FAILED = "Test failed"
 const val TEST_FAILED_NO_SEARCH_RESULT = "Test failed due to no search result"
 const val TEST_FAILED_ZOOM_LEVEL = "Test failed due to zoom level not available"
 const val TEST_FAILED_LIST = "Test failed due to list not visible"
-const val TEST_FAILED_COUNTRY= "Test failed due to selected country doesn't match"
-const val TEST_FAILED_LANGUAGE= "Test failed due to selected language doesn't match"
-
+const val TEST_FAILED_COUNTRY = "Test failed due to selected country doesn't match"
+const val TEST_FAILED_LANGUAGE = "Test failed due to selected language doesn't match"
 
 const val TEST_FAILED_DEFAULT_ROUTE_OPTIONS_NOT_LOADED = "Test failed due to default route options not loaded"
 
@@ -56,7 +55,6 @@ const val TEST_FAILED_NAVIGATION_TAB_SETTINGS_NOT_SELECTED = "Test failed due to
 
 const val SEARCH_TEST_WORD_1 = "Kewdale perth"
 const val SEARCH_TEST_WORD_2 = "Cloverdale perth"
-
 
 const val TEST_FAILED_NO_TRACKING_HISTORY_NULL = "Test failed due to no tracking history itemCount is null"
 const val TEST_FAILED_NO_TRACKING_HISTORY = "Test failed due to no tracking history"

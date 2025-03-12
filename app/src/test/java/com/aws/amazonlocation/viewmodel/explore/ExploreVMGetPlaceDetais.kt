@@ -9,7 +9,14 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.LocationSearchImp
 import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.usecase.LocationSearchUseCase
-import com.aws.amazonlocation.mock.*
+import com.aws.amazonlocation.mock.NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.Responses
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_DATA_NOT_EMPTY
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_DATA
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_ERROR
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
+import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
 import com.aws.amazonlocation.ui.main.explore.ExploreViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -59,12 +66,18 @@ class ExploreVMGetPlaceDetais : BaseTest() {
 
         mExploreVM.placeData.test {
             mExploreVM.getPlaceData("test")
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Success)
             val data = (result as HandleResult.Success).response
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_DATA, data.contacts?.phones?.get(0)?.value == "6666444422")
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_INCORRECT_DATA,
+                data.contacts?.phones?.get(0)?.value == "6666444422"
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -79,7 +92,10 @@ class ExploreVMGetPlaceDetais : BaseTest() {
 
         mExploreVM.placeData.test {
             mExploreVM.getPlaceData("test")
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS, result is HandleResult.Error)
             val data = (result as HandleResult.Error).exception
@@ -98,12 +114,18 @@ class ExploreVMGetPlaceDetais : BaseTest() {
 
         mExploreVM.placeData.test {
             mExploreVM.getPlaceData("test")
-            Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_LOADING, awaitItem() is HandleResult.Loading)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_STATE_NOT_LOADING,
+                awaitItem() is HandleResult.Loading
+            )
 
             val result = awaitItem()
             Assert.assertTrue(TEST_FAILED_DUE_TO_STATE_NOT_ERROR, result is HandleResult.Error)
             val error = (result as HandleResult.Error).exception.messageResource
-            Assert.assertTrue(TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR, error == NO_INTERNET_ERROR)
+            Assert.assertTrue(
+                TEST_FAILED_DUE_TO_INCORRECT_NO_INTERNET_ERROR,
+                error == NO_INTERNET_ERROR
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }

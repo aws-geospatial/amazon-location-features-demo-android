@@ -57,9 +57,9 @@ class ExploreVMSetPoliticalListData : BaseTest() {
         Assert.assertTrue(
             TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED,
             mExploreVM.mPoliticalData.last().countryName == testPoliticalData.countryName &&
-                    mExploreVM.mPoliticalData.last().description == testPoliticalData.description&&
-                    mExploreVM.mPoliticalData.last().countryCode == testPoliticalData.countryCode&&
-                    mExploreVM.mPoliticalData.last().isSelected == testPoliticalData.isSelected
+                mExploreVM.mPoliticalData.last().description == testPoliticalData.description &&
+                mExploreVM.mPoliticalData.last().countryCode == testPoliticalData.countryCode &&
+                mExploreVM.mPoliticalData.last().isSelected == testPoliticalData.isSelected
         )
 
         val result = mExploreVM.searchPoliticalData("test")

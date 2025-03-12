@@ -42,7 +42,9 @@ class ChangeMultipleDepartOptionsTest : BaseTestMainActivity() {
                 onView(withId(R.id.card_direction)).check(matches(isDisplayed()))
             cardDirection.perform(click())
 
-            val edtSearchDirection = waitForView(CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed()))
+            val edtSearchDirection = waitForView(
+                CoreMatchers.allOf(withId(R.id.edt_search_direction), isDisplayed())
+            )
             edtSearchDirection?.perform(replaceText(TEST_WORD_AUBURN_SYDNEY))
 
             var rvSearchPlaces = waitForView(
@@ -129,7 +131,10 @@ class ChangeMultipleDepartOptionsTest : BaseTestMainActivity() {
             )
             tvDepartOptions?.check { view, _ ->
                 if (view is AppCompatTextView) {
-                    Assert.assertTrue(TEST_FAILED_DUE_TO_WORD_MISMATCHED, view.text.contains(TEST_WORD_ARRIVE, true))
+                    Assert.assertTrue(
+                        TEST_FAILED_DUE_TO_WORD_MISMATCHED,
+                        view.text.contains(TEST_WORD_ARRIVE, true)
+                    )
                 } else {
                     Assert.fail(TEST_FAILED)
                 }
@@ -166,7 +171,10 @@ class ChangeMultipleDepartOptionsTest : BaseTestMainActivity() {
 
             tvDepartOptions?.check { view, _ ->
                 if (view is AppCompatTextView) {
-                    Assert.assertTrue(TEST_FAILED_DUE_TO_WORD_MISMATCHED, view.text.contains(TEST_WORD_LEAVE, true))
+                    Assert.assertTrue(
+                        TEST_FAILED_DUE_TO_WORD_MISMATCHED,
+                        view.text.contains(TEST_WORD_LEAVE, true)
+                    )
                 } else {
                     Assert.fail(TEST_FAILED)
                 }

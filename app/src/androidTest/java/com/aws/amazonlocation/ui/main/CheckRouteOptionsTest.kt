@@ -46,26 +46,26 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             val destinationEdt =
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.edt_search_dest),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             destinationEdt?.perform(
                 click(),
-                replaceText(TEST_WORD_MANLY_BEACH_SYDNEY),
+                replaceText(TEST_WORD_MANLY_BEACH_SYDNEY)
             )
 
             val suggestionListDestRv =
@@ -73,29 +73,29 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                     CoreMatchers.allOf(
                         withId(R.id.rv_search_places_suggestion_direction),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             suggestionListDestRv?.perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
-                    click(),
-                ),
+                    click()
+                )
             )
 
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
 
             val cardRoutingOption =
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.card_routing_option),
-                        withEffectiveVisibility(Visibility.VISIBLE),
-                    ),
+                        withEffectiveVisibility(Visibility.VISIBLE)
+                    )
                 )
             cardRoutingOption?.perform(click())
 
@@ -103,15 +103,15 @@ class CheckRouteOptionsTest : BaseTestMainActivity() {
                 waitForView(
                     CoreMatchers.allOf(
                         withId(R.id.switch_avoid_tools),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
             switchAvoidTolls?.perform(click())
             waitForView(
                 CoreMatchers.allOf(
                     withId(R.id.card_drive_go),
-                    isDisplayed(),
-                ),
+                    isDisplayed()
+                )
             )
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")

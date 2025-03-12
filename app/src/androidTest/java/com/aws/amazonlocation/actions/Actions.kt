@@ -1,14 +1,9 @@
 package com.aws.amazonlocation.actions
 
-import android.graphics.Point
-import android.os.SystemClock
-import android.view.MotionEvent
-import android.view.MotionEvent.PointerProperties
 import android.view.View
 import android.view.ViewParent
 import android.widget.FrameLayout
 import androidx.core.widget.NestedScrollView
-import androidx.test.espresso.InjectEventSecurityException
 import androidx.test.espresso.PerformException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -26,8 +21,10 @@ fun nestedScrollTo(): ViewAction {
     return object : ViewAction {
         override fun getConstraints(): Matcher<View> {
             return Matchers.allOf(
-                ViewMatchers.isDescendantOfA(ViewMatchers.isAssignableFrom(NestedScrollView::class.java)),
-                ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                ViewMatchers.isDescendantOfA(
+                    ViewMatchers.isAssignableFrom(NestedScrollView::class.java)
+                ),
+                ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)
             )
         }
 
@@ -40,7 +37,7 @@ fun nestedScrollTo(): ViewAction {
                 val nestedScrollView = view?.let {
                     findFirstParentLayoutOfClass(
                         it,
-                        NestedScrollView::class.java,
+                        NestedScrollView::class.java
                     )
                 } as NestedScrollView?
                 if (nestedScrollView != null) {
@@ -104,7 +101,7 @@ fun clickXYPercent(x: Float, y: Float): ViewAction {
 
             floatArrayOf(xPoint, yPoint)
         },
-        Press.FINGER,
+        Press.FINGER
     )
 }
 
@@ -116,4 +113,3 @@ fun clickOnViewChild(viewId: Int) = object : ViewAction {
     override fun perform(uiController: UiController, view: View) = ViewActions.click()
         .perform(uiController, view.findViewById(viewId))
 }
-

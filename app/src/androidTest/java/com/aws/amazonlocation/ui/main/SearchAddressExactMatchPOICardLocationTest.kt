@@ -36,14 +36,16 @@ class SearchAddressExactMatchPOICardLocationTest : BaseTestMainActivity() {
             val edtSearch =
                 onView(withId(R.id.edt_search_places)).check(matches(isDisplayed()))
             edtSearch.perform(click())
-            onView(withId(R.id.edt_search_places)).perform(replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD))
+            onView(withId(R.id.edt_search_places)).perform(
+                replaceText(TEST_WORD_SHYAMAL_CROSS_ROAD)
+            )
             val rvSearchPlaceSuggestion =
                 waitForView(
                     allOf(
                         withId(R.id.rv_search_places_suggestion),
                         isDisplayed(),
-                        hasMinimumChildCount(1),
-                    ),
+                        hasMinimumChildCount(1)
+                    )
                 )
             var itemCount = 0
             rvSearchPlaceSuggestion?.check { view, _ ->
@@ -61,17 +63,17 @@ class SearchAddressExactMatchPOICardLocationTest : BaseTestMainActivity() {
                     .perform(
                         RecyclerViewActions.actionOnItem<ViewHolder>(
                             hasDescendant(
-                                withText(TEST_WORD_SHYAMAL_CROSS_ROAD),
+                                withText(TEST_WORD_SHYAMAL_CROSS_ROAD)
                             ),
-                            click(),
-                        ),
+                            click()
+                        )
                     )
 
                 waitForView(
                     allOf(
                         withId(R.id.btn_direction),
-                        isDisplayed(),
-                    ),
+                        isDisplayed()
+                    )
                 )
                 waitForView(allOf(withId(R.id.tv_direction_distance), isDisplayed()))
             } else {

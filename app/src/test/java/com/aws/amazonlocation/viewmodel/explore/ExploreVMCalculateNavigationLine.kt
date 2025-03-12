@@ -51,8 +51,6 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
 
     @Test
     fun calculateNavigationLineSuccess() = runTest {
-
-
         val param = Responses.RESPONSE_CALCULATE_DISTANCE_CAR
 
         val searchSuggestionData = getSearchSuggestionData()
@@ -76,8 +74,6 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
 
     @Test
     fun calculateNavigationLineWalkSuccess() = runTest {
-
-
         val param = Responses.RESPONSE_CALCULATE_DISTANCE_WALKING
 
         val searchSuggestionData = getSearchSuggestionData()
@@ -101,7 +97,6 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
 
     @Test
     fun calculateNavigationLineFerriesSuccess() = runTest {
-
         val param = Responses.RESPONSE_CALCULATE_DISTANCE_FERRIES
 
         val searchSuggestionData = getSearchSuggestionData()
@@ -136,8 +131,8 @@ class ExploreVMCalculateNavigationLine : BaseTest() {
             searchSuggestionData.isDestination = true
             searchSuggestionData.placeId =
                 searchPlaceIndexForPositionResult.resultItems?.get(0)?.placeId
-            it.latitude?.let { lat->
-                it.longitude?.let { lng->
+            it.latitude?.let { lat ->
+                it.longitude?.let { lng ->
                     searchSuggestionData.position = listOf(lng, lat)
                 }
             }

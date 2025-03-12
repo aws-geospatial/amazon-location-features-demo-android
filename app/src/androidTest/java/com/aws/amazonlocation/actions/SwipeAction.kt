@@ -4,7 +4,6 @@ import android.graphics.Point
 import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
-import androidx.annotation.FloatRange
 import androidx.test.espresso.InjectEventSecurityException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -64,7 +63,7 @@ private fun getCenterPoint(view: View): Point {
     val viewWidth = view.width * view.scaleX
     return Point(
         (locationOnScreen[0] + viewWidth / 2).toInt(),
-        (locationOnScreen[1] + viewHeight / 2).toInt(),
+        (locationOnScreen[1] + viewHeight / 2).toInt()
     )
 }
 
@@ -77,7 +76,7 @@ private fun getLocationOnScreen(view: View): Point {
 private fun performSwipe(
     uiController: UiController,
     startPoint1: Point,
-    endPoint1: Point,
+    endPoint1: Point
 ) {
     val duration = 50
     val eventMinInterval: Long = 10
@@ -106,7 +105,6 @@ private fun performSwipe(
     pc1.size = 1f
     pointerCoords[0] = pc1
 
-
     /*
      * Events sequence of zoom gesture:
      *
@@ -114,12 +112,11 @@ private fun performSwipe(
      * 2. Repeat step 3 with updated middle points (x,y), until reach the end points
      * 4. Send ACTION_UP of one end point
      */try {
-
         // Step 1
         event = MotionEvent.obtain(
             startTime, eventTime,
             MotionEvent.ACTION_DOWN, 1, properties,
-            pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0,
+            pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0
         )
         injectMotionEventToUiController(uiController, event)
 
@@ -140,7 +137,7 @@ private fun performSwipe(
             event = MotionEvent.obtain(
                 startTime, eventTime,
                 MotionEvent.ACTION_MOVE, 1, properties,
-                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0,
+                pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0
             )
             injectMotionEventToUiController(uiController, event)
         }
@@ -150,7 +147,7 @@ private fun performSwipe(
         event = MotionEvent.obtain(
             startTime, eventTime,
             MotionEvent.ACTION_UP, 1, properties,
-            pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0,
+            pointerCoords, 0, 0, 1f, 1f, 0, 0, 0, 0
         )
         injectMotionEventToUiController(uiController, event)
     } catch (e: InjectEventSecurityException) {
