@@ -1,7 +1,6 @@
 package com.aws.amazonlocation.data.datasource
 
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
-import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
@@ -11,6 +10,7 @@ import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SignInInterface
+import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import java.util.Date
 import org.maplibre.android.geometry.LatLng
 
@@ -23,7 +23,7 @@ interface RemoteDataSource {
         lat: Double?,
         lng: Double?,
         searchText: String,
-        searchPlace: SearchPlaceInterface,
+        searchPlace: SearchPlaceInterface
     )
 
     suspend fun searchPlaceIndexForText(
@@ -80,7 +80,7 @@ interface RemoteDataSource {
         position1: List<Double>? = null,
         deviceId: String,
         identityId: String,
-        mTrackingInterface: BatchLocationUpdateInterface,
+        mTrackingInterface: BatchLocationUpdateInterface
     )
 
     suspend fun getLocationHistory(

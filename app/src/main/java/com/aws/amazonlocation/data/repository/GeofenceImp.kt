@@ -31,7 +31,13 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         latLng: LatLng?,
         mGeofenceAPIInterface: GeofenceAPIInterface
     ) {
-        mRemoteDataSource.addGeofence(geofenceId, collectionName, radius, latLng, mGeofenceAPIInterface)
+        mRemoteDataSource.addGeofence(
+            geofenceId,
+            collectionName,
+            radius,
+            latLng,
+            mGeofenceAPIInterface
+        )
     }
 
     override suspend fun deleteGeofence(
@@ -50,7 +56,7 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         lat: Double?,
         lng: Double?,
         searchText: String,
-        searchPlace: SearchPlaceInterface,
+        searchPlace: SearchPlaceInterface
     ) {
         mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
     }
@@ -61,7 +67,7 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         searchText: String?,
         searchPlace: SearchPlaceInterface
     ) {
-        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, null,searchPlace)
+        mRemoteDataSource.searchPlaceIndexForText(lat, lng, searchText, null, searchPlace)
     }
 
     override suspend fun batchUpdateDevicePosition(
@@ -70,7 +76,12 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         deviceId: String,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     ) {
-        mRemoteDataSource.batchUpdateDevicePosition(trackerName, position, deviceId, batchLocationUpdateInterface)
+        mRemoteDataSource.batchUpdateDevicePosition(
+            trackerName,
+            position,
+            deviceId,
+            batchLocationUpdateInterface
+        )
     }
 
     override suspend fun evaluateGeofence(
@@ -80,7 +91,13 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         identityId: String,
         batchLocationUpdateInterface: BatchLocationUpdateInterface
     ) {
-        mRemoteDataSource.evaluateGeofence(trackerName, position1, deviceId, identityId, batchLocationUpdateInterface)
+        mRemoteDataSource.evaluateGeofence(
+            trackerName,
+            position1,
+            deviceId,
+            identityId,
+            batchLocationUpdateInterface
+        )
     }
     override suspend fun getLocationHistory(
         trackerName: String,
@@ -89,7 +106,13 @@ class GeofenceImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         dateEnd: Date,
         historyInterface: LocationHistoryInterface
     ) {
-        mRemoteDataSource.getLocationHistory(trackerName, deviceId, dateStart, dateEnd, historyInterface)
+        mRemoteDataSource.getLocationHistory(
+            trackerName,
+            deviceId,
+            dateStart,
+            dateEnd,
+            historyInterface
+        )
     }
 
     override suspend fun deleteLocationHistory(

@@ -23,7 +23,13 @@ class SearchApiEnumTest {
 
     @Test
     fun `Enum values should be retrievable by their names`() {
-        assertEquals(SearchApiEnum.SEARCH_PLACE_SUGGESTION, SearchApiEnum.valueOf("SEARCH_PLACE_SUGGESTION"))
-        assertEquals(SearchApiEnum.SEARCH_PLACE_INDEX_TEXT, SearchApiEnum.valueOf("SEARCH_PLACE_INDEX_TEXT"))
+        assertEquals(
+            SearchApiEnum.SEARCH_PLACE_SUGGESTION,
+            SearchApiEnum.valueOf("SEARCH_PLACE_SUGGESTION")
+        )
+        assertEquals(
+            SearchApiEnum.SEARCH_PLACE_INDEX_TEXT,
+            SearchApiEnum.valueOf("SEARCH_PLACE_INDEX_TEXT")
+        )
     }
 }

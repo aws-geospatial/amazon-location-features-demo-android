@@ -1,12 +1,12 @@
 package com.aws.amazonlocation.data.repository
 
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
-import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
+import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -18,7 +18,7 @@ class LocationSearchImp(private val mRemoteDataSource: RemoteDataSourceImpl) :
         lat: Double?,
         lng: Double?,
         searchText: String,
-        searchPlace: SearchPlaceInterface,
+        searchPlace: SearchPlaceInterface
     ) {
         mRemoteDataSource.searchPlaceSuggestions(lat, lng, searchText, searchPlace)
     }

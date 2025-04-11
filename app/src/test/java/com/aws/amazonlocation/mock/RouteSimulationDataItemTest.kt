@@ -21,8 +21,16 @@ class RouteSimulationDataItemTest {
             id = ROUTE_ID,
             name = ROUTE_NAME,
             stopCoordinates = listOf(
-                StopCoordinate(Geometry(listOf(1.0, 2.0), POINT), 1, Properties(1, STOP_123, BUS_STOP)),
-                StopCoordinate(Geometry(listOf(3.0, 4.0), POINT), 2, Properties(2, STOP_456, BUS_STATION))
+                StopCoordinate(
+                    Geometry(listOf(1.0, 2.0), POINT),
+                    1,
+                    Properties(1, STOP_123, BUS_STOP)
+                ),
+                StopCoordinate(
+                    Geometry(listOf(3.0, 4.0), POINT),
+                    2,
+                    Properties(2, STOP_456, BUS_STATION)
+                )
             )
         )
         routeSimulationDataItem.coordinates = listOf(listOf(1.0, 2.0), listOf(3.0, 4.0))
@@ -31,7 +39,11 @@ class RouteSimulationDataItemTest {
         routeSimulationDataItem.name = ROUTE_NAME
         routeSimulationDataItem.stopCoordinates = listOf(
             StopCoordinate(Geometry(listOf(1.0, 2.0), POINT), 1, Properties(1, STOP_123, BUS_STOP)),
-            StopCoordinate(Geometry(listOf(3.0, 4.0), POINT), 2, Properties(2, STOP_456,BUS_STATION))
+            StopCoordinate(
+                Geometry(listOf(3.0, 4.0), POINT),
+                2,
+                Properties(2, STOP_456, BUS_STATION)
+            )
         )
         routeSimulationDataItem.stopCoordinates?.let {
             it[0]?.properties?.id = 1
@@ -74,10 +86,23 @@ class RouteSimulationDataItemTest {
     fun testStopCoordinates() {
         val expectedStopCoordinates = listOf(
             StopCoordinate(Geometry(listOf(1.0, 2.0), POINT), 1, Properties(1, STOP_123, BUS_STOP)),
-            StopCoordinate(Geometry(listOf(3.0, 4.0), POINT), 2, Properties(2, STOP_456, BUS_STATION))
+            StopCoordinate(
+                Geometry(listOf(3.0, 4.0), POINT),
+                2,
+                Properties(2, STOP_456, BUS_STATION)
+            )
         )
-        assertEquals(expectedStopCoordinates[0].properties?.id, routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.id)
-        assertEquals(expectedStopCoordinates[0].properties?.stop_name, routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.stop_name)
-        assertEquals(expectedStopCoordinates[0].properties?.stop_id, routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.stop_id)
+        assertEquals(
+            expectedStopCoordinates[0].properties?.id,
+            routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.id
+        )
+        assertEquals(
+            expectedStopCoordinates[0].properties?.stop_name,
+            routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.stop_name
+        )
+        assertEquals(
+            expectedStopCoordinates[0].properties?.stop_id,
+            routeSimulationDataItem.stopCoordinates?.get(0)?.properties?.stop_id
+        )
     }
 }

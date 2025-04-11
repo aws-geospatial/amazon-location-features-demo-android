@@ -9,7 +9,10 @@ import com.aws.amazonlocation.domain.repository.AuthRepository
 // SPDX-License-Identifier: MIT-0
 class AuthImp(private val mRemoteDataSourceImpl: RemoteDataSourceImpl) : AuthRepository {
 
-    override suspend fun fetchTokensWithOkHttp(authorizationCode: String, signInInterface: SignInInterface) {
+    override suspend fun fetchTokensWithOkHttp(
+        authorizationCode: String,
+        signInInterface: SignInInterface
+    ) {
         mRemoteDataSourceImpl.fetchTokensWithOkHttp(authorizationCode, signInInterface)
     }
 

@@ -4,7 +4,6 @@ import aws.sdk.kotlin.services.geoplaces.model.Address
 import aws.sdk.kotlin.services.geoplaces.model.Contacts
 import aws.sdk.kotlin.services.geoplaces.model.OpeningHours
 
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
@@ -13,7 +12,7 @@ data class SearchSuggestionResponse(
     var text: String? = null,
     var maxResults: Int? = null,
     var data: ArrayList<SearchSuggestionData> = ArrayList(),
-    var error: String ? = null,
+    var error: String ? = null
 )
 
 data class SearchSuggestionData(

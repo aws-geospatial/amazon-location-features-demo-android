@@ -68,49 +68,49 @@ object Responses {
             text = "rio tinto",
             maxResults = 5,
             data =
-                arrayListOf(
-                    SearchSuggestionData(
-                        placeId = "AQAAAIAACg_vXCRfx8HI5rtgk0Mmnd6PPxpnkNiPXtNOQK-wtPFoIHEB39lZ9bAxMIy5uXFWjHYaOiaMYcI38eByA0ztmt4BmQMA3CvJArxga_45fdoDEIJWlnAfeXv9ExWR1Z32Bwo6K4xtfdSN3EgYLLwjiUEnbyUjTOJdJuy_iwZ8O1p_uCOJDEvvzA5WYaEkFFmGXzTcMxZuYRyKpxlC6EPvWA",
-                        searchText = "rio tinto",
-                        text = "Rio Tinto, Gondomar, Porto, PRT",
-                        distance = 8996050.0,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                    ),
-                    SearchSuggestionData(
-                        placeId = "AQAAAIAA3iDmWtWuLicpbqS5M2Mx9Tu7cuOpnFlUvEAyG5bCiAUGHir-hC7W-WjEtmp2wanCf9N1tb0ucKUfTzGyi6OvHIeZHoRI9HkbSBdn-9ZciqUZOTL-c0RIRY4dAYh_V_HtdILotOYkVMLyS7oji7kb263UkGchZeBEs5Zd_Xa3xGJiqnNTsnCDEiIOlOEd3FcBgk8kyXbmj6nRYZylfZ_p7g",
-                        searchText = "rio tinto",
-                        text = "Rio Tinto, Paraiba, BRA",
-                        distance = 1.0205287E7,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                    ),
-                    SearchSuggestionData(
-                        placeId = "AQAAAIAAou9Y0RuRsQLJHjkLYIPmxsL5eomLtjMTV77WmN9Kfqj4OaOGLrEeRX7_Vx5JJTXcRuvUQ1Mhm1xrfiXquEPkklYqRQYju-bjuKkUhINJ__xlmV5kguwifl0i3sc4LhUuyzzh_zNZbIROonF7eSeh98fIdklhNXnfH42u8UdkR2NYStBxd0nBDpNf7Sn6U8vp7SJ-a90A8eChHlyaB0PqWA",
-                        searchText = "rio tinto",
-                        text = "Rio Tinto, Esposende, Braga, PRT",
-                        distance = 8961604.0,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                    ),
-                    SearchSuggestionData(
-                        placeId = "AQAAAIAATDjvgdm8fMuOOTL4HjSgv90Oqll6po6NbNi8hRyf6Yq7BlxjBs_d0kC17taZ7uB9oy9ZU1zZlq-wFSDSxbW-N4x2vetQsKWyXKMmpK4P0psuyXse1DF3yQ-fG89rKTbv-BKVmkW1hbzS1-3YMKSHil0_4k2R-IrRQ3rUQp8SyFrkS46NGAk4Vb0AeQw3WRGcPxpC4BlQg_6Uap2xNlrDoA",
-                        searchText = "rio tinto",
-                        text = "Rio Tinto, Amares, Braga, PRT",
-                        distance = 8971593.0,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                    ),
-                    SearchSuggestionData(
-                        placeId = "AQAAAIAAri9JPWCRlhRHXk7ZzGj8jZj3DT1OKUkNYCIl6SrSdZLpIeufCS1hhhvvnyQS9xc50ZGUvS3-Z-3GZLKzx6YAbrla6nGMwziPkligVgYAtGrJ4n9W2rTrRw3pLzdrh-Bns04nwIVR3CFvVIZu4m6kHIBENAIV_ApVFA2U9smvriVDR2lygNkdYXlUZ0gvwgMyXcnEJXmyakTuRmSvuj71Og",
-                        searchText = "rio tinto",
-                        text = "Rio Tinto, Vagos, Aveiro, PRT",
-                        distance = 9041692.0,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                    ),
+            arrayListOf(
+                SearchSuggestionData(
+                    placeId = "AQAAAIAACg_vXCRfx8HI5rtgk0Mmnd6PPxpnkNiPXtNOQK-wtPFoIHEB39lZ9bAxMIy5uXFWjHYaOiaMYcI38eByA0ztmt4BmQMA3CvJArxga_45fdoDEIJWlnAfeXv9ExWR1Z32Bwo6K4xtfdSN3EgYLLwjiUEnbyUjTOJdJuy_iwZ8O1p_uCOJDEvvzA5WYaEkFFmGXzTcMxZuYRyKpxlC6EPvWA",
+                    searchText = "rio tinto",
+                    text = "Rio Tinto, Gondomar, Porto, PRT",
+                    distance = 8996050.0,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false
                 ),
-            error = null,
+                SearchSuggestionData(
+                    placeId = "AQAAAIAA3iDmWtWuLicpbqS5M2Mx9Tu7cuOpnFlUvEAyG5bCiAUGHir-hC7W-WjEtmp2wanCf9N1tb0ucKUfTzGyi6OvHIeZHoRI9HkbSBdn-9ZciqUZOTL-c0RIRY4dAYh_V_HtdILotOYkVMLyS7oji7kb263UkGchZeBEs5Zd_Xa3xGJiqnNTsnCDEiIOlOEd3FcBgk8kyXbmj6nRYZylfZ_p7g",
+                    searchText = "rio tinto",
+                    text = "Rio Tinto, Paraiba, BRA",
+                    distance = 1.0205287E7,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false
+                ),
+                SearchSuggestionData(
+                    placeId = "AQAAAIAAou9Y0RuRsQLJHjkLYIPmxsL5eomLtjMTV77WmN9Kfqj4OaOGLrEeRX7_Vx5JJTXcRuvUQ1Mhm1xrfiXquEPkklYqRQYju-bjuKkUhINJ__xlmV5kguwifl0i3sc4LhUuyzzh_zNZbIROonF7eSeh98fIdklhNXnfH42u8UdkR2NYStBxd0nBDpNf7Sn6U8vp7SJ-a90A8eChHlyaB0PqWA",
+                    searchText = "rio tinto",
+                    text = "Rio Tinto, Esposende, Braga, PRT",
+                    distance = 8961604.0,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false
+                ),
+                SearchSuggestionData(
+                    placeId = "AQAAAIAATDjvgdm8fMuOOTL4HjSgv90Oqll6po6NbNi8hRyf6Yq7BlxjBs_d0kC17taZ7uB9oy9ZU1zZlq-wFSDSxbW-N4x2vetQsKWyXKMmpK4P0psuyXse1DF3yQ-fG89rKTbv-BKVmkW1hbzS1-3YMKSHil0_4k2R-IrRQ3rUQp8SyFrkS46NGAk4Vb0AeQw3WRGcPxpC4BlQg_6Uap2xNlrDoA",
+                    searchText = "rio tinto",
+                    text = "Rio Tinto, Amares, Braga, PRT",
+                    distance = 8971593.0,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false
+                ),
+                SearchSuggestionData(
+                    placeId = "AQAAAIAAri9JPWCRlhRHXk7ZzGj8jZj3DT1OKUkNYCIl6SrSdZLpIeufCS1hhhvvnyQS9xc50ZGUvS3-Z-3GZLKzx6YAbrla6nGMwziPkligVgYAtGrJ4n9W2rTrRw3pLzdrh-Bns04nwIVR3CFvVIZu4m6kHIBENAIV_ApVFA2U9smvriVDR2lygNkdYXlUZ0gvwgMyXcnEJXmyakTuRmSvuj71Og",
+                    searchText = "rio tinto",
+                    text = "Rio Tinto, Vagos, Aveiro, PRT",
+                    distance = 9041692.0,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false
+                )
+            ),
+            error = null
         )
 
     val RESPONSE_PLACE_INDEX_RIO_TINTO =
@@ -118,46 +118,46 @@ object Responses {
             text = "Rio Tinto",
             maxResults = 15,
             data =
-                arrayListOf(
-                    SearchSuggestionData(
-                        placeId = "test",
-                        searchText = "Rio Tinto",
-                        text = "Rio Tinto, Gondomar, Porto, PRT",
-                        distance = 8996050.0,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                        position = listOf(72.83468000000005, 18.921880000000044),
-                        amazonLocationAddress =
-                            Address {
-                                country = Country { name = TEST_DATA_2 }
-                                label = TEST_DATA_3
-                                region = Region { name = TEST_DATA_4 }
-                                subRegion = SubRegion { name = TEST_DATA }
-                            },
-                    ),
-                    SearchSuggestionData(
-                        placeId = "test",
-                        searchText = "Rio Tinto",
-                        text = "Rio Tinto, Paraíba, BRA",
-                        distance = 1.0205287E7,
-                        isDestination = false,
-                        isPlaceIndexForPosition = false,
-                        position = listOf(72.83468000000005, 18.921880000000044),
-                        amazonLocationAddress =
-                            Address {
-                                country = Country { name = TEST_DATA_2 }
-                                label = TEST_DATA_3
-                                region = Region { name = TEST_DATA_4 }
-                                subRegion = SubRegion { name = TEST_DATA }
-                            },
-                    ),
+            arrayListOf(
+                SearchSuggestionData(
+                    placeId = "test",
+                    searchText = "Rio Tinto",
+                    text = "Rio Tinto, Gondomar, Porto, PRT",
+                    distance = 8996050.0,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false,
+                    position = listOf(72.83468000000005, 18.921880000000044),
+                    amazonLocationAddress =
+                    Address {
+                        country = Country { name = TEST_DATA_2 }
+                        label = TEST_DATA_3
+                        region = Region { name = TEST_DATA_4 }
+                        subRegion = SubRegion { name = TEST_DATA }
+                    }
                 ),
-            error = null,
+                SearchSuggestionData(
+                    placeId = "test",
+                    searchText = "Rio Tinto",
+                    text = "Rio Tinto, Paraíba, BRA",
+                    distance = 1.0205287E7,
+                    isDestination = false,
+                    isPlaceIndexForPosition = false,
+                    position = listOf(72.83468000000005, 18.921880000000044),
+                    amazonLocationAddress =
+                    Address {
+                        country = Country { name = TEST_DATA_2 }
+                        label = TEST_DATA_3
+                        region = Region { name = TEST_DATA_4 }
+                        subRegion = SubRegion { name = TEST_DATA }
+                    }
+                )
+            ),
+            error = null
         )
 
     var RESPONSE_PLACE_INDEX_RIO_TINTO_ERROR =
         SearchSuggestionResponse(
-            error = API_ERROR,
+            error = API_ERROR
         )
 
     val RESPONSE_CALCULATE_DISTANCE_CAR =
@@ -180,7 +180,7 @@ object Responses {
                                                     listOf(72.83318000545705, 18.92106999738339),
                                                     listOf(72.83317999485907, 18.92106998837811),
                                                     listOf(72.83324999683737, 18.921269989185305),
-                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                    listOf(72.83338298024672, 18.921575535610945)
                                                 )
                                         }
                                     vehicleLegDetails =
@@ -198,23 +198,27 @@ object Responses {
                                                         duration = 16
                                                         geometryOffset = 4
                                                         type = RouteVehicleTravelStepType.Depart
-                                                    },
+                                                    }
                                                 )
                                             incidents =
                                                 listOf(
                                                     RouteVehicleIncident {
                                                         description = "test"
                                                         type = RouteVehicleIncidentType.Other
-                                                    },
+                                                    }
                                                 )
-                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
-                                                geometryOffset = 2
-                                                place = RoutePassThroughPlace {
-                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                            passThroughWaypoints = listOf(
+                                                RoutePassThroughWaypoint {
+                                                    geometryOffset = 2
+                                                    place = RoutePassThroughPlace {
+                                                        position = listOf(
+                                                            72.83338298024672,
+                                                            18.921575535610945
+                                                        )
+                                                    }
                                                 }
-                                            })
+                                            )
                                             summary = RouteVehicleSummary {
-
                                             }
                                             spans = listOf()
                                             tolls = listOf()
@@ -225,26 +229,30 @@ object Responses {
                                                 listOf(
                                                     RouteVehicleNotice {
                                                         code = RouteVehicleNoticeCode.Other
-                                                        details = listOf(RouteVehicleNoticeDetail {
-                                                            title = "test"
-                                                        })
-                                                    },
+                                                        details = listOf(
+                                                            RouteVehicleNoticeDetail {
+                                                                title = "test"
+                                                            }
+                                                        )
+                                                    }
                                                 )
                                         }
-                                },
+                                }
                             )
-                        majorRoadLabels = listOf(RouteMajorRoadLabel{
-                            roadName = LocalizedString {
-                                value = "test"
-                                language = "en"
+                        majorRoadLabels = listOf(
+                            RouteMajorRoadLabel {
+                                roadName = LocalizedString {
+                                    value = "test"
+                                    language = "en"
+                                }
                             }
-                        })
+                        )
                         summary =
                             RouteSummary {
                                 distance = 20
                                 duration = 48
                             }
-                    },
+                    }
                 )
             notices = listOf()
             pricingBucket = "test"
@@ -271,7 +279,7 @@ object Responses {
                                                     listOf(72.83318000545705, 18.92106999738339),
                                                     listOf(72.83317999485907, 18.92106998837811),
                                                     listOf(72.83324999683737, 18.921269989185305),
-                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                    listOf(72.83338298024672, 18.921575535610945)
                                                 )
                                         }
                                     vehicleLegDetails =
@@ -289,23 +297,27 @@ object Responses {
                                                         duration = 16
                                                         geometryOffset = 4
                                                         type = RouteVehicleTravelStepType.Depart
-                                                    },
+                                                    }
                                                 )
                                             incidents =
                                                 listOf(
                                                     RouteVehicleIncident {
                                                         description = "test"
                                                         type = RouteVehicleIncidentType.Other
-                                                    },
+                                                    }
                                                 )
-                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
-                                                geometryOffset = 2
-                                                place = RoutePassThroughPlace {
-                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                            passThroughWaypoints = listOf(
+                                                RoutePassThroughWaypoint {
+                                                    geometryOffset = 2
+                                                    place = RoutePassThroughPlace {
+                                                        position = listOf(
+                                                            72.83338298024672,
+                                                            18.921575535610945
+                                                        )
+                                                    }
                                                 }
-                                            })
+                                            )
                                             summary = RouteVehicleSummary {
-
                                             }
                                             spans = listOf()
                                             tolls = listOf()
@@ -316,26 +328,30 @@ object Responses {
                                                 listOf(
                                                     RouteVehicleNotice {
                                                         code = RouteVehicleNoticeCode.Other
-                                                        details = listOf(RouteVehicleNoticeDetail {
-                                                            title = "test"
-                                                        })
-                                                    },
+                                                        details = listOf(
+                                                            RouteVehicleNoticeDetail {
+                                                                title = "test"
+                                                            }
+                                                        )
+                                                    }
                                                 )
                                         }
-                                },
+                                }
                             )
-                        majorRoadLabels = listOf(RouteMajorRoadLabel{
-                            roadName = LocalizedString {
-                                value = "test"
-                                language = "en"
+                        majorRoadLabels = listOf(
+                            RouteMajorRoadLabel {
+                                roadName = LocalizedString {
+                                    value = "test"
+                                    language = "en"
+                                }
                             }
-                        })
+                        )
                         summary =
                             RouteSummary {
                                 distance = 20
                                 duration = 48
                             }
-                    },
+                    }
                 )
             notices = listOf()
             pricingBucket = "test"
@@ -362,7 +378,7 @@ object Responses {
                                                     listOf(72.83318000545705, 18.92106999738339),
                                                     listOf(72.83317999485907, 18.92106998837811),
                                                     listOf(72.83324999683737, 18.921269989185305),
-                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                    listOf(72.83338298024672, 18.921575535610945)
                                                 )
                                         }
                                     ferryLegDetails =
@@ -382,39 +398,45 @@ object Responses {
                                                         duration = 16
                                                         geometryOffset = 4
                                                         type = RouteFerryTravelStepType.Depart
-                                                    },
+                                                    }
                                                 )
-                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
-                                                geometryOffset = 2
-                                                place = RoutePassThroughPlace {
-                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                            passThroughWaypoints = listOf(
+                                                RoutePassThroughWaypoint {
+                                                    geometryOffset = 2
+                                                    place = RoutePassThroughPlace {
+                                                        position = listOf(
+                                                            72.83338298024672,
+                                                            18.921575535610945
+                                                        )
+                                                    }
                                                 }
-                                            })
+                                            )
                                             summary = RouteFerrySummary {
-
                                             }
                                             spans = listOf()
                                             notices =
                                                 listOf(
                                                     RouteFerryNotice {
                                                         code = RouteFerryNoticeCode.Other
-                                                    },
+                                                    }
                                                 )
                                         }
-                                },
+                                }
                             )
-                        majorRoadLabels = listOf(RouteMajorRoadLabel{
-                            roadName = LocalizedString {
-                                value = "test"
-                                language = "en"
+                        majorRoadLabels = listOf(
+                            RouteMajorRoadLabel {
+                                roadName = LocalizedString {
+                                    value = "test"
+                                    language = "en"
+                                }
                             }
-                        })
+                        )
                         summary =
                             RouteSummary {
                                 distance = 20
                                 duration = 48
                             }
-                    },
+                    }
                 )
             notices = listOf()
             pricingBucket = "test"
@@ -441,7 +463,7 @@ object Responses {
                                                     listOf(72.83318000545705, 18.92106999738339),
                                                     listOf(72.83317999485907, 18.92106998837811),
                                                     listOf(72.83324999683737, 18.921269989185305),
-                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                    listOf(72.83338298024672, 18.921575535610945)
                                                 )
                                         }
                                     pedestrianLegDetails =
@@ -459,39 +481,45 @@ object Responses {
                                                         duration = 16
                                                         geometryOffset = 4
                                                         type = RoutePedestrianTravelStepType.Depart
-                                                    },
+                                                    }
                                                 )
-                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
-                                                geometryOffset = 2
-                                                place = RoutePassThroughPlace {
-                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                            passThroughWaypoints = listOf(
+                                                RoutePassThroughWaypoint {
+                                                    geometryOffset = 2
+                                                    place = RoutePassThroughPlace {
+                                                        position = listOf(
+                                                            72.83338298024672,
+                                                            18.921575535610945
+                                                        )
+                                                    }
                                                 }
-                                            })
+                                            )
                                             summary = RoutePedestrianSummary {
-
                                             }
                                             spans = listOf()
                                             notices =
                                                 listOf(
                                                     RoutePedestrianNotice {
                                                         code = RoutePedestrianNoticeCode.Other
-                                                    },
+                                                    }
                                                 )
                                         }
-                                },
+                                }
                             )
-                        majorRoadLabels = listOf(RouteMajorRoadLabel{
-                            roadName = LocalizedString {
-                                value = "test"
-                                language = "en"
+                        majorRoadLabels = listOf(
+                            RouteMajorRoadLabel {
+                                roadName = LocalizedString {
+                                    value = "test"
+                                    language = "en"
+                                }
                             }
-                        })
+                        )
                         summary =
                             RouteSummary {
                                 distance = 20
                                 duration = 48
                             }
-                    },
+                    }
                 )
             notices = listOf()
             pricingBucket = "test"
@@ -518,7 +546,7 @@ object Responses {
                                                     listOf(72.83318000545705, 18.92106999738339),
                                                     listOf(72.83317999485907, 18.92106998837811),
                                                     listOf(72.83324999683737, 18.921269989185305),
-                                                    listOf(72.83338298024672, 18.921575535610945),
+                                                    listOf(72.83338298024672, 18.921575535610945)
                                                 )
                                         }
                                     vehicleLegDetails =
@@ -536,23 +564,27 @@ object Responses {
                                                         duration = 16
                                                         geometryOffset = 4
                                                         type = RouteVehicleTravelStepType.Depart
-                                                    },
+                                                    }
                                                 )
                                             incidents =
                                                 listOf(
                                                     RouteVehicleIncident {
                                                         description = "test"
                                                         type = RouteVehicleIncidentType.Other
-                                                    },
+                                                    }
                                                 )
-                                            passThroughWaypoints = listOf(RoutePassThroughWaypoint{
-                                                geometryOffset = 2
-                                                place = RoutePassThroughPlace {
-                                                    position = listOf(72.83338298024672, 18.921575535610945)
+                                            passThroughWaypoints = listOf(
+                                                RoutePassThroughWaypoint {
+                                                    geometryOffset = 2
+                                                    place = RoutePassThroughPlace {
+                                                        position = listOf(
+                                                            72.83338298024672,
+                                                            18.921575535610945
+                                                        )
+                                                    }
                                                 }
-                                            })
+                                            )
                                             summary = RouteVehicleSummary {
-
                                             }
                                             spans = listOf()
                                             tolls = listOf()
@@ -563,26 +595,30 @@ object Responses {
                                                 listOf(
                                                     RouteVehicleNotice {
                                                         code = RouteVehicleNoticeCode.Other
-                                                        details = listOf(RouteVehicleNoticeDetail {
-                                                            title = "test"
-                                                        })
-                                                    },
+                                                        details = listOf(
+                                                            RouteVehicleNoticeDetail {
+                                                                title = "test"
+                                                            }
+                                                        )
+                                                    }
                                                 )
                                         }
-                                },
+                                }
                             )
-                        majorRoadLabels = listOf(RouteMajorRoadLabel{
-                            roadName = LocalizedString {
-                                value = "test"
-                                language = "en"
+                        majorRoadLabels = listOf(
+                            RouteMajorRoadLabel {
+                                roadName = LocalizedString {
+                                    value = "test"
+                                    language = "en"
+                                }
                             }
-                        })
+                        )
                         summary =
                             RouteSummary {
                                 distance = 20
                                 duration = 48
                             }
-                    },
+                    }
                 )
             notices = listOf()
             pricingBucket = "test"
@@ -600,7 +636,7 @@ object Responses {
             destinationAddress = "Prem Ramchandani Marg, Colaba, Mumbai, Maharashtra, 400005, IND",
             region = "Maharashtra",
             subRegion = "Mumbai",
-            country = "IND",
+            country = "IND"
         )
 
     val GET_PLACE_RESPONSE = GetPlaceResponse {
@@ -621,207 +657,207 @@ object Responses {
     val RESPONSE_GEOFENCE_LIST =
         GeofenceData(
             geofenceList =
-                arrayListOf(
-                    ListGeofenceResponseEntry {
-                        createTime = Instant.now()
-                        geofenceId = "fdf"
-                        status = TEST_DATA_7
-                        updateTime = Instant.now()
-                        geometry =
-                            GeofenceGeometry {
-                                circle =
-                                    Circle {
-                                        center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
-                                        radius = 100.00
-                                    }
-                            }
-                    },
-                    ListGeofenceResponseEntry {
-                        createTime = Instant.now()
-                        geofenceId = "gg"
-                        status = TEST_DATA_7
-                        updateTime = Instant.now()
-                        geometry =
-                            GeofenceGeometry {
-                                circle =
-                                    Circle {
-                                        center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
-                                        radius = 100.00
-                                    }
-                            }
-                    },
-                ),
-            message = null,
+            arrayListOf(
+                ListGeofenceResponseEntry {
+                    createTime = Instant.now()
+                    geofenceId = "fdf"
+                    status = TEST_DATA_7
+                    updateTime = Instant.now()
+                    geometry =
+                        GeofenceGeometry {
+                            circle =
+                                Circle {
+                                    center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
+                                    radius = 100.00
+                                }
+                        }
+                },
+                ListGeofenceResponseEntry {
+                    createTime = Instant.now()
+                    geofenceId = "gg"
+                    status = TEST_DATA_7
+                    updateTime = Instant.now()
+                    geometry =
+                        GeofenceGeometry {
+                            circle =
+                                Circle {
+                                    center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
+                                    radius = 100.00
+                                }
+                        }
+                }
+            ),
+            message = null
         )
 
     val ERROR_RESPONSE_GEOFENCE_LIST =
         GeofenceData(
-            message = NO_DATA_FOUND,
+            message = NO_DATA_FOUND
         )
 
     val SEARCH_RESPONSE_TAJ =
         SearchResponse(
             reverseGeocodeResponse =
-                ReverseGeocodeResponse {
-                    pricingBucket = "test"
-                    resultItems =
-                        listOf(
-                            ReverseGeocodeResultItem {
-                                placeId = "test"
-                                title = "testTitle"
-                                placeType = PlaceType.Block
-                                distance = 0L
-                                position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
-                                address =
-                                    Address {
-                                        country = Country { name = TEST_DATA_2 }
-                                        label = TEST_DATA_3
-                                        region = Region { name = TEST_DATA_4 }
-                                        subRegion = SubRegion { name = TEST_DATA }
-                                    }
-                            },
-                        )
-                },
+            ReverseGeocodeResponse {
+                pricingBucket = "test"
+                resultItems =
+                    listOf(
+                        ReverseGeocodeResultItem {
+                            placeId = "test"
+                            title = "testTitle"
+                            placeType = PlaceType.Block
+                            distance = 0L
+                            position = listOf(TEST_DATA_LNG, TEST_DATA_LAT)
+                            address =
+                                Address {
+                                    country = Country { name = TEST_DATA_2 }
+                                    label = TEST_DATA_3
+                                    region = Region { name = TEST_DATA_4 }
+                                    subRegion = SubRegion { name = TEST_DATA }
+                                }
+                        }
+                    )
+            },
             latitude = TEST_DATA_LAT,
-            longitude = TEST_DATA_LNG,
+            longitude = TEST_DATA_LNG
         )
 
     val RESPONSE_ADDRESS_LINE_FROM_LAT_LNG =
         SearchResponse(
             reverseGeocodeResponse =
-                ReverseGeocodeResponse {
-                    pricingBucket = "test"
-                    resultItems =
-                        listOf(
-                            ReverseGeocodeResultItem {
-                                placeId = "test"
-                                title = "testTitle"
-                                placeType = PlaceType.Block
-                                distance = 0L
-                                position = listOf(72.83468000000005, 18.921880000000044)
-                                address =
-                                    Address {
-                                        country = Country { name = "IND" }
-                                        label = "Gateway of India, Mumbai, Mahārāshtra, IND"
-                                        region = Region { name = "Mahārāshtra" }
-                                        subRegion = SubRegion { name = "Mumbai" }
-                                    }
-                            },
-                        )
-                },
+            ReverseGeocodeResponse {
+                pricingBucket = "test"
+                resultItems =
+                    listOf(
+                        ReverseGeocodeResultItem {
+                            placeId = "test"
+                            title = "testTitle"
+                            placeType = PlaceType.Block
+                            distance = 0L
+                            position = listOf(72.83468000000005, 18.921880000000044)
+                            address =
+                                Address {
+                                    country = Country { name = "IND" }
+                                    label = "Gateway of India, Mumbai, Mahārāshtra, IND"
+                                    region = Region { name = "Mahārāshtra" }
+                                    subRegion = SubRegion { name = "Mumbai" }
+                                }
+                        }
+                    )
+            },
             latitude = TEST_DATA_LAT,
-            longitude = TEST_DATA_LNG,
+            longitude = TEST_DATA_LNG
         )
 
     val RESPONSE_LOCATION_HISTORY =
         LocationHistoryResponse(
             errorMessage = null,
             response =
-                GetDevicePositionHistoryResponse {
-                    devicePositions =
-                        listOf(
-                            DevicePosition {
-                                deviceId = "662f86eddc909886"
-                                position = listOf(72.83373, 18.92216)
-                                positionProperties =
-                                    mapOf(
-                                        "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
-                                        "region" to "us-east-1",
-                                    )
-                                receivedTime = Instant.fromEpochMilliseconds(Date().time)
-                                sampleTime = Instant.fromEpochMilliseconds(Date().time)
-                            },
-                        )
-                },
+            GetDevicePositionHistoryResponse {
+                devicePositions =
+                    listOf(
+                        DevicePosition {
+                            deviceId = "662f86eddc909886"
+                            position = listOf(72.83373, 18.92216)
+                            positionProperties =
+                                mapOf(
+                                    "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
+                                    "region" to "us-east-1"
+                                )
+                            receivedTime = Instant.fromEpochMilliseconds(Date().time)
+                            sampleTime = Instant.fromEpochMilliseconds(Date().time)
+                        }
+                    )
+            }
         )
 
     val RESPONSE_LOCATION_HISTORY_TODAY =
         LocationHistoryResponse(
             errorMessage = null,
             response =
-                GetDevicePositionHistoryResponse {
-                    devicePositions =
-                        listOf(
-                            DevicePosition {
-                                deviceId = "662f86eddc909886"
-                                position = listOf(72.83373, 18.92216)
-                                positionProperties =
-                                    mapOf(
-                                        "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
-                                        "region" to "us-east-1",
-                                    )
-                                receivedTime = Instant.fromEpochMilliseconds(Date().time)
-                                sampleTime = Instant.fromEpochMilliseconds(Date().time)
-                            },
-                        )
-                },
+            GetDevicePositionHistoryResponse {
+                devicePositions =
+                    listOf(
+                        DevicePosition {
+                            deviceId = "662f86eddc909886"
+                            position = listOf(72.83373, 18.92216)
+                            positionProperties =
+                                mapOf(
+                                    "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
+                                    "region" to "us-east-1"
+                                )
+                            receivedTime = Instant.fromEpochMilliseconds(Date().time)
+                            sampleTime = Instant.fromEpochMilliseconds(Date().time)
+                        }
+                    )
+            }
         )
 
     val RESPONSE_ERROR_LOCATION_HISTORY =
         LocationHistoryResponse(
             errorMessage = MOCK_ERROR,
-            response = null,
+            response = null
         )
 
     val RESPONSE_ERROR_LOCATION_HISTORY_NO_ERROR =
         LocationHistoryResponse(
             errorMessage = null,
-            response = null,
+            response = null
         )
 
     val RESPONSE_DELETE_TRACKING_HISTORY =
         DeleteLocationHistoryResponse(
             errorMessage = null,
             response =
-                BatchDeleteDevicePositionHistoryResponse {
-                    errors = listOf()
-                },
+            BatchDeleteDevicePositionHistoryResponse {
+                errors = listOf()
+            }
         )
 
     val RESPONSE_ERROR_DELETE_TRACKING_HISTORY =
         DeleteLocationHistoryResponse(
             errorMessage = MOCK_ERROR,
-            response = null,
+            response = null
         )
 
     val RESPONSE_ERROR_DELETE_TRACKING_HISTORY_NO_ERROR =
         DeleteLocationHistoryResponse(
             errorMessage = null,
-            response = null,
+            response = null
         )
 
     val RESPONSE_TRACKER_GEOFENCE_LIST =
         GeofenceData(
             message = null,
             geofenceList =
-                arrayListOf(
-                    ListGeofenceResponseEntry {
-                        geofenceId = "bb"
-                        status = TEST_DATA_7
-                        createTime = Instant.fromEpochMilliseconds(Date().time)
-                        updateTime = Instant.fromEpochMilliseconds(Date().time)
-                        geometry =
-                            GeofenceGeometry {
-                                circle =
-                                    Circle {
-                                        center = listOf(72.530537125, 23.0147063)
-                                        radius = 778.0
-                                    }
-                            }
-                    },
-                ),
+            arrayListOf(
+                ListGeofenceResponseEntry {
+                    geofenceId = "bb"
+                    status = TEST_DATA_7
+                    createTime = Instant.fromEpochMilliseconds(Date().time)
+                    updateTime = Instant.fromEpochMilliseconds(Date().time)
+                    geometry =
+                        GeofenceGeometry {
+                            circle =
+                                Circle {
+                                    center = listOf(72.530537125, 23.0147063)
+                                    radius = 778.0
+                                }
+                        }
+                }
+            )
         )
 
     val RESPONSE_ERROR_TRACKER_GEOFENCE_LIST =
         GeofenceData(
             message = MOCK_ERROR,
-            geofenceList = arrayListOf(),
+            geofenceList = arrayListOf()
         )
 
     val RESPONSE_ERROR_TRACKER_GEOFENCE_LIST_NO_ERROR =
         GeofenceData(
             message = null,
-            geofenceList = arrayListOf(),
+            geofenceList = arrayListOf()
         )
 
     val RESPONSE_SIGN_IN =
@@ -830,6 +866,6 @@ object Responses {
             email = null,
             success = SIGN_IN_SUCCESS,
             provider = "cognito-idp.us-east-1.amazonaws.com/us-east-1_48VeDo2Uw",
-            idToken = "Mock Token",
+            idToken = "Mock Token"
         )
 }

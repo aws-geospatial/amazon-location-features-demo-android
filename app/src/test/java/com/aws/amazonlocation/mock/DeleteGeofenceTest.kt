@@ -12,12 +12,16 @@ class DeleteGeofenceTest {
 
     @Test
     fun testPosition() {
-        val deleteGeofence = DeleteGeofence(position = 42, data = ListGeofenceResponseEntry{
-            geofenceId = "test"
-            createTime = Instant.now()
-            updateTime = Instant.now()
-            status = "test"
-        }, errorMessage = null)
+        val deleteGeofence = DeleteGeofence(
+            position = 42,
+            data = ListGeofenceResponseEntry {
+                geofenceId = "test"
+                createTime = Instant.now()
+                updateTime = Instant.now()
+                status = "test"
+            },
+            errorMessage = null
+        )
         assert(deleteGeofence.data?.geofenceId == "test")
     }
 }

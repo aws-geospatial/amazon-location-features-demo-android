@@ -28,8 +28,14 @@ class RedirectionTypeTest {
     @Test
     fun `Enum values should be retrievable by their names`() {
         assertEquals(RedirectionType.ROUTE_OPTION, RedirectionType.valueOf("ROUTE_OPTION"))
-        assertEquals(RedirectionType.SEARCH_DIRECTION_CAR, RedirectionType.valueOf("SEARCH_DIRECTION_CAR"))
+        assertEquals(
+            RedirectionType.SEARCH_DIRECTION_CAR,
+            RedirectionType.valueOf("SEARCH_DIRECTION_CAR")
+        )
         assertEquals(RedirectionType.MY_LOCATION, RedirectionType.valueOf("MY_LOCATION"))
-        assertEquals(RedirectionType.DIRECTION_PERMISSION, RedirectionType.valueOf("DIRECTION_PERMISSION"))
+        assertEquals(
+            RedirectionType.DIRECTION_PERMISSION,
+            RedirectionType.valueOf("DIRECTION_PERMISSION")
+        )
     }
 }
