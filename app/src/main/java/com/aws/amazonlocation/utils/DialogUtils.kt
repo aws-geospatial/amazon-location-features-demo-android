@@ -2,8 +2,6 @@ package com.aws.amazonlocation.utils
 
 import android.content.Context
 import android.content.DialogInterface
-import android.view.LayoutInflater
-import androidx.appcompat.widget.AppCompatButton
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,18 +26,6 @@ fun Context.signOutDialog(mSignOutInterface: SignOutInterface) {
         dialog.dismiss()
     }
     mDialog.show()
-}
-
-fun Context.cloudFormationInfo() {
-    val view = LayoutInflater.from(this)
-        .inflate(R.layout.dialog_cloud_formation_info, null, false)
-    val mDialog = MaterialAlertDialogBuilder(this)
-    val btnOK = view.findViewById<AppCompatButton>(R.id.btn_cloudformation_ok)
-    mDialog.setView(view)
-    val dialog = mDialog.show()
-    btnOK.setOnClickListener {
-        dialog.dismiss()
-    }
 }
 
 fun Context.geofenceDeleteDialog(

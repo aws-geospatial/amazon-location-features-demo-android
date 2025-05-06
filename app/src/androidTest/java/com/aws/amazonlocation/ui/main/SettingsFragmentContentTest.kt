@@ -53,7 +53,6 @@ class SettingsFragmentContentTest : BaseTestMainActivity() {
 
             onView(withId(R.id.cl_map_style)).check(matches(isDisplayed()))
             onView(withId(R.id.cl_route_option)).check(matches(isDisplayed()))
-            onView(withId(R.id.cl_aws_cloudformation)).check(matches(isDisplayed()))
         } catch (e: Exception) {
             Assert.fail("$TEST_FAILED ${e.message}")
         }

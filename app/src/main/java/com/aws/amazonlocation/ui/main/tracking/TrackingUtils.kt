@@ -236,9 +236,6 @@ class TrackingUtils(
             mBottomSheetTrackingBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             mBottomSheetTrackingBehavior?.isFitToContents = false
             mBottomSheetTrackingBehavior?.halfExpandedRatio = 0.58f
-            btnEnableTracking.setOnClickListener {
-                (activity as MainActivity).openCloudFormation()
-            }
             cardTrackerGeofenceSimulation.hide()
             btnTryTracker.setOnClickListener {
                 openSimulationWelcome()

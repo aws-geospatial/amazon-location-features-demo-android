@@ -19,10 +19,8 @@ import com.aws.amazonlocation.ui.main.mapstyle.MapStyleFragment
 import com.aws.amazonlocation.ui.main.region.RegionFragment
 import com.aws.amazonlocation.ui.main.routeoption.RouteOptionFragment
 import com.aws.amazonlocation.ui.main.unitsystem.UnitSystemFragment
-import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.DisconnectAWSInterface
-import com.aws.amazonlocation.utils.EventType
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
@@ -55,7 +53,6 @@ import kotlinx.coroutines.launch
 // SPDX-License-Identifier: MIT-0
 class SettingFragment : BaseFragment(), SignOutInterface {
 
-    private lateinit var aWSCloudInformationFragment: AWSCloudInformationFragment
     private lateinit var mBinding: FragmentSettingBinding
     private var mAuthStatus: String? = null
     private var isTablet = false
@@ -285,39 +282,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
                     AnalyticsAttributeValue.DEFAULT_ROUTE_OPTIONS
                 )
             }
-            clAwsCloudformation.setOnClickListener {
-                if (isTablet) {
-                    aWSCloudInformationFragment = AWSCloudInformationFragment()
-                    addReplaceFragment(
-                        R.id.frame_container,
-                        aWSCloudInformationFragment,
-                        addFragment = false,
-                        addToBackStack = false
-                    )
-                    mBinding.apply {
-                        setDefaultSelection()
-                        clAwsCloudformation.setBackgroundColor(
-                            ContextCompat.getColor(requireContext(), R.color.color_view)
-                        )
-                        ivAwsCloudFormation.setColorFilter(
-                            ContextCompat.getColor(requireContext(), R.color.color_primary_green)
-                        )
-                    }
-                } else {
-                    findNavController().navigate(R.id.aws_cloud_information_fragment)
-                }
-                (activity as MainActivity).exitScreen()
-                (activity as MainActivity).setSelectedScreen(
-                    AnalyticsAttributeValue.CONNECT_YOUR_AWS_ACCOUNT
-                )
-                val propertiesAws = listOf(
-                    Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
-                )
-                (activity as MainActivity).analyticsUtils?.recordEvent(
-                    EventType.AWS_ACCOUNT_CONNECTION_STARTED,
-                    propertiesAws
-                )
-            }
             clLanguage.setOnClickListener {
                 if (isTablet) {
                     addReplaceFragment(
@@ -372,13 +336,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
                                 lifecycleScope.launch {
                                     mPreferenceManager.setDefaultConfig()
                                 }
-                                if (isTablet) {
-                                    if (this@SettingFragment::aWSCloudInformationFragment.isInitialized) {
-                                        if (aWSCloudInformationFragment.isVisible) {
-                                            aWSCloudInformationFragment.refresh()
-                                        }
-                                    }
-                                }
                                 (activity as MainActivity).initClient()
                                 init()
                                 dialog.dismiss()
@@ -394,49 +351,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
         }
     }
 
-    fun hideKeyBoard() {
-        if (isTablet) {
-            if (this::aWSCloudInformationFragment.isInitialized) {
-                if (aWSCloudInformationFragment.isVisible) {
-                    aWSCloudInformationFragment.hideKeyBoard()
-                }
-            }
-        }
-    }
-
-    fun refreshAfterSignOut() {
-        if (isTablet) {
-            if (this::aWSCloudInformationFragment.isInitialized) {
-                if (aWSCloudInformationFragment.isVisible) {
-                    aWSCloudInformationFragment.refreshAfterSignOut()
-                }
-            }
-        } else {
-            val propertiesAws = listOf(
-                Pair(AnalyticsAttribute.TRIGGERED_BY, AnalyticsAttributeValue.SETTINGS)
-            )
-            (activity as MainActivity).analyticsUtils?.recordEvent(
-                EventType.SIGN_OUT_SUCCESSFUL,
-                propertiesAws
-            )
-            showError(getString(R.string.sign_out_successfully))
-        }
-        init()
-    }
-
-    fun refreshAfterConnection() {
-        init()
-    }
-
-    fun refreshAfterSignIn() {
-        init()
-        if (this::aWSCloudInformationFragment.isInitialized) {
-            if (aWSCloudInformationFragment.isVisible) {
-                aWSCloudInformationFragment.refresh()
-            }
-        }
-    }
-
     private fun FragmentSettingBinding.setDefaultSelection() {
         clUnitSystem.setBackgroundColor(
             ContextCompat.getColor(
@@ -445,18 +359,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
             )
         )
         ivUnitSystem.setColorFilter(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.color_img_tint
-            )
-        )
-        clAwsCloudformation.setBackgroundColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.white
-            )
-        )
-        ivAwsCloudFormation.setColorFilter(
             ContextCompat.getColor(
                 requireContext(),
                 R.color.color_img_tint

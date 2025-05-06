@@ -379,8 +379,6 @@ class GeofenceUtils {
                         true,
                         GeofenceBottomSheetEnum.EMPTY_GEOFENCE_BOTTOM_SHEET
                     )
-                } else {
-                    (mActivity as MainActivity).showGeofenceCloudFormation()
                 }
             }
             cardTrackerGeofenceSimulation.hide()

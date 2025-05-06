@@ -385,63 +385,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_aws_cloudformation"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/dp_24"
-            app:layout_constraintEnd_toEndOf="@id/end_guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_region">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_aws_cloud_formation"
-                style="@style/SP16RegularWhiteTextStyle"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_24"
-                android:paddingVertical="@dimen/dp_22"
-                android:text="@string/aws_cloudformation"
-                android:gravity="start"
-                android:textDirection="locale"
-                android:textColor="@color/color_medium_black"
-                app:layout_constraintEnd_toStartOf="@id/iv_back_arrow_aws_cloudformation"
-                app:layout_constraintStart_toEndOf="@id/iv_aws_cloud_formation"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_aws_cloud_formation"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:src="@drawable/ic_aws_cloudformation"
-                android:tint="@color/color_img_tint"
-                app:layout_constraintBottom_toBottomOf="@id/tv_aws_cloud_formation"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_aws_cloud_formation" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_back_arrow_aws_cloudformation"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginEnd="@dimen/dp_15"
-                android:rotation="180"
-                android:src="@drawable/ic_back"
-                android:tint="@color/color_img_tint"
-                app:layout_constraintBottom_toBottomOf="@id/tv_aws_cloud_formation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_aws_cloud_formation" />
-
-            <View
-                android:id="@+id/view_aws_cloud_formation"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_1"
-                android:background="@color/color_view_line"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_aws_cloud_formation" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_disconnect"

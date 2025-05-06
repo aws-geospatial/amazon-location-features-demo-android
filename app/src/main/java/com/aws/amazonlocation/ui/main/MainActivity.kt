@@ -31,17 +31,13 @@ import com.aws.amazonlocation.data.common.onError
 import com.aws.amazonlocation.data.common.onLoading
 import com.aws.amazonlocation.data.common.onSuccess
 import com.aws.amazonlocation.data.enum.AuthEnum
-import com.aws.amazonlocation.data.enum.TabEnum
 import com.aws.amazonlocation.data.enum.TrackingEnum
 import com.aws.amazonlocation.databinding.ActivityMainBinding
-import com.aws.amazonlocation.domain.`interface`.CloudFormationInterface
 import com.aws.amazonlocation.domain.`interface`.SignInConnectInterface
 import com.aws.amazonlocation.domain.`interface`.SignInRequiredInterface
 import com.aws.amazonlocation.ui.base.BaseActivity
 import com.aws.amazonlocation.ui.main.explore.ExploreFragment
 import com.aws.amazonlocation.ui.main.mapstyle.MapStyleFragment
-import com.aws.amazonlocation.ui.main.setting.AWSCloudInformationFragment
-import com.aws.amazonlocation.ui.main.setting.SettingFragment
 import com.aws.amazonlocation.ui.main.simulation.SimulationUtils
 import com.aws.amazonlocation.ui.main.welcome.WelcomeBottomSheetFragment
 import com.aws.amazonlocation.utils.ABOUT_FRAGMENT
@@ -217,14 +213,6 @@ class MainActivity :
                                 ?: getString(R.string.map_standard)
                         changeMapStyle(mapStyleNameDisplay)
                     }
-
-                    is AWSCloudInformationFragment -> {
-                        fragment.refreshAfterSignOut()
-                    }
-
-                    is SettingFragment -> {
-                        fragment.refreshAfterSignOut()
-                    }
                 }
                 CoroutineScope(Dispatchers.IO).launch {
                     async { initMobileClient() }.await()
@@ -323,28 +311,18 @@ class MainActivity :
             mBinding.root,
             object : KeyBoardUtils.KeyBoardInterface {
                 override fun showKeyBoard() {
-                    val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-                    if (fragment is ExploreFragment) {
-                        if (!mGeofenceBottomSheetHelper.isCloudFormationBottomSheetVisible()) {
-                            fragment.showKeyBoard()
-                        }
-                    }
                 }
 
                 override fun hideKeyBoard() {
                     val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-                    if (fragment is ExploreFragment) {
-                        if (mGeofenceBottomSheetHelper.isCloudFormationBottomSheetVisible()) {
-                            mGeofenceBottomSheetHelper.cloudFormationBottomSheetHideKeyboard()
-                        } else {
+                    when (fragment) {
+                        is ExploreFragment -> {
                             fragment.hideKeyBoard()
                         }
-                    } else if (fragment is AWSCloudInformationFragment) {
-                        fragment.hideKeyBoard()
-                    } else if (fragment is MapStyleFragment) {
-                        fragment.hideKeyBoard()
-                    } else if (fragment is SettingFragment) {
-                        fragment.hideKeyBoard()
+
+                        is MapStyleFragment -> {
+                            fragment.hideKeyBoard()
+                        }
                     }
                 }
             }
@@ -732,33 +710,11 @@ class MainActivity :
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-                if (fragment is AWSCloudInformationFragment) {
-                    runOnUiThread {
-                        fragment.refresh()
-                    }
-                }
-                if (isTablet) {
-                    if (fragment is SettingFragment) {
-                        runOnUiThread {
-                            fragment.refreshAfterSignIn()
-                        }
-                    }
-                }
                 hideProgressAndShowData()
             }
         } catch (e: Exception) {
             showError("Unable to attach policy")
             hideProgressAndShowData()
-        }
-    }
-
-    fun refreshSettings() {
-        val fragment = mNavHostFragment.childFragmentManager.fragments[0]
-        if (fragment is SettingFragment) {
-            runOnUiThread {
-                fragment.refreshAfterConnection()
-            }
         }
     }
 
@@ -979,20 +935,6 @@ class MainActivity :
         if (mBottomSheetHelper.isDirectionSearchSheetVisible()) {
             mBottomSheetHelper.hideDirectionSearchBottomSheet(fragment as ExploreFragment)
         }
-    }
-
-    fun showGeofenceCloudFormation() {
-        mGeofenceBottomSheetHelper.cloudFormationBottomSheet(
-            TabEnum.TAB_GEOFENCE,
-            mCloudFormationInterface
-        )
-    }
-
-    fun openCloudFormation() {
-        mGeofenceBottomSheetHelper.cloudFormationBottomSheet(
-            TabEnum.TAB_TRACKING,
-            mCloudFormationInterface
-        )
     }
 
     private fun hideAmazonLogo() {
@@ -1243,13 +1185,6 @@ class MainActivity :
             isMapStyleChangeCalled = false
         }
     }
-
-    private val mCloudFormationInterface =
-        object : CloudFormationInterface {
-            override fun dialogDismiss(dialog: Dialog?) {
-                dialog?.dismiss()
-            }
-        }
 
     private fun showProgress() {
         if (alertDialog != null && alertDialog?.isShowing == true) {
