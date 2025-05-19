@@ -14,7 +14,7 @@ import com.aws.amazonlocation.actions.pinchIn
 import com.aws.amazonlocation.actions.pinchOut
 import com.aws.amazonlocation.checkLocationPermission
 import com.aws.amazonlocation.di.AppModule
-import com.aws.amazonlocation.utils.retryrule.Retry
+import com.aws.amazonlocation.utils.retryRule.Retry
 import com.aws.amazonlocation.waitForView
 import com.aws.amazonlocation.waitUntil
 import dagger.hilt.android.testing.HiltAndroidTest

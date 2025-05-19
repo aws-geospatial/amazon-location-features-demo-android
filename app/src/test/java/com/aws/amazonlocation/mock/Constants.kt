@@ -13,11 +13,7 @@ val GATE_WAY_OF_INDIA_LAT_LNG = LatLng(18.921880000000044, 72.83468000000005) //
 val DISTANCE_COORDINATE_FROM = LatLng(18.92216, 72.83373) // Near Gateway of India, Colaba, Mumbai, Maharashtra, 400001, IND
 const val TEST_DATA_LAT = 72.83312000000006
 const val TEST_DATA_LNG = 18.92169000000007
-const val TEST_DATA_LAT_1 = -122.084
-const val TEST_DATA_LNG_1 = 37.421998333333335
 val DISTANCE_COORDINATE_TO = LatLng(TEST_DATA_LNG, TEST_DATA_LAT) // The Taj Palace Hotel, Mumbai, Mumbai, Mahārāshtra, IND
-const val AVOID_FERRIES = false
-const val AVOID_TOLLS = true
 
 const val VALID_LAT = 18.921880000000044
 const val VALID_LNG = 72.83468000000005
@@ -30,13 +26,6 @@ const val INVALID_LNG_STRING = "$VALID_LAT, $INVALID_LNG"
 const val INVALID_LAT_STRING = "$INVALID_LAT, $VALID_LNG"
 
 const val STANDARD = "Standard"
-
-const val SIGN_IN_SUCCESS = "Sign in Successfully"
-
-const val TRACKING_HISTORY_START_DATE = "Thu Apr 14 00:00:00 GMT+05:30 2022"
-const val TRACKING_HISTORY_END_DATE = "Fri Apr 14 23:59:59 GMT+05:30 2023"
-const val TRACKING_HISTORY_TODAY_START_DATE = "Fri Apr 14 00:00:00 GMT+05:30 2023"
-const val TRACKING_HISTORY_TODAY_END_DATE = "Fri Apr 14 23:59:59 GMT+05:30 2023"
 
 const val START_DATE_NULL = "Start date is null"
 const val END_DATE_NULL = "End date is null"
@@ -61,14 +50,10 @@ const val TEST_FAILED_DUE_TO_INCORRECT_STYLE_NAME_FOR_STANDARD = "Test failed du
 const val TEST_FAILED_DUE_TO_INCORRECT_NO_OF_STYLES_LOADED_FOR_STANDARD = "Test failed due to incorrect no of styles loaded for Standard"
 
 const val TEST_FAILED_NAVIGATION_DATA = "Navigation data not match"
-const val TEST_FAILED_LOGIN_DATA = "Login data not match"
 const val TEST_FAILED_SEARCH_SUGGESTION_DATA = "Search suggestion data not match"
 const val TEST_FAILED_SEARCH_DATA = "Search data not match"
 const val TEST_FAILED_UPDATE_BATCH_DATA = "Update batch Location data not match"
-const val TEST_FAILED_ADD_GEOFENCE_DATA = "Add geofence data not match"
-const val TEST_FAILED_SIGN_OUT_DATA = "Sign out data not match"
 const val TEST_FAILED_CALCULATE_DISTANCE_DATA = "Calculate distance data not match"
-const val TEST_FAILED_TRACKING_HISTORY_DATA = "Tracking history data not match"
 const val TEST_FAILED_MAP_STYLE_INNER_DATA = "Map style inner data not match"
 const val TEST_FAILED_MAP_STYLE_DATA = "Map style data not match"
 
@@ -79,8 +64,6 @@ const val TEST_DATA_3 = "The Taj, Mumbai, Mahārāshtra, IND"
 const val TEST_DATA_4 = "Mahārāshtra"
 const val TEST_DATA_5 = "test"
 const val TEST_DATA_7 = "ACTIVE"
-const val TEST_DATA_8 = "jj"
-const val TEST_DATA_9 = "11"
 
 const val TEST_FAILED_DUE_TO_INVALID_LATITUDE = "Test failed due to invalid latitude"
 const val TEST_FAILED_DUE_TO_INVALID_LONGITUDE = "Test failed due to invalid longitude"
@@ -132,8 +115,6 @@ val IMPERIAL = "Imperial"
 val AUTOMATIC = "Automatic"
 
 // Dummy credential for test case
-val UTC_TIME = "2025-01-07T14:30:00+05:30"
-val RESULT_TIME = "14:30"
 val IDENTITY_POOL_CLIENT_ID_TEST = "66afllav6ri6hf66sikh6t6foh"
 val USER_POOL_ID_TEST = "ca-central-1_X6aaHHHb6"
 val jsonTurf: String = """

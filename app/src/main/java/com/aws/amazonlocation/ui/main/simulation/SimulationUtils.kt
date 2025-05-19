@@ -2,6 +2,8 @@ package com.aws.amazonlocation.ui.main.simulation
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -57,9 +59,9 @@ import com.aws.amazonlocation.utils.Units
 import com.aws.amazonlocation.utils.Units.checkInternetConnection
 import com.aws.amazonlocation.utils.Units.getSimulationWebSocketUrl
 import com.aws.amazonlocation.utils.Units.readRouteData
-import com.aws.amazonlocation.utils.geofence.turf.TurfConstants
-import com.aws.amazonlocation.utils.geofence.turf.TurfMeta
-import com.aws.amazonlocation.utils.geofence.turf.TurfTransformation
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfConstants
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfMeta
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfTransformation
 import com.aws.amazonlocation.utils.getLanguageCode
 import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.hideViews
@@ -76,6 +78,7 @@ import com.aws.amazonlocation.utils.simulationLonWest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -102,6 +105,7 @@ class SimulationUtils(
     val activity: Activity?,
     val mLocationProvider: LocationProvider
 ) {
+    private var defaultLocale: Locale? = null
     private var routeData: ArrayList<RouteSimulationDataItem>? = null
     private var isCoroutineStarted: Boolean = false
     private var notificationId: Int = 1
@@ -551,16 +555,19 @@ class SimulationUtils(
                             BottomSheetBehavior.STATE_COLLAPSED -> {
                                 imgAmazonLogoTrackingSheet.alpha = 1f
                                 ivAmazonInfoTrackingSheet.alpha = 1f
+                                resetConstraintsToOriginal()
                             }
                             BottomSheetBehavior.STATE_EXPANDED -> {
                                 imgAmazonLogoTrackingSheet.alpha = 0f
                                 ivAmazonInfoTrackingSheet.alpha = 0f
+                                resetConstraintsToOriginal()
                             }
                             BottomSheetBehavior.STATE_DRAGGING -> {
                             }
                             BottomSheetBehavior.STATE_HALF_EXPANDED -> {
                                 imgAmazonLogoTrackingSheet.alpha = 1f
                                 ivAmazonInfoTrackingSheet.alpha = 1f
+                                updateConstraintForHalfExpanded()
                             }
                             BottomSheetBehavior.STATE_HIDDEN -> {}
                             BottomSheetBehavior.STATE_SETTLING -> {}
@@ -571,12 +578,17 @@ class SimulationUtils(
                     }
                 })
 
+            defaultLocale = Locale.getDefault()
+            if (defaultLocale?.language == LANGUAGE_CODE_ARABIC) {
+                Locale.setDefault(Locale.ENGLISH)
+            }
+
             initClick()
             initAdapter()
             setSpinnerData()
             setSelectedNotificationCount()
             if ((activity as MainActivity).isTablet) {
-                val languageCode = getLanguageCode()
+                val languageCode = getLanguageCode(activity)
                 val isRtl =
                     languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
                 if (isRtl) {
@@ -584,6 +596,26 @@ class SimulationUtils(
                 }
             }
         }
+    }
+
+    private fun updateConstraintForHalfExpanded() {
+        val layoutParams = simulationBinding?.clList?.layoutParams as? ConstraintLayout.LayoutParams ?: return
+        layoutParams.height = getHalfScreenHeight()
+        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
+        simulationBinding?.clList?.layoutParams = layoutParams
+        simulationBinding?.clList?.requestLayout()
+    }
+
+    private fun resetConstraintsToOriginal() {
+        val layoutParams = simulationBinding?.clList?.layoutParams as? ConstraintLayout.LayoutParams ?: return
+        layoutParams.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
+        simulationBinding?.clList?.layoutParams = layoutParams
+        simulationBinding?.clList?.requestLayout()
+    }
+
+    private fun getHalfScreenHeight(): Int {
+        return (Resources.getSystem().displayMetrics.heightPixels / 2)
     }
 
     private fun drawSimulationPolygonCircle(circleCenter: Point, radius: Int, index: String) {
@@ -845,14 +877,13 @@ class SimulationUtils(
         val credentials = createCredentialsProvider(mLocationProvider.getCredentials())
         val webSocketUrl = getSimulationWebSocketUrl(defaultIdentityPoolId)
         if (webSocketUrl == "null") return
-        mqttClient = AWSIotMqttClient(
-            webSocketUrl,
-            identityId,
-            credentials,
-            defaultIdentityPoolId.split(":")[0]
-        )
-
         try {
+            mqttClient = AWSIotMqttClient(
+                webSocketUrl,
+                identityId,
+                credentials,
+                defaultIdentityPoolId.split(":")[0]
+            )
             mqttClient?.connect(MQTT_CONNECT_TIME_OUT, false)
             mIsLocationUpdateEnable = true
             startTracking()
@@ -1037,6 +1068,7 @@ class SimulationUtils(
         val notificationLayoutManager = LinearLayoutManager(mActivity?.applicationContext)
         simulationNotificationAdapter = SimulationNotificationAdapter(
             notificationData,
+            defaultLocale,
             object : SimulationNotificationAdapter.NotificationInterface {
                 override fun click(position: Int, isSelected: Boolean) {
                     notificationData[position].isSelected = isSelected
@@ -1095,10 +1127,33 @@ class SimulationUtils(
         simulationBinding?.rvRouteNotifications?.adapter = simulationNotificationAdapter
         simulationBinding?.rvRouteNotifications?.layoutManager = notificationLayoutManager
 
+        listOf(
+            simulationBinding?.nsvSimulation,
+            simulationBinding?.rvRouteNotifications,
+            simulationBinding?.rvTrackingSimulation
+        ).forEach { setupTouchListener(it) }
+
         val layoutManager = LinearLayoutManager(mActivity?.applicationContext)
-        simulationTrackingListAdapter = SimulationListAdapter()
+        simulationTrackingListAdapter = SimulationListAdapter(defaultLocale)
         simulationBinding?.rvTrackingSimulation?.adapter = simulationTrackingListAdapter
         simulationBinding?.rvTrackingSimulation?.layoutManager = layoutManager
+    }
+
+    private fun setupTouchListener(view: View?) {
+        view?.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (mBottomSheetSimulationBehavior?.state == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+                        mBottomSheetSimulationBehavior?.isDraggable = false
+                    }
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    mBottomSheetSimulationBehavior?.isDraggable = true
+                    v.performClick()
+                }
+            }
+            false
+        }
     }
 
     private fun setSelectedNotificationCount() {
@@ -1124,6 +1179,7 @@ class SimulationUtils(
     }
 
     fun isSimulationBottomSheetVisible(): Boolean {
+        if (mBottomSheetSimulationBehavior == null) return false
         return mBottomSheetSimulationBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
     }
 
@@ -1188,6 +1244,9 @@ class SimulationUtils(
     }
 
     fun hideSimulationBottomSheet() {
+        if (defaultLocale?.language == LANGUAGE_CODE_ARABIC) {
+            defaultLocale?.let { Locale.setDefault(it) }
+        }
         mMapLibreMap?.removeViewBounds()
         simulationBinding?.apply {
             closeTrackingCard()

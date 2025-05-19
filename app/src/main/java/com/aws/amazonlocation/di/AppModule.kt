@@ -2,20 +2,17 @@ package com.aws.amazonlocation.di
 
 import android.content.Context
 import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
-import com.aws.amazonlocation.data.repository.AuthImp
 import com.aws.amazonlocation.data.repository.GeofenceImp
 import com.aws.amazonlocation.data.repository.LocationSearchImp
-import com.aws.amazonlocation.domain.repository.AuthRepository
-import com.aws.amazonlocation.domain.repository.GeofenceRepository
 import com.aws.amazonlocation.domain.repository.LocationSearchRepository
+import com.aws.amazonlocation.domain.repository.SimulationRepository
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.MapHelper
 import com.aws.amazonlocation.utils.PreferenceManager
-import com.aws.amazonlocation.utils.providers.GeofenceProvider
 import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.providers.PlacesProvider
 import com.aws.amazonlocation.utils.providers.RoutesProvider
-import com.aws.amazonlocation.utils.providers.TrackingProvider
+import com.aws.amazonlocation.utils.providers.SimulationProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,32 +59,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getGeofenceProvider() = GeofenceProvider()
-
-    @Provides
-    @Singleton
-    fun getTrackingProvider() = TrackingProvider()
-
-    @Provides
-    @Singleton
-    fun providesCommonRepositoryImp(
-        @ApplicationContext appContext: Context,
-        mLocationHelper: LocationProvider,
-        mPlacesProvider: PlacesProvider,
-        mRoutesProvider: RoutesProvider,
-        mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider
-    ): AuthRepository =
-        AuthImp(
-            RemoteDataSourceImpl(
-                appContext,
-                mLocationHelper,
-                mPlacesProvider,
-                mRoutesProvider,
-                mGeofenceProvider,
-                mTrackingProvider
-            )
-        )
+    fun getSimulationProvider() = SimulationProvider()
 
     @Provides
     @Singleton
@@ -96,8 +68,7 @@ object AppModule {
         mLocationProvider: LocationProvider,
         mPlacesProvider: PlacesProvider,
         mRoutesProvider: RoutesProvider,
-        mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider
+        mSimulationProvider: SimulationProvider
     ): LocationSearchRepository =
         LocationSearchImp(
             RemoteDataSourceImpl(
@@ -105,8 +76,7 @@ object AppModule {
                 mLocationProvider,
                 mPlacesProvider,
                 mRoutesProvider,
-                mGeofenceProvider,
-                mTrackingProvider
+                mSimulationProvider
             )
         )
 
@@ -117,17 +87,15 @@ object AppModule {
         mLocationProvider: LocationProvider,
         mPlacesProvider: PlacesProvider,
         mRoutesProvider: RoutesProvider,
-        mGeofenceProvider: GeofenceProvider,
-        mTrackingProvider: TrackingProvider
-    ): GeofenceRepository =
+        mSimulationProvider: SimulationProvider
+    ): SimulationRepository =
         GeofenceImp(
             RemoteDataSourceImpl(
                 appContext,
                 mLocationProvider,
                 mPlacesProvider,
                 mRoutesProvider,
-                mGeofenceProvider,
-                mTrackingProvider
+                mSimulationProvider
             )
         )
 }

@@ -3,7 +3,7 @@ package com.aws.amazonlocation.utils.turf
 import com.aws.amazonlocation.mock.TEST_DATA_5
 import com.aws.amazonlocation.mock.jsonTurf
 import com.aws.amazonlocation.mock.jsonTurf1
-import com.aws.amazonlocation.utils.geofence.turf.TurfMeasurement
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfMeasurement
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

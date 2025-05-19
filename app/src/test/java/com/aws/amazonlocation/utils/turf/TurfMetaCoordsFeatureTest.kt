@@ -2,7 +2,7 @@ package com.aws.amazonlocation.utils.turf
 
 import com.aws.amazonlocation.mock.jsonTurf
 import com.aws.amazonlocation.mock.jsonTurf1
-import com.aws.amazonlocation.utils.geofence.turf.TurfMeta
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfMeta
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

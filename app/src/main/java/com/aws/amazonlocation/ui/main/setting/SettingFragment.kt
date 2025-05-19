@@ -1,26 +1,22 @@
 package com.aws.amazonlocation.ui.main.setting
 
-import android.content.DialogInterface
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.databinding.FragmentSettingBinding
 import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.language.LanguageFragment
-import com.aws.amazonlocation.ui.main.mapstyle.MapStyleFragment
+import com.aws.amazonlocation.ui.main.mapStyle.MapStyleFragment
 import com.aws.amazonlocation.ui.main.region.RegionFragment
-import com.aws.amazonlocation.ui.main.routeoption.RouteOptionFragment
-import com.aws.amazonlocation.ui.main.unitsystem.UnitSystemFragment
+import com.aws.amazonlocation.ui.main.routeOption.RouteOptionFragment
+import com.aws.amazonlocation.ui.main.unitSystem.UnitSystemFragment
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
-import com.aws.amazonlocation.utils.DisconnectAWSInterface
 import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_MAP_STYLE_NAME
 import com.aws.amazonlocation.utils.KEY_SELECTED_REGION
@@ -39,19 +35,13 @@ import com.aws.amazonlocation.utils.LANGUAGE_CODE_ITALIAN
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_JAPANESE
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_KOREAN
 import com.aws.amazonlocation.utils.LANGUAGE_CODE_SPANISH
-import com.aws.amazonlocation.utils.SignOutInterface
-import com.aws.amazonlocation.utils.disconnectFromAWSDialog
 import com.aws.amazonlocation.utils.getLanguageCode
-import com.aws.amazonlocation.utils.hide
 import com.aws.amazonlocation.utils.regionDisplayName
-import com.aws.amazonlocation.utils.show
-import com.aws.amazonlocation.utils.signOutDialog
-import kotlinx.coroutines.launch
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 // SPDX-License-Identifier: MIT-0
-class SettingFragment : BaseFragment(), SignOutInterface {
+class SettingFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentSettingBinding
     private var mAuthStatus: String? = null
@@ -105,33 +95,7 @@ class SettingFragment : BaseFragment(), SignOutInterface {
     private fun init() {
         mAuthStatus = mPreferenceManager.getValue(KEY_CLOUD_FORMATION_STATUS, "")
         mBinding.apply {
-            if (!mAuthStatus.isNullOrEmpty()) {
-                when (mAuthStatus) {
-                    AuthEnum.SIGNED_IN.name -> {
-                        ivDisconnect.setImageDrawable(
-                            ContextCompat.getDrawable(ivDisconnect.context, R.drawable.icon_log_out)
-                        )
-                        tvDisconnect.text = getText(R.string.label_sign_out)
-                        clDisconnect.show()
-                        clRegion.hide()
-                    }
-                    AuthEnum.AWS_CONNECTED.name -> {
-                        ivDisconnect.setImageDrawable(
-                            ContextCompat.getDrawable(ivDisconnect.context, R.drawable.ic_plug)
-                        )
-                        tvDisconnect.text = getString(R.string.label_disconnect)
-                        clDisconnect.show()
-                        clRegion.hide()
-                    }
-                    else -> {
-                        clDisconnect.hide()
-                        clRegion.show()
-                    }
-                }
-            } else {
-                clDisconnect.hide()
-            }
-            setSelectedLanguage(getLanguageCode())
+            setSelectedLanguage(getLanguageCode(requireContext()))
         }
     }
 
@@ -326,28 +290,6 @@ class SettingFragment : BaseFragment(), SignOutInterface {
                     findNavController().navigate(R.id.region_fragment)
                 }
             }
-            clDisconnect.setOnClickListener {
-                if (tvDisconnect.text.toString().trim() == getText(R.string.label_sign_out)) {
-                    requireContext().signOutDialog(this@SettingFragment)
-                } else {
-                    requireContext().disconnectFromAWSDialog(
-                        object : DisconnectAWSInterface {
-                            override fun disconnectAWS(dialog: DialogInterface) {
-                                lifecycleScope.launch {
-                                    mPreferenceManager.setDefaultConfig()
-                                }
-                                (activity as MainActivity).initClient()
-                                init()
-                                dialog.dismiss()
-                            }
-
-                            override fun logoutAndDisconnectAWS(dialog: DialogInterface) {
-                            }
-                        },
-                        false
-                    )
-                }
-            }
         }
     }
 
@@ -377,9 +319,5 @@ class SettingFragment : BaseFragment(), SignOutInterface {
         ivLanguage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.color_img_tint))
         clRegion.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         ivRegion.setColorFilter(ContextCompat.getColor(requireContext(), R.color.color_img_tint))
-    }
-
-    override fun logout(dialog: DialogInterface, isDisconnectFromAWSRequired: Boolean) {
-        (activity as MainActivity).openSignOut()
     }
 }

@@ -53,6 +53,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_0"
             android:layout_marginTop="@dimen/dp_14"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +125,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_0"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_unit_system">
@@ -193,6 +195,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_0"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_map_style">
@@ -263,6 +266,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_0"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_language">
@@ -319,6 +323,7 @@
             android:id="@+id/cl_region"
             android:layout_width="@dimen/dp_0"
             android:paddingStart="@dimen/dp_24"
+            android:paddingEnd="@dimen/dp_0"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -383,54 +388,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_region_name" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_disconnect"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/bottom_nav_height"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/end_guideline"
-            app:layout_constraintStart_toStartOf="@id/start_guideline">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_disconnect"
-                style="@style/SP16RegularWhiteTextStyle"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_24"
-                android:paddingVertical="@dimen/dp_22"
-                android:text="@string/label_disconnect"
-                android:gravity="start"
-                android:textDirection="locale"
-                android:textColor="@color/color_medium_black"
-                app:layout_constraintEnd_toStartOf="@id/iv_back_arrow_disconnect"
-                app:layout_constraintStart_toEndOf="@id/iv_disconnect"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_disconnect"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:src="@drawable/ic_plug"
-                android:tint="@color/color_red"
-                app:layout_constraintBottom_toBottomOf="@id/tv_disconnect"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_disconnect" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_back_arrow_disconnect"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginEnd="@dimen/dp_15"
-                android:rotation="180"
-                android:src="@drawable/ic_back"
-                android:tint="@color/color_img_tint"
-                app:layout_constraintBottom_toBottomOf="@id/tv_disconnect"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_disconnect" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

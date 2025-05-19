@@ -71,7 +71,7 @@ class AnalyticsTest : BaseTestMainActivity() {
             mBottomSheetSearchPlaces.state = BottomSheetBehavior.STATE_COLLAPSED
             waitForView(
                 CoreMatchers.allOf(
-                    withText(mActivityRule.activity.getString(R.string.menu_explore)),
+                    withText(mActivityRule.activity.getString(R.string.menu_navigate)),
                     isDisplayed()
                 )
             )

@@ -1,31 +1,24 @@
 package com.aws.amazonlocation.data.datasource
 
 import android.content.Context
-import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.common.DataSourceException
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.DistanceInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
-import com.aws.amazonlocation.domain.`interface`.LocationDeleteHistoryInterface
-import com.aws.amazonlocation.domain.`interface`.LocationHistoryInterface
 import com.aws.amazonlocation.domain.`interface`.PlaceInterface
 import com.aws.amazonlocation.domain.`interface`.SearchDataInterface
 import com.aws.amazonlocation.domain.`interface`.SearchPlaceInterface
-import com.aws.amazonlocation.domain.`interface`.SignInInterface
 import com.aws.amazonlocation.ui.main.explore.AvoidanceOption
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.isInternetAvailable
 import com.aws.amazonlocation.utils.isRunningRemoteDataSourceImplTest
-import com.aws.amazonlocation.utils.providers.GeofenceProvider
 import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.providers.PlacesProvider
 import com.aws.amazonlocation.utils.providers.RoutesProvider
-import com.aws.amazonlocation.utils.providers.TrackingProvider
+import com.aws.amazonlocation.utils.providers.SimulationProvider
 import com.aws.amazonlocation.utils.validateLatLng
-import java.util.Date
 import javax.inject.Inject
-import org.maplibre.android.geometry.LatLng
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -35,8 +28,7 @@ class RemoteDataSourceImpl(
     var mLocationProvider: LocationProvider,
     var mPlacesProvider: PlacesProvider,
     var mRoutesProvider: RoutesProvider,
-    var mGeofenceProvider: GeofenceProvider,
-    var mTrackingProvider: TrackingProvider
+    var mGeofenceProvider: SimulationProvider
 ) : RemoteDataSource {
     @Inject
     lateinit var mPreferenceManager: PreferenceManager
@@ -215,56 +207,6 @@ class RemoteDataSourceImpl(
         mGeofenceAPIInterface.getGeofenceList(response)
     }
 
-    override suspend fun addGeofence(
-        geofenceId: String,
-        collectionName: String,
-        radius: Double?,
-        latLng: LatLng?,
-        mGeofenceAPIInterface: GeofenceAPIInterface
-    ) {
-        val response = mGeofenceProvider.addGeofence(
-            geofenceId,
-            collectionName,
-            radius,
-            latLng,
-            mLocationProvider.getLocationClient(),
-            mLocationProvider.getBaseActivity()
-        )
-        mGeofenceAPIInterface.addGeofence(response)
-    }
-
-    override suspend fun deleteGeofence(
-        position: Int,
-        data: ListGeofenceResponseEntry,
-        mGeofenceAPIInterface: GeofenceAPIInterface
-    ) {
-        val response = mGeofenceProvider.deleteGeofence(
-            position,
-            data,
-            mLocationProvider.getLocationClient(),
-            mLocationProvider.getBaseActivity()
-        )
-        mGeofenceAPIInterface.deleteGeofence(response)
-    }
-
-    override suspend fun batchUpdateDevicePosition(
-        trackerName: String,
-        position: List<Double>,
-        deviceId: String,
-        mTrackingInterface: BatchLocationUpdateInterface
-    ) {
-        val response =
-            mTrackingProvider.batchUpdateDevicePosition(
-                trackerName,
-                position,
-                deviceId,
-                mLocationProvider.getIdentityId(),
-                mLocationProvider.getLocationClient(),
-                mLocationProvider.getBaseActivity()
-            )
-        mTrackingInterface.success(response)
-    }
-
     override suspend fun evaluateGeofence(
         trackerName: String,
         position1: List<Double>?,
@@ -282,61 +224,6 @@ class RemoteDataSourceImpl(
                 mLocationProvider.getBaseActivity()
             )
         mTrackingInterface.success(response)
-    }
-
-    override suspend fun getLocationHistory(
-        trackerName: String,
-        deviceId: String,
-        dateStart: Date,
-        dateEnd: Date,
-        historyInterface: LocationHistoryInterface
-    ) {
-        val response =
-            mTrackingProvider.getDevicePositionHistory(
-                trackerName,
-                deviceId,
-                dateStart,
-                dateEnd,
-                mLocationProvider.getLocationClient(),
-                mLocationProvider.getBaseActivity()
-            )
-        historyInterface.success(response)
-    }
-
-    override suspend fun deleteLocationHistory(
-        trackerName: String,
-        deviceId: String,
-        historyInterface: LocationDeleteHistoryInterface
-    ) {
-        val response =
-            mTrackingProvider.deleteDevicePositionHistory(
-                trackerName,
-                deviceId,
-                mLocationProvider.getLocationClient(),
-                mLocationProvider.getBaseActivity()
-            )
-        historyInterface.success(response)
-    }
-
-    override suspend fun fetchTokensWithOkHttp(
-        authorizationCode: String,
-        signInInterface: SignInInterface
-    ) {
-        val response = mLocationProvider.fetchTokensWithOkHttp(authorizationCode)
-        if (response != null) {
-            signInInterface.fetchTokensWithOkHttpSuccess("success", response)
-        } else {
-            signInInterface.fetchTokensWithOkHttpFailed("failed")
-        }
-    }
-
-    override suspend fun refreshTokensWithOkHttp(signInInterface: SignInInterface) {
-        val response = mLocationProvider.refreshTokensWithOkHttp()
-        if (response != null) {
-            signInInterface.refreshTokensWithOkHttpSuccess("success", response)
-        } else {
-            signInInterface.refreshTokensWithOkHttpFailed("failed")
-        }
     }
 
     override suspend fun getPlace(placeId: String, placeInterface: PlaceInterface) {

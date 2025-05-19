@@ -15,8 +15,6 @@ class MarkerEnumTest : BaseTest() {
         assertEquals("DIRECTION_ICON", MarkerEnum.DIRECTION_ICON.name)
         assertEquals("ORIGIN_ICON", MarkerEnum.ORIGIN_ICON.name)
         assertEquals("TRACKER_ICON", MarkerEnum.TRACKER_ICON.name)
-        assertEquals("GEOFENCE_ICON", MarkerEnum.GEOFENCE_ICON.name)
-        assertEquals("GEOFENCE_DRAG_ICON", MarkerEnum.GEOFENCE_DRAG_ICON.name)
     }
 
     @Test
@@ -25,8 +23,6 @@ class MarkerEnumTest : BaseTest() {
         assertEquals(1, MarkerEnum.DIRECTION_ICON.ordinal)
         assertEquals(2, MarkerEnum.ORIGIN_ICON.ordinal)
         assertEquals(3, MarkerEnum.TRACKER_ICON.ordinal)
-        assertEquals(4, MarkerEnum.GEOFENCE_ICON.ordinal)
-        assertEquals(5, MarkerEnum.GEOFENCE_DRAG_ICON.ordinal)
     }
 
     @Test
@@ -35,7 +31,5 @@ class MarkerEnumTest : BaseTest() {
         assertEquals(MarkerEnum.DIRECTION_ICON, MarkerEnum.valueOf("DIRECTION_ICON"))
         assertEquals(MarkerEnum.ORIGIN_ICON, MarkerEnum.valueOf("ORIGIN_ICON"))
         assertEquals(MarkerEnum.TRACKER_ICON, MarkerEnum.valueOf("TRACKER_ICON"))
-        assertEquals(MarkerEnum.GEOFENCE_ICON, MarkerEnum.valueOf("GEOFENCE_ICON"))
-        assertEquals(MarkerEnum.GEOFENCE_DRAG_ICON, MarkerEnum.valueOf("GEOFENCE_DRAG_ICON"))
     }
 }

@@ -5,7 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aws.amazonlocation.BaseTest
 import com.aws.amazonlocation.data.response.PoliticalData
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_INCORRECT_NO_OF_PROVIDERS_LOADED
-import com.aws.amazonlocation.ui.main.mapstyle.MapStyleViewModel
+import com.aws.amazonlocation.ui.main.mapStyle.MapStyleViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule

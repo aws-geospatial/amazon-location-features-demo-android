@@ -1,7 +1,7 @@
 package com.aws.amazonlocation.utils.turf
 
 import com.aws.amazonlocation.mock.TEST_DATA_5
-import com.aws.amazonlocation.utils.geofence.turf.TurfException
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfException
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner

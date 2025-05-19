@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/cl_map_style_main"
     android:fillViewport="true"
-    tools:context=".ui.main.mapstyle.MapStyleFragment">
+    tools:context=".ui.main.mapStyle.MapStyleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -274,10 +274,11 @@
                         android:layout_height="wrap_content"
                         android:visibility="visible"
                         app:endIconContentDescription="open map icon"
-                        app:endIconDrawable="@drawable/icon_close"
+                        app:endIconDrawable="@drawable/ic_close_search"
                         app:endIconMode="custom"
                         app:hintEnabled="false"
                         android:paddingEnd="@dimen/dp_4"
+                        android:paddingStart="@dimen/dp_0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_search"
                         app:layout_constraintStart_toEndOf="@+id/iv_search"

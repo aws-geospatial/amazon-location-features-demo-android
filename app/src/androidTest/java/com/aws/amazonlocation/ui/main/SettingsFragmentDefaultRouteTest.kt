@@ -129,7 +129,7 @@ class SettingsFragmentDefaultRouteTest : BaseTestMainActivity() {
     ) {
         waitForView(
             allOf(
-                withText(mActivityRule.activity.getString(R.string.menu_explore)),
+                withText(mActivityRule.activity.getString(R.string.menu_navigate)),
                 isDisplayed()
             )
         )?.perform(click())

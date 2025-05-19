@@ -8,7 +8,7 @@ import com.aws.amazonlocation.data.datasource.RemoteDataSourceImpl
 import com.aws.amazonlocation.data.repository.GeofenceImp
 import com.aws.amazonlocation.data.response.UpdateBatchLocationResponse
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
-import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
+import com.aws.amazonlocation.domain.usecase.SimulationUseCase
 import com.aws.amazonlocation.mock.DEVICE_ID
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_LOADING
 import com.aws.amazonlocation.mock.TEST_FAILED_DUE_TO_STATE_NOT_SUCCESS
@@ -34,7 +34,7 @@ class SimulationVMEvaluateGeofence : BaseTest() {
 
     private lateinit var geofenceImp: GeofenceImp
 
-    private lateinit var geofenceUseCase: GeofenceUseCase
+    private lateinit var geofenceUseCase: SimulationUseCase
 
     private lateinit var simulationViewModel: SimulationViewModel
 
@@ -42,7 +42,7 @@ class SimulationVMEvaluateGeofence : BaseTest() {
         super.setUp()
 
         geofenceImp = GeofenceImp(mRemoteDataSourceImpl)
-        geofenceUseCase = GeofenceUseCase(geofenceImp)
+        geofenceUseCase = SimulationUseCase(geofenceImp)
         simulationViewModel = SimulationViewModel(geofenceUseCase)
     }
 
