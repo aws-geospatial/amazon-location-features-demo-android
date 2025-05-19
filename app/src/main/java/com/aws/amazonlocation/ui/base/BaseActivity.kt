@@ -1,5 +1,6 @@
 package com.aws.amazonlocation.ui.base
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,7 +8,6 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.provider.Settings
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,19 +18,14 @@ import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import aws.sdk.kotlin.services.location.model.LocationException
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.ui.main.geofence.GeofenceBottomSheetHelper
-import com.aws.amazonlocation.ui.main.geofence.GeofenceUtils
-import com.aws.amazonlocation.ui.main.signin.SignInViewModel
 import com.aws.amazonlocation.ui.main.simulation.SimulationUtils
 import com.aws.amazonlocation.ui.main.tracking.TrackingUtils
 import com.aws.amazonlocation.utils.BottomSheetHelper
 import com.aws.amazonlocation.utils.KEY_LOCATION_PERMISSION
 import com.aws.amazonlocation.utils.KEY_NEAREST_REGION
-import com.aws.amazonlocation.utils.KEY_REFRESH_TOKEN
-import com.aws.amazonlocation.utils.KEY_USER_DETAILS
 import com.aws.amazonlocation.utils.LatencyChecker
+import com.aws.amazonlocation.utils.LocaleHelper
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.RESTART_DELAY
 import com.aws.amazonlocation.utils.Units
@@ -38,8 +33,6 @@ import com.aws.amazonlocation.utils.providers.LocationProvider
 import com.aws.amazonlocation.utils.regionList
 import com.aws.amazonlocation.utils.restartApplication
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.delay
@@ -51,15 +44,10 @@ import kotlinx.coroutines.runBlocking
 // SPDX-License-Identifier: MIT-0
 @AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
-    var mIsUserLoggedIn: Boolean = false
     private var mAlertDialog: AlertDialog? = null
 
     @Inject
     lateinit var mPreferenceManager: PreferenceManager
-
-    lateinit var mGeofenceBottomSheetHelper: GeofenceBottomSheetHelper
-
-    var mGeofenceUtils: GeofenceUtils? = null
 
     var mTrackingUtils: TrackingUtils? = null
     var mSimulationUtils: SimulationUtils? = null
@@ -72,7 +60,6 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var mLocationProvider: LocationProvider
 
     private var subTitle = ""
-    val mSignInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,8 +87,6 @@ open class BaseActivity : AppCompatActivity() {
 
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
-            mGeofenceBottomSheetHelper = GeofenceBottomSheetHelper(this@BaseActivity)
-            mGeofenceUtils = GeofenceUtils()
 
             val preference = PreferenceManager(applicationContext)
             mTrackingUtils = TrackingUtils(preference, this@BaseActivity, mLocationProvider)
@@ -154,14 +139,6 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun getUserInfo(): LoginResponse? =
-        if (!mPreferenceManager.getValue(KEY_USER_DETAILS, "").isNullOrEmpty()) {
-            val type = object : TypeToken<LoginResponse>() {}.type
-            Gson().fromJson(mPreferenceManager.getValue(KEY_USER_DETAILS, ""), type)
-        } else {
-            null
-        }
-
     fun getLocationPermissionCount(): Int = mPreferenceManager.getIntValue(
         KEY_LOCATION_PERMISSION,
         0
@@ -178,11 +155,6 @@ open class BaseActivity : AppCompatActivity() {
 
     fun resetLocationPermission() {
         mPreferenceManager.setValue(KEY_LOCATION_PERMISSION, 0)
-    }
-
-    fun clearUserInFo() {
-        mIsUserLoggedIn = false
-        mPreferenceManager.removeValue(KEY_USER_DETAILS)
     }
 
     fun bottomNavigationVisibility(isVisibility: Boolean) {
@@ -234,12 +206,6 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun refreshToken() {
-        if (!mPreferenceManager.getValue(KEY_REFRESH_TOKEN, "").isNullOrEmpty()) {
-            mSignInViewModel.refreshTokensWithOkHttp()
-        }
-    }
-
     private fun setTitle() {
         subTitle = getString(R.string.reconnect_with_aws_account)
     }
@@ -254,9 +220,13 @@ open class BaseActivity : AppCompatActivity() {
     fun restartAppWithClearData() {
         lifecycleScope.launch {
             mLocationProvider.clearCredentials()
-            mPreferenceManager.setDefaultConfig()
             delay(RESTART_DELAY)
             restartApplication()
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val updatedContext = LocaleHelper.attachBaseContext(newBase)
+        super.attachBaseContext(updatedContext)
     }
 }

@@ -57,7 +57,7 @@ class RegionFragment : BaseFragment() {
             val nearestRegion = mPreferenceManager.getValue(KEY_NEAREST_REGION, regionList[0])
             mRegionList[0].name = mRegionList[0].name + " - " + nearestRegion
             val layoutManager = LinearLayoutManager(requireContext())
-            val languageCode = getLanguageCode()
+            val languageCode = getLanguageCode(requireContext())
             val isRtl =
                 languageCode == LANGUAGE_CODE_ARABIC || languageCode == LANGUAGE_CODE_HEBREW || languageCode == LANGUAGE_CODE_HEBREW_1
             adapter = RegionAdapter(

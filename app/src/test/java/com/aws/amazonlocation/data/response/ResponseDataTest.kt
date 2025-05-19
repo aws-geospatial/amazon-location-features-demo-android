@@ -17,16 +17,12 @@ import com.aws.amazonlocation.mock.TEST_DATA_4
 import com.aws.amazonlocation.mock.TEST_DATA_5
 import com.aws.amazonlocation.mock.TEST_DATA_LAT
 import com.aws.amazonlocation.mock.TEST_DATA_LNG
-import com.aws.amazonlocation.mock.TEST_FAILED_ADD_GEOFENCE_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_CALCULATE_DISTANCE_DATA
-import com.aws.amazonlocation.mock.TEST_FAILED_LOGIN_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_MAP_STYLE_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_MAP_STYLE_INNER_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_NAVIGATION_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_SEARCH_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_SEARCH_SUGGESTION_DATA
-import com.aws.amazonlocation.mock.TEST_FAILED_SIGN_OUT_DATA
-import com.aws.amazonlocation.mock.TEST_FAILED_TRACKING_HISTORY_DATA
 import com.aws.amazonlocation.mock.TEST_FAILED_UPDATE_BATCH_DATA
 import java.util.Date
 import org.junit.Assert
@@ -46,17 +42,6 @@ class ResponseDataTest {
         navigationData.region = ""
         navigationData.country = ""
         Assert.assertTrue(TEST_FAILED_NAVIGATION_DATA, navigationData.getAddress() == TEST_DATA)
-    }
-
-    @Test
-    fun loginDataTest() {
-        val loginResponse = Responses.RESPONSE_SIGN_IN
-        loginResponse.idToken = loginResponse.idToken
-        loginResponse.name = loginResponse.name
-        loginResponse.provider = loginResponse.provider
-        loginResponse.success = loginResponse.success
-        loginResponse.email = loginResponse.email
-        Assert.assertTrue(TEST_FAILED_LOGIN_DATA, loginResponse.email == null)
     }
 
     @Test
@@ -118,31 +103,6 @@ class ResponseDataTest {
     }
 
     @Test
-    fun addGeofenceResponseTest() {
-        val addGeofenceResponse = AddGeofenceResponse(
-            isGeofenceDataAdded = true,
-            errorMessage = null
-        )
-        addGeofenceResponse.errorMessage = NO_DATA_FOUND
-        addGeofenceResponse.isGeofenceDataAdded = false
-        Assert.assertTrue(
-            TEST_FAILED_ADD_GEOFENCE_DATA,
-            addGeofenceResponse.errorMessage == NO_DATA_FOUND
-        )
-    }
-
-    @Test
-    fun signOutDataTest() {
-        val addGeofenceResponse = SignOutData(
-            message = null,
-            isDisconnectFromAWSRequired = false
-        )
-        addGeofenceResponse.message = NO_DATA_FOUND
-        addGeofenceResponse.isDisconnectFromAWSRequired = false
-        Assert.assertTrue(TEST_FAILED_SIGN_OUT_DATA, addGeofenceResponse.message == NO_DATA_FOUND)
-    }
-
-    @Test
     fun calculateDistanceResponseTest() {
         val calculateDistanceResponse = CalculateDistanceResponse(
             name = TEST_DATA_5,
@@ -159,21 +119,6 @@ class ResponseDataTest {
             TEST_FAILED_CALCULATE_DISTANCE_DATA,
             calculateDistanceResponse.name == TEST_DATA_5
         )
-    }
-
-    @Test
-    fun trackingHistoryDataTest() {
-        val data = TrackingHistoryData(
-            headerId = TEST_DATA_5,
-            headerString = "",
-            headerData = "",
-            devicePositionData = null
-        )
-        data.headerId = data.headerId
-        data.headerString = data.headerString
-        data.headerData = data.headerData
-        data.devicePositionData = data.devicePositionData
-        Assert.assertTrue(TEST_FAILED_TRACKING_HISTORY_DATA, data.headerId == TEST_DATA_5)
     }
 
     @Test

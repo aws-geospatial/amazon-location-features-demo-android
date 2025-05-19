@@ -15,7 +15,7 @@ import com.aws.amazonlocation.ui.base.BaseFragment
 import com.aws.amazonlocation.ui.main.MainActivity
 import com.aws.amazonlocation.ui.main.about.VersionFragment
 import com.aws.amazonlocation.ui.main.attribution.AttributionFragment
-import com.aws.amazonlocation.ui.main.termscondition.TermsAndConditionFragment
+import com.aws.amazonlocation.ui.main.termsCondition.TermsAndConditionFragment
 import com.aws.amazonlocation.ui.main.webView.WebViewActivity
 import com.aws.amazonlocation.utils.AnalyticsAttributeValue
 import com.aws.amazonlocation.utils.KEY_URL

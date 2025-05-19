@@ -43,19 +43,12 @@ import aws.sdk.kotlin.services.georoutes.model.RouteVehicleNoticeDetail
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleSummary
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleTravelStep
 import aws.sdk.kotlin.services.georoutes.model.RouteVehicleTravelStepType
-import aws.sdk.kotlin.services.location.model.BatchDeleteDevicePositionHistoryResponse
 import aws.sdk.kotlin.services.location.model.Circle
-import aws.sdk.kotlin.services.location.model.DevicePosition
 import aws.sdk.kotlin.services.location.model.GeofenceGeometry
-import aws.sdk.kotlin.services.location.model.GetDevicePositionHistoryResponse
 import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
-import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.data.response.DeleteLocationHistoryResponse
 import com.aws.amazonlocation.data.response.GeofenceData
-import com.aws.amazonlocation.data.response.LocationHistoryResponse
-import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.data.response.NavigationData
 import com.aws.amazonlocation.data.response.SearchResponse
 import com.aws.amazonlocation.data.response.SearchSuggestionData
@@ -654,47 +647,6 @@ object Responses {
         }
     }
 
-    val RESPONSE_GEOFENCE_LIST =
-        GeofenceData(
-            geofenceList =
-            arrayListOf(
-                ListGeofenceResponseEntry {
-                    createTime = Instant.now()
-                    geofenceId = "fdf"
-                    status = TEST_DATA_7
-                    updateTime = Instant.now()
-                    geometry =
-                        GeofenceGeometry {
-                            circle =
-                                Circle {
-                                    center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
-                                    radius = 100.00
-                                }
-                        }
-                },
-                ListGeofenceResponseEntry {
-                    createTime = Instant.now()
-                    geofenceId = "gg"
-                    status = TEST_DATA_7
-                    updateTime = Instant.now()
-                    geometry =
-                        GeofenceGeometry {
-                            circle =
-                                Circle {
-                                    center = listOf(TEST_DATA_LNG_1, TEST_DATA_LAT_1)
-                                    radius = 100.00
-                                }
-                        }
-                }
-            ),
-            message = null
-        )
-
-    val ERROR_RESPONSE_GEOFENCE_LIST =
-        GeofenceData(
-            message = NO_DATA_FOUND
-        )
-
     val SEARCH_RESPONSE_TAJ =
         SearchResponse(
             reverseGeocodeResponse =
@@ -749,83 +701,6 @@ object Responses {
             longitude = TEST_DATA_LNG
         )
 
-    val RESPONSE_LOCATION_HISTORY =
-        LocationHistoryResponse(
-            errorMessage = null,
-            response =
-            GetDevicePositionHistoryResponse {
-                devicePositions =
-                    listOf(
-                        DevicePosition {
-                            deviceId = "662f86eddc909886"
-                            position = listOf(72.83373, 18.92216)
-                            positionProperties =
-                                mapOf(
-                                    "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
-                                    "region" to "us-east-1"
-                                )
-                            receivedTime = Instant.fromEpochMilliseconds(Date().time)
-                            sampleTime = Instant.fromEpochMilliseconds(Date().time)
-                        }
-                    )
-            }
-        )
-
-    val RESPONSE_LOCATION_HISTORY_TODAY =
-        LocationHistoryResponse(
-            errorMessage = null,
-            response =
-            GetDevicePositionHistoryResponse {
-                devicePositions =
-                    listOf(
-                        DevicePosition {
-                            deviceId = "662f86eddc909886"
-                            position = listOf(72.83373, 18.92216)
-                            positionProperties =
-                                mapOf(
-                                    "id" to "c83280ad-a374-4dee-870c-ef695daf2bc1",
-                                    "region" to "us-east-1"
-                                )
-                            receivedTime = Instant.fromEpochMilliseconds(Date().time)
-                            sampleTime = Instant.fromEpochMilliseconds(Date().time)
-                        }
-                    )
-            }
-        )
-
-    val RESPONSE_ERROR_LOCATION_HISTORY =
-        LocationHistoryResponse(
-            errorMessage = MOCK_ERROR,
-            response = null
-        )
-
-    val RESPONSE_ERROR_LOCATION_HISTORY_NO_ERROR =
-        LocationHistoryResponse(
-            errorMessage = null,
-            response = null
-        )
-
-    val RESPONSE_DELETE_TRACKING_HISTORY =
-        DeleteLocationHistoryResponse(
-            errorMessage = null,
-            response =
-            BatchDeleteDevicePositionHistoryResponse {
-                errors = listOf()
-            }
-        )
-
-    val RESPONSE_ERROR_DELETE_TRACKING_HISTORY =
-        DeleteLocationHistoryResponse(
-            errorMessage = MOCK_ERROR,
-            response = null
-        )
-
-    val RESPONSE_ERROR_DELETE_TRACKING_HISTORY_NO_ERROR =
-        DeleteLocationHistoryResponse(
-            errorMessage = null,
-            response = null
-        )
-
     val RESPONSE_TRACKER_GEOFENCE_LIST =
         GeofenceData(
             message = null,
@@ -858,14 +733,5 @@ object Responses {
         GeofenceData(
             message = null,
             geofenceList = arrayListOf()
-        )
-
-    val RESPONSE_SIGN_IN =
-        LoginResponse(
-            name = BuildConfig.USER_LOGIN_NAME,
-            email = null,
-            success = SIGN_IN_SUCCESS,
-            provider = "cognito-idp.us-east-1.amazonaws.com/us-east-1_48VeDo2Uw",
-            idToken = "Mock Token"
         )
 }

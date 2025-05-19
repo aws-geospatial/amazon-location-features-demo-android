@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [ develop, main ]
-
 jobs:
   ktlint-check:
     name: KtLint Check

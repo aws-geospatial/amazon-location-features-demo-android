@@ -8,8 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.aws.amazonlocation.mock.END_DATE_NULL
 import com.aws.amazonlocation.mock.START_DATE_NULL
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowNetworkCapabilities

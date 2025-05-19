@@ -18,10 +18,8 @@ import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.TimestampFormat
 import aws.smithy.kotlin.runtime.time.fromEpochMilliseconds
 import com.aws.amazonlocation.BuildConfig
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.utils.AnalyticsAttribute
 import com.aws.amazonlocation.utils.DEFAULT_COUNTRY
-import com.aws.amazonlocation.utils.KEY_CLOUD_FORMATION_STATUS
 import com.aws.amazonlocation.utils.KEY_END_POINT
 import com.aws.amazonlocation.utils.PreferenceManager
 import com.aws.amazonlocation.utils.providers.LocationProvider
@@ -111,36 +109,8 @@ class AnalyticsUtils(
                     } else {
                         listOf(EventInput(eventType = event, attributes = emptyMap()))
                     }
-                val mUserId: String?
-                val mAuthStatus =
-                    mPreferenceManager.getValue(
-                        KEY_CLOUD_FORMATION_STATUS,
-                        AuthEnum.DEFAULT.name
-                    )
-                var connectedStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_NOT_CONNECTED
-                var authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
-                when (mAuthStatus) {
-                    AuthEnum.SIGNED_IN.name -> {
-                        mUserId = mLocationProvider.getIdentityId()
-                        connectedStatus =
-                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
-                        authStatus = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_AUTHENTICATED
-                    }
-
-                    AuthEnum.AWS_CONNECTED.name -> {
-                        mUserId = "AnonymousUser:$endpointId"
-                        connectedStatus =
-                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_CONNECTED
-                        authStatus =
-                            AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
-                    }
-
-                    else -> {
-                        mUserId = "AnonymousUser:$endpointId"
-                    }
-                }
-
-                if (mUserId != null && mUserId != userId) {
+                val mUserId = "AnonymousUser:$endpointId"
+                if (mUserId != userId) {
                     userId = mUserId
                     runBlocking { createOrUpdateEndpoint() }
                 }
@@ -164,8 +134,8 @@ class AnalyticsUtils(
                 properties.forEach { (propertyName, propertyValue) ->
                     attributes[propertyName] = propertyValue
                 }
-                attributes[AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS] = connectedStatus
-                attributes[AnalyticsAttribute.USER_AUTHENTICATION_STATUS] = authStatus
+                attributes[AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS] = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_NOT_CONNECTED
+                attributes[AnalyticsAttribute.USER_AUTHENTICATION_STATUS] = AnalyticsAttribute.USER_AWS_ACCOUNT_CONNECTION_STATUS_UNAUTHENTICATED
                 finalEvents.forEach {
                     it.attributes = attributes
                 }

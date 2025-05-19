@@ -9,7 +9,7 @@ import com.aws.amazonlocation.data.response.SimulationGeofenceData
 import com.aws.amazonlocation.data.response.UpdateBatchLocationResponse
 import com.aws.amazonlocation.domain.`interface`.BatchLocationUpdateInterface
 import com.aws.amazonlocation.domain.`interface`.GeofenceAPIInterface
-import com.aws.amazonlocation.domain.usecase.GeofenceUseCase
+import com.aws.amazonlocation.domain.usecase.SimulationUseCase
 import com.aws.amazonlocation.utils.ExcludeFromJacocoGeneratedReport
 import com.aws.amazonlocation.utils.simulationCollectionName
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 // SPDX-License-Identifier: MIT-0
 @HiltViewModel
 class SimulationViewModel @Inject constructor(
-    private var mGetGeofenceUseCase: GeofenceUseCase
+    private var mGetGeofenceUseCase: SimulationUseCase
 ) :
     ViewModel() {
 

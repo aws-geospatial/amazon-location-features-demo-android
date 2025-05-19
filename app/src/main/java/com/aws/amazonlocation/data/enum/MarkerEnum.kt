@@ -4,5 +4,5 @@ package com.aws.amazonlocation.data.enum
 
 // SPDX-License-Identifier: MIT-0
 enum class MarkerEnum {
-    NONE, DIRECTION_ICON, ORIGIN_ICON, TRACKER_ICON, GEOFENCE_ICON, GEOFENCE_DRAG_ICON
+    NONE, DIRECTION_ICON, ORIGIN_ICON, TRACKER_ICON
 }

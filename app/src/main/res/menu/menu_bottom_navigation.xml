@@ -3,21 +3,15 @@
     <item
         android:id="@+id/menu_explore"
         android:icon="@drawable/ic_explore"
-        android:title="@string/menu_explore" />
+        android:title="@string/menu_navigate" />
     <item
         android:id="@+id/menu_tracking"
         android:icon="@drawable/ic_tracking"
         android:title="@string/menu_tracking" />
     <item
-        android:id="@+id/menu_geofence"
-        android:icon="@drawable/ic_geofence"
-        android:title="@string/menu_geofence" />
-
-    <item
         android:id="@+id/menu_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/menu_setting" />
-
     <item
         android:id="@+id/menu_more"
         android:icon="@drawable/ic_info"

@@ -319,7 +319,6 @@ class BottomSheetHelper {
     }
 
     fun collapseSearchBottomSheet() {
-        exportFragment?.setUserProfile()
         mBottomSheetSearchPlaces.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
@@ -334,7 +333,6 @@ class BottomSheetHelper {
 
     fun hideSearchBottomSheet(isHide: Boolean) {
         if (!isHide) {
-            exportFragment?.setUserProfile()
             mBottomSheetSearchPlaces.isHideable = false
             if (context != null) {
                 context?.let {

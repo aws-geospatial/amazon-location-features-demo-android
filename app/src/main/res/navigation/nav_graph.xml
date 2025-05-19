@@ -6,12 +6,6 @@
     app:startDestination="@id/explore_fragment">
 
     <fragment
-        android:id="@+id/sign_in_fragment"
-        android:name="com.aws.amazonlocation.ui.main.signin.SignInFragment"
-        android:label="SignInFragment"
-        tools:layout="@layout/fragment_sign_in" />
-
-    <fragment
         android:id="@+id/explore_fragment"
         android:name="com.aws.amazonlocation.ui.main.explore.ExploreFragment"
         android:label="ExploreFragment"
@@ -27,21 +21,15 @@
 
     <fragment
         android:id="@+id/map_style_fragment"
-        android:name="com.aws.amazonlocation.ui.main.mapstyle.MapStyleFragment"
+        android:name="com.aws.amazonlocation.ui.main.mapStyle.MapStyleFragment"
         android:label="MapStyleFragment"
         tools:layout="@layout/fragment_map_style" />
 
     <fragment
         android:id="@+id/route_option_fragment"
-        android:name="com.aws.amazonlocation.ui.main.routeoption.RouteOptionFragment"
+        android:name="com.aws.amazonlocation.ui.main.routeOption.RouteOptionFragment"
         android:label="RouteOptionFragment"
         tools:layout="@layout/fragment_route_option" />
-
-    <fragment
-        android:id="@+id/aws_cloud_information_fragment"
-        android:name="com.aws.amazonlocation.ui.main.setting.AWSCloudInformationFragment"
-        android:label="AwsCloudInformationFragment"
-        tools:layout="@layout/fragment_aws_cloud_information" />
 
     <fragment
         android:id="@+id/attribution_fragment"
@@ -63,13 +51,13 @@
 
     <fragment
         android:id="@+id/terms_conditions_fragment"
-        android:name="com.aws.amazonlocation.ui.main.termscondition.TermsAndConditionFragment"
+        android:name="com.aws.amazonlocation.ui.main.termsCondition.TermsAndConditionFragment"
         android:label="TermsAndConditionFragment"
         tools:layout="@layout/fragment_terms_and_condition" />
 
     <fragment
         android:id="@+id/unit_system_fragment"
-        android:name="com.aws.amazonlocation.ui.main.unitsystem.UnitSystemFragment"
+        android:name="com.aws.amazonlocation.ui.main.unitSystem.UnitSystemFragment"
         android:label="UnitSystemFragment"
         tools:layout="@layout/fragment_unit_system" />
 

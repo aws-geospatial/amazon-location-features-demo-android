@@ -1,279 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/screen_size"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:id="@+id/cl_tracker_geofence"
+    android:background="@drawable/bottom_sheet_white_curved"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ll_bs_simulation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_sheet_top_all_corner_curved_white_bg"
-        android:paddingBottom="@dimen/dp_16"
+        android:id="@+id/cl_simulation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_simulation"
-            android:layout_width="@dimen/screen_size"
-            android:layout_height="@dimen/simulation_height"
-            android:layout_marginHorizontal="@dimen/dp_80"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="@dimen/dp_32"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/btn_start_simulation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.core.widget.NestedScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:paddingBottom="@dimen/dp_32"
-                android:clipToPadding="false"
-                app:layout_constraintBottom_toTopOf="@id/btn_start_simulation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_simulation_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_290"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:src="@drawable/ic_simulation_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_simulation"
+                    style="@style/SP16HintRegularTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_simulation"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/dp_250"
+                    android:textColor="@color/color_hint_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_welcome_app"
+                    style="@style/SP20BoldMediumBlackTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="@string/label_trackers_and_geofences"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_simulation" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_simulation_label"
+                    style="@style/SP13HintRegularTextStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_32"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:text="@string/label_des"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_hint_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_welcome_app" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_simulation_bg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleX="1.1"
-                        android:scaleY="1.1"
-                        android:src="@drawable/ic_simulation_bg"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_simulation"
-                        style="@style/SP16HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_simulation"
-                        android:textAlignment="center"
-                        android:layout_marginTop="@dimen/dp_290"
-                        android:textColor="@color/color_hint_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_welcome_app"
-                        style="@style/SP20BoldMediumBlackTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:text="@string/label_trackers_and_geofences"
-                        android:textAlignment="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_simulation" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_simulation_label"
-                        style="@style/SP13HintRegularTextStyle"
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_32"
-                        android:layout_marginTop="@dimen/dp_8"
-                        android:text="@string/label_des"
-                        android:textAlignment="center"
-                        android:textColor="@color/color_hint_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_app" />
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_simulation_label">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/cl_tracker"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp_34"
+                        android:layout_marginTop="@dimen/dp_32"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_simulation_label">
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_tracker"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_data_provider"
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_tracking"
+                            android:tint="@color/color_primary_green"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_tracker"
+                            style="@style/SP20BoldMediumBlackTextStyle"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_34"
-                            android:layout_marginTop="@dimen/dp_32"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:text="@string/label_trackers_simulation"
+                            android:textColor="@color/color_medium_black"
+                            android:textSize="@dimen/sp_16"
+                            app:layout_constraintStart_toEndOf="@id/iv_data_provider"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/iv_data_provider"
-                                android:layout_width="@dimen/dp_32"
-                                android:layout_height="@dimen/dp_32"
-                                android:src="@drawable/ic_tracking"
-                                android:tint="@color/color_primary_green"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_tracker"
-                                style="@style/SP20BoldMediumBlackTextStyle"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:text="@string/label_trackers_simulation"
-                                android:textColor="@color/color_medium_black"
-                                android:textSize="@dimen/sp_16"
-                                app:layout_constraintStart_toEndOf="@id/iv_data_provider"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_tracker_sub"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:layout_marginTop="@dimen/dp_4"
-                                android:text="@string/label_visualize_your_location_history_on_the_map"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/iv_data_provider"
-                                app:layout_constraintTop_toBottomOf="@id/tv_tracker" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_geofence"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_tracker_sub"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_34"
-                            android:layout_marginTop="@dimen/dp_24"
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:text="@string/label_visualize_your_location_history_on_the_map"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_data_provider"
+                            app:layout_constraintTop_toBottomOf="@id/tv_tracker" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_geofence"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp_34"
+                        android:layout_marginTop="@dimen/dp_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_tracker">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_geofence"
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_geofence"
+                            android:tint="@color/color_primary_green"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/cl_tracker">
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/iv_geofence"
-                                android:layout_width="@dimen/dp_32"
-                                android:layout_height="@dimen/dp_32"
-                                android:src="@drawable/ic_geofence"
-                                android:tint="@color/color_primary_green"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_geofence"
-                                style="@style/SP20BoldMediumBlackTextStyle"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:text="@string/label_geofences_simulation"
-                                android:textColor="@color/color_medium_black"
-                                android:textSize="@dimen/sp_16"
-                                app:layout_constraintStart_toEndOf="@id/iv_geofence"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_geofence_sub"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:layout_marginTop="@dimen/dp_4"
-                                android:text="@string/label_define_virtual_boundaries_around_a_specific_area_to_detect_entry_and_exit_events"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/iv_geofence"
-                                app:layout_constraintTop_toBottomOf="@id/tv_geofence" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_notification"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_geofence"
+                            style="@style/SP20BoldMediumBlackTextStyle"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/dp_34"
-                            android:layout_marginTop="@dimen/dp_24"
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:text="@string/label_geofences_simulation"
+                            android:textColor="@color/color_medium_black"
+                            android:textSize="@dimen/sp_16"
+                            app:layout_constraintStart_toEndOf="@id/iv_geofence"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_geofence_sub"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:text="@string/label_define_virtual_boundaries_around_a_specific_area_to_detect_entry_and_exit_events"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_geofence"
+                            app:layout_constraintTop_toBottomOf="@id/tv_geofence" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_notification"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp_34"
+                        android:layout_marginTop="@dimen/dp_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_geofence">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_notification"
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/icon_bell"
+                            android:tint="@color/color_primary_green"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/cl_geofence">
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/iv_notification"
-                                android:layout_width="@dimen/dp_32"
-                                android:layout_height="@dimen/dp_32"
-                                android:src="@drawable/icon_bell"
-                                android:tint="@color/color_primary_green"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_notification"
+                            style="@style/SP20BoldMediumBlackTextStyle"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:text="@string/label_notifications"
+                            android:textColor="@color/color_medium_black"
+                            android:textSize="@dimen/sp_16"
+                            app:layout_constraintStart_toEndOf="@id/iv_notification"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_notification"
-                                style="@style/SP20BoldMediumBlackTextStyle"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:text="@string/label_notifications"
-                                android:textColor="@color/color_medium_black"
-                                android:textSize="@dimen/sp_16"
-                                app:layout_constraintStart_toEndOf="@id/iv_notification"
-                                app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_notification_sub"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_21"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:text="@string/label_get_geofence_messages_when_you_enter_and_leave_locations"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_notification"
+                            app:layout_constraintTop_toBottomOf="@id/tv_notification" />
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tv_notification_sub"
-                                android:layout_width="@dimen/dp_0"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_21"
-                                android:layout_marginTop="@dimen/dp_4"
-                                android:text="@string/label_get_geofence_messages_when_you_enter_and_leave_locations"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/iv_notification"
-                                app:layout_constraintTop_toBottomOf="@id/tv_notification" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_start_simulation"
-                style="@style/SigInHintTxt"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_48"
-                android:layout_marginHorizontal="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_4"
-                android:background="@drawable/sign_in_bg_1"
-                android:text="@string/label_start_simulation"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_16"
-                app:cornerRadius="@dimen/dp_8"
-                app:layout_constraintBottom_toTopOf="@+id/tv_maybe_later"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_maybe_later"
-                style="@style/SP20BoldMediumBlackTextStyle"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="@dimen/dp_48"
-                android:layout_marginTop="@dimen/dp_4"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:text="@string/maybe_later"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textSize="@dimen/sp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_start_simulation_close"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginTop="@dimen/dp_14"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:src="@drawable/ic_close"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_start_simulation"
+            style="@style/SigInHintTxt"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginHorizontal="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_64"
+            android:background="@drawable/sign_in_bg_1"
+            android:text="@string/label_try_trackers_amp_geofences_simulation"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:cornerRadius="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

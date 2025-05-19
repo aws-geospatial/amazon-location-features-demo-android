@@ -2,16 +2,12 @@
 <resources>
     <!--dp -->
     <dimen name="screen_size">300dp</dimen>
-    <dimen name="screen_size_cloud_formation">420dp</dimen>
     <dimen name="navigation_top_dialog_size">270dp</dimen>
     <dimen name="attribution_learn_more">250dp</dimen>
     <dimen name="bottom_nav_height">55dp</dimen>
-    <dimen name="welcome_screen_width">460dp</dimen>
     <dimen name="welcome_screen_height">620dp</dimen>
     <dimen name="sign_in_required_width">350dp</dimen>
     <dimen name="map_style_height">520dp</dimen>
-    <dimen name="simulation_height">520dp</dimen>
     <bool name="is_tablet">true</bool>
     <bool name="is_large_tablet">false</bool>
-    <dimen name="region_dropdown_width">80dp</dimen>
 </resources>

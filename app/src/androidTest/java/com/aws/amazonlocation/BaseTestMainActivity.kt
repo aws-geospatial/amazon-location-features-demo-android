@@ -2,8 +2,8 @@ package com.aws.amazonlocation
 
 import androidx.test.rule.ActivityTestRule
 import com.aws.amazonlocation.ui.main.MainActivity
-import com.aws.amazonlocation.utils.retryrule.RetryTestRule
-import com.aws.amazonlocation.utils.screenshotrule.ScreenshotTakingRule
+import com.aws.amazonlocation.utils.retryRule.RetryTestRule
+import com.aws.amazonlocation.utils.screenshotRule.ScreenshotTakingRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import org.junit.After
 import org.junit.Before

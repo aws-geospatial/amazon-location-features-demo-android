@@ -9,7 +9,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.location.Location
 import android.os.Looper
 import android.view.View
@@ -19,23 +18,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import aws.sdk.kotlin.services.geoplaces.model.Address
-import aws.sdk.kotlin.services.location.model.ListGeofenceResponseEntry
 import com.aws.amazonlocation.R
-import com.aws.amazonlocation.data.enum.AuthEnum
 import com.aws.amazonlocation.data.enum.MarkerEnum
 import com.aws.amazonlocation.data.response.SearchSuggestionData
 import com.aws.amazonlocation.domain.`interface`.MarkerClickInterface
 import com.aws.amazonlocation.domain.`interface`.UpdateRouteInterface
-import com.aws.amazonlocation.domain.`interface`.UpdateTrackingInterface
-import com.aws.amazonlocation.ui.main.mapstyle.MapStyleChangeListener
-import com.aws.amazonlocation.utils.Distance.DISTANCE_IN_METER_30
+import com.aws.amazonlocation.ui.main.mapStyle.MapStyleChangeListener
 import com.aws.amazonlocation.utils.Durations.CAMERA_DURATION_1000
 import com.aws.amazonlocation.utils.Durations.CAMERA_DURATION_1500
 import com.aws.amazonlocation.utils.Durations.DEFAULT_INTERVAL_IN_MILLISECONDS
-import com.aws.amazonlocation.utils.GeofenceCons.CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID
 import com.aws.amazonlocation.utils.MapCameraZoom.DEFAULT_CAMERA_ZOOM
 import com.aws.amazonlocation.utils.MapCameraZoom.NAVIGATION_CAMERA_ZOOM
-import com.aws.amazonlocation.utils.MapCameraZoom.TRACKING_CAMERA_ZOOM
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -57,7 +50,6 @@ import org.maplibre.android.location.permissions.PermissionsManager
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.Style
-import org.maplibre.android.plugins.annotation.OnSymbolDragListener
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
 import org.maplibre.android.plugins.annotation.SymbolOptions
@@ -94,13 +86,8 @@ class MapHelper(
     private var mSymbolManagerTracker: SymbolManager? = null
     private var mMapLibreMap: MapLibreMap? = null
     private var mLastStoreLocation: Location? = null
-    private var mLastStoreTrackingLocation: Location? = null
     private var mRouteInterface: UpdateRouteInterface? = null
-    private var mTrackingInterface: UpdateTrackingInterface? = null
     private var mOriginSymbol: Symbol? = null
-    private var mGeofenceSM: SymbolManager? = null
-    private var mGeofenceDragSM: SymbolManager? = null
-    var mSymbolOptionList = ArrayList<Symbol>()
     private var mapStyleChangeListener: MapStyleChangeListener? = null
     private var mPreferenceManager: PreferenceManager? = null
     private val MAX_BUSES = notificationData.size
@@ -146,8 +133,6 @@ class MapHelper(
                 mSymbolManager = SymbolManager(mapView, mapLibreMap, style)
                 mSymbolManagerWithClick = SymbolManager(mapView, mapLibreMap, style)
                 mSymbolManagerTracker = SymbolManager(mapView, mapLibreMap, style)
-                mGeofenceSM = SymbolManager(mapView, mapLibreMap, style)
-                mGeofenceDragSM = SymbolManager(mapView, mapLibreMap, style)
                 mapLibreMap.uiSettings.isAttributionEnabled = false
                 isMapLoadedInterface.mapLoadedSuccess()
                 mapStyleChangedListener.onMapStyleChanged(mapStyle)
@@ -162,22 +147,16 @@ class MapHelper(
 
     private fun setRegion() {
         region = ""
-        val mAuthStatus = mPreferenceManager?.getValue(KEY_CLOUD_FORMATION_STATUS, "")
-        if (mAuthStatus == AuthEnum.SIGNED_IN.name || mAuthStatus == AuthEnum.AWS_CONNECTED.name) {
-            region = mPreferenceManager?.getValue(KEY_USER_REGION, "")
-        }
-        if (region.isNullOrEmpty()) {
-            val defaultIdentityPoolId: String =
-                Units.getDefaultIdentityPoolId(
-                    mPreferenceManager?.getValue(
-                        KEY_SELECTED_REGION,
-                        regionDisplayName[0]
-                    ),
-                    mPreferenceManager?.getValue(KEY_NEAREST_REGION, "")
-                )
-            if (defaultIdentityPoolId == "null") return
-            region = defaultIdentityPoolId.split(":")[0]
-        }
+        val defaultIdentityPoolId: String =
+            Units.getDefaultIdentityPoolId(
+                mPreferenceManager?.getValue(
+                    KEY_SELECTED_REGION,
+                    regionDisplayName[0]
+                ),
+                mPreferenceManager?.getValue(KEY_NEAREST_REGION, "")
+            )
+        if (defaultIdentityPoolId == "null") return
+        region = defaultIdentityPoolId.split(":")[0]
     }
 
     fun updateStyle(
@@ -229,28 +208,6 @@ class MapHelper(
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun initTrackingLocationEngine() {
-        coroutineScope.launch {
-            fusedLocationClient?.locationAvailability?.addOnSuccessListener {
-                if (!it.isLocationAvailable) {
-                    return@addOnSuccessListener
-                }
-
-                fusedLocationClient?.requestLocationUpdates(
-                    LocationRequest
-                        .Builder(ACCURACY, DEFAULT_INTERVAL_IN_MILLISECONDS)
-                        .setWaitForAccurateLocation(WAIT_FOR_ACCURATE_LOCATION)
-                        .setMinUpdateIntervalMillis(MIN_UPDATE_INTERVAL_MILLIS)
-                        .setMaxUpdateDelayMillis(LATENCY)
-                        .build(),
-                    locationTrackingListener,
-                    Looper.getMainLooper()
-                )
-            }
-        }
-    }
-
     fun setInitialLocation() {
         initLocationEngine()
     }
@@ -260,19 +217,9 @@ class MapHelper(
         this.mRouteInterface = routeInterface
     }
 
-    fun setTrackingUpdateRoute(updateTrackingInterface: UpdateTrackingInterface?) {
-        initTrackingLocationEngine()
-        this.mTrackingInterface = updateTrackingInterface
-    }
-
     fun removeLocationListener() {
         addLiveLocationMarker(false)
         fusedLocationClient?.removeLocationUpdates(locationListener)
-    }
-
-    fun removeTrackingLocationListener() {
-        // addLiveLocationMarker(false)
-        fusedLocationClient?.removeLocationUpdates(locationTrackingListener)
     }
 
     private val locationListener =
@@ -285,33 +232,6 @@ class MapHelper(
                         mLastStoreLocation = it
                         mRouteInterface?.updateRoute(it, result.lastLocation?.bearing)
                     }
-                }
-            }
-        }
-
-    private val locationTrackingListener =
-        object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                try {
-                    mMapLibreMap?.locationComponent?.forceLocationUpdate(result.lastLocation)
-                    if (mLastStoreTrackingLocation == null) {
-                        mLastStoreTrackingLocation = result.lastLocation
-                    } else {
-                        mLastStoreTrackingLocation?.let {
-                            val distance = result.lastLocation?.let { it1 -> it.distanceTo(it1) }
-                            if (distance != null) {
-                                if (distance > DISTANCE_IN_METER_30) {
-                                    mLastStoreTrackingLocation = result.lastLocation
-                                    mTrackingInterface?.updateRoute(
-                                        it,
-                                        result.lastLocation?.bearing
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
             }
         }
@@ -942,43 +862,6 @@ class MapHelper(
         }
     }
 
-    fun addMarkerTracker(
-        trackerImageName: String,
-        activity: Activity,
-        markerType: MarkerEnum,
-        currentPlace: LatLng
-    ) {
-        mMapLibreMap?.getStyle { style ->
-            BitmapUtils
-                .getBitmapFromDrawable(
-                    ContextCompat.getDrawable(
-                        activity,
-                        if (markerType.name == MarkerEnum.ORIGIN_ICON.name) R.drawable.ic_geofence_marker_1 else R.drawable.ic_tracker
-                    )
-                )?.let {
-                    style.addImage(trackerImageName, it)
-                }
-            mSymbolManagerTracker?.textAllowOverlap = true
-            mSymbolManagerTracker?.iconAllowOverlap = true
-            mSymbolManagerTracker?.iconIgnorePlacement = false
-            val symbolOptions =
-                SymbolOptions()
-                    .withLatLng(currentPlace)
-                    .withIconImage(
-                        trackerImageName
-                    ).withIconAnchor(
-                        if (markerType.name ==
-                            MarkerEnum.GEOFENCE_ICON.name
-                        ) {
-                            Property.ICON_ANCHOR_CENTER
-                        } else {
-                            Property.ICON_ANCHOR_CENTER
-                        }
-                    )
-            mSymbolManagerTracker?.create(symbolOptions)
-        }
-    }
-
     fun addMarkerSimulation(
         trackerImageName: String,
         activity: Activity,
@@ -1078,7 +961,6 @@ class MapHelper(
     }
 
     fun clearMarker() {
-        mGeofenceSM?.deleteAll()
         mSymbolManager?.deleteAll()
         mSymbolManagerWithClick?.deleteAll()
         mSymbolManagerTracker?.deleteAll()
@@ -1122,30 +1004,6 @@ class MapHelper(
     }
 
     // move camera to  location
-    fun moveCameraToLocationTracker(latLng: LatLng) {
-        mMapLibreMap?.getStyle { style ->
-            if (style.isFullyLoaded) {
-                mMapLibreMap?.easeCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition
-                            .Builder()
-                            .zoom(DEFAULT_CAMERA_ZOOM)
-                            .padding(
-                                appContext.resources.getDimension(R.dimen.dp_80).toDouble(),
-                                appContext.resources.getDimension(R.dimen.dp_80).toDouble(),
-                                appContext.resources.getDimension(R.dimen.dp_80).toDouble(),
-                                appContext.resources.getDimension(R.dimen.dp_80).toDouble()
-                            ).target(
-                                latLng
-                            ).build()
-                    ),
-                    CAMERA_DURATION_1500
-                )
-            }
-        }
-    }
-
-    // move camera to  location
     fun moveCameraToLocation(latLng: LatLng) {
         mMapLibreMap?.getStyle { style ->
             if (style.isFullyLoaded) {
@@ -1167,26 +1025,6 @@ class MapHelper(
                 )
             }
         }
-    }
-
-    // move camera to  location
-    fun moveCameraToCurrentLocation(latLng: LatLng) {
-        mMapLibreMap?.easeCamera(
-            CameraUpdateFactory.newCameraPosition(
-                CameraPosition
-                    .Builder()
-                    .zoom(TRACKING_CAMERA_ZOOM)
-                    .padding(
-                        appContext.resources.getDimension(R.dimen.dp_210).toDouble(),
-                        appContext.resources.getDimension(R.dimen.dp_80).toDouble(),
-                        appContext.resources.getDimension(R.dimen.dp_210).toDouble(),
-                        appContext.resources.getDimension(R.dimen.dp_350).toDouble()
-                    ).target(
-                        latLng
-                    ).build()
-            ),
-            CAMERA_DURATION_1500
-        )
     }
 
     fun bearingCamera(
@@ -1277,102 +1115,6 @@ class MapHelper(
         }
     }
 
-    fun addGeofenceMarker(
-        activity: Activity,
-        data: ListGeofenceResponseEntry,
-        markerClick: MarkerClickInterface
-    ) {
-        mMapLibreMap?.getStyle { style ->
-            data.geometry?.circle?.center?.let { doubles ->
-                convertGeofenceLayoutToBitmap(activity, data).let { bitmap ->
-                    style.addImage(
-                        data.geofenceId,
-                        bitmap
-                    )
-                }
-                mGeofenceSM?.textAllowOverlap = true
-                mGeofenceSM?.iconAllowOverlap = true
-                mGeofenceSM?.iconIgnorePlacement = false
-                val symbolOptions =
-                    SymbolOptions()
-                        .withLatLng(LatLng(doubles[1], doubles[0]))
-                        .withIconImage(data.geofenceId)
-                        .withIconAnchor(Property.ICON_ANCHOR_LEFT)
-                mGeofenceSM?.create(symbolOptions)?.let { symbol ->
-                    mSymbolOptionList.add(symbol)
-                }
-                mGeofenceSM?.addClickListener {
-                    markerClick.markerClick(it.iconImage)
-                    true
-                }
-            }
-        }
-    }
-
-    fun addGeofenceInvisibleDraggableMarker(
-        activity: Activity?,
-        latLng: LatLng,
-        listener: OnSymbolDragListener
-    ) {
-        mGeofenceDragSM?.iconAllowOverlap = true
-        mGeofenceDragSM?.iconIgnorePlacement = true
-        mMapLibreMap?.getStyle { style ->
-            activity?.let {
-                convertLayoutToGeofenceInvisibleDragBitmap(activity).let { bitmap ->
-                    style.addImage(
-                        CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID,
-                        bitmap
-                    )
-                }
-            }
-
-            val symbolOptions =
-                SymbolOptions()
-                    .withLatLng(latLng)
-                    .withIconImage(CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID)
-                    .withIconAnchor(Property.ICON_ANCHOR_CENTER)
-                    .withDraggable(true)
-
-            mGeofenceDragSM?.addDragListener(listener)
-
-            mGeofenceDragSM?.let {
-                it.create(symbolOptions)?.let { symbol ->
-                    mSymbolOptionList.add(symbol)
-                }
-            }
-        }
-    }
-
-    fun updateGeofenceInvisibleDraggableMarker(latLng: LatLng) {
-        mSymbolOptionList
-            .firstOrNull { it.iconImage == CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID }
-            ?.let { symbol ->
-                symbol.latLng = latLng
-                mGeofenceDragSM?.update(symbol)
-            }
-    }
-
-    fun deleteGeofenceInvisibleDraggableMarker(listener: OnSymbolDragListener) {
-        mGeofenceDragSM?.removeDragListener(listener)
-        val temp =
-            mSymbolOptionList.filter { it.isDraggable && it.iconImage == CIRCLE_DRAGGABLE_INVISIBLE_ICON_ID }
-        temp.forEach {
-            mGeofenceDragSM?.delete(it)
-            mSymbolOptionList.remove(it)
-        }
-    }
-
-    fun deleteGeofenceMarker(position: Int) {
-        mGeofenceSM?.delete(mSymbolOptionList[position])
-        if (mSymbolOptionList.isNotEmpty()) {
-            mSymbolOptionList.removeAt(position)
-        }
-    }
-
-    fun deleteAllGeofenceMarker() {
-        mGeofenceSM?.deleteAll()
-    }
-
     // convert layout to marker
     private fun convertLayoutToBitmap(
         context: Activity,
@@ -1417,8 +1159,6 @@ class MapHelper(
                 ivTracker.show()
                 ivOrigin.hide()
             }
-
-            else -> {}
         }
         if (!isFromMapClick) {
             data?.let { searchData ->
@@ -1456,58 +1196,6 @@ class MapHelper(
             )
         val canvas = Canvas(bitmap)
         llMain.draw(canvas)
-        return bitmap
-    }
-
-    private fun convertLayoutToGeofenceInvisibleDragBitmap(context: Activity): Bitmap {
-        val viewGroup: ViewGroup? = null
-        val view =
-            context.layoutInflater.inflate(R.layout.layout_geofence_draggable_marker, viewGroup)
-        val llMain: ConstraintLayout = view.findViewById(R.id.ll_geofence_draggable_marker)
-        val ivGeofenceDragMarker: AppCompatImageView =
-            view.findViewById(R.id.iv_geofence_draggable_marker)
-
-        ivGeofenceDragMarker.setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN)
-
-        llMain.measure(
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-        )
-        llMain.layout(0, 0, llMain.measuredWidth, llMain.measuredHeight)
-        val bitmap =
-            Bitmap.createBitmap(
-                llMain.measuredWidth,
-                llMain.measuredHeight,
-                Bitmap.Config.ARGB_8888
-            )
-        val canvas = Canvas(bitmap)
-        llMain.draw(canvas)
-        return bitmap
-    }
-
-    // convert layout to marker
-    private fun convertGeofenceLayoutToBitmap(
-        context: Activity,
-        data: ListGeofenceResponseEntry?
-    ): Bitmap {
-        val viewGroup: ViewGroup? = null
-        val view = context.layoutInflater.inflate(R.layout.layout_geofence_marker, viewGroup)
-        val clMain: ConstraintLayout = view.findViewById(R.id.cl_geofence_marker)
-        val tvGeofenceName: OutLineTextView = view.findViewById(R.id.tv_geofence_name)
-        data?.geofenceId?.let { tvGeofenceName.setText(it) }
-        clMain.measure(
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-        )
-        clMain.layout(0, 0, clMain.measuredWidth, clMain.measuredHeight)
-        val bitmap =
-            Bitmap.createBitmap(
-                clMain.measuredWidth,
-                clMain.measuredHeight,
-                Bitmap.Config.ARGB_8888
-            )
-        val canvas = Canvas(bitmap)
-        clMain.draw(canvas)
         return bitmap
     }
 

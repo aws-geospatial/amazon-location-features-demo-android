@@ -4,7 +4,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_medium_black">#232F3E</color>
-    <color name="color_medium_black_opacity_30">#4D232F3E</color>
     <color name="color_medium_black_1">#1D1D1F</color>
     <color name="color_primary_green">#008296</color>
     <color name="color_explore_green">#1A008296</color>
@@ -15,23 +14,17 @@
     <color name="color_bn_selected">#008296</color>
     <color name="logout_red">#FFFE382C</color>
     <color name="logout_cancel">#2EAEE6</color>
-    <color name="yellow">#FF9900</color>
     <color name="search_bs_bg_color">#F0F9F9F9</color>
-    <color name="color_route_option_unselected">#e6e6eb</color>
     <color name="color_dotted_line">#D1D1D6</color>
     <color name="color_red">#FF3B30</color>
     <color name="color_img_tint">#AEAEB2</color>
-    <color name="color_seekbar_track">#61018786</color>
     <color name="color_dark_yellow">#ff9a00</color>
     <color name="loader_color">#D1D1D1</color>
-    <color name="number_bg_color">#1F767680</color>
     <color name="transparent_stroke_color">#00000000</color>
-    <color name="cloud_info_logo_color">#759C3E</color>
     <color name="btn_go_disable">#AEAEB2</color>
     <color name="color_32ADE6">#32ADE6</color>
     <color name="color_f8f8f7">#f8f8f7</color>
     <color name="switch_color_primary_green">#61008296</color>
     <color name="color_cross_button">#993C3C43</color>
     <color name="color_selected_spinner_bg">#ebf5f7</color>
-    <color name="color_787880">#1F787880</color>
 </resources>
