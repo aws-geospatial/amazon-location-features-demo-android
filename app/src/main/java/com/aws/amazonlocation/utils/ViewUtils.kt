@@ -31,6 +31,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.CheckResult
+import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +40,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.aws.amazonlocation.BuildConfig
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.ui.main.MainActivity
@@ -137,52 +139,19 @@ fun Activity.makeTransparentStatusBar() {
     }
 }
 
-fun changeConditionPrivacyColor(conditionPrivacy: AppCompatTextView) {
-    val mContext = conditionPrivacy.context
-    val mSpannableString = SpannableString(conditionPrivacy.text.toString())
-    val mCondition =
-        Pattern.compile(
-            mContext.resources.getString(R.string.condition_of_use).lowercase(Locale.ROOT)
-        )
-    val mPrivacy =
-        Pattern.compile(
-            mContext.resources.getString(R.string.privacy_notice).lowercase(Locale.ROOT)
-        )
-    val mConditionOfUse =
-        mCondition.matcher(conditionPrivacy.text.toString().lowercase(Locale.ROOT))
-    val mPrivacyNotice = mPrivacy.matcher(conditionPrivacy.text.toString().lowercase(Locale.ROOT))
-    while (mConditionOfUse.find()) {
-        mSpannableString.setSpan(
-            ForegroundColorSpan(
-                ContextCompat.getColor(
-                    mContext,
-                    R.color.color_primary_green
-                )
-            ),
-            mConditionOfUse.start(),
-            mConditionOfUse.end(),
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+@Suppress("Deprecation")
+fun Activity.changeStatusBarColor(isLightStatusBar: Boolean, @ColorRes color: Int) {
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = isLightStatusBar
+        window.statusBarColor = ContextCompat.getColor(this, color)
+    } else {
+        val insetsController = WindowInsetsControllerCompat(window, window.decorView)
+        insetsController.isAppearanceLightStatusBars = isLightStatusBar
+        window.decorView.setBackgroundColor(ContextCompat.getColor(this, color))
+        window.insetsController?.hide(android.view.WindowInsets.Type.statusBars())
+        window.insetsController?.show(android.view.WindowInsets.Type.statusBars())
     }
-
-    while (mPrivacyNotice.find()) {
-        mSpannableString.setSpan(
-            ForegroundColorSpan(
-                ContextCompat.getColor(
-                    mContext,
-                    R.color.color_primary_green
-                )
-            ),
-            mPrivacyNotice.start(),
-            mPrivacyNotice.end(),
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-    }
-    conditionPrivacy.setText(
-        mSpannableString,
-        TextView.BufferType.SPANNABLE
-    )
-    conditionPrivacy.movementMethod = LinkMovementMethod.getInstance()
 }
 
 @CheckResult

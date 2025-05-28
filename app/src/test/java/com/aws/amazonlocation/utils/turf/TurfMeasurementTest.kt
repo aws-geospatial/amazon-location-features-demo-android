@@ -2,8 +2,8 @@ package com.aws.amazonlocation.utils.turf
 
 import com.aws.amazonlocation.mock.TEST_DATA_LAT
 import com.aws.amazonlocation.mock.TEST_DATA_LNG
-import com.aws.amazonlocation.utils.geofence.turf.TurfConstants
-import com.aws.amazonlocation.utils.geofence.turf.TurfMeasurement
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfConstants
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfMeasurement
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

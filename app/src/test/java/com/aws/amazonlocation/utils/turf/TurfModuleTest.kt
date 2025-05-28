@@ -3,9 +3,9 @@ package com.aws.amazonlocation.utils.turf
 import com.aws.amazonlocation.mock.DEFAULT_LOCATION
 import com.aws.amazonlocation.mock.TURF_TOLERANCE
 import com.aws.amazonlocation.utils.Durations.DEFAULT_RADIUS
-import com.aws.amazonlocation.utils.geofence.turf.TurfConstants
-import com.aws.amazonlocation.utils.geofence.turf.TurfMeta
-import com.aws.amazonlocation.utils.geofence.turf.TurfTransformation
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfConstants
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfMeta
+import com.aws.amazonlocation.utils.geofenceHelper.turf.TurfTransformation
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

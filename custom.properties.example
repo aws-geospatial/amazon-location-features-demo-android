@@ -1,16 +1,9 @@
 DEFAULT_IDENTITY_POOL_ID=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
-DEFAULT_REGION=xx-xxxx-x
 DEFAULT_IDENTITY_POOL_ID_EU=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
-DEFAULT_IDENTITY_POOL_ID_AP=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
+DEFAULT_REGION=xx-xxxx-x
+API_KEY_US_EAST=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+API_KEY_EU_CENTRAL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 SIMULATION_WEB_SOCKET_URL=xxxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxx.xxx
 SIMULATION_WEB_SOCKET_URL_EU=xxxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxx.xxx
-SIMULATION_WEB_SOCKET_URL_AP=xxxxxxxxxxxxx-xxx.xxx.xx-xxxx-x.xxxxxxxx.xxx
+ANALYTICS_IDENTITY_POOL_ID=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
 ANALYTICS_APP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-# Here are some optional values for running tests
-IDENTITY_POOL_ID=xx-xxxx-x:xxxx-xxxx-xxxx-xxxx
-USER_DOMAIN=https://xxxxxxxxxxxx.xxxx.xx-xxxx-x.amazoncognito.com
-USER_POOL_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
-USER_POOL_ID=xx-xxxx-x_xxxxxxxxx
-WEB_SOCKET_URL=xx....x-xxx.iot.xx-xxxx-x.amazonaws.com
-USER_LOGIN_NAME=<aws username>
-USER_LOGIN_PASSWORD=<aws password>

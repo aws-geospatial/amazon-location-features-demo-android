@@ -31,7 +31,6 @@ class PreferenceManagerSetValueGetValueTest : BaseTest() {
 
     @Test
     fun setValueGetValueSuccess() {
-        preferenceManager.setDefaultConfig()
         Thread.sleep(DELAY_1000)
         preferenceManager.setValue(PREF_MANAGER_KEY_STRING, PREF_MANAGER_VALUE_STRING)
         var string = preferenceManager.getValue(PREF_MANAGER_KEY_STRING, "")

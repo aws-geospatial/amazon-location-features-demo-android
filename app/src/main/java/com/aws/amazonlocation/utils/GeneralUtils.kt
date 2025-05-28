@@ -1,14 +1,12 @@
 package com.aws.amazonlocation.utils
 
 import android.content.Context
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
 import aws.sdk.kotlin.services.cognitoidentity.CognitoIdentityClient
 import aws.sdk.kotlin.services.cognitoidentity.model.GetIdRequest
 import aws.sdk.kotlin.services.cognitoidentity.model.ResourceNotFoundException
 import com.aws.amazonlocation.R
 import com.aws.amazonlocation.data.response.LanguageData
-import com.aws.amazonlocation.data.response.LoginResponse
 import com.aws.amazonlocation.data.response.PoliticalData
 import com.aws.amazonlocation.utils.DateFormat.MM_DD_YYYY_HH_MM
 import com.aws.amazonlocation.utils.DateFormat.YYYY_MM_DD_T_HH_MM_SS
@@ -79,25 +77,6 @@ fun validateLatLng(searchText: String): LatLng? {
     }
 }
 
-fun getUserName(mLoginResponse: LoginResponse?): String? {
-    return if (mLoginResponse != null) {
-        val nameArray = mLoginResponse.name?.split(" ")?.toTypedArray()
-        if (nameArray != null) {
-            if (nameArray.size >= 2) {
-                val firstName = nameArray[0].first().uppercase()
-                val lastName = nameArray[1].first().uppercase()
-                "$firstName$lastName"
-            } else {
-                nameArray[0].first().uppercase()
-            }
-        } else {
-            null
-        }
-    } else {
-        null
-    }
-}
-
 fun getRegion(region: String?, subRegion: String?, country: String?): String {
     var mRegion = ""
     mRegion += if (!region.isNullOrEmpty()) {
@@ -155,20 +134,9 @@ fun validateUserPoolClientId(mUserPoolClientId: String?): Boolean {
     return matcher.matches()
 }
 
-fun setLocale(languageCode: String, context: Context) {
-    val locale = Locale(languageCode)
-    Locale.setDefault(locale)
-    val config: Configuration = context.resources.configuration
-    config.setLocale(locale)
-    config.setLayoutDirection(locale)
-}
-
-fun getLanguageCode(): String? {
-    val appLanguage = AppCompatDelegate.getApplicationLocales()
-    val languageCode = appLanguage.toLanguageTags().ifEmpty {
-        Locale.getDefault().language
-    }
-    return languageCode
+fun getLanguageCode(context: Context): String {
+    val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    return prefs.getString(SELECTED_LANGUAGE, LANGUAGE_CODE_ENGLISH) ?: LANGUAGE_CODE_ENGLISH
 }
 
 fun formatToDisplayTime(utcOffsetTime: String, outputDateFormat: String): String {

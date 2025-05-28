@@ -138,11 +138,15 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_route_notifications_name"
                     style="@style/SP16HintRegularTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:text="@string/label_tracking_and_geofence_simulation"
                     android:textSize="@dimen/sp_13"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toStartOf="@+id/card_exit"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_oval_external"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -322,16 +326,8 @@
         layout="@layout/bottom_sheet_navigation_complete" />
 
     <include
-        android:id="@+id/bottom_sheet_geofence_list"
-        layout="@layout/bottom_sheet_geofence_list" />
-
-    <include
-        android:id="@+id/bottom_sheet_add_geofence"
-        layout="@layout/bottom_sheet_add_geofence" />
-
-    <include
         android:id="@+id/bottom_sheet_tracking"
-        layout="@layout/bottom_sheet_tracking" />
+        layout="@layout/bottom_sheet_start_simulation" />
 
     <include
         android:id="@+id/bottom_sheet_track_simulation"

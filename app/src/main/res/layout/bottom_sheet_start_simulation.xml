@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="@drawable/bottom_sheet_white_curved">
+    android:id="@+id/cl_tracker_geofence"
+    android:background="@drawable/bottom_sheet_white_curved"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,11 +24,11 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_simulation_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleX="1.1"
-                android:scaleY="1.1"
+                android:layout_height="@dimen/dp_290"
+                android:layout_marginTop="@dimen/dp_16"
                 android:src="@drawable/ic_simulation_bg"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_simulation"
                 android:textAlignment="center"
-                android:layout_marginTop="@dimen/dp_290"
+                android:layout_marginTop="@dimen/dp_240"
                 android:textColor="@color/color_hint_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -212,16 +213,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_start_simulation_close"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
-        android:layout_marginTop="@dimen/dp_14"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:src="@drawable/ic_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_start_simulation"
         style="@style/SigInHintTxt"
@@ -229,28 +220,13 @@
         android:layout_height="@dimen/dp_48"
         android:layout_marginHorizontal="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_16"
         android:background="@drawable/sign_in_bg_1"
-        android:text="@string/label_start_simulation"
+        android:text="@string/label_try_trackers_amp_geofences_simulation"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16"
         app:cornerRadius="@dimen/dp_8"
-        app:layout_constraintBottom_toTopOf="@+id/tv_maybe_later"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_maybe_later"
-        style="@style/SP20BoldMediumBlackTextStyle"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="@dimen/dp_48"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginBottom="@dimen/dp_60"
-        android:text="@string/maybe_later"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="@dimen/sp_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
