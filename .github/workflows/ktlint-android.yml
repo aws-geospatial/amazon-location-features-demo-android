@@ -5,6 +5,9 @@ on:
     branches: [ develop, main ]
 jobs:
   ktlint-check:
+    permissions:
+      contents: read
+      actions: write
     name: KtLint Check
     runs-on: macos-13
     steps:

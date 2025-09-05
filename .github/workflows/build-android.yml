@@ -8,6 +8,8 @@ on:
     branches: [ develop, main ]
 jobs:
   startSlackNotification:
+    permissions:
+      contents: read
     name: Slack Starting Notification
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +33,8 @@ jobs:
           SLACK_USERNAME: CI/CD Bot
           MSG_MINIMAL: true
   build-android:
+    permissions:
+      contents: read
     name: Build Android
     env:
       STORE_FILE_PATH: "../.signing/keystore.jks"
@@ -84,6 +88,8 @@ jobs:
             json_key:./.signing/play_store_key.json \
             aab_path:./app/build/outputs/bundle/release/app-release.aab
   slackNotification:
+    permissions:
+      contents: read
     name: slack
     needs: [build-android]
     if: always()
