@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
 jobs:
   test-android:
+    permissions:
+      contents: read
+      actions: write
     name: Test Android
     runs-on: macos-13
     steps:
