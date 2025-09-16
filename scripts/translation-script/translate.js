@@ -75,10 +75,9 @@ const main = async() => {
 
                                 // Add a backslash before the ' sign if not already present
                                 if (!translatedWordWithTags.includes("\\'")) {
-                                    translatedWordWithTags = translatedWordWithTags.replace(
-                                        /'/g,
-                                        "\\'"
-                                    );
+                                    translatedWordWithTags = translatedWordWithTags
+                                        .replace(/\\/g, "\\\\")
+                                        .replace(/'/g, "\\'");
                                 }
 
                                 translatedWords.push(translatedWordWithTags);
